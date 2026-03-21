@@ -7,178 +7,351 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0c0f14;--surface:#161a22;--card:#1c2029;--border:#2a2e38;
-  --text:#e8e6e1;--muted:#8a8680;--dim:#5a564f;
-  --accent:#f5a623;--accent-dim:#c4841a;
-  --green:#34d399;--green-bg:rgba(52,211,153,.12);
-  --yellow:#fbbf24;--yellow-bg:rgba(251,191,36,.12);
-  --gray:#6b7280;--gray-bg:rgba(107,114,128,.10);
-  --red:#f87171;--red-bg:rgba(248,113,113,.10);
+  --bg:#0a0a0b;--surface:#141417;--card:#141417;--card-hover:#1a1a1f;
+  --text:#e8e5e0;--sub:#8a8880;--dim:#55524c;
+  --gold:#c9a96e;--gold-dim:#a08650;--gold-faint:rgba(201,169,110,.08);
+  --green-bg:#2d5a3d;--green:#6fcf97;
+  --yellow-bg:#5a4a2d;--yellow:#f0c866;
+  --skip-bg:#3a3a3a;--skip:#888;
+  --paris-bg:#2d3a5a;--paris:#7da4cf;
+  --nyc-bg:#4a2d3a;--nyc:#cf7da4;
+  --risk:#d4745a;
+  --radius:12px;
 }
-body{background:var(--bg);color:var(--text);font:14px/1.5 -apple-system,"Segoe UI",sans-serif;min-height:100vh}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--text);font:14px/1.5 system-ui,-apple-system,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-decoration:none}
 
-.topbar{
-  position:sticky;top:0;z-index:10;
-  background:rgba(12,15,20,.92);backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-  padding:14px 16px;
-  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
-}
-.brand{font-weight:700;font-size:17px;letter-spacing:.03em}
-.brand span{color:var(--accent)}
-.top-meta{color:var(--muted);font-size:12px}
+.header{padding:20px 16px 12px;text-align:center}
+.brand{font:600 13px/1 system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--text)}
+.brand-line{width:40px;height:2px;background:var(--gold);margin:8px auto 6px;border-radius:1px}
+.header-sub{font-size:11px;color:var(--dim)}
 
-.tabs{
-  display:flex;gap:6px;padding:10px 16px;
-  border-bottom:1px solid var(--border);
-  background:var(--surface);
-}
-.tab{
-  padding:6px 14px;border-radius:999px;border:1px solid var(--border);
-  background:transparent;color:var(--muted);font:600 12px -apple-system,sans-serif;
-  cursor:pointer;transition:all .15s;
-}
-.tab:hover{border-color:var(--dim);color:var(--text)}
-.tab.on{background:var(--accent);color:#0c0f14;border-color:var(--accent)}
+.tabs{display:flex;justify-content:center;gap:0;margin:0 16px;border-bottom:1px solid rgba(255,255,255,.06)}
+.tab{padding:10px 20px;font:600 12px system-ui,sans-serif;letter-spacing:.06em;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+.tab:hover{color:var(--sub)}
+.tab.on{color:var(--gold);border-bottom-color:var(--gold)}
 
-.filters{
-  padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;
-  border-bottom:1px solid var(--border);
-}
+.filters{padding:10px 16px;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
 .pill{
-  padding:5px 12px;border-radius:999px;border:1px solid var(--border);
-  background:transparent;color:var(--muted);font:600 11px -apple-system,sans-serif;
-  cursor:pointer;transition:all .15s;text-transform:uppercase;letter-spacing:.04em;
+  flex-shrink:0;padding:5px 14px;border-radius:999px;
+  background:rgba(255,255,255,.04);color:var(--dim);
+  font:600 11px system-ui,sans-serif;letter-spacing:.04em;text-transform:uppercase;
+  cursor:pointer;transition:all .15s;border:none;white-space:nowrap;
 }
-.pill:hover{border-color:var(--dim);color:var(--text)}
-.pill.on{border-color:var(--accent);color:var(--accent);background:rgba(245,166,35,.08)}
-.pill.green.on{border-color:var(--green);color:var(--green);background:var(--green-bg)}
-.pill.yellow.on{border-color:var(--yellow);color:var(--yellow);background:var(--yellow-bg)}
-.pill.gray.on{border-color:var(--gray);color:var(--gray);background:var(--gray-bg)}
-.search{
-  flex:1;min-width:140px;padding:6px 12px;border-radius:10px;border:1px solid var(--border);
-  background:var(--card);color:var(--text);font:13px -apple-system,sans-serif;
-  outline:none;
-}
-.search:focus{border-color:var(--accent)}
-.search::placeholder{color:var(--dim)}
-select.city-sel{
-  padding:5px 10px;border-radius:10px;border:1px solid var(--border);
-  background:var(--card);color:var(--text);font:12px -apple-system,sans-serif;
-  outline:none;cursor:pointer;
-}
+.pill:hover{background:rgba(255,255,255,.08);color:var(--sub)}
+.pill.on{background:var(--gold-faint);color:var(--gold)}
+.pill.q-apply.on{background:var(--green-bg);color:var(--green)}
+.pill.q-maybe.on{background:var(--yellow-bg);color:var(--yellow)}
+.pill.q-skip.on{background:var(--skip-bg);color:var(--skip)}
 
-.cards{padding:8px 16px 80px 16px}
+.search-row{padding:4px 16px 8px;display:flex;gap:8px}
+.search{
+  flex:1;padding:8px 14px;border-radius:10px;border:none;
+  background:rgba(255,255,255,.04);color:var(--text);font:13px system-ui,sans-serif;
+  outline:none;transition:background .15s;
+}
+.search:focus{background:rgba(255,255,255,.07)}
+.search::placeholder{color:var(--dim)}
+
+.summary{padding:4px 16px 8px;font-size:11px;color:var(--dim);letter-spacing:.02em}
+
+.cards{padding:0 16px 100px;max-width:680px;margin:0 auto}
+
 .card{
-  background:var(--card);border:1px solid var(--border);border-radius:14px;
-  padding:14px;margin-bottom:10px;cursor:pointer;transition:border-color .15s;
+  background:var(--card);border-radius:var(--radius);margin-bottom:8px;
+  overflow:hidden;cursor:pointer;transition:background .15s;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);
+  display:flex;
 }
-.card:hover{border-color:var(--dim)}
-.card.expanded{border-color:var(--accent-dim)}
-.card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-.card-main{flex:1;min-width:0}
-.card-title{font-weight:700;font-size:15px;line-height:1.3;word-wrap:break-word}
-.card-company{color:var(--muted);font-size:12px;margin-top:2px}
-.card-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
-.badge{
-  display:inline-block;padding:2px 8px;border-radius:999px;
-  font:600 10px/1.6 -apple-system,sans-serif;text-transform:uppercase;letter-spacing:.04em;
-}
-.badge.apply{background:var(--green-bg);color:var(--green)}
-.badge.maybe{background:var(--yellow-bg);color:var(--yellow)}
-.badge.skip{background:var(--gray-bg);color:var(--gray)}
-.badge.lane{background:rgba(139,92,246,.12);color:#a78bfa}
-.badge.city{background:rgba(34,211,238,.10);color:#22d3ee}
-.badge.world{background:rgba(96,165,250,.10);color:#60a5fa}
-.card-rec{color:var(--muted);font-size:12px;margin-top:6px;line-height:1.4}
+.card:hover{background:var(--card-hover)}
+.card.expanded{background:var(--card-hover)}
+.card-bar{width:3px;flex-shrink:0;border-radius:var(--radius) 0 0 var(--radius)}
+.bar-paris{background:var(--gold)}
+.bar-nyc{background:var(--nyc)}
+.bar-intern{background:#6b8aaf}
+.bar-money{background:#7ecf8e}
+.bar-stretch{background:#b89fd4}
+.bar-slop{background:#666}
+.bar-senior{background:#d4745a}
+.bar-default{background:var(--dim)}
+
+.card-body{flex:1;padding:12px 14px;min-width:0}
+.card-title{font:500 15px/1.35 system-ui,sans-serif;color:var(--text);word-wrap:break-word}
+.card-company{margin-top:2px;font-size:12px}
+.card-company b{color:var(--gold);font-weight:600}
+.card-company span{color:var(--sub)}
+.card-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+.tag{padding:2px 9px;border-radius:999px;font:600 10px/1.6 system-ui,sans-serif;letter-spacing:.03em;text-transform:uppercase}
+.tag-apply{background:var(--green-bg);color:var(--green)}
+.tag-maybe{background:var(--yellow-bg);color:var(--yellow)}
+.tag-skip{background:var(--skip-bg);color:var(--skip)}
+.tag-paris{background:var(--paris-bg);color:var(--paris)}
+.tag-nyc{background:var(--nyc-bg);color:var(--nyc)}
+.tag-miami{background:#3a2d4a;color:#a47dcf}
+.tag-lane{background:rgba(180,160,120,.12);color:#bfaa7a}
+.tag-world{background:rgba(96,140,200,.10);color:#7a9fc0}
+.card-rec{margin-top:6px;font:italic 12.5px/1.4 system-ui,sans-serif;color:var(--sub)}
 
 .detail{
-  display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);
+  max-height:0;overflow:hidden;transition:max-height .3s ease;
+  padding:0 14px;
 }
-.card.expanded .detail{display:block}
-.detail-section{margin-bottom:10px}
-.detail-label{
-  font:700 10px/1.2 -apple-system,sans-serif;text-transform:uppercase;
-  letter-spacing:.06em;color:var(--dim);margin-bottom:4px;
-}
-.detail-text{font-size:13px;color:var(--text);line-height:1.5}
-.detail-text.risk{color:var(--red)}
+.card.expanded .detail{max-height:800px;padding:0 14px 14px}
+.detail-divider{height:1px;background:rgba(255,255,255,.06);margin:10px 0}
+.detail-section{margin-bottom:8px}
+.detail-label{font:700 9px/1 system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+.detail-text{font-size:13px;line-height:1.45;color:var(--sub)}
+.detail-text.risk{color:var(--risk)}
 .detail-text.fit{color:var(--green)}
-.detail-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.detail-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .btn{
-  padding:7px 14px;border-radius:10px;border:1px solid var(--border);
-  background:var(--surface);color:var(--text);font:600 12px -apple-system,sans-serif;
+  padding:7px 16px;border-radius:10px;border:1px solid var(--gold-dim);
+  background:transparent;color:var(--gold);font:600 12px system-ui,sans-serif;
   cursor:pointer;transition:all .15s;
 }
-.btn:hover{border-color:var(--accent);color:var(--accent)}
-.btn.primary{background:var(--accent);color:#0c0f14;border-color:var(--accent)}
-.btn.primary:hover{background:var(--accent-dim)}
-.btn.danger{color:var(--red);border-color:var(--red)}
-.btn.danger:hover{background:var(--red-bg)}
+.btn:hover{background:var(--gold-faint)}
+.btn.filled{background:var(--gold);color:#0a0a0b;border-color:var(--gold)}
+.btn.filled:hover{background:var(--gold-dim)}
+.btn.ghost{border-color:transparent;color:var(--dim);padding:7px 10px}
+.btn.ghost:hover{color:var(--sub)}
+.btn.remove{border-color:var(--risk);color:var(--risk)}
+.btn.remove:hover{background:rgba(212,116,90,.1)}
 
-.empty{
-  text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;
-}
+.empty{padding:60px 20px;text-align:center;color:var(--dim);font-size:13px}
+.load-more{text-align:center;padding:16px}
+.load-more .btn{border-color:var(--dim);color:var(--sub)}
 
-.count-bar{
-  padding:6px 16px;color:var(--dim);font-size:11px;
-  border-bottom:1px solid var(--border);
-}
+.saved-footer{padding:12px 16px;text-align:center}
 
-@media(min-width:700px){
-  .cards{max-width:720px;margin:0 auto}
-  .topbar,.tabs,.filters,.count-bar{max-width:720px;margin-left:auto;margin-right:auto}
+@media(max-width:400px){
+  .card-title{font-size:14px}
+  .card-body{padding:10px 12px}
 }
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div>
-    <div class="brand">Job <span>Terminal</span></div>
-    <div class="top-meta">Exported: <span id="exportDate">-</span></div>
-  </div>
-  <div class="top-meta"><span id="totalCount">0</span> jobs loaded</div>
+<div class="header">
+  <div class="brand">Job Terminal</div>
+  <div class="brand-line"></div>
+  <div class="header-sub"><span id="exportDate">-</span> &middot; <span id="totalCount">0</span> jobs</div>
 </div>
 
 <div class="tabs">
-  <button class="tab on" data-tab="jobs">Jobs</button>
-  <button class="tab" data-tab="saved">Saved <span id="savedCount">(0)</span></button>
+  <div class="tab on" data-tab="jobs">Jobs</div>
+  <div class="tab" data-tab="saved">Saved <span id="savedBadge">(0)</span></div>
 </div>
 
-<div class="filters" id="filtersBar">
-  <button class="pill green on" data-q="apply">Apply</button>
-  <button class="pill yellow on" data-q="maybe">Maybe</button>
-  <button class="pill gray" data-q="skip">Skip</button>
-  <select class="city-sel" id="cityFilter">
-    <option value="all">All Cities</option>
-  </select>
-  <input class="search" id="searchBox" type="text" placeholder="Search company, title, lane..." />
+<div id="jobsView">
+  <div class="filters" id="qFilters">
+    <button class="pill q-apply on" data-q="apply">Apply</button>
+    <button class="pill q-maybe on" data-q="maybe">Maybe</button>
+    <button class="pill q-skip" data-q="skip">Skip</button>
+    <button class="pill on" data-city="all">All</button>
+    <button class="pill" data-city="Paris">Paris</button>
+    <button class="pill" data-city="NYC">NYC</button>
+    <button class="pill" data-city="Miami">Miami</button>
+    <button class="pill" data-city="Other">Other</button>
+  </div>
+  <div class="search-row">
+    <input class="search" id="search" type="text" placeholder="Search company, title, lane..." />
+  </div>
+  <div class="summary" id="summary"></div>
+  <div class="cards" id="cards"></div>
 </div>
 
-<div class="count-bar" id="countBar">Showing 0 jobs</div>
-
-<div class="cards" id="content"></div>
+<div id="savedView" style="display:none">
+  <div class="summary" id="savedSummary"></div>
+  <div class="cards" id="savedCards"></div>
+  <div class="saved-footer"><button class="btn" id="exportSaved">Copy saved list to clipboard</button></div>
+</div>
 
 <script>
-var JOBS=[], META={}, SAVED=[], SAVED_SET={}, TAB="jobs", DISMISSED={}, EXPANDED=null;
-var Q_FILTER={apply:true,maybe:true,skip:false}, CITY_FILTER="all", SEARCH="";
+var JOBS=[],META={},SAVED=[],SAVED_SET={};
+var TAB="jobs",EXPANDED=null,DISMISSED={};
+var Q={apply:true,maybe:true,skip:false};
+var CITY="all",SEARCH="";
+var PAGE_SIZE=50,SHOWING=PAGE_SIZE;
+var LS_FILTERS="jt_filters",LS_SAVED="jobengine_saved";
 
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(m){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[m]||m})}
 
-function loadSaved(){
-  try{SAVED=JSON.parse(localStorage.getItem("jobengine_saved")||"[]")}catch(e){SAVED=[]}
-  SAVED_SET={};
-  for(var i=0;i<SAVED.length;i++) SAVED_SET[SAVED[i].fingerprint]=1;
-  document.getElementById("savedCount").textContent="("+SAVED.length+")";
+function cityGroup(c){
+  if(!c||c==="Unknown") return "Other";
+  if(c.indexOf("Paris")===0) return "Paris";
+  if(c==="NYC") return "NYC";
+  if(c==="Miami") return "Miami";
+  return "Other";
 }
 
-function persistSaved(){
-  localStorage.setItem("jobengine_saved",JSON.stringify(SAVED));
-  loadSaved();
+function barClass(lane){
+  if(!lane) return "bar-default";
+  var l=lane.toLowerCase();
+  if(l.indexOf("paris direction")>=0) return "bar-paris";
+  if(l.indexOf("nyc")>=0) return "bar-nyc";
+  if(l.indexOf("internship")>=0||l.indexOf("traineeship")>=0) return "bar-intern";
+  if(l.indexOf("money")>=0||l.indexOf("platform")>=0) return "bar-money";
+  if(l.indexOf("stretch")>=0) return "bar-stretch";
+  if(l.indexOf("slop")>=0) return "bar-slop";
+  if(l.indexOf("senior")>=0) return "bar-senior";
+  return "bar-default";
 }
+
+function cityTag(c){
+  var g=cityGroup(c);
+  if(g==="Paris") return "tag-paris";
+  if(g==="NYC") return "tag-nyc";
+  if(g==="Miami") return "tag-miami";
+  return "tag-lane";
+}
+
+function qTag(q){return q==="apply"?"tag-apply":q==="maybe"?"tag-maybe":"tag-skip"}
+
+function loadSaved(){
+  try{SAVED=JSON.parse(localStorage.getItem(LS_SAVED)||"[]")}catch(e){SAVED=[]}
+  SAVED_SET={};
+  for(var i=0;i<SAVED.length;i++) SAVED_SET[SAVED[i].fingerprint]=1;
+  document.getElementById("savedBadge").textContent="("+SAVED.length+")";
+}
+
+function persistSaved(){localStorage.setItem(LS_SAVED,JSON.stringify(SAVED));loadSaved()}
+
+function loadFilters(){
+  try{
+    var f=JSON.parse(localStorage.getItem(LS_FILTERS));
+    if(f){Q=f.q||Q;CITY=f.city||"all";SEARCH=f.search||""}
+  }catch(e){}
+}
+
+function saveFilters(){
+  localStorage.setItem(LS_FILTERS,JSON.stringify({q:Q,city:CITY,search:SEARCH}));
+}
+
+function syncFilterUI(){
+  document.querySelectorAll("[data-q]").forEach(function(p){
+    p.classList.toggle("on",!!Q[p.dataset.q]);
+  });
+  document.querySelectorAll("[data-city]").forEach(function(p){
+    p.classList.toggle("on",p.dataset.city===CITY);
+  });
+  document.getElementById("search").value=SEARCH;
+}
+
+function matches(job){
+  if(!Q[job.queue_label]) return false;
+  if(CITY!=="all"&&cityGroup(job.city_lane)!==CITY) return false;
+  if(SEARCH){
+    var h=((job.company_clean||job.company||"")+" "+(job.title||"")+" "+(job.lane||"")+" "+(job.city_lane||"")+" "+(job.world||"")+" "+(job.function_family||"")).toLowerCase();
+    if(h.indexOf(SEARCH)<0) return false;
+  }
+  if(DISMISSED[job.fingerprint]) return false;
+  return true;
+}
+
+function renderCard(job,ctx){
+  var fp=job.fingerprint,isExp=EXPANDED===fp;
+  var cl=job.city_lane||"";
+  var cg=cityGroup(cl);
+  var loc=job.location_text||"";
+
+  var h='<div class="card'+(isExp?" expanded":"")+'" data-fp="'+esc(fp)+'">';
+  h+='<div class="card-bar '+barClass(job.lane)+'"></div>';
+  h+='<div class="card-body">';
+  h+='<div class="card-title">'+esc(job.title)+'</div>';
+  h+='<div class="card-company"><b>'+esc(job.company_clean||job.company)+'</b>';
+  if(loc) h+=' <span>&middot; '+esc(loc)+'</span>';
+  h+='</div>';
+
+  h+='<div class="card-tags">';
+  h+='<span class="tag '+qTag(job.queue_label)+'">'+esc(job.queue_label==="apply"?"Apply":job.queue_label==="maybe"?"Maybe":"Skip")+'</span>';
+  if(cl&&cl!=="Unknown") h+='<span class="tag '+cityTag(cl)+'">'+esc(cl)+'</span>';
+  if(job.lane&&job.lane.indexOf(":")< 0&&job.lane.indexOf("soft_reject")<0&&job.lane.indexOf("hard_")<0&&job.lane.indexOf("review:")<0&&job.lane.indexOf("deduped")<0&&job.lane.indexOf("remote_")<0&&job.lane.indexOf("not_")<0&&job.lane.indexOf("unclear")<0&&job.lane.indexOf("comp_")<0&&job.lane.indexOf("safe_lane")<0&&job.lane.indexOf("credible_")<0) h+='<span class="tag tag-lane">'+esc(job.lane)+'</span>';
+  if(job.world&&job.world!=="Unknown World"&&job.world.indexOf("Unknown")<0) h+='<span class="tag tag-world">'+esc(job.world)+'</span>';
+  h+='</div>';
+
+  if(job.one_liner) h+='<div class="card-rec">'+esc(job.one_liner)+'</div>';
+
+  h+='<div class="detail"><div class="detail-divider"></div>';
+  if(job.path_logic){h+='<div class="detail-section"><div class="detail-label">Why this matters</div><div class="detail-text fit">'+esc(job.path_logic)+'</div></div>';}
+  if(job.main_risk){h+='<div class="detail-section"><div class="detail-label">Main risk</div><div class="detail-text risk">'+esc(job.main_risk)+'</div></div>';}
+  if(job.biggest_resume_gap&&job.biggest_resume_gap!=="No single fatal gap"){h+='<div class="detail-section"><div class="detail-label">Biggest gap</div><div class="detail-text">'+esc(job.biggest_resume_gap)+'</div></div>';}
+  if(job.slop_verdict){h+='<div class="detail-section"><div class="detail-label">Bridge or slop</div><div class="detail-text">'+esc(job.slop_verdict)+'</div></div>';}
+  if(job.compensation_text){h+='<div class="detail-section"><div class="detail-label">Compensation</div><div class="detail-text">'+esc(job.compensation_text)+'</div></div>';}
+  if(job.french_risk_label){h+='<div class="detail-section"><div class="detail-label">French</div><div class="detail-text">'+esc(job.french_risk_label)+'</div></div>';}
+
+  h+='<div class="detail-actions">';
+  if(job.url) h+='<a class="btn filled" href="'+esc(job.url)+'" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">Open Posting</a>';
+  if(ctx==="saved"){
+    h+='<button class="btn remove" onclick="event.stopPropagation();removeSaved(\''+esc(fp)+'\')">Remove</button>';
+  } else {
+    if(!SAVED_SET[fp]) h+='<button class="btn" onclick="event.stopPropagation();saveJob(\''+esc(fp)+'\')">Save</button>';
+    else h+='<button class="btn" style="opacity:.35;cursor:default" onclick="event.stopPropagation()">Saved</button>';
+    h+='<button class="btn ghost" onclick="event.stopPropagation();dismissJob(\''+esc(fp)+'\')">Dismiss</button>';
+  }
+  h+='</div></div>';
+  h+='</div></div>';
+  return h;
+}
+
+function render(){
+  if(TAB==="saved"){
+    document.getElementById("jobsView").style.display="none";
+    document.getElementById("savedView").style.display="block";
+    var sc=document.getElementById("savedCards");
+    if(!SAVED.length){
+      sc.innerHTML='<div class="empty">No saved jobs yet.<br>Browse the Jobs tab and tap Save on roles that matter.</div>';
+      document.getElementById("savedSummary").textContent="";
+      return;
+    }
+    var h="";
+    for(var i=0;i<SAVED.length;i++) h+=renderCard(SAVED[i].job,"saved");
+    sc.innerHTML=h;
+    document.getElementById("savedSummary").textContent=SAVED.length+" saved role"+(SAVED.length===1?"":"s");
+    return;
+  }
+
+  document.getElementById("jobsView").style.display="block";
+  document.getElementById("savedView").style.display="none";
+
+  var vis=[];
+  for(var j=0;j<JOBS.length;j++){if(matches(JOBS[j]))vis.push(JOBS[j])}
+
+  var el=document.getElementById("cards");
+  var sum=document.getElementById("summary");
+
+  if(!vis.length){
+    el.innerHTML='<div class="empty">No jobs match your current filters.</div>';
+    sum.textContent="0 results";
+    return;
+  }
+
+  var laneCount={},cityCount={};
+  for(var k=0;k<vis.length;k++){
+    var ln=vis[k].lane||"Other";
+    var cn=cityGroup(vis[k].city_lane);
+    laneCount[ln]=(laneCount[ln]||0)+1;
+    cityCount[cn]=(cityCount[cn]||0)+1;
+  }
+  var topLane="";var topN=0;
+  for(var ll in laneCount){if(laneCount[ll]>topN&&ll.indexOf(":")<0&&ll.indexOf("soft_")<0&&ll.indexOf("hard_")<0){topN=laneCount[ll];topLane=ll}}
+  var parts=[];
+  if(topLane&&topN>1) parts.push(topN+" "+topLane);
+  var pc=cityCount["Paris"]||0;if(pc) parts.push(pc+" Paris");
+  var nc=cityCount["NYC"]||0;if(nc) parts.push(nc+" NYC");
+  sum.textContent="Showing "+vis.length+" jobs"+(parts.length?" \u2014 "+parts.join(", "):"");
+
+  var limit=Math.min(vis.length,SHOWING);
+  var h="";
+  for(var m=0;m<limit;m++) h+=renderCard(vis[m],"jobs");
+  if(vis.length>limit) h+='<div class="load-more"><button class="btn" onclick="loadMore()">Load more ('+Math.min(PAGE_SIZE,vis.length-limit)+' of '+(vis.length-limit)+' remaining)</button></div>';
+  el.innerHTML=h;
+}
+
+function loadMore(){SHOWING+=PAGE_SIZE;render()}
+
+function toggleExpand(fp){EXPANDED=EXPANDED===fp?null:fp;render()}
 
 function saveJob(fp){
   for(var i=0;i<JOBS.length;i++){
@@ -189,174 +362,74 @@ function saveJob(fp){
   }
   persistSaved();render();
 }
+function removeSaved(fp){SAVED=SAVED.filter(function(s){return s.fingerprint!==fp});persistSaved();render()}
+function dismissJob(fp){DISMISSED[fp]=1;render()}
 
-function removeSaved(fp){
-  SAVED=SAVED.filter(function(s){return s.fingerprint!==fp});
-  persistSaved();render();
-}
+document.addEventListener("click",function(e){
+  var card=e.target.closest(".card");
+  if(!card) return;
+  if(e.target.closest("a")||e.target.closest("button")) return;
+  var fp=card.dataset.fp;
+  if(fp) toggleExpand(fp);
+});
 
-function dismissJob(fp){
-  DISMISSED[fp]=1;render();
-}
-
-function toggleExpand(fp){
-  EXPANDED=EXPANDED===fp?null:fp;render();
-}
-
-function buildCityOptions(){
-  var counts={},sel=document.getElementById("cityFilter");
-  for(var i=0;i<JOBS.length;i++){
-    var c=JOBS[i].city_lane||"Unknown";
-    counts[c]=(counts[c]||0)+1;
-  }
-  var keys=Object.keys(counts).sort(function(a,b){return counts[b]-counts[a]});
-  for(var j=0;j<keys.length;j++){
-    var opt=document.createElement("option");
-    opt.value=keys[j];opt.textContent=keys[j]+" ("+counts[keys[j]]+")";
-    sel.appendChild(opt);
-  }
-}
-
-function matchesFilters(job){
-  if(!Q_FILTER[job.queue_label]) return false;
-  if(CITY_FILTER!=="all"&&(job.city_lane||"Unknown")!==CITY_FILTER) return false;
-  if(SEARCH){
-    var hay=((job.company||"")+" "+(job.title||"")+" "+(job.classification||"")+" "+(job.city_lane||"")+" "+(job.world_tier||"")+" "+(job.function_family||"")+" "+((job.opportunity_lanes||[]).join(" "))).toLowerCase();
-    if(hay.indexOf(SEARCH)<0) return false;
-  }
-  return true;
-}
-
-function renderCard(job,context){
-  var fp=job.fingerprint,isExp=EXPANDED===fp;
-  var qClass=job.queue_label==="apply"?"apply":job.queue_label==="maybe"?"maybe":"skip";
-  var qLabel=job.queue_label==="apply"?"Apply":job.queue_label==="maybe"?"Maybe":"Skip";
-  var lanes=(job.opportunity_lanes||[]).slice(0,2);
-
-  var html='<div class="card'+(isExp?" expanded":"")+'" onclick="toggleExpand(\''+esc(fp)+'\')">';
-  html+='<div class="card-top"><div class="card-main">';
-  html+='<div class="card-title">'+esc(job.title)+'</div>';
-  html+='<div class="card-company">'+esc(job.company)+(job.location_text?" \u00b7 "+esc(job.location_text):"")+'</div>';
-  html+='<div class="card-meta">';
-  html+='<span class="badge '+qClass+'">'+qLabel+'</span>';
-  if(job.city_lane&&job.city_lane!=="Unknown") html+='<span class="badge city">'+esc(job.city_lane)+'</span>';
-  if(job.classification) html+='<span class="badge lane">'+esc(job.classification)+'</span>';
-  if(job.world_tier&&job.world_tier!=="Unknown World") html+='<span class="badge world">'+esc(job.world_tier)+'</span>';
-  html+='</div>';
-  if(job.one_line_recommendation) html+='<div class="card-rec">'+esc(job.one_line_recommendation)+'</div>';
-  html+='</div></div>';
-
-  html+='<div class="detail">';
-  if(job.why_surfaced) html+='<div class="detail-section"><div class="detail-label">Why It Surfaced</div><div class="detail-text">'+esc(job.why_surfaced)+'</div></div>';
-  if(job.why_fit) html+='<div class="detail-section"><div class="detail-label">Why It Could Matter</div><div class="detail-text fit">'+esc(job.why_fit)+'</div></div>';
-  if(job.path_logic) html+='<div class="detail-section"><div class="detail-label">Path Logic</div><div class="detail-text">'+esc(job.path_logic)+'</div></div>';
-  if(job.main_risk) html+='<div class="detail-section"><div class="detail-label">Main Risk</div><div class="detail-text risk">'+esc(job.main_risk)+'</div></div>';
-  if(job.biggest_resume_gap) html+='<div class="detail-section"><div class="detail-label">Biggest Gap</div><div class="detail-text">'+esc(job.biggest_resume_gap)+'</div></div>';
-  if(job.slop_verdict) html+='<div class="detail-section"><div class="detail-label">Bridge or Slop</div><div class="detail-text">'+esc(job.slop_verdict)+'</div></div>';
-  if(job.french_risk_label) html+='<div class="detail-section"><div class="detail-label">French</div><div class="detail-text">'+esc(job.french_risk_label)+'</div></div>';
-  if(job.compensation_text) html+='<div class="detail-section"><div class="detail-label">Compensation</div><div class="detail-text">'+esc(job.compensation_text)+'</div></div>';
-  if(job.function_family) html+='<div class="detail-section"><div class="detail-label">Function</div><div class="detail-text">'+esc(job.function_family)+'</div></div>';
-  if(lanes.length) html+='<div class="detail-section"><div class="detail-label">Lanes</div><div class="detail-text">'+esc(lanes.join(", "))+'</div></div>';
-
-  html+='<div class="detail-actions">';
-  if(job.url) html+='<a class="btn primary" href="'+esc(job.url)+'" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">Open</a>';
-
-  if(context==="saved"){
-    html+='<button class="btn danger" onclick="event.stopPropagation();removeSaved(\''+esc(fp)+'\')">Remove</button>';
-  } else {
-    if(!SAVED_SET[fp]) html+='<button class="btn" onclick="event.stopPropagation();saveJob(\''+esc(fp)+'\')">Save</button>';
-    else html+='<button class="btn" disabled style="opacity:.4">Saved</button>';
-    html+='<button class="btn" onclick="event.stopPropagation();dismissJob(\''+esc(fp)+'\')">Dismiss</button>';
-  }
-  html+='</div></div></div>';
-  return html;
-}
-
-function render(){
-  var el=document.getElementById("content");
-  var countEl=document.getElementById("countBar");
-  var filtersEl=document.getElementById("filtersBar");
-
-  if(TAB==="saved"){
-    filtersEl.style.display="none";
-    if(!SAVED.length){
-      el.innerHTML='<div class="empty">No saved jobs yet. Browse Jobs and tap Save.</div>';
-      countEl.textContent="0 saved jobs";
-      return;
-    }
-    var html="";
-    for(var i=0;i<SAVED.length;i++) html+=renderCard(SAVED[i].job,"saved");
-    el.innerHTML=html;
-    countEl.textContent=SAVED.length+" saved job"+(SAVED.length===1?"":"s");
-    return;
-  }
-
-  filtersEl.style.display="flex";
-  var visible=[];
-  for(var j=0;j<JOBS.length;j++){
-    if(DISMISSED[JOBS[j].fingerprint]) continue;
-    if(matchesFilters(JOBS[j])) visible.push(JOBS[j]);
-  }
-
-  if(!visible.length){
-    el.innerHTML='<div class="empty">No jobs match your filters.</div>';
-    countEl.textContent="0 jobs";
-    return;
-  }
-
-  var html="";
-  var limit=Math.min(visible.length,200);
-  for(var k=0;k<limit;k++) html+=renderCard(visible[k],"jobs");
-  if(visible.length>200) html+='<div class="empty">Showing first 200 of '+visible.length+' matches. Use filters to narrow.</div>';
-  el.innerHTML=html;
-  countEl.textContent="Showing "+Math.min(limit,visible.length)+" of "+visible.length+" jobs";
-}
-
-// Tab switching
 document.querySelectorAll(".tab").forEach(function(t){
   t.addEventListener("click",function(){
     document.querySelectorAll(".tab").forEach(function(x){x.classList.remove("on")});
     t.classList.add("on");
     TAB=t.dataset.tab;
-    EXPANDED=null;
+    EXPANDED=null;SHOWING=PAGE_SIZE;
     render();
   });
 });
 
-// Queue pills
-document.querySelectorAll(".pill[data-q]").forEach(function(p){
+document.querySelectorAll("[data-q]").forEach(function(p){
   p.addEventListener("click",function(){
-    var q=p.dataset.q;
-    Q_FILTER[q]=!Q_FILTER[q];
+    Q[p.dataset.q]=!Q[p.dataset.q];
     p.classList.toggle("on");
-    render();
+    SHOWING=PAGE_SIZE;saveFilters();render();
   });
 });
 
-// City filter
-document.getElementById("cityFilter").addEventListener("change",function(){
-  CITY_FILTER=this.value;render();
+document.querySelectorAll("[data-city]").forEach(function(p){
+  p.addEventListener("click",function(){
+    document.querySelectorAll("[data-city]").forEach(function(x){x.classList.remove("on")});
+    p.classList.add("on");
+    CITY=p.dataset.city;
+    SHOWING=PAGE_SIZE;saveFilters();render();
+  });
 });
 
-// Search
-document.getElementById("searchBox").addEventListener("input",function(){
-  SEARCH=this.value.toLowerCase().trim();render();
+document.getElementById("search").addEventListener("input",function(){
+  SEARCH=this.value.toLowerCase().trim();
+  SHOWING=PAGE_SIZE;saveFilters();render();
 });
 
-// Load data
+document.getElementById("exportSaved").addEventListener("click",function(){
+  if(!SAVED.length){alert("No saved jobs.");return}
+  var lines=[];
+  for(var i=0;i<SAVED.length;i++){
+    var j=SAVED[i].job;
+    lines.push((j.title||"")+" @ "+(j.company_clean||j.company||""));
+    if(j.url) lines.push(j.url);
+    lines.push("");
+  }
+  navigator.clipboard.writeText(lines.join("\n")).then(function(){
+    alert("Copied "+SAVED.length+" saved jobs to clipboard.");
+  });
+});
+
 (async function(){
+  loadFilters();syncFilterUI();loadSaved();
   try{
     var [jr,mr]=await Promise.all([fetch("jobs.json"),fetch("meta.json")]);
-    JOBS=await jr.json();
-    META=await mr.json();
+    JOBS=await jr.json();META=await mr.json();
   }catch(e){
-    document.getElementById("content").innerHTML='<div class="empty">Failed to load jobs.json. Make sure you are serving this directory (e.g. python -m http.server).</div>';
+    document.getElementById("cards").innerHTML='<div class="empty">Could not load jobs.json.<br>If viewing locally, run: python -m http.server 8080</div>';
     return;
   }
-  document.getElementById("exportDate").textContent=META.export_date?new Date(META.export_date).toLocaleString():"-";
+  document.getElementById("exportDate").textContent=META.export_date?new Date(META.export_date).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}):"—";
   document.getElementById("totalCount").textContent=META.total_jobs||JOBS.length;
-  loadSaved();
-  buildCityOptions();
   render();
 })();
 </script>
