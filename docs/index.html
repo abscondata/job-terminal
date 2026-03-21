@@ -177,7 +177,7 @@ tr.detail-row td{padding:0}
 <div class="filters">
   <button class="pill qa on" data-q="apply">Apply</button>
   <button class="pill qm on" data-q="maybe">Maybe</button>
-  <button class="pill qs" data-q="skip">Skip</button>
+  <button class="pill qs on" data-q="skip">Skip</button>
   <div class="sep"></div>
   <button class="pill on" data-city="all">All</button>
   <button class="pill" data-city="Paris">Paris</button>
@@ -188,7 +188,7 @@ tr.detail-row td{padding:0}
   <select class="fsel" id="fLane"><option value="all">All Lanes</option></select>
   <select class="fsel" id="fWorld"><option value="all">All Worlds</option></select>
   <select class="fsel" id="fSort">
-    <option value="default">Lane Priority</option>
+    <option value="default">Power Rank</option>
     <option value="company">Company A-Z</option>
     <option value="newest">Newest First</option>
   </select>
@@ -223,7 +223,7 @@ tr.detail-row td{padding:0}
 <script>
 var JOBS=[],META={},SAVED=[],SI={};
 var TAB="jobs",EXP=null,DISM={};
-var QF={apply:true,maybe:true,skip:false},CITY="all",SEARCH="",LANE_F="all",WORLD_F="all",SORT="default";
+var QF={apply:true,maybe:true,skip:true},CITY="all",SEARCH="",LANE_F="all",WORLD_F="all",SORT="default";
 var PAGE=100,SHOW=PAGE;
 var COL_SORT=null,COL_DIR=1;
 var LS_F="jt2_filters",LS_S="jobengine_saved";
@@ -302,7 +302,7 @@ function buildDropdowns(){
 var LP={"Paris Direction":0,"NYC Direction":1,"Strategic Internship / Traineeship":2,"Money / Platform Leap":3,"Interesting Stretch":4,"Top-Brand Wrong-Function Risk":5,"French-Heavy Stretch":6,"Miami Option":7,"Maybe Interesting":8,"Low-Value Slop":9,"Too Senior":10,"Off-Mission":11};
 
 function match(j){
-  if(!QF[j.queue_label])return false;
+  if(!QF[j.queue])return false;
   if(CITY!=="all"&&cg(j.city_lane)!==CITY)return false;
   if(LANE_F!=="all"&&cleanLane(j.lane)!==LANE_F)return false;
   if(WORLD_F!=="all"&&cleanWorld(j.world)!==WORLD_F)return false;
@@ -318,10 +318,10 @@ function sortList(arr){
       var va,vb;
       if(col==="title"){va=a.title||"";vb=b.title||""}
       else if(col==="company"){va=a.company_clean||a.company||"";vb=b.company_clean||b.company||""}
-      else if(col==="location"){va=a.location_text||"";vb=b.location_text||""}
+      else if(col==="location"){va=a.location||"";vb=b.location||""}
       else if(col==="lane"){va=cleanLane(a.lane)||"zzz";vb=cleanLane(b.lane)||"zzz"}
       else if(col==="world"){va=cleanWorld(a.world)||"zzz";vb=cleanWorld(b.world)||"zzz"}
-      else if(col==="queue"){va=a.queue_label||"skip";vb=b.queue_label||"skip"}
+      else if(col==="queue"){va=a.queue||"skip";vb=b.queue||"skip"}
       else{va="";vb=""}
       return va<vb?-1*dir:va>vb?1*dir:0;
     });
@@ -329,14 +329,8 @@ function sortList(arr){
   }
   var s=SORT;
   if(s==="company"){arr.sort(function(a,b){return(a.company_clean||a.company||"").localeCompare(b.company_clean||b.company||"")})}
-  else if(s==="newest"){arr.sort(function(a,b){return(b.created_at_utc||"").localeCompare(a.created_at_utc||"")})}
-  else{arr.sort(function(a,b){
-    var qa={"apply":0,"maybe":1,"skip":2}[a.queue_label]||2,qb={"apply":0,"maybe":1,"skip":2}[b.queue_label]||2;
-    if(qa!==qb)return qa-qb;
-    var la=LP[cleanLane(a.lane)]!=null?LP[cleanLane(a.lane)]:50,lb=LP[cleanLane(b.lane)]!=null?LP[cleanLane(b.lane)]:50;
-    if(la!==lb)return la-lb;
-    return(b.confidence||0)-(a.confidence||0);
-  })}
+  else if(s==="newest"){arr.sort(function(a,b){return(b.created_at||"").localeCompare(a.created_at||"")})}
+  else{arr.sort(function(a,b){return(a.rank||9999)-(b.rank||9999)})}
 }
 
 function detailHTML(j,ctx){
@@ -347,7 +341,7 @@ function detailHTML(j,ctx){
   if(pl){h+='<div class="d-section"><div class="d-label">Why this matters</div><div class="d-text fit">'+e(pl)+'</div></div>'}
   var mr=cleanDetail(j.main_risk);
   if(mr){h+='<div class="d-section"><div class="d-label">Main risk</div><div class="d-text risk">'+e(mr)+'</div></div>'}
-  if(j.compensation_text){h+='<div class="d-section"><div class="d-label">Compensation</div><div class="d-text">'+e(j.compensation_text)+'</div></div>'}
+  if(j.compensation){h+='<div class="d-section"><div class="d-label">Compensation</div><div class="d-text">'+e(j.compensation)+'</div></div>'}
   h+='<div class="d-actions">';
   if(j.url)h+='<a class="btn filled" href="'+e(j.url)+'" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">Open</a>';
   if(ctx==="saved"){
@@ -378,16 +372,16 @@ function render(){
       dh+='<tr class="row r'+z+'" onclick="tog(\''+e(fp)+'\')">';
       dh+='<td class="cell-title">'+e(j.title)+'</td>';
       dh+='<td class="cell-company">'+e(j.company_clean||j.company)+'</td>';
-      dh+='<td class="cell-loc">'+e(shortLoc(j.location_text))+'</td>';
+      dh+='<td class="cell-loc">'+e(shortLoc(j.location))+'</td>';
       dh+='<td>'+(ln?laneTag(ln):"")+'</td>';
       dh+='<td>'+(wd?worldTag(wd):"")+'</td>';
-      dh+='<td>'+qTag(j.queue_label)+'</td></tr>';
+      dh+='<td>'+qTag(j.queue)+'</td></tr>';
       dh+='<tr class="detail-row'+(isE?" open":"")+'"><td colspan="6">'+detailHTML(j,"saved")+'</td></tr>';
 
       mh+='<div class="mrow r'+z+(isE?" expanded":"")+'" onclick="tog(\''+e(fp)+'\')">';
-      mh+='<div class="m-line1"><span class="m-title">'+e(j.title)+'</span>'+qTag(j.queue_label)+'</div>';
+      mh+='<div class="m-line1"><span class="m-title">'+e(j.title)+'</span>'+qTag(j.queue)+'</div>';
       mh+='<div class="m-line2"><span class="m-company">'+e(j.company_clean||j.company)+'</span>';
-      if(j.city_lane&&j.city_lane!=="Unknown")mh+='<span class="m-loc">'+e(shortLoc(j.location_text))+'</span>';
+      if(j.city_lane&&j.city_lane!=="Unknown")mh+='<span class="m-loc">'+e(shortLoc(j.location))+'</span>';
       if(ln)mh+=laneTag(ln);
       mh+='</div></div>';
       if(isE)mh+='<div class="m-detail">'+detailHTML(j,"saved")+'</div>';
@@ -429,16 +423,16 @@ function render(){
     dh+='<tr class="row r'+z+'" onclick="tog(\''+e(fp)+'\')">';
     dh+='<td class="cell-title">'+e(j.title)+'</td>';
     dh+='<td class="cell-company">'+e(j.company_clean||j.company)+'</td>';
-    dh+='<td class="cell-loc">'+e(shortLoc(j.location_text))+'</td>';
+    dh+='<td class="cell-loc">'+e(shortLoc(j.location))+'</td>';
     dh+='<td>'+(ln?laneTag(ln):"")+'</td>';
     dh+='<td>'+(wd?worldTag(wd):"")+'</td>';
-    dh+='<td>'+qTag(j.queue_label)+'</td></tr>';
+    dh+='<td>'+qTag(j.queue)+'</td></tr>';
     dh+='<tr class="detail-row'+(isE?" open":"")+'"><td colspan="6">'+detailHTML(j,"jobs")+'</td></tr>';
 
     mh+='<div class="mrow r'+z+(isE?" expanded":"")+'" onclick="tog(\''+e(fp)+'\')">';
-    mh+='<div class="m-line1"><span class="m-title">'+e(j.title)+'</span>'+qTag(j.queue_label)+'</div>';
+    mh+='<div class="m-line1"><span class="m-title">'+e(j.title)+'</span>'+qTag(j.queue)+'</div>';
     mh+='<div class="m-line2"><span class="m-company">'+e(j.company_clean||j.company)+'</span>';
-    if(j.city_lane&&j.city_lane!=="Unknown")mh+='<span class="m-loc">'+e(shortLoc(j.location_text))+'</span>';
+    if(j.city_lane&&j.city_lane!=="Unknown")mh+='<span class="m-loc">'+e(shortLoc(j.location))+'</span>';
     if(ln)mh+=laneTag(ln);
     mh+='</div></div>';
     if(isE)mh+='<div class="m-detail">'+detailHTML(j,"jobs")+'</div>';
