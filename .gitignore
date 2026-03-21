@@ -1,0 +1,15 @@
+data/jobengine.sqlite
+data/jobengine.sqlite-shm
+data/jobengine.sqlite-wal
+data/runs/
+data/audit/
+data/last_run.log
+data/last_meta.json
+data/source_health.json
+data/audit_report.txt
+__pycache__/
+*.pyc
+venv/
+.venv/
+.env
+profiles/
