@@ -226,7 +226,7 @@ var TAB="jobs",EXP=null,DISM={};
 var QF={apply:true,maybe:true,skip:true},CITY="all",SEARCH="",LANE_F="all",WORLD_F="all",SORT="default";
 var PAGE=100,SHOW=PAGE;
 var COL_SORT=null,COL_DIR=1;
-var LS_F="jt2_filters",LS_S="jobengine_saved";
+var LS_F="jt3_filters",LS_S="jobengine_saved";
 
 function e(s){return String(s==null?"":s).replace(/[&<>"']/g,function(m){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[m]||m})}
 
@@ -272,7 +272,7 @@ function cityTag(c){var g=cg(c);if(g==="Paris")return"t-paris";if(g==="NYC")retu
 
 function loadS(){try{SAVED=JSON.parse(localStorage.getItem(LS_S)||"[]")}catch(x){SAVED=[]}SI={};for(var i=0;i<SAVED.length;i++)SI[SAVED[i].fingerprint]=1;document.getElementById("sBadge").textContent="("+SAVED.length+")"}
 function saveS(){localStorage.setItem(LS_S,JSON.stringify(SAVED));loadS()}
-function loadF(){try{var f=JSON.parse(localStorage.getItem(LS_F));if(f){QF=f.q||QF;CITY=f.c||"all";SEARCH=f.s||"";LANE_F=f.l||"all";WORLD_F=f.w||"all";SORT=f.so||"default"}}catch(x){}}
+function loadF(){try{var f=JSON.parse(localStorage.getItem(LS_F));if(f){QF=f.q||QF;CITY=f.c||"all";SEARCH=f.s||"";LANE_F=f.l||"all";WORLD_F=f.w||"all";SORT=f.so||"default"}}catch(x){}if(!QF.apply&&!QF.maybe&&!QF.skip){QF={apply:true,maybe:true,skip:true}}}
 function saveF(){localStorage.setItem(LS_F,JSON.stringify({q:QF,c:CITY,s:SEARCH,l:LANE_F,w:WORLD_F,so:SORT}))}
 
 function syncUI(){
