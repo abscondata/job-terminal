@@ -1,4 +1,4 @@
-"""Export jobs from SQLite to static JSON for GitHub Pages terminal."""
+"""Export jobs from SQLite to static JSON with power ranking for GitHub Pages."""
 from __future__ import annotations
 
 import json
@@ -17,21 +17,60 @@ COMPANY_SUFFIX = re.compile(
     r"SE|GmbH|PLC|N\.?V\.?|AG|SAS|SARL|SpA|Pty|Limited)\s*$",
     re.I,
 )
-
-LANE_PRIORITY = {
-    "Paris Direction": 0,
-    "NYC Direction": 1,
-    "Strategic Internship / Traineeship": 2,
-    "Money / Platform Leap": 3,
-    "Interesting Stretch": 4,
-}
-QUEUE_MAP = {1: "apply", 2: "maybe", 3: "skip", 4: "skip", 5: "skip"}
+INTERNAL_RE = re.compile(
+    r"\b(bridge upside|borderline bridge|real bridge|prettier slop|mixed case)\b", re.I
+)
+GENERIC_ONE_LINER = re.compile(
+    r"^(Apply|Maybe|Skip):\s", re.I
+)
 
 
 def clean_company(name: str) -> str:
     out = (name or "").strip()
     out = COMPANY_SUFFIX.sub("", out).strip().rstrip(",").strip()
     return out or name or ""
+
+
+def clean_one_liner(one_liner: str, why_surfaced: str, path_logic: str) -> str:
+    if not one_liner:
+        return path_logic or why_surfaced or ""
+    if INTERNAL_RE.search(one_liner):
+        return path_logic or why_surfaced or ""
+    if GENERIC_ONE_LINER.match(one_liner) and len(one_liner) < 80:
+        return path_logic or why_surfaced or ""
+    return one_liner
+
+
+def city_label(city_lane: str) -> str:
+    if not city_lane or city_lane == "Unknown":
+        return "Other"
+    if city_lane.startswith("Paris"):
+        return "Paris"
+    if city_lane == "NYC":
+        return "NYC"
+    if city_lane == "Miami":
+        return "Miami"
+    return "Other"
+
+
+def power_score(ev: dict, queue_label: str) -> float:
+    ss = ev.get("signal_scores", {})
+    ds = ev.get("dimension_scores", {})
+    direction = ss.get("direction", 0)
+    bridge = ss.get("bridge", 0)
+    risk = ss.get("risk", 0)
+    func = ds.get("function", 0)
+    escape = ds.get("escape", 0)
+    prac = ds.get("practicality", 0)
+    raw = (
+        direction * 0.40
+        + bridge * 0.25
+        + func * 0.15
+        + escape * 0.10
+        + prac * 0.10
+        - risk * 0.20
+    )
+    return round(raw, 1)
 
 
 def main():
@@ -46,21 +85,11 @@ def main():
             j.location_text, j.remote_type,
             j.compensation_min, j.compensation_max, j.compensation_text,
             j.url, j.apply_url,
-            SUBSTR(j.description_text, 1, 500) AS description_short,
             j.created_at_utc,
             d.queue, d.decision_reason, d.confidence,
             d.evidence_json, d.decided_at_utc
         FROM decisions d
         JOIN jobs_canonical j ON d.job_id = j.job_id
-        WHERE d.decision_id IN (
-            SELECT d2.decision_id
-            FROM decisions d2
-            JOIN jobs_canonical j2 ON d2.job_id = j2.job_id
-            WHERE j2.fingerprint = j.fingerprint
-            ORDER BY d2.decided_at_utc DESC
-            LIMIT 1
-        )
-        GROUP BY j.fingerprint
         """
     ).fetchall()
     conn.close()
@@ -71,65 +100,70 @@ def main():
     # Build job dicts
     all_jobs = []
     for row in rows:
-        evidence = {}
+        ev = {}
         try:
-            evidence = json.loads(row["evidence_json"] or "{}")
+            ev = json.loads(row["evidence_json"] or "{}")
         except Exception:
             pass
 
-        classification = evidence.get("classification", row["decision_reason"] or "")
-        recommendation = evidence.get("recommendation", "")
+        recommendation = ev.get("recommendation", "")
         if recommendation in {"apply", "maybe", "skip"}:
             queue_label = recommendation
         else:
-            queue_label = QUEUE_MAP.get(row["queue"], "skip")
+            queue_label = {1: "apply", 2: "maybe", 3: "skip"}.get(row["queue"], "skip")
+
+        classification = ev.get("classification", row["decision_reason"] or "")
+        world_raw = ev.get("world_tier", "")
+        world_clean = world_raw.replace(" World", "") if world_raw else ""
+        if world_clean == "Unknown":
+            world_clean = ""
+
+        why_surfaced = ev.get("why_surfaced", "")
+        path_logic_raw = ev.get("path_logic", "")
+        one_liner_raw = ev.get("one_line_recommendation", "")
 
         all_jobs.append({
             "job_id": row["job_id"],
             "fingerprint": row["fingerprint"],
             "source": row["source"],
             "company": row["company"] or "",
+            "company_clean": clean_company(row["company"] or ""),
             "title": row["title"] or "",
-            "location_text": row["location_text"] or "",
-            "remote_type": row["remote_type"] or "",
+            "location": row["location_text"] or "",
+            "url": row["url"] or row["apply_url"] or "",
+            "created_at": row["created_at_utc"] or "",
+            "decided_at": row["decided_at_utc"] or "",
+            "queue": queue_label,
+            "confidence": row["confidence"],
+            "lane": classification,
+            "city": city_label(ev.get("city_lane", "")),
+            "city_lane": ev.get("city_lane", "Unknown"),
+            "world": world_clean,
+            "world_tier": world_raw,
+            "function_family": ev.get("function_family", ""),
+            "work_type_label": ev.get("work_type_label", ""),
+            "dimension_scores": ev.get("dimension_scores", {}),
+            "signal_scores": ev.get("signal_scores", {}),
+            "signal_bands": ev.get("signal_bands", {}),
+            "one_liner": clean_one_liner(one_liner_raw, why_surfaced, path_logic_raw),
+            "path_logic": path_logic_raw,
+            "main_risk": ev.get("main_risk", ""),
+            "slop_verdict": ev.get("slop_verdict", ""),
+            "french_risk": ev.get("french_risk_label", ""),
+            "biggest_resume_gap": ev.get("biggest_resume_gap", ""),
+            "compensation": ev.get("comp_record", {}).get("comp_text_raw", "") or row["compensation_text"] or "",
             "compensation_min": row["compensation_min"],
             "compensation_max": row["compensation_max"],
-            "compensation_text": row["compensation_text"] or "",
-            "url": row["url"] or row["apply_url"] or "",
-            "apply_url": row["apply_url"] or row["url"] or "",
-            "description_short": row["description_short"] or "",
-            "created_at_utc": row["created_at_utc"] or "",
-            "decided_at_utc": row["decided_at_utc"] or "",
-            "queue": row["queue"],
-            "queue_label": queue_label,
-            "confidence": row["confidence"],
-            # Enriched fields
-            "lane": classification,
-            "classification": classification,
-            "recommendation": recommendation,
-            "city_lane": evidence.get("city_lane", "Unknown"),
-            "world": evidence.get("world_tier", ""),
-            "world_tier": evidence.get("world_tier", ""),
-            "function_family": evidence.get("function_family", ""),
-            "work_type_label": evidence.get("work_type_label", ""),
-            "one_liner": evidence.get("one_line_recommendation", ""),
-            "path_logic": evidence.get("path_logic", ""),
-            "main_risk": evidence.get("main_risk", ""),
-            "why_surfaced": evidence.get("why_surfaced", ""),
-            "why_fit": evidence.get("why_fit", ""),
-            "why_fail": evidence.get("why_fail", ""),
-            "biggest_resume_gap": evidence.get("biggest_resume_gap", ""),
-            "slop_verdict": evidence.get("slop_verdict", ""),
-            "french_risk_label": evidence.get("french_risk_label", ""),
-            "bridge_score": evidence.get("bridge_score", 0),
-            "overall_score": evidence.get("overall_score", 0),
-            "signal_scores": evidence.get("signal_scores", {}),
-            "risk_flags": evidence.get("risk_flags", []),
-            "opportunity_lanes": evidence.get("opportunity_lanes", []),
-            "company_clean": clean_company(row["company"] or ""),
+            "why_surfaced": why_surfaced,
+            "overall_score": ev.get("overall_score", 0),
+            "bridge_score": ev.get("bridge_score", 0),
+            "opportunity_lanes": ev.get("opportunity_lanes", []),
+            "role_bucket": ev.get("role_bucket", ""),
+            "risk_flags": ev.get("risk_flags", []),
+            "_ev": ev,  # temp for power_score calc
         })
 
-    # --- DEDUPE by (company_lower, title_lower), keep newest ---
+    # --- DEDUPE ---
     groups: dict[tuple[str, str], list[dict]] = {}
     for job in all_jobs:
         key = (job["company"].lower().strip(), job["title"].lower().strip())
@@ -137,57 +171,60 @@ def main():
 
     deduped = []
     for key, group in groups.items():
-        group.sort(key=lambda j: j["created_at_utc"] or "", reverse=True)
+        group.sort(key=lambda j: j["created_at"] or "", reverse=True)
         deduped.append(group[0])
 
     print(f"After dedupe: {len(deduped)} (removed {len(all_jobs) - len(deduped)} dupes)")
-    before_date = len(deduped)
 
-    # --- DATE FILTERING: remove expired postings ---
+    # --- DATE FILTER ---
     cutoff = datetime.now(timezone.utc) - timedelta(days=60)
     cutoff_str = cutoff.isoformat(timespec="seconds")
+    before = len(deduped)
     filtered = []
     for job in deduped:
-        title = job["title"]
-        if STALE_YEARS.search(title):
-            created = job["created_at_utc"] or ""
-            if created >= cutoff_str:
+        if STALE_YEARS.search(job["title"]):
+            if job["created_at"] >= cutoff_str:
                 filtered.append(job)
-            # else: expired, drop
         else:
             filtered.append(job)
 
-    print(f"After date filter: {len(filtered)} (removed {before_date - len(filtered)} expired)")
+    print(f"After date filter: {len(filtered)} (removed {before - len(filtered)} expired)")
 
-    # --- SORTING ---
-    def sort_key(job):
-        q = {"apply": 0, "maybe": 1, "skip": 2}.get(job["queue_label"], 2)
-        lane = LANE_PRIORITY.get(job["lane"], 99)
-        conf = -(job["confidence"] or 0)
-        return (q, lane, conf)
+    # --- COMPUTE POWER SCORE ---
+    for job in filtered:
+        job["power_score"] = power_score(job["_ev"], job["queue"])
 
-    filtered.sort(key=sort_key)
+    # --- SORT & RANK ---
+    apply_jobs = [j for j in filtered if j["queue"] == "apply"]
+    maybe_jobs = [j for j in filtered if j["queue"] == "maybe"]
+    skip_jobs = [j for j in filtered if j["queue"] == "skip"]
+
+    apply_jobs.sort(key=lambda j: -j["power_score"])
+    maybe_jobs.sort(key=lambda j: -j["power_score"])
+    skip_jobs.sort(key=lambda j: -(j["overall_score"] or 0))
+
+    ranked = apply_jobs + maybe_jobs + skip_jobs
+    for i, job in enumerate(ranked):
+        job["rank"] = i + 1
+        del job["_ev"]  # remove temp field
 
     # --- COUNTS ---
     queue_counts: dict[str, int] = {}
     city_counts: dict[str, int] = {}
     lane_counts: dict[str, int] = {}
-    for job in filtered:
-        ql = job["queue_label"]
-        queue_counts[ql] = queue_counts.get(ql, 0) + 1
-        cl = job["city_lane"]
-        city_counts[cl] = city_counts.get(cl, 0) + 1
-        ll = job["lane"]
-        lane_counts[ll] = lane_counts.get(ll, 0) + 1
+    for job in ranked:
+        queue_counts[job["queue"]] = queue_counts.get(job["queue"], 0) + 1
+        city_counts[job["city"]] = city_counts.get(job["city"], 0) + 1
+        lane_counts[job["lane"]] = lane_counts.get(job["lane"], 0) + 1
 
     # --- WRITE ---
     (DOCS / "jobs.json").write_text(
-        json.dumps(filtered, ensure_ascii=False, indent=1), encoding="utf-8"
+        json.dumps(ranked, ensure_ascii=False, indent=1), encoding="utf-8"
     )
 
     meta = {
         "export_date": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "total_jobs": len(filtered),
+        "total_jobs": len(ranked),
         "jobs_by_queue": queue_counts,
         "jobs_by_city": city_counts,
         "jobs_by_lane": lane_counts,
@@ -196,10 +233,22 @@ def main():
         json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
-    print(f"\nFinal: {len(filtered)} jobs written to docs/jobs.json")
-    print(f"Queue: {queue_counts}")
-    print(f"City:  {city_counts}")
-    print(f"Lane:  {lane_counts}")
+    print(f"\nFinal: {len(ranked)} jobs to docs/jobs.json\n")
+
+    print("=== TOP 20 BY POWER RANK ===")
+    for job in ranked[:20]:
+        print(
+            f"  #{job['rank']} pw={job['power_score']:5.1f} | {job['queue']:5s} | "
+            f"{job['lane']:<40s} | {job['company_clean']} - {job['title'][:60]}"
+        )
+
+    print(f"\n=== QUEUE COUNTS ===")
+    for q, c in sorted(queue_counts.items()):
+        print(f"  {q}: {c}")
+
+    print(f"\n=== LANE DISTRIBUTION ===")
+    for lane, c in sorted(lane_counts.items(), key=lambda x: -x[1]):
+        print(f"  {lane}: {c}")
 
 
 if __name__ == "__main__":
