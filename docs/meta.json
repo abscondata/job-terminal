@@ -1,29 +1,25 @@
 {
-  "export_date": "2026-03-22T00:15:32+00:00",
-  "total_jobs": 1796,
-  "jobs_by_queue": {
-    "apply": 147,
-    "maybe": 135,
-    "skip": 1514
+  "export_date": "2026-03-22T01:04:25+00:00",
+  "total_jobs": 257,
+  "jobs_by_tier": {
+    "Bridge": 130,
+    "Top Pick": 127
   },
   "jobs_by_city": {
-    "Paris": 286,
-    "NYC": 480,
-    "Other": 972,
-    "Miami": 58
+    "Paris": 136,
+    "NYC": 109,
+    "Other": 9,
+    "Miami": 3
   },
-  "jobs_by_lane": {
-    "Strategic Internship / Traineeship": 112,
-    "Paris Direction": 29,
-    "NYC Direction": 55,
-    "Money / Platform Leap": 42,
-    "Maybe Interesting": 169,
-    "Interesting Stretch": 13,
-    "Miami Option": 3,
-    "French-Heavy Stretch": 3,
-    "Top-Brand Wrong-Function Risk": 1,
-    "Low-Value Slop": 606,
-    "Too Senior": 409,
-    "Off-Mission": 354
+  "jobs_by_world": {
+    "Top World": 127,
+    "Adjacent": 112,
+    "Other": 18
+  },
+  "jobs_by_type": {
+    "Alternance": 69,
+    "Intern": 49,
+    "Full-Time": 133,
+    "Contract": 6
   }
 }
