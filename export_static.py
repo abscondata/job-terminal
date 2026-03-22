@@ -79,7 +79,21 @@ _NON_COMPLIANCE_TITLE_RE = re.compile(
     r"|content\s+and\s+ai|content\s+moderator"
     r"|code\s+compliance\s+inspector|building\s+inspector"
     r"|safety\s+and\s+compliance|food\s+safety|fair\s+workweek"
-    r"|reservations?\s+(?:compliance|specialist))\b", re.I,
+    r"|reservations?\s+(?:compliance|specialist)"
+    r"|capital\s+markets(?!\s+compliance|\s+operations)"
+    r"|coverage\s+(?:analyst|associate)|grands?\s+comptes"
+    r"|corporate\s+debt|debt\s+finance"
+    r"|liquidity\s+sales"
+    r"|caf[e\u00e9]\s+ambassador|banking\s+associate|universal\s+banker"
+    r"|part[\s-]+time(?!\s+compliance)"
+    r"|equity\s+capital(?!\s+compliance)"
+    r"|eeo\s+compliance|equal\s+employment"
+    r"|healthcare\s+analyst"
+    r"|analytics\s+avp(?!\s+compliance|\s+risk)"
+    r"|finance\s+(?:&|and)\s+strategy(?!\s+compliance)"
+    r"|business\s+controller|tax\s+(?:information\s+)?reporting"
+    r"|vendor\s+risk\s+management|procurement"
+    r"|(?:ecm|dcm)\s+analyst)\b", re.I,
 )
 
 # Companies that are NOT financial services — exclude from compliance tab
@@ -254,13 +268,34 @@ def _word_overlap(key_a: str, key_b: str) -> float:
     return len(overlap) / min(len(wa), len(wb))
 
 
+_COMPANY_ALIASES = {
+    "sumitomo mitsui banking corporation": "smbc",
+    "sumitomo mitsui financial group": "smbc",
+    "smbc group": "smbc",
+    "mufg bank": "mufg",
+    "j.p. morgan": "jpmorgan",
+    "jp morgan": "jpmorgan",
+    "jpmorgan chase": "jpmorgan",
+    "jpmorgan chase &": "jpmorgan",
+    "bank of america": "bofa",
+    "rothschild &": "rothschild",
+    "rothschild & co": "rothschild",
+    "ls power development": "ls power",
+}
+
+
+def _dedup_company_key(company: str) -> str:
+    """Normalize company name for dedup grouping."""
+    c = COMPANY_SUFFIX.sub("", (company or "").lower().strip()).strip()
+    return _COMPANY_ALIASES.get(c, c)
+
+
 def fuzzy_dedup(jobs: list[dict]) -> tuple[list[dict], int]:
     """Dedup by company + fuzzy title match (80%+ word overlap). Keep highest score.
     Returns (deduped_list, removed_count)."""
-    # Group by normalized company
     by_company: dict[str, list[dict]] = {}
     for j in jobs:
-        c = COMPANY_SUFFIX.sub("", (j["company"] or "").lower().strip()).strip()
+        c = _dedup_company_key(j["company"])
         by_company.setdefault(c, []).append(j)
 
     kept = []
@@ -308,6 +343,11 @@ def _words_match(needle: str, haystack: str) -> bool:
 def clean_company(name: str) -> str:
     out = (name or "").strip()
     out = COMPANY_SUFFIX.sub("", out).strip().rstrip(",").strip()
+    # Fix truncated names
+    if out == "Rothschild &" or out == "Rothschild &amp;":
+        out = "Rothschild & Co"
+    if out == "JPMorgan Chase &":
+        out = "JPMorgan Chase"
     return out or name or ""
 
 
@@ -502,7 +542,7 @@ def nyc_score(title, company, desc, location, comp_text):
         adj -= 15; risks.append("senior title, likely expects 3-5yr experience")
     if _LEGAL_RE.search(title):
         adj -= 25; risks.append("legal/counsel role, not compliance")
-    if _SALES_RE.search(hay):
+    if _SALES_RE.search(hay) and "compliance" not in title.lower():
         adj -= 25; risks.append("commission/sales-based")
     if _INSURANCE_RE.search(f"{company} {title}"):
         adj -= 15; risks.append("insurance company, not finance")
@@ -519,7 +559,7 @@ def nyc_score(title, company, desc, location, comp_text):
     elif cv > 0 and cv < 60000: adj -= 10; risks.append(f"low salary (${cv // 1000}K)")
 
     if company_label == "staffing agency":
-        adj -= 8  # staffing penalty on top of 0 company points
+        # No score penalty — staffing is the highest-callback channel for entry-level
         risks.append("staffing agency posting, actual employer unclear")
     elif company_label == "insurance" and "insurance company, not finance" not in risks:
         risks.append("insurance company, not finance")
@@ -781,19 +821,38 @@ def main():
             if tier == "Pass": continue
         if tab == "compliance":
             if _LEGAL_RE.search(title) and "compliance" not in title.lower(): continue
-            if _SALES_RE.search(title): continue
-            # Non-compliance function gate
+            if _SALES_RE.search(title) and "compliance" not in title.lower(): continue
+            # Non-compliance function gate (expanded)
             if _NON_COMPLIANCE_TITLE_RE.search(title): continue
             # Non-financial company gate
             if _NON_FINANCIAL_COMPANY_RE.search(company): continue
+            # Validate title has actual compliance signal — reject roles that only
+            # got here because the company is financial
+            tl_check = title.lower()
+            has_compliance_title = any(kw in tl_check for kw in [
+                "compliance", "aml", "kyc", "regulatory", "risk",
+                "surveillance", "sanctions", "bsa", "financial crimes",
+                "anti-money", "onboarding", "account opening",
+                "licensing", "registration", "finra", "audit",
+                "conformit", "lcb", "risque", "contr",
+            ])
+            if not has_compliance_title:
+                continue
             # City gate: only NYC, Miami, Paris
             if not (_NYC_RE.search(location) or _MIAMI_RE.search(location) or _PARIS_RE.search(location)):
                 continue
 
         comp_display = extract_comp(title, description, comp_raw)
-        # Fix $0K display
-        if comp_display and comp_display in ("$0K", "$0K-$0K", "0"):
-            comp_display = ""
+        # Fix $0K / bad comp display
+        if comp_display:
+            stripped = comp_display.replace("$", "").replace("K", "").replace("k", "").replace(",", "").replace(" ", "").split("-")[0].split("+")[0]
+            try:
+                if not stripped or float(stripped) <= 0:
+                    comp_display = ""
+            except ValueError:
+                pass
+            if comp_display.lower() in ("$0k", "$0k-$0k", "0", "competitive", "n/a"):
+                comp_display = ""
 
         if tab == "compliance":
             score, reason, risk, c_tier, t_fit = nyc_score(title, company, description, location, comp_raw)
