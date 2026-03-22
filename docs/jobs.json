@@ -308,6 +308,34 @@
   "rank": 11
  },
  {
+  "job_id": "18574a4d-c8ca-4d34-b922-36fd9f013370",
+  "fingerprint": "3f2ab37990fe574dd9663c76fc93e87a4e6b0c20dfa2cbc6d329c1ea34247b7c",
+  "source": "builtin",
+  "company": "Jane Street",
+  "company_clean": "Jane Street",
+  "title": "AML Onboarding Analyst",
+  "location": "New York, NY, USA",
+  "url": "https://builtinnyc.com/job/aml-onboarding-analyst/8039533",
+  "created_at": "2026-03-14T23:00:28+00:00",
+  "lane": "Low-Value Slop",
+  "city": "NYC",
+  "city_lane": "NYC",
+  "world_simple": "Other",
+  "world_tier": "Corporate World",
+  "function_family": "Compliance / Risk",
+  "type": "Full-Time",
+  "score": 79,
+  "power_score": 79.0,
+  "one_liner": "Jane Street AML analyst, strong firm, on-site NYC",
+  "risk": "",
+  "main_risk": "",
+  "compensation": "",
+  "tab": "compliance",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 12
+ },
+ {
   "job_id": "d3c6b18a-6cf8-4b73-a08e-41badbe1ffa4",
   "fingerprint": "d79c2970472fdb0b38898f8be88e9d3aa0f3efc2d72ee4d3a983beb4def87c1d",
   "source": "efinancialcareers",
@@ -333,7 +361,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 12
+  "rank": 13
  },
  {
   "job_id": "338d4a78-c7f7-45c2-b470-9b893afb0d01",
@@ -361,7 +389,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 13
+  "rank": 14
  },
  {
   "job_id": "9e085f72-b538-44b0-aae6-4990028a9669",
@@ -389,7 +417,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 14
+  "rank": 15
  },
  {
   "job_id": "62bcde79-838f-4e19-9cad-66b5bb2c3a05",
@@ -417,7 +445,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 15
+  "rank": 16
  },
  {
   "job_id": "d5511a6f-fb93-4db3-9147-a939fc47a1e1",
@@ -445,7 +473,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 16
+  "rank": 17
  },
  {
   "job_id": "c026267b-b7f2-4564-b4e4-419519f2dde1",
@@ -473,7 +501,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 17
+  "rank": 18
  },
  {
   "job_id": "ef93a87d-1559-4cd4-bfc9-f3a0b80a94fe",
@@ -501,7 +529,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 18
+  "rank": 19
  },
  {
   "job_id": "dc6cafd7-2efc-4574-9b6d-4c8347cc1585",
@@ -529,7 +557,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 19
+  "rank": 20
  },
  {
   "job_id": "0d21c76f-6df5-4cfb-af6d-b1b9bc50bae0",
@@ -551,34 +579,6 @@
   "score": 73,
   "power_score": 73.0,
   "one_liner": "GamblingCareers.com AML analyst, on-site NYC",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 20
- },
- {
-  "job_id": "c6e5b2e2-00dd-4103-b160-311f21777b52",
-  "fingerprint": "1c802062e38e32ff15503be837a05d2a40c8d4e07990ab00085470575361ca48",
-  "source": "linkedin",
-  "company": "HW3",
-  "company_clean": "HW3",
-  "title": "Compliance Associate",
-  "location": "New York City Metropolitan Area",
-  "url": "https://www.linkedin.com/jobs/view/compliance-associate-at-hw3-4384303153?position=5&pageNum=0&refId=wqRH3P%2FXRUxLSfu8oDofpA%3D%3D&trackingId=tfE7F0N3vIoFHFKNPr63sA%3D%3D",
-  "created_at": "2026-03-14T22:59:16+00:00",
-  "lane": "Low-Value Slop",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Other",
-  "world_tier": "Corporate World",
-  "function_family": "Compliance / Risk",
-  "type": "Full-Time",
-  "score": 73,
-  "power_score": 73.0,
-  "one_liner": "HW3 compliance associate, on-site NYC",
   "risk": "",
   "main_risk": "",
   "compensation": "",
@@ -2912,6 +2912,34 @@
   "rank": 104
  },
  {
+  "job_id": "09460f6e-7488-433c-bdcf-9c9ed83e6ac4",
+  "fingerprint": "88958ee2fb62b443c9571c97d825f431dfd0c25289d824e22c4b62127e9e7beb",
+  "source": "efinancialcareers",
+  "company": "Checkout.com",
+  "company_clean": "Checkout.com",
+  "title": "Senior Analyst, Financial Crime Compliance",
+  "location": "Paris, France",
+  "url": "https://www.efinancialcareers.com/jobs-France-Paris-Senior_Analyst_Financial_Crime_Compliance.id23771981",
+  "created_at": "2026-03-14T23:00:17+00:00",
+  "lane": "Too Senior",
+  "city": "Paris",
+  "city_lane": "Paris",
+  "world_simple": "Adjacent",
+  "world_tier": "Real Adjacent World",
+  "function_family": "Compliance / Risk",
+  "type": "Full-Time",
+  "score": 19,
+  "power_score": 19.0,
+  "one_liner": "Checkout.com Compliance, Paris",
+  "risk": "Senior title -- likely expects 3-5yr experience",
+  "main_risk": "Senior title -- likely expects 3-5yr experience",
+  "compensation": "",
+  "tab": "compliance",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 105
+ },
+ {
   "job_id": "0c1904e7-7171-4eb2-b186-93de1a285622",
   "fingerprint": "327c248631340e677d4430afb5d92e4da2a872adeb21cf9b84e956c75a0cb8ff",
   "source": "builtin",
@@ -2937,7 +2965,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 105
+  "rank": 106
  },
  {
   "job_id": "6345864a-09da-4f65-8bdc-c171fa55da3c",
@@ -2965,7 +2993,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 106
+  "rank": 107
  },
  {
   "job_id": "38eee646-bfa1-4c9c-8f2a-3cdf88808273",
@@ -2993,7 +3021,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 107
+  "rank": 108
  },
  {
   "job_id": "ea210dac-4ce2-4626-bff5-6da75c09cace",
@@ -3021,7 +3049,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 108
+  "rank": 109
  },
  {
   "job_id": "32e0c292-9218-4fbf-b7c2-53ea892b534f",
@@ -3049,7 +3077,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 109
+  "rank": 110
  },
  {
   "job_id": "f5deec55-227d-4a81-b019-6447d5f5c88d",
@@ -3077,7 +3105,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 110
+  "rank": 111
  },
  {
   "job_id": "7a193f46-c149-4492-a2b7-c5f8d718190d",
@@ -3105,7 +3133,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 111
+  "rank": 112
  },
  {
   "job_id": "b5d726d3-b35b-444d-be8c-e0bbee1b00cc",
@@ -3133,7 +3161,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 112
+  "rank": 113
  },
  {
   "job_id": "c0c6a676-5d70-4cb1-a6ed-9a15b183a6a8",
@@ -3161,7 +3189,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 113
+  "rank": 114
  },
  {
   "job_id": "09e1fb11-3f50-4eba-a128-c73a530d6ed3",
@@ -3189,7 +3217,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 114
+  "rank": 115
  },
  {
   "job_id": "2a0b0336-b8f3-4839-a7a6-ff1d863db1c0",
@@ -3217,7 +3245,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 115
+  "rank": 116
  },
  {
   "job_id": "97403a14-a6de-4c6e-95ad-21641e005f08",
@@ -3245,7 +3273,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 116
+  "rank": 117
  },
  {
   "job_id": "171efa1c-15f3-4e11-b46c-df1b64281baf",
@@ -3273,7 +3301,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 117
+  "rank": 118
  },
  {
   "job_id": "5a27f920-e0c7-4bb9-b574-583f9766c8c8",
@@ -3301,7 +3329,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 118
+  "rank": 119
  },
  {
   "job_id": "8515c29e-e364-4b2f-8ed6-7e49ad4baa3c",
@@ -3329,7 +3357,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 119
+  "rank": 120
  },
  {
   "job_id": "aa67d1c8-90c3-466e-9a6f-1575e71aed6d",
@@ -3357,7 +3385,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 120
+  "rank": 121
  },
  {
   "job_id": "7535c7ca-7cfd-424e-9f77-ae3c2d5cddfa",
@@ -3385,7 +3413,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 121
+  "rank": 122
  },
  {
   "job_id": "fe26bc3b-fac4-4c66-a966-30bd5464a520",
@@ -3413,7 +3441,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 122
+  "rank": 123
  },
  {
   "job_id": "4a9c51da-374b-4ece-b0de-73f0a4a43cee",
@@ -3441,7 +3469,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 123
+  "rank": 124
  },
  {
   "job_id": "bf85cc75-6771-4b4a-af16-939b156a9299",
@@ -3469,7 +3497,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 124
+  "rank": 125
  },
  {
   "job_id": "9b23a29c-482e-46f0-ad2f-1d1860a91e75",
@@ -3497,7 +3525,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 125
+  "rank": 126
  },
  {
   "job_id": "d49284b1-5196-4b7f-9552-a03050cc79a2",
@@ -3525,7 +3553,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 126
+  "rank": 127
  },
  {
   "job_id": "89e7aa09-afab-484a-8079-b96ca0eab7ef",
@@ -3553,7 +3581,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 127
+  "rank": 128
  },
  {
   "job_id": "c94f08e9-76e1-48d1-b603-6e856031350e",
@@ -3581,7 +3609,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 128
+  "rank": 129
  },
  {
   "job_id": "0e477695-c6dc-414a-a622-10690f849119",
@@ -3609,7 +3637,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 129
+  "rank": 130
  },
  {
   "job_id": "3e0a377a-322c-4d72-bb73-71f2e8bac790",
@@ -3631,34 +3659,6 @@
   "score": 79,
   "power_score": 79.0,
   "one_liner": "Clear Street client onboarding, strong firm, on-site NYC",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "applied": true,
-  "rank": 130
- },
- {
-  "job_id": "18574a4d-c8ca-4d34-b922-36fd9f013370",
-  "fingerprint": "3f2ab37990fe574dd9663c76fc93e87a4e6b0c20dfa2cbc6d329c1ea34247b7c",
-  "source": "builtin",
-  "company": "Jane Street",
-  "company_clean": "Jane Street",
-  "title": "AML Onboarding Analyst",
-  "location": "New York, NY, USA",
-  "url": "https://builtinnyc.com/job/aml-onboarding-analyst/8039533",
-  "created_at": "2026-03-14T23:00:28+00:00",
-  "lane": "Low-Value Slop",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Other",
-  "world_tier": "Corporate World",
-  "function_family": "Compliance / Risk",
-  "type": "Full-Time",
-  "score": 79,
-  "power_score": 79.0,
-  "one_liner": "Jane Street AML analyst, strong firm, on-site NYC",
   "risk": "",
   "main_risk": "",
   "compensation": "",
@@ -3752,6 +3752,34 @@
   "rank": 134
  },
  {
+  "job_id": "c6e5b2e2-00dd-4103-b160-311f21777b52",
+  "fingerprint": "1c802062e38e32ff15503be837a05d2a40c8d4e07990ab00085470575361ca48",
+  "source": "linkedin",
+  "company": "HW3",
+  "company_clean": "HW3",
+  "title": "Compliance Associate",
+  "location": "New York City Metropolitan Area",
+  "url": "https://www.linkedin.com/jobs/view/compliance-associate-at-hw3-4384303153?position=5&pageNum=0&refId=wqRH3P%2FXRUxLSfu8oDofpA%3D%3D&trackingId=tfE7F0N3vIoFHFKNPr63sA%3D%3D",
+  "created_at": "2026-03-14T22:59:16+00:00",
+  "lane": "Low-Value Slop",
+  "city": "NYC",
+  "city_lane": "NYC",
+  "world_simple": "Other",
+  "world_tier": "Corporate World",
+  "function_family": "Compliance / Risk",
+  "type": "Full-Time",
+  "score": 73,
+  "power_score": 73.0,
+  "one_liner": "HW3 compliance associate, on-site NYC",
+  "risk": "",
+  "main_risk": "",
+  "compensation": "",
+  "tab": "compliance",
+  "is_alternance": false,
+  "applied": true,
+  "rank": 135
+ },
+ {
   "job_id": "0e41d863-5525-4367-b4d1-e2c0cbf1fc2b",
   "fingerprint": "5616fa53a66a3d06fbea1e1b6381180a79502bcc7ae02fa9c54ed579524ecd31",
   "source": "linkedin",
@@ -3777,7 +3805,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 135
+  "rank": 136
  },
  {
   "job_id": "3bbe5262-8359-48a6-b9f7-cefe90d2f731",
@@ -3805,7 +3833,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 136
+  "rank": 137
  },
  {
   "job_id": "dfc91e3b-89aa-44fa-a9f8-4d50006b0b7a",
@@ -3833,7 +3861,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 137
+  "rank": 138
  },
  {
   "job_id": "61409de3-030b-4e15-9e3c-aeefb3d05688",
@@ -3861,7 +3889,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 138
+  "rank": 139
  },
  {
   "job_id": "53afce93-ac9d-4e1c-8c9d-d8620133f30b",
@@ -3889,7 +3917,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 139
+  "rank": 140
  },
  {
   "job_id": "45c5b095-c8b8-43e4-ba69-417ca600b4e4",
@@ -3917,7 +3945,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 140
+  "rank": 141
  },
  {
   "job_id": "9c377b22-7d61-48a8-b731-572dc70995e3",
@@ -3945,7 +3973,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 141
+  "rank": 142
  },
  {
   "job_id": "72d8723a-b385-4963-ab3d-48d239b37da0",
@@ -3973,7 +4001,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 142
+  "rank": 143
  },
  {
   "job_id": "89c37af4-a353-45a2-95b7-34845d6a0b7f",
@@ -4001,7 +4029,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 143
+  "rank": 144
  },
  {
   "job_id": "2e64fb68-db35-43f7-a3a7-4b349d6235ae",
@@ -4029,7 +4057,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 144
+  "rank": 145
  },
  {
   "job_id": "55b9ab6d-a892-48aa-85f3-01fab5cfb02a",
@@ -4057,7 +4085,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 145
+  "rank": 146
  },
  {
   "job_id": "1ddc2734-9972-43e5-b4c0-cf9c7d2459dd",
@@ -4085,7 +4113,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 146
+  "rank": 147
  },
  {
   "job_id": "be430ac1-0828-4ff5-8da7-8dc03c25260b",
@@ -4113,7 +4141,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 147
+  "rank": 148
  },
  {
   "job_id": "e766e6d4-ef66-44ef-9fad-145a89c6334c",
@@ -4141,7 +4169,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 148
+  "rank": 149
  },
  {
   "job_id": "857a546e-c252-44d9-99ae-b080baeb9fa9",
@@ -4169,7 +4197,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 149
+  "rank": 150
  },
  {
   "job_id": "ad90e96c-3b3c-44fa-a872-fc15aab46ea9",
@@ -4197,7 +4225,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 150
+  "rank": 151
  },
  {
   "job_id": "e45fa276-479b-4ae8-91bb-4904af0e3593",
@@ -4225,7 +4253,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 151
+  "rank": 152
  },
  {
   "job_id": "180dbcf3-5070-472b-ac97-b3cbc2a1fbb8",
@@ -4253,7 +4281,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 152
+  "rank": 153
  },
  {
   "job_id": "47274181-f9a8-4f4d-aef4-c3bb7e8e9bca",
@@ -4281,7 +4309,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 153
+  "rank": 154
  },
  {
   "job_id": "9fb97802-d95f-429d-8400-18ad9704d23b",
@@ -4309,7 +4337,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 154
+  "rank": 155
  },
  {
   "job_id": "270cd36e-55f1-4434-8f73-f6bc156ea3d2",
@@ -4337,7 +4365,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 155
+  "rank": 156
  },
  {
   "job_id": "48d19395-6be2-43da-9458-453e89d656af",
@@ -4365,7 +4393,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 156
+  "rank": 157
  },
  {
   "job_id": "6552e2d0-6ec8-4180-82e0-26d32b66f231",
@@ -4393,7 +4421,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 157
+  "rank": 158
  },
  {
   "job_id": "61c968bb-1e63-4eec-9701-a49ac6ca1e0b",
@@ -4421,7 +4449,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 158
+  "rank": 159
  },
  {
   "job_id": "71176c3c-67d5-4b97-9c0c-7011710ec589",
@@ -4449,7 +4477,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 159
+  "rank": 160
  },
  {
   "job_id": "0756871f-c7f8-4288-bea7-ea788d64e498",
@@ -4477,7 +4505,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 160
+  "rank": 161
  },
  {
   "job_id": "d6ee60c9-6896-411a-88d7-0909fa47f8f0",
@@ -4505,7 +4533,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 161
+  "rank": 162
  },
  {
   "job_id": "25cb2659-2c0e-49f6-93b9-6eb3014ef082",
@@ -4533,7 +4561,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 162
+  "rank": 163
  },
  {
   "job_id": "ae20c111-d665-4636-b1a5-519558412dae",
@@ -4561,7 +4589,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 163
+  "rank": 164
  },
  {
   "job_id": "8bfbc5b4-1599-4738-b789-dea76e89c8ac",
@@ -4589,7 +4617,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 164
+  "rank": 165
  },
  {
   "job_id": "3f49de9c-7071-4261-a171-be13a108e63c",
@@ -4617,7 +4645,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 165
+  "rank": 166
  },
  {
   "job_id": "8953b904-31d6-4462-a11d-c7343a1c18f4",
@@ -4641,34 +4669,6 @@
   "one_liner": "QCS Staffing Compliance, Paris",
   "risk": "staffing agency posting, actual employer unclear",
   "main_risk": "staffing agency posting, actual employer unclear",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "applied": true,
-  "rank": 166
- },
- {
-  "job_id": "09460f6e-7488-433c-bdcf-9c9ed83e6ac4",
-  "fingerprint": "88958ee2fb62b443c9571c97d825f431dfd0c25289d824e22c4b62127e9e7beb",
-  "source": "efinancialcareers",
-  "company": "Checkout.com",
-  "company_clean": "Checkout.com",
-  "title": "Senior Analyst, Financial Crime Compliance",
-  "location": "Paris, France",
-  "url": "https://www.efinancialcareers.com/jobs-France-Paris-Senior_Analyst_Financial_Crime_Compliance.id23771981",
-  "created_at": "2026-03-14T23:00:17+00:00",
-  "lane": "Too Senior",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Adjacent",
-  "world_tier": "Real Adjacent World",
-  "function_family": "Compliance / Risk",
-  "type": "Full-Time",
-  "score": 19,
-  "power_score": 19.0,
-  "one_liner": "Checkout.com Compliance, Paris",
-  "risk": "Senior title -- likely expects 3-5yr experience",
-  "main_risk": "Senior title -- likely expects 3-5yr experience",
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
@@ -5544,6 +5544,34 @@
   "rank": 25
  },
  {
+  "job_id": "68b455b8-6789-4353-ac5a-b85ec3c05781",
+  "fingerprint": "5eb9796608231a65579de834824d98c5274c586360c9df20e0e682c22c61db71",
+  "source": "linkedin",
+  "company": "ERES - Groupe Chanel",
+  "company_clean": "ERES - Groupe Chanel",
+  "title": "Assistant chef de projet CRM & Communication Client (F/H) - Alternance",
+  "location": "Paris, Île-de-France, France",
+  "url": "https://fr.linkedin.com/jobs/view/assistant-chef-de-projet-crm-communication-client-f-h-alternance-at-eres-groupe-chanel-4381840628?position=8&pageNum=0&refId=LwzFuYBZakG1bqBZu8Vv7A%3D%3D&trackingId=%2BURDoe5fRANy2UVQ%2FgHkLA%3D%3D",
+  "created_at": "2026-03-21T04:40:30+00:00",
+  "lane": "Strategic Internship / Traineeship",
+  "city": "Paris",
+  "city_lane": "Paris",
+  "world_simple": "Top World",
+  "world_tier": "Top Luxury / Culture World",
+  "function_family": "Communications Support",
+  "type": "Alternance",
+  "score": 73,
+  "power_score": 73.0,
+  "one_liner": "ERES - Groupe Chanel chef de projet, top maison, alternance",
+  "risk": "Alternance -- requires French school enrollment",
+  "main_risk": "Alternance -- requires French school enrollment",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": true,
+  "applied": false,
+  "rank": 26
+ },
+ {
   "job_id": "3e0405f6-9ca7-41a2-9b6e-fa8cc09a48f5",
   "fingerprint": "ce72d2e3c2648081d3f1e5c3748b39d7379c2453bc056f27e09181bf8370422b",
   "source": "chanel",
@@ -5569,7 +5597,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 26
+  "rank": 27
  },
  {
   "job_id": "2f572968-a02a-4c26-9437-2eee9a4f748e",
@@ -5597,7 +5625,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 27
+  "rank": 28
  },
  {
   "job_id": "e99a7f7d-cab8-4091-973a-ef0080451c8f",
@@ -5625,7 +5653,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 28
+  "rank": 29
  },
  {
   "job_id": "db7b390a-bc3a-4006-9fe2-1411ebdbb28e",
@@ -5653,7 +5681,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 29
+  "rank": 30
  },
  {
   "job_id": "2f3cb18d-a55a-456c-b6dc-e227bbf82d07",
@@ -5681,7 +5709,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 30
+  "rank": 31
  },
  {
   "job_id": "fd8af544-d95f-4766-92e6-cf09a66f355b",
@@ -5709,7 +5737,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 31
+  "rank": 32
  },
  {
   "job_id": "1c1aa622-059b-45bf-b21d-356e7fdda8a2",
@@ -5737,7 +5765,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 32
+  "rank": 33
  },
  {
   "job_id": "7bd48876-7641-43f4-bcc8-b44b3aaa9cbc",
@@ -5765,7 +5793,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 33
+  "rank": 34
  },
  {
   "job_id": "86b15702-4c08-4444-b74f-102e088723d0",
@@ -5793,7 +5821,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 34
+  "rank": 35
  },
  {
   "job_id": "5c1e71e2-12f6-4663-ada2-c6ef5403f602",
@@ -5821,7 +5849,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 35
+  "rank": 36
  },
  {
   "job_id": "2ae6b19d-6977-4a6f-bd2f-067259d0e09a",
@@ -5849,7 +5877,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 36
+  "rank": 37
  },
  {
   "job_id": "eeaf8711-b2aa-4d00-be94-3ec89701d910",
@@ -5877,7 +5905,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 37
+  "rank": 38
  },
  {
   "job_id": "ce39cbcd-b0e0-41ec-9b23-754aabd2229e",
@@ -5905,7 +5933,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 38
+  "rank": 39
  },
  {
   "job_id": "e9e0e84b-f076-4893-879c-3c2b6e8d7b99",
@@ -5933,7 +5961,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 39
+  "rank": 40
  },
  {
   "job_id": "ee698ba0-306d-4d99-8f82-a9ca07a0db9d",
@@ -5961,7 +5989,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 40
+  "rank": 41
  },
  {
   "job_id": "c809e547-3c92-4e53-a310-8d61c058ddbd",
@@ -5989,7 +6017,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 41
+  "rank": 42
  },
  {
   "job_id": "6a1e5977-3dfd-4333-8faf-37764c486166",
@@ -6017,7 +6045,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 42
+  "rank": 43
  },
  {
   "job_id": "ae8bb3be-f42e-49a0-a920-660f423a4cdd",
@@ -6045,7 +6073,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 43
+  "rank": 44
  },
  {
   "job_id": "b9edbb39-4d6d-45ce-8363-077314f28783",
@@ -6073,7 +6101,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 44
+  "rank": 45
  },
  {
   "job_id": "7e573048-a3f6-4092-9c2f-c0762a24e7e7",
@@ -6101,7 +6129,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 45
+  "rank": 46
  },
  {
   "job_id": "86ddc730-11b4-4f1f-8421-aa776cb29407",
@@ -6129,7 +6157,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 46
+  "rank": 47
  },
  {
   "job_id": "aef07605-7860-45e2-99c9-8ec9d386d099",
@@ -6157,7 +6185,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 47
+  "rank": 48
  },
  {
   "job_id": "4ef92c93-20d2-4d4c-bcfb-51e48ee33dbf",
@@ -6185,7 +6213,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 48
+  "rank": 49
  },
  {
   "job_id": "39679c77-52d4-46c1-861b-438ea3822eb1",
@@ -6213,7 +6241,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 49
+  "rank": 50
  },
  {
   "job_id": "be4a556d-7583-4f9b-ae90-b7c2e2ea8925",
@@ -6241,7 +6269,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 50
+  "rank": 51
  },
  {
   "job_id": "330a5098-52e2-41a9-9ae6-7b31408fec91",
@@ -6269,7 +6297,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 51
+  "rank": 52
  },
  {
   "job_id": "d4f3f9d5-c384-4806-82ea-ab033ab49c94",
@@ -6297,7 +6325,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 52
+  "rank": 53
  },
  {
   "job_id": "01edc8ac-924d-4788-b2cc-485ae798cc8e",
@@ -6325,7 +6353,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 53
+  "rank": 54
  },
  {
   "job_id": "b9d3dabd-b293-479d-a08e-7a60cf85c0ee",
@@ -6353,7 +6381,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 54
+  "rank": 55
  },
  {
   "job_id": "10905a38-b475-4e0c-9887-024f8343e7fb",
@@ -6381,7 +6409,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 55
+  "rank": 56
  },
  {
   "job_id": "14b9e22a-fa19-45d2-aef6-3c2449e2c477",
@@ -6409,7 +6437,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 56
+  "rank": 57
  },
  {
   "job_id": "87600d07-aef9-4db6-8a3f-70b6178f42d7",
@@ -6437,7 +6465,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 57
+  "rank": 58
  },
  {
   "job_id": "c661feed-acb5-4a2d-81da-d9dfa62aca09",
@@ -6465,7 +6493,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 58
+  "rank": 59
  },
  {
   "job_id": "21cdcfb0-c440-4485-9ac4-bfecb8911cff",
@@ -6493,7 +6521,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 59
+  "rank": 60
  },
  {
   "job_id": "a53467bb-a2d0-4326-bc9b-f081f4660e08",
@@ -6521,7 +6549,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 60
+  "rank": 61
  },
  {
   "job_id": "77cd0431-ea37-4cdc-be86-7fb3f10c558d",
@@ -6549,7 +6577,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 61
+  "rank": 62
  },
  {
   "job_id": "11a89158-20c6-449d-a4f9-39041f76995f",
@@ -6577,7 +6605,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 62
+  "rank": 63
  },
  {
   "job_id": "4f672884-47b7-45a2-acfc-1ce10375f607",
@@ -6605,7 +6633,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 63
+  "rank": 64
  },
  {
   "job_id": "41fb7fb5-a63d-4225-a3ca-da08d1e451e6",
@@ -6633,7 +6661,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 64
+  "rank": 65
  },
  {
   "job_id": "b8afea87-9f0b-4f30-8130-e8c3ddefb93e",
@@ -6661,7 +6689,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 65
+  "rank": 66
  },
  {
   "job_id": "4212cf1a-5e3f-4553-9d02-974b2f71d2b6",
@@ -6689,7 +6717,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 66
+  "rank": 67
  },
  {
   "job_id": "cae2e86b-70f2-4361-83f6-2cdb5fc4dcad",
@@ -6717,7 +6745,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 67
+  "rank": 68
  },
  {
   "job_id": "a0c3592b-0925-433a-9f1b-00b20e518156",
@@ -6745,7 +6773,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 68
+  "rank": 69
  },
  {
   "job_id": "943f4b97-ea1b-4972-9629-c561f580a9ce",
@@ -6773,7 +6801,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 69
+  "rank": 70
  },
  {
   "job_id": "2e5f4f45-c785-4dca-b9dc-06ea1bbd50c3",
@@ -6801,7 +6829,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 70
+  "rank": 71
  },
  {
   "job_id": "a246609e-17a6-4f45-a18d-4aa5fe4914ac",
@@ -6829,7 +6857,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 71
+  "rank": 72
  },
  {
   "job_id": "1a68eb5b-e991-4704-be77-7b3f50e9b263",
@@ -6857,7 +6885,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 72
+  "rank": 73
  },
  {
   "job_id": "3a452c08-0805-4730-b870-e5039ddf24bb",
@@ -6885,7 +6913,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 73
+  "rank": 74
  },
  {
   "job_id": "66332929-a67d-471e-87ff-cc479392acaa",
@@ -6913,7 +6941,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 74
+  "rank": 75
  },
  {
   "job_id": "fc889249-b101-4779-91cb-b4998ddc5b47",
@@ -6941,7 +6969,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 75
+  "rank": 76
  },
  {
   "job_id": "9e9c8f2e-71e4-4bd0-a7e3-09d20029d921",
@@ -6969,7 +6997,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": true,
-  "rank": 76
+  "rank": 77
  },
  {
   "job_id": "fa44bd5c-632e-49da-921e-b3f3ea26b6ed",
@@ -6997,7 +7025,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": true,
-  "rank": 77
+  "rank": 78
  },
  {
   "job_id": "fa1c8646-1f7f-4159-852e-c5a6879298b7",
@@ -7025,7 +7053,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": true,
-  "rank": 78
+  "rank": 79
  },
  {
   "job_id": "a0f192ad-89f2-435d-9a14-9482d51aa84c",
@@ -7053,7 +7081,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": true,
-  "rank": 79
+  "rank": 80
  },
  {
   "job_id": "99525b5f-9558-4a7a-9f71-801661f4ae6f",
@@ -7075,34 +7103,6 @@
   "score": 73,
   "power_score": 73.0,
   "one_liner": "CHANEL chef de projet, top maison, alternance",
-  "risk": "Alternance -- requires French school enrollment",
-  "main_risk": "Alternance -- requires French school enrollment",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": true,
-  "applied": true,
-  "rank": 80
- },
- {
-  "job_id": "68b455b8-6789-4353-ac5a-b85ec3c05781",
-  "fingerprint": "5eb9796608231a65579de834824d98c5274c586360c9df20e0e682c22c61db71",
-  "source": "linkedin",
-  "company": "ERES - Groupe Chanel",
-  "company_clean": "ERES - Groupe Chanel",
-  "title": "Assistant chef de projet CRM & Communication Client (F/H) - Alternance",
-  "location": "Paris, Île-de-France, France",
-  "url": "https://fr.linkedin.com/jobs/view/assistant-chef-de-projet-crm-communication-client-f-h-alternance-at-eres-groupe-chanel-4381840628?position=8&pageNum=0&refId=LwzFuYBZakG1bqBZu8Vv7A%3D%3D&trackingId=%2BURDoe5fRANy2UVQ%2FgHkLA%3D%3D",
-  "created_at": "2026-03-21T04:40:30+00:00",
-  "lane": "Strategic Internship / Traineeship",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "Communications Support",
-  "type": "Alternance",
-  "score": 73,
-  "power_score": 73.0,
-  "one_liner": "ERES - Groupe Chanel chef de projet, top maison, alternance",
   "risk": "Alternance -- requires French school enrollment",
   "main_risk": "Alternance -- requires French school enrollment",
   "compensation": "",

@@ -929,28 +929,52 @@ def _load_applied():
         return list(_csv.DictReader(f))
 
 
+def _norm_company_for_match(c: str) -> str:
+    """Normalize company name for matching: lowercase, strip punctuation and suffixes."""
+    out = re.sub(r"[^a-z0-9 ]", " ", (c or "").lower())
+    out = COMPANY_SUFFIX.sub("", out).strip()
+    # Strip very common generic words that cause false matches
+    for w in ("the", "de", "et", "la", "le", "du", "des"):
+        out = re.sub(r"\b" + w + r"\b", "", out)
+    return re.sub(r"\s+", " ", out).strip()
+
+
+def _company_match(a: str, b: str) -> bool:
+    """Containment-based company match: if either normalized name contains the other.
+    Requires the shorter name to be at least 60% of the longer name's length
+    to prevent 'Man Group' matching 'Neuberger Berman Group'."""
+    na = _norm_company_for_match(a)
+    nb = _norm_company_for_match(b)
+    if len(na) < 3 or len(nb) < 3:
+        return False
+    shorter, longer = (na, nb) if len(na) <= len(nb) else (nb, na)
+    if shorter not in longer:
+        return False
+    # Prevent short substrings from matching long names
+    if len(shorter) / max(len(longer), 1) < 0.5:
+        return False
+    return True
+
+
 def _match_applied(job_company: str, job_title: str, applied_rows: list) -> bool:
-    jc_words = _meaningful_words(job_company, _GENERIC_COMPANY_WORDS)
     jt_words = set(re.sub(r"[^a-z0-9 ]", " ", (job_title or "").lower()).split())
     jt_words = {w for w in jt_words if len(w) >= 3 and w not in _GENERIC_TITLE_WORDS}
 
-    if not jc_words or not jt_words:
+    if not jt_words:
         return False
 
     for ar in applied_rows:
         ac = ar.get("company", "") or ar.get("company_raw", "")
         at = ar.get("title", "") or ar.get("title_raw", "")
-        ac_words = _meaningful_words(ac, _GENERIC_COMPANY_WORDS)
-        at_words = set(re.sub(r"[^a-z0-9 ]", " ", (at or "").lower()).split())
-        at_words = {w for w in at_words if len(w) >= 3 and w not in _GENERIC_TITLE_WORDS}
 
-        # Company: must share at least one meaningful word (4+ chars)
-        co_match = bool(jc_words & ac_words)
-        if not co_match:
+        # Company: containment match
+        if not _company_match(job_company, ac):
             continue
 
         # Title: 50%+ word overlap on shorter set
-        if not jt_words or not at_words:
+        at_words = set(re.sub(r"[^a-z0-9 ]", " ", (at or "").lower()).split())
+        at_words = {w for w in at_words if len(w) >= 3 and w not in _GENERIC_TITLE_WORDS}
+        if not at_words:
             continue
         overlap = jt_words & at_words
         shorter = min(len(jt_words), len(at_words))
