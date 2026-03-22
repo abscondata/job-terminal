@@ -1,10 +1,10 @@
 {
-  "export_date": "2026-03-22T12:54:50+00:00",
-  "total_jobs": 842,
+  "export_date": "2026-03-22T15:14:07+00:00",
+  "total_jobs": 388,
   "comp_floor": 35,
   "fash_floor": 45,
-  "compliance_visible": 319,
-  "fashion_visible": 101,
-  "compliance_total": 694,
-  "fashion_total": 148
+  "compliance_visible": 164,
+  "fashion_visible": 80,
+  "compliance_total": 304,
+  "fashion_total": 84
 }

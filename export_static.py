@@ -535,7 +535,12 @@ _PARIS_BRAND_T2 = {
 }
 _PARIS_BRAND_T3 = {
     "vestiaire collective", "christie", "christies", "sotheby", "sothebys",
-    "centre pompidou", "fondation louis vuitton", "palais de tokyo", "musee", "galerie",
+    "centre pompidou", "fondation louis vuitton", "fondation cartier",
+    "palais de tokyo", "musee d'orsay", "petit palais",
+    "maison europeenne de la photographie", "jeu de paume",
+    "opera gallery", "pm gallery", "la galerie du 19m", "galerie du 19m",
+    "pace gallery", "gagosian", "perrotin",
+    "musee", "galerie",
 }
 _PARIS_FUNC_T1 = re.compile(r"\b(?:chef\s+de\s+projet|project\s+(?:coordinator|assistant)|production\s+(?:assistant|coordinator)|content\s+(?:coordinator|production)|coordination)\b", re.I)
 _PARIS_FUNC_T2 = re.compile(r"\b(?:communication(?:s)?\s+(?:assistant|coordinator)|event(?:s)?\s+(?:coordinator|assistant)|visual\s+merchandising|vm\s+coordinator|studio\s+(?:coordinator|assistant)|gallery\s+(?:coordinator|assistant)|auction\s+(?:operations|coordinator)|creative\s+(?:operations|coordinator))\b", re.I)
@@ -554,10 +559,12 @@ def _paris_brand(company, world_tier):
         if _words_match(b, norm): return 32, "strong luxury brand", 2
     for b in _PARIS_BRAND_T3:
         if _words_match(b, norm): return 22, "respected institution", 3
+    # Only trust world_tier if explicitly tagged Luxury/Culture by the engine
     wt = (world_tier or "").lower()
-    if "luxury" in wt or "culture" in wt: return 18, "luxury-adjacent", 4
-    if "adjacent" in wt or "premium" in wt: return 12, "premium brand", 4
-    return 5, "", 5
+    if "top luxury" in wt or "culture" in wt:
+        return 18, "luxury-adjacent", 4
+    # NOT RECOGNIZED — return negative tier to signal exclusion
+    return -1, "", 99
 
 
 def _paris_role(title):
@@ -588,8 +595,9 @@ def paris_score(title, company, desc, location, world_tier, comp_text):
     elif _CONTRACT_RE.search(title): adj += 5
     elif "freelance" in title_l: adj -= 5
 
-    # Alternance school enrollment flag
+    # Alternance school enrollment flag + score penalty
     if _ALTERNANCE_RE.search(title):
+        adj -= 20
         risks.append("Alternance -- requires French school enrollment")
 
     if _PARIS_COMPLIANCE_FUNC.search(title) and brand_pts >= 32:
@@ -679,6 +687,9 @@ def main():
         if tab == "compliance":
             if _LEGAL_RE.search(title) and "compliance" not in title.lower(): continue
             if _SALES_RE.search(title): continue
+            # Fix 1: Only show compliance roles in NYC, Miami, or Paris
+            if not (_NYC_RE.search(location) or _MIAMI_RE.search(location) or _PARIS_RE.search(location)):
+                continue
 
         comp_display = extract_comp(title, description, comp_raw)
 
@@ -687,6 +698,9 @@ def main():
             sort_secondary = (c_tier, t_fit)
         else:
             score, reason, risk, b_tier, r_tier = paris_score(title, company, description, location, world_tier, comp_raw)
+            # Fix 2: If brand is not recognized (tier 99), skip this role
+            if b_tier == 99:
+                continue
             sort_secondary = (b_tier, r_tier)
 
         # Stale detection
@@ -713,6 +727,7 @@ def main():
             "one_liner": reason, "risk": risk, "main_risk": risk,
             "compensation": comp_display,
             "tab": tab,
+            "is_alternance": bool(_ALTERNANCE_RE.search(title)),
             "_sort2": sort_secondary,
             "_created": row["created_at_utc"] or "",
         })

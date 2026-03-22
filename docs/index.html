@@ -167,6 +167,7 @@ button{font-family:inherit}
   <div class="sep"></div>
   <span class="flabel">Type</span>
   <span id="typeChips"></span>
+  <span id="altToggle" style="display:none"></span>
   <div class="sep"></div>
   <input class="search" id="fSearch" placeholder="Search..." />
 </div>
@@ -184,6 +185,7 @@ var LS_S="jobengine_saved_v2";
 
 var CITIES_ON=new Set();
 var TYPES_ON=new Set();
+var HIDE_ALT=true; // hide alternance by default in fashion tab
 
 var COMP_KW=["compliance","regulatory","aml","kyc","risk","securities","broker-dealer","broker dealer","licensing","registration","account opening","onboarding","finra","financial crimes","bsa","anti-money","sanctions","trade surveillance"];
 var COMP_SRC={"nyc_compliance":1};
@@ -272,12 +274,32 @@ function refreshChips(pool){
   var cities=new Set(),types=new Set();
   pool.forEach(function(j){cities.add(cityLabel(j));types.add(typeLabel(j))});
   buildChips("cityChips",Array.from(cities).sort(),CITIES_ON);
-  buildChips("typeChips",Array.from(types).sort(),TYPES_ON);
+  // For fashion tab: build type chips without Alternance (it has its own toggle)
+  var typeArr=Array.from(types).sort();
+  if(LANE==="fashion"){
+    typeArr=typeArr.filter(function(t){return t!=="Alternance"});
+  }
+  buildChips("typeChips",typeArr,TYPES_ON);
+  // Alternance toggle for fashion tab
+  var altWrap=document.getElementById("altToggle");
+  if(LANE==="fashion"){
+    var hasAlt=pool.some(function(j){return j.is_alternance});
+    if(hasAlt){
+      var altCount=pool.filter(function(j){return j.is_alternance}).length;
+      altWrap.innerHTML='<span class="chip'+(HIDE_ALT?"":" on")+'" id="altChip">Alternance ('+altCount+')</span>';
+      document.getElementById("altChip").addEventListener("click",function(){
+        HIDE_ALT=!HIDE_ALT;render();
+      });
+      altWrap.style.display="inline";
+    }else{altWrap.style.display="none";altWrap.innerHTML="";}
+  }else{altWrap.style.display="none";altWrap.innerHTML="";}
 }
 
 function passFilter(j){
   if(CITIES_ON.size>0&&!CITIES_ON.has(cityLabel(j)))return false;
   if(TYPES_ON.size>0&&!TYPES_ON.has(typeLabel(j)))return false;
+  // Hide alternance in fashion tab unless toggled on
+  if(LANE==="fashion"&&HIDE_ALT&&j.is_alternance)return false;
   if(SEARCH){
     var hay=((j.company_clean||j.company||"")+" "+(j.title||"")+" "+(j.lane||"")+" "+(j.city||"")+" "+(j.function_family||"")).toLowerCase();
     if(hay.indexOf(SEARCH)<0)return false;
@@ -362,7 +384,7 @@ function render(){
   var compAll=JOBS.filter(isComp);
   var fashAll=JOBS.filter(function(j){return!isComp(j)});
   var compVisible=compAll.filter(function(j){return j.score>=COMP_FLOOR});
-  var fashVisible=fashAll.filter(function(j){return j.score>=FASH_FLOOR});
+  var fashVisible=fashAll.filter(function(j){return j.score>=FASH_FLOOR&&!(HIDE_ALT&&j.is_alternance)});
   document.getElementById("cntComp").textContent=compVisible.length;
   document.getElementById("cntFash").textContent=fashVisible.length;
 
@@ -419,7 +441,7 @@ function dismiss(fp){DISM[fp]=1;render()}
 // --- Tab switching ---
 document.querySelectorAll(".lane-tab").forEach(function(t){t.addEventListener("click",function(){
   document.querySelectorAll(".lane-tab").forEach(function(x){x.classList.remove("on")});t.classList.add("on");
-  LANE=t.dataset.lane;EXP=null;SHOW_ALL=false;CITIES_ON.clear();TYPES_ON.clear();render();
+  LANE=t.dataset.lane;EXP=null;SHOW_ALL=false;HIDE_ALT=true;CITIES_ON.clear();TYPES_ON.clear();render();
 })});
 document.querySelectorAll(".sub-tab").forEach(function(t){t.addEventListener("click",function(){
   document.querySelectorAll(".sub-tab").forEach(function(x){x.classList.remove("on")});t.classList.add("on");
