@@ -536,8 +536,8 @@ _BB_NAMES = {"goldman", "morgan stanley", "jpmorgan", "citi", "barclays", "ubs",
 
 
 def _nyc_title_fit(title):
+    """Score title fit 0-35. Does NOT apply seniority penalties — those go in disqualifier layer."""
     if _NYC_TITLE_WEAK.search(title): return 5, "weak fit"
-    if _SENIOR_RE.search(title): return 10, "senior"
     if _BILINGUAL_RE.search(title): return 10, "language"
     if _NYC_TITLE_T1.search(title): return 35, ""
     if _NYC_TITLE_T2.search(title): return 30, ""
@@ -566,47 +566,81 @@ def _nyc_company(company):
     return 8, "", 4
 
 
+_EXEC_RE = re.compile(r"\b(?:SVP|MD\b|managing\s+director|chief|head\s+of|principal)\b", re.I)
+_VP_RE = re.compile(r"\b(?:VP|vice\s+president|AVP)\b", re.I)
+_SUPERVISOR_RE = re.compile(r"\b(?:supervisor|team\s+lead(?:er)?)\b", re.I)
+_COUNSEL_RE = re.compile(r"\b(?:counsel|attorney|lawyer|juriste|avocat)\b", re.I)
+_ACAMS_REQ_RE = re.compile(r"\bACAMS\s+(?:required|certification\s+required)\b", re.I)
+_AUDIT_EXAM_RE = re.compile(r"\b(?:audit(?:or|eur)?|exam(?:iner|ination)|internal\s+audit)\b", re.I)
+_BD_RE = re.compile(r"\b(?:broker.dealer|BD\s+compliance|broker\s+dealer)\b", re.I)
+_ASSOCIATE_NEARBY_RE = re.compile(r"\bassociate\b", re.I)
+
+
 def nyc_score(title, company, desc, location, comp_text):
     title_pts, title_flag = _nyc_title_fit(title)
     company_pts, company_label, company_tier = _nyc_company(company)
     hay = f"{title} {desc}"
     adj = 0
     risks = []
+    tl_lower = title.lower()
 
+    # === DISQUALIFIER PENALTIES (granular seniority) ===
+    if _EXEC_RE.search(title):
+        adj -= 30; risks.append("Executive level -- not realistic")
+    elif _VP_RE.search(title) and not _ASSOCIATE_NEARBY_RE.search(title):
+        adj -= 20; risks.append("VP+ title -- expects significant experience")
+    elif _SENIOR_RE.search(title):
+        adj -= 15; risks.append("Senior title -- likely expects 3-5yr experience")
+    elif _SUPERVISOR_RE.search(title):
+        adj -= 15; risks.append("Management role -- expects team leadership experience")
+
+    if _COUNSEL_RE.search(title):
+        adj -= 30; risks.append("Requires law degree")
+    if _ACAMS_REQ_RE.search(hay):
+        adj -= 10; risks.append("ACAMS certification required -- user does not have it")
+
+    # === EXISTING PENALTIES ===
     if _HIGH_EXP_RE.search(hay):
         adj -= 20; risks.append("5yr+ experience likely required")
-    if _SENIOR_RE.search(title):
-        adj -= 15; risks.append("senior title, likely expects 3-5yr experience")
-    if _LEGAL_RE.search(title):
-        adj -= 25; risks.append("legal/counsel role, not compliance")
-    if _SALES_RE.search(hay) and "compliance" not in title.lower():
+    if _SALES_RE.search(hay) and "compliance" not in tl_lower:
         adj -= 25; risks.append("commission/sales-based")
     if _INSURANCE_RE.search(f"{company} {title}"):
         adj -= 15; risks.append("insurance company, not finance")
     if _BILINGUAL_RE.search(f"{title} {desc[:500]}"):
         m = _BILINGUAL_RE.search(f"{title} {desc[:500]}")
         adj -= 25; risks.append(f"requires {m.group(0).lower()}")
-    if _SERIES7_RE.search(hay): adj += 10
-    if _ENTRY_RE.search(title): adj += 5
-    if _HYBRID_RE.search(f"{location} {title}"): adj += 3
 
+    # === SOFT BOOSTS for realistic-level titles ===
+    if _ENTRY_RE.search(title):
+        adj += 10  # boosted from +5
+    elif ("associate" in tl_lower or "analyst" in tl_lower) and not _SENIOR_RE.search(title) and not _VP_RE.search(title):
+        adj += 5
+    if _SERIES7_RE.search(hay):
+        adj += 10  # direct credential match
+    if _BD_RE.search(title):
+        adj += 8  # direct experience match
+    if _HYBRID_RE.search(f"{location} {title}"):
+        adj += 3
+
+    # === ROLE TYPE PREFERENCE ===
+    if _AUDIT_EXAM_RE.search(title):
+        adj -= 8; risks.append("Audit/examination role -- user wants to move away from this function")
+    # Preferred categories get a small boost
+    if any(kw in tl_lower for kw in ["compliance associate", "compliance analyst", "aml analyst",
+                                       "kyc analyst", "regulatory ops", "onboarding", "securities ops"]):
+        adj += 3
+
+    # === COMP CHECK ===
     comp = comp_text or extract_comp(title, desc, "")
     cv = _comp_val(comp)
     if cv >= 100000: adj += 5
     elif cv > 0 and cv < 60000: adj -= 10; risks.append(f"low salary (${cv // 1000}K)")
 
+    # === COMPANY FLAGS (no score penalty for staffing) ===
     if company_label == "staffing agency":
-        # No score penalty — staffing is the highest-callback channel for entry-level
         risks.append("staffing agency posting, actual employer unclear")
     elif company_label == "insurance" and "insurance company, not finance" not in risks:
         risks.append("insurance company, not finance")
-
-    # Role specificity tiebreaker: compliance associate/analyst get +3 over generic "compliance officer" etc
-    tl_lower = title.lower()
-    if "compliance associate" in tl_lower or "compliance analyst" in tl_lower:
-        adj += 3
-    elif "aml analyst" in tl_lower or "kyc analyst" in tl_lower:
-        adj += 2
 
     raw = title_pts + company_pts + adj
     score = max(0, min(100, round(raw * 100 / 70)))
