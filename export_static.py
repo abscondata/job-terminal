@@ -93,6 +93,8 @@ _NON_COMPLIANCE_TITLE_RE = re.compile(
     r"|finance\s+(?:&|and)\s+strategy(?!\s+compliance)"
     r"|business\s+controller|tax\s+(?:information\s+)?reporting"
     r"|vendor\s+risk\s+management|procurement"
+    r"|model\s+risk\s+program"
+    r"|ogc\s+analyst|lobbying"
     r"|(?:ecm|dcm)\s+analyst)\b", re.I,
 )
 
@@ -103,7 +105,8 @@ _NON_FINANCIAL_COMPANY_RE = re.compile(
     r"|ritz.carlton\s+yacht|marriott|hilton|hyatt"
     r"|amazon\s+web\s+services|aws\b|google\b"
     r"|walmart|target\b|costco|home\s+depot"
-    r"|interstate\s+waste)\b", re.I,
+    r"|interstate\s+waste"
+    r"|eramet|latham\s+.?\s*watkins|topstep)\b", re.I,
 )
 
 # Expanded staffing agency list for scoring penalty

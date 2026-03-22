@@ -1701,60 +1701,6 @@
   "rank": 63
  },
  {
-  "job_id": "b33f92a8-05e7-4c2a-b13e-d0e4eae5adc0",
-  "fingerprint": "66a3cc3c840b79d3256c0f2afa801fae21d664a2c82557d3fe9ec27b4feeb408",
-  "source": "efinancialcareers",
-  "company": "Topstep",
-  "company_clean": "Topstep",
-  "title": "Risk Analyst-Day Shift",
-  "location": "New York, United States",
-  "url": "https://www.efinancialcareers.com/jobs-United_States-New_York-Risk_Analyst-Day_Shift.id23887176",
-  "created_at": "2026-03-14T23:00:16+00:00",
-  "lane": "Low-Value Slop",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Adjacent",
-  "world_tier": "Real Adjacent World",
-  "function_family": "Compliance / Risk",
-  "type": "Full-Time",
-  "score": 47,
-  "power_score": 47.0,
-  "one_liner": "Topstep risk analyst, on-site NYC",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "rank": 64
- },
- {
-  "job_id": "5e380a3f-ea78-42e7-a29a-5a56693b3902",
-  "fingerprint": "006120cdc7c19a8ac3ef1ee46e82aaaf1a40919a6fed37266e447e4af358fcf6",
-  "source": "efinancialcareers",
-  "company": "Topstep",
-  "company_clean": "Topstep",
-  "title": "Risk Analyst-Evening Shift",
-  "location": "New York, United States",
-  "url": "https://www.efinancialcareers.com/jobs-United_States-New_York-Risk_Analyst-Evening_Shift.id23886819",
-  "created_at": "2026-03-14T23:00:17+00:00",
-  "lane": "Low-Value Slop",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Adjacent",
-  "world_tier": "Real Adjacent World",
-  "function_family": "Compliance / Risk",
-  "type": "Full-Time",
-  "score": 47,
-  "power_score": 47.0,
-  "one_liner": "Topstep risk analyst, on-site NYC",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "rank": 65
- },
- {
   "job_id": "8e1e521a-6f65-4c5c-b331-885048dec976",
   "fingerprint": "9a31a243231b827f71ab99007312214f47f165795ea86aeea4b522b5af69e6de",
   "source": "efinancialcareers",
@@ -1779,7 +1725,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 66
+  "rank": 64
  },
  {
   "job_id": "41626d5c-2ace-49d2-b4bd-c3dba6d786fb",
@@ -1806,7 +1752,7 @@
   "compensation": "$100K-$135K",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 67
+  "rank": 65
  },
  {
   "job_id": "c1758788-222f-4ea2-97e9-d1547bda2f81",
@@ -1833,7 +1779,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 68
+  "rank": 66
  },
  {
   "job_id": "90adb003-0847-420b-9f31-262c8b015c62",
@@ -1860,7 +1806,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 69
+  "rank": 67
  },
  {
   "job_id": "5f7074a3-8b45-4f5a-a0d9-873b9daa0039",
@@ -1887,34 +1833,7 @@
   "compensation": "$75K-$120K",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 70
- },
- {
-  "job_id": "aa31e634-7332-4a77-9de1-03ee81fbd889",
-  "fingerprint": "1cf5a6d4a80d83f747f2cccf4321b1b57570ed087de5b0bf74170954d2df6d72",
-  "source": "efinancialcareers",
-  "company": "JPMorgan Chase & Co.",
-  "company_clean": "JPMorgan Chase",
-  "title": "Risk Management - Model Risk Program Associate",
-  "location": "Hoboken, United States",
-  "url": "https://www.efinancialcareers.com/jobs-United_States-Hoboken-Risk_Management_-_Model_Risk_Program_Associate.id23802471",
-  "created_at": "2026-03-14T23:00:17+00:00",
-  "lane": "Off-Mission",
-  "city": "NYC",
-  "city_lane": "US Other",
-  "world_simple": "Other",
-  "world_tier": "Unknown World",
-  "function_family": "Unclear",
-  "type": "Full-Time",
-  "score": 40,
-  "power_score": 40.0,
-  "one_liner": "JPMorgan Chase risk analyst, bulge bracket, on-site NYC, banking",
-  "risk": "commission/sales-based",
-  "main_risk": "commission/sales-based",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "rank": 71
+  "rank": 68
  },
  {
   "job_id": "65be9f57-7468-4ce4-a567-c8053d389e09",
@@ -1941,7 +1860,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 72
+  "rank": 69
  },
  {
   "job_id": "f2ae494b-99ab-45dd-ab77-0fd9e7a398df",
@@ -1968,7 +1887,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 73
+  "rank": 70
  },
  {
   "job_id": "48d19395-6be2-43da-9458-453e89d656af",
@@ -1995,7 +1914,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 74
+  "rank": 71
  },
  {
   "job_id": "3cba11b5-a6d4-4e93-ada7-3bbdf48683cf",
@@ -2022,7 +1941,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 75
+  "rank": 72
  },
  {
   "job_id": "6552e2d0-6ec8-4180-82e0-26d32b66f231",
@@ -2049,7 +1968,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 76
+  "rank": 73
  },
  {
   "job_id": "68bbb2a4-c577-42d9-b4ca-3d696d66e8d4",
@@ -2076,7 +1995,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 77
+  "rank": 74
  },
  {
   "job_id": "450f5247-92a3-4720-b427-9a3f6add8426",
@@ -2103,7 +2022,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 78
+  "rank": 75
  },
  {
   "job_id": "e766e6d4-ef66-44ef-9fad-145a89c6334c",
@@ -2130,34 +2049,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 79
- },
- {
-  "job_id": "c79c60dc-dc8a-45ce-b38c-e3dcfc210391",
-  "fingerprint": "d8e7b53b20515867dba607044451688692aa44023bc5542f567a0d18f3a68fa8",
-  "source": "linkedin",
-  "company": "Latham & Watkins",
-  "company_clean": "Latham & Watkins",
-  "title": "OGC Analyst – Compliance, Lobbying",
-  "location": "New York, NY",
-  "url": "https://www.linkedin.com/jobs/view/ogc-analyst-%E2%80%93-compliance-lobbying-at-latham-watkins-4374151375?position=9&pageNum=0&refId=wqRH3P%2FXRUxLSfu8oDofpA%3D%3D&trackingId=XAURd4NYBIJksjpNi828Tw%3D%3D",
-  "created_at": "2026-03-14T22:59:16+00:00",
-  "lane": "Low-Value Slop",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Other",
-  "world_tier": "Corporate World",
-  "function_family": "Compliance / Risk",
-  "type": "Full-Time",
-  "score": 40,
-  "power_score": 40.0,
-  "one_liner": "Latham & Watkins Compliance, on-site NYC",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "rank": 80
+  "rank": 76
  },
  {
   "job_id": "ee93d2fa-b4af-4fdb-9c49-97653b6d80b7",
@@ -2184,7 +2076,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 81
+  "rank": 77
  },
  {
   "job_id": "a612027c-1d73-4d5f-b27a-45c1c8241491",
@@ -2211,7 +2103,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 82
+  "rank": 78
  },
  {
   "job_id": "684a135e-d547-4a06-a464-5abf06ea6ed4",
@@ -2238,7 +2130,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 83
+  "rank": 79
  },
  {
   "job_id": "a926a7d7-51a6-4eec-b067-eb1868df6ac6",
@@ -2265,7 +2157,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 84
+  "rank": 80
  },
  {
   "job_id": "fe709574-baaf-411c-8e0b-32c0438ea2f7",
@@ -2292,7 +2184,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 85
+  "rank": 81
  },
  {
   "job_id": "33b4b679-08bd-43b0-9dab-016efdd516f2",
@@ -2319,7 +2211,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 86
+  "rank": 82
  },
  {
   "job_id": "61c968bb-1e63-4eec-9701-a49ac6ca1e0b",
@@ -2346,7 +2238,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 87
+  "rank": 83
  },
  {
   "job_id": "b6ef7030-4c5b-4e63-b9af-69a4f87dd198",
@@ -2373,7 +2265,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 88
+  "rank": 84
  },
  {
   "job_id": "91cd2bbe-789b-4526-9ce6-8927ce4146a7",
@@ -2400,7 +2292,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 89
+  "rank": 85
  },
  {
   "job_id": "db213ca1-a373-4045-8638-635b5405ac70",
@@ -2427,7 +2319,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 90
+  "rank": 86
  },
  {
   "job_id": "2b038acf-740f-454d-9d23-677cde4167a3",
@@ -2454,7 +2346,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 91
+  "rank": 87
  },
  {
   "job_id": "71176c3c-67d5-4b97-9c0c-7011710ec589",
@@ -2481,7 +2373,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 92
+  "rank": 88
  },
  {
   "job_id": "e45fa276-479b-4ae8-91bb-4904af0e3593",
@@ -2508,7 +2400,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 93
+  "rank": 89
  },
  {
   "job_id": "0756871f-c7f8-4288-bea7-ea788d64e498",
@@ -2535,7 +2427,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 94
+  "rank": 90
  },
  {
   "job_id": "d6ee60c9-6896-411a-88d7-0909fa47f8f0",
@@ -2562,7 +2454,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 95
+  "rank": 91
  },
  {
   "job_id": "25cb2659-2c0e-49f6-93b9-6eb3014ef082",
@@ -2589,34 +2481,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 96
- },
- {
-  "job_id": "3b220f92-c4c7-4971-9edb-eba3524e3561",
-  "fingerprint": "478299a810f80ac351e2a5687071d67f29085d39c2f7930efadccb7c89f8593a",
-  "source": "linkedin",
-  "company": "Eramet",
-  "company_clean": "Eramet",
-  "title": "Corporate Compliance Officer W/M",
-  "location": "Paris, Île-de-France, France",
-  "url": "https://fr.linkedin.com/jobs/view/corporate-compliance-officer-w-m-at-eramet-4376908783?position=3&pageNum=0&refId=HsHSUCAtY%2BnKCEPzp8gzfA%3D%3D&trackingId=CeiTpjCbl%2FlRYDzc6cznDQ%3D%3D",
-  "created_at": "2026-03-14T23:35:14+00:00",
-  "lane": "Low-Value Slop",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Other",
-  "world_tier": "Corporate World",
-  "function_family": "Compliance / Risk",
-  "type": "Full-Time",
-  "score": 40,
-  "power_score": 40.0,
-  "one_liner": "Eramet Compliance, Paris",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "rank": 97
+  "rank": 92
  },
  {
   "job_id": "697bcd1e-f22e-4996-90dc-b2ee5810cb12",
@@ -2643,7 +2508,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 98
+  "rank": 93
  },
  {
   "job_id": "fe26bc3b-fac4-4c66-a966-30bd5464a520",
@@ -2670,7 +2535,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 99
+  "rank": 94
  },
  {
   "job_id": "758f1427-1731-4fc8-8b84-d5274669a3b6",
@@ -2697,7 +2562,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 100
+  "rank": 95
  },
  {
   "job_id": "02ba78ca-9dd9-4b3b-a77a-f14bbb0fcea6",
@@ -2724,7 +2589,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 101
+  "rank": 96
  },
  {
   "job_id": "4bc73afb-c1f7-4909-821d-17c18001aa4c",
@@ -2751,7 +2616,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 102
+  "rank": 97
  },
  {
   "job_id": "b5ee355e-f1ee-47be-a77b-de29bcaa8716",
@@ -2778,7 +2643,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 103
+  "rank": 98
  },
  {
   "job_id": "99cf686a-3cc7-4ebf-b1c6-bcc026d42845",
@@ -2805,7 +2670,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 104
+  "rank": 99
  },
  {
   "job_id": "857a546e-c252-44d9-99ae-b080baeb9fa9",
@@ -2832,7 +2697,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 105
+  "rank": 100
  },
  {
   "job_id": "31b63bc2-4bfd-4345-9380-77161df7afd0",
@@ -2859,7 +2724,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 106
+  "rank": 101
  },
  {
   "job_id": "dff1465c-6229-441f-88bf-eeb1961f1dd6",
@@ -2886,7 +2751,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 107
+  "rank": 102
  },
  {
   "job_id": "3016ab7b-94bc-4291-8e1a-939ee603af2e",
@@ -2913,7 +2778,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 108
+  "rank": 103
  },
  {
   "job_id": "47de44cc-9ec1-4b44-bd38-91b7807051ef",
@@ -2940,7 +2805,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 109
+  "rank": 104
  },
  {
   "job_id": "d8f7aad4-f3da-4b99-a8f6-e5895cf22865",
@@ -2967,7 +2832,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 110
+  "rank": 105
  },
  {
   "job_id": "76527c05-2f9c-4855-845d-aa460f8d1905",
@@ -2994,7 +2859,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 111
+  "rank": 106
  },
  {
   "job_id": "ad90e96c-3b3c-44fa-a872-fc15aab46ea9",
@@ -3021,7 +2886,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 112
+  "rank": 107
  },
  {
   "job_id": "c56556a6-2c49-4893-b23f-2c20b4612f6b",
@@ -3048,7 +2913,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 113
+  "rank": 108
  },
  {
   "job_id": "54e4f6d9-be8e-442e-ba81-137a63401233",
@@ -3075,7 +2940,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 114
+  "rank": 109
  },
  {
   "job_id": "a8cb37fc-da45-470a-93ab-7c2005e7dd87",
@@ -3102,7 +2967,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 115
+  "rank": 110
  },
  {
   "job_id": "bfcb2ea9-bd93-49c4-9a2e-b9e42d45540e",
@@ -3129,7 +2994,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 116
+  "rank": 111
  },
  {
   "job_id": "270cd36e-55f1-4434-8f73-f6bc156ea3d2",
@@ -3156,7 +3021,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 117
+  "rank": 112
  },
  {
   "job_id": "ae20c111-d665-4636-b1a5-519558412dae",
@@ -3183,7 +3048,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 118
+  "rank": 113
  },
  {
   "job_id": "d96cdc98-bdc8-40e2-9e70-0bd9fc159dc3",
@@ -3210,7 +3075,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 119
+  "rank": 114
  },
  {
   "job_id": "f9f4d290-5d71-46b2-93f8-b73b7f3efeda",
@@ -3237,7 +3102,7 @@
   "compensation": "$51K-$62K",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 120
+  "rank": 115
  },
  {
   "job_id": "70ebbf42-74fb-4286-9a85-30490783f28a",
@@ -3264,7 +3129,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 121
+  "rank": 116
  },
  {
   "job_id": "9fb97802-d95f-429d-8400-18ad9704d23b",
@@ -3291,7 +3156,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 122
+  "rank": 117
  },
  {
   "job_id": "0864afc2-5fea-408c-b7ea-d21ab5c2cf53",
@@ -3318,7 +3183,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 123
+  "rank": 118
  },
  {
   "job_id": "3f49de9c-7071-4261-a171-be13a108e63c",
@@ -3345,7 +3210,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 124
+  "rank": 119
  },
  {
   "job_id": "db415300-125e-40d3-8721-f69ea81e3220",
@@ -3372,7 +3237,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 125
+  "rank": 120
  },
  {
   "job_id": "723a70fb-4c51-41c3-afe8-3ca7ba5d8b81",
@@ -3399,7 +3264,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 126
+  "rank": 121
  },
  {
   "job_id": "8953b904-31d6-4462-a11d-c7343a1c18f4",
@@ -3426,7 +3291,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 127
+  "rank": 122
  },
  {
   "job_id": "fa77bb6c-fa6a-4c0a-98f1-f1e59d33b560",
@@ -3453,7 +3318,7 @@
   "compensation": "$51K",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 128
+  "rank": 123
  },
  {
   "job_id": "e6d8391a-5484-43ce-b596-c2f08adb0bb3",
@@ -3480,7 +3345,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 129
+  "rank": 124
  },
  {
   "job_id": "578d91ce-e464-4121-9b2c-299508555968",
@@ -3507,7 +3372,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 130
+  "rank": 125
  },
  {
   "job_id": "7c5656ed-9816-47a8-8245-430dd8c89fd8",
@@ -3534,7 +3399,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 131
+  "rank": 126
  },
  {
   "job_id": "2a9f952f-84fa-4d80-9a1d-b7a1a9c652b9",
@@ -3561,7 +3426,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 132
+  "rank": 127
  },
  {
   "job_id": "4e044e5d-3ada-41aa-a403-db5ec9c03a1b",
@@ -3588,7 +3453,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 133
+  "rank": 128
  },
  {
   "job_id": "0b019478-8289-4346-94db-f04cb7b2a5b7",
@@ -3615,7 +3480,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 134
+  "rank": 129
  },
  {
   "job_id": "5bf072c9-2326-4232-96d0-6ebfc0a21363",
@@ -3642,7 +3507,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 135
+  "rank": 130
  },
  {
   "job_id": "aa67d1c8-90c3-466e-9a6f-1575e71aed6d",
@@ -3669,7 +3534,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 136
+  "rank": 131
  },
  {
   "job_id": "adc479b3-0355-4a03-a036-30bc46b281b6",
@@ -3696,7 +3561,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": true,
-  "rank": 137
+  "rank": 132
  },
  {
   "job_id": "f4ac3d92-e632-445d-963b-c1960e3f7bec",
@@ -3723,7 +3588,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 138
+  "rank": 133
  },
  {
   "job_id": "1cb9f24c-c7d1-4ed0-874e-7cc10f908fa0",
@@ -3750,7 +3615,7 @@
   "compensation": "$85K-$123K",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 139
+  "rank": 134
  },
  {
   "job_id": "fc29224a-461b-4024-b3c4-25d9f348cfb7",
@@ -3777,7 +3642,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 140
+  "rank": 135
  },
  {
   "job_id": "894c1c7c-fb69-41a3-8bc2-0ef664e8c40f",
@@ -3804,7 +3669,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 141
+  "rank": 136
  },
  {
   "job_id": "4b99bec9-6dd3-4eb4-948e-46747d4d4cc5",
@@ -3831,7 +3696,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 142
+  "rank": 137
  },
  {
   "job_id": "3bb0294f-145a-41ac-89e9-28593b9ba1e6",
@@ -3858,7 +3723,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 143
+  "rank": 138
  },
  {
   "job_id": "0dddf2c6-2371-4110-9c5a-e81ac46b9107",
@@ -3885,7 +3750,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 144
+  "rank": 139
  },
  {
   "job_id": "ab51d209-f75f-4181-a7ce-eccddb5c7c7d",
@@ -3912,7 +3777,7 @@
   "compensation": "$85K",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 145
+  "rank": 140
  },
  {
   "job_id": "005a1c24-daa2-428b-bc8b-6f7f3b6e97e3",
@@ -3939,7 +3804,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 146
+  "rank": 141
  },
  {
   "job_id": "426aae65-6e72-4e1e-95b1-bb55dc9346d3",
@@ -3966,7 +3831,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 147
+  "rank": 142
  },
  {
   "job_id": "2a0b0336-b8f3-4839-a7a6-ff1d863db1c0",
@@ -3993,7 +3858,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 148
+  "rank": 143
  },
  {
   "job_id": "180dbcf3-5070-472b-ac97-b3cbc2a1fbb8",
@@ -4020,7 +3885,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 149
+  "rank": 144
  },
  {
   "job_id": "05bb7f4d-694c-4320-9f3c-5e70ba3255a2",
@@ -4047,7 +3912,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 150
+  "rank": 145
  },
  {
   "job_id": "47274181-f9a8-4f4d-aef4-c3bb7e8e9bca",
@@ -4074,7 +3939,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 151
+  "rank": 146
  },
  {
   "job_id": "171efa1c-15f3-4e11-b46c-df1b64281baf",
@@ -4101,7 +3966,7 @@
   "compensation": "$76K-$103K",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 152
+  "rank": 147
  },
  {
   "job_id": "32e0c292-9218-4fbf-b7c2-53ea892b534f",
@@ -4128,7 +3993,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 153
+  "rank": 148
  },
  {
   "job_id": "f5deec55-227d-4a81-b019-6447d5f5c88d",
@@ -4155,7 +4020,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 154
+  "rank": 149
  },
  {
   "job_id": "7a193f46-c149-4492-a2b7-c5f8d718190d",
@@ -4182,7 +4047,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 155
+  "rank": 150
  },
  {
   "job_id": "eccd2ffd-49ee-421f-8b14-1baecf396132",
@@ -4209,7 +4074,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 156
+  "rank": 151
  },
  {
   "job_id": "ea210dac-4ce2-4626-bff5-6da75c09cace",
@@ -4236,7 +4101,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 157
+  "rank": 152
  },
  {
   "job_id": "813b8084-b85c-4812-abc6-6732c3d61e5c",
@@ -4263,7 +4128,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 158
+  "rank": 153
  },
  {
   "job_id": "e094882b-6bf0-49f6-b64f-5bc105824e05",
@@ -4290,7 +4155,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 159
+  "rank": 154
  },
  {
   "job_id": "a409d617-c69e-40ad-a106-743e9b9ff449",
@@ -4317,7 +4182,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 160
+  "rank": 155
  },
  {
   "job_id": "124b878f-6ab8-4f74-9c97-5bd46c51b0af",
@@ -4344,7 +4209,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 161
+  "rank": 156
  },
  {
   "job_id": "762f3881-f97a-4f64-bb30-1990f63a59cf",
@@ -4371,7 +4236,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 162
+  "rank": 157
  },
  {
   "job_id": "09460f6e-7488-433c-bdcf-9c9ed83e6ac4",
@@ -4398,7 +4263,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 163
+  "rank": 158
  },
  {
   "job_id": "0c1904e7-7171-4eb2-b186-93de1a285622",
@@ -4425,7 +4290,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 164
+  "rank": 159
  },
  {
   "job_id": "6345864a-09da-4f65-8bdc-c171fa55da3c",
@@ -4452,7 +4317,7 @@
   "compensation": "$92K",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 165
+  "rank": 160
  },
  {
   "job_id": "38eee646-bfa1-4c9c-8f2a-3cdf88808273",
@@ -4479,7 +4344,7 @@
   "compensation": "$77K-$96K",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 166
+  "rank": 161
  },
  {
   "job_id": "b5d726d3-b35b-444d-be8c-e0bbee1b00cc",
@@ -4506,7 +4371,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 167
+  "rank": 162
  },
  {
   "job_id": "5a27f920-e0c7-4bb9-b574-583f9766c8c8",
@@ -4533,7 +4398,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 168
+  "rank": 163
  },
  {
   "job_id": "09e1fb11-3f50-4eba-a128-c73a530d6ed3",
@@ -4560,7 +4425,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 169
+  "rank": 164
  },
  {
   "job_id": "8515c29e-e364-4b2f-8ed6-7e49ad4baa3c",
@@ -4587,7 +4452,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 170
+  "rank": 165
  },
  {
   "job_id": "c0c6a676-5d70-4cb1-a6ed-9a15b183a6a8",
@@ -4614,7 +4479,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 171
+  "rank": 166
  },
  {
   "job_id": "e73b461a-0333-426c-a513-7bf5a6e2d317",
@@ -4641,7 +4506,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 172
+  "rank": 167
  },
  {
   "job_id": "7535c7ca-7cfd-424e-9f77-ae3c2d5cddfa",
@@ -4668,7 +4533,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 173
+  "rank": 168
  },
  {
   "job_id": "9be63f52-8d21-4231-867c-8334ef4309c2",
@@ -4695,7 +4560,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 174
+  "rank": 169
  },
  {
   "job_id": "48710387-4ee0-4763-a1d6-1c4dff043a3a",
@@ -4722,7 +4587,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 175
+  "rank": 170
  },
  {
   "job_id": "a3fe9822-429a-4eda-b13b-111f2e365bae",
@@ -4749,7 +4614,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 176
+  "rank": 171
  },
  {
   "job_id": "8bfbc5b4-1599-4738-b789-dea76e89c8ac",
@@ -4776,7 +4641,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 177
+  "rank": 172
  },
  {
   "job_id": "97403a14-a6de-4c6e-95ad-21641e005f08",
@@ -4803,7 +4668,7 @@
   "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 178
+  "rank": 173
  },
  {
   "job_id": "42a2acc2-7b05-4777-b97d-8e7e59718a27",
@@ -4830,7 +4695,7 @@
   "compensation": "$40K-$55K",
   "tab": "compliance",
   "is_alternance": false,
-  "rank": 179
+  "rank": 174
  },
  {
   "job_id": "cae2e86b-70f2-4361-83f6-2cdb5fc4dcad",
