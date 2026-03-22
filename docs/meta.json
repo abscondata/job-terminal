@@ -1,25 +1,20 @@
 {
-  "export_date": "2026-03-22T01:04:25+00:00",
-  "total_jobs": 257,
-  "jobs_by_tier": {
-    "Bridge": 130,
-    "Top Pick": 127
+  "export_date": "2026-03-22T12:29:38+00:00",
+  "total_jobs": 965,
+  "jobs_by_tab": {
+    "compliance": 767,
+    "fashion": 198
   },
   "jobs_by_city": {
-    "Paris": 136,
-    "NYC": 109,
-    "Other": 9,
-    "Miami": 3
-  },
-  "jobs_by_world": {
-    "Top World": 127,
-    "Adjacent": 112,
-    "Other": 18
+    "NYC": 328,
+    "Other": 389,
+    "Miami": 47,
+    "Paris": 201
   },
   "jobs_by_type": {
-    "Alternance": 69,
-    "Intern": 49,
-    "Full-Time": 133,
-    "Contract": 6
+    "Full-Time": 820,
+    "Contract": 12,
+    "Intern": 64,
+    "Alternance": 69
   }
 }

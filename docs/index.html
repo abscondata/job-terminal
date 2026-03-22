@@ -183,7 +183,10 @@ var COMP_SRC={"nyc_compliance":1};
 function e(s){return String(s==null?"":s).replace(/[&<>"']/g,function(m){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[m]||m})}
 
 function isComp(j){
+  // Primary: use the tab field set by export_static.py
   if(j.tab==="compliance") return true;
+  if(j.tab==="fashion") return false;
+  // Fallback for old data without tab field
   if(COMP_SRC[j.source]) return true;
   var hay=((j.title||"")+" "+(j.function_family||"")+" "+(j.lane||"")).toLowerCase();
   for(var i=0;i<COMP_KW.length;i++){if(hay.indexOf(COMP_KW[i])>=0)return true}
@@ -212,34 +215,21 @@ function typeOrder(j){
 function cityLabel(j){return j.city||"Other"}
 
 function reasonLine(j){
+  // Compliance tab: use the pre-built one_liner from export (contains full reason)
+  if(isComp(j) && j.one_liner) return j.one_liner;
+
+  // Fashion tab: build from components
   var parts=[];
-  var title=(j.title||"").toLowerCase();
   var company=j.company_clean||j.company||"";
   var city=j.city||"";
   var func=j.function_family||"";
   var wt=typeLabel(j);
-  var arr=(j.work_arrangement||"").toLowerCase();
+  var ws=j.world_simple||"";
 
-  if(isComp(j)){
-    if(title.indexOf("compliance")>=0&&title.indexOf("associate")>=0)parts.push("Compliance associate match");
-    else if(title.indexOf("compliance")>=0&&title.indexOf("analyst")>=0)parts.push("Compliance analyst match");
-    else if(title.indexOf("aml")>=0||title.indexOf("kyc")>=0)parts.push("AML/KYC match");
-    else if(title.indexOf("broker")>=0||title.indexOf("securities")>=0)parts.push("BD/securities match");
-    else if(title.indexOf("regulatory")>=0)parts.push("Regulatory ops match");
-    else if(title.indexOf("operations")>=0)parts.push("Operations match");
-    else parts.push(func||"Compliance-adjacent");
-    if(city)parts.push(city);
-    if(arr.indexOf("hybrid")>=0)parts.push("hybrid");
-    else if(arr.indexOf("onsite")>=0||arr.indexOf("office")>=0)parts.push("onsite");
-  }else{
-    var ws=j.world_simple||"";
-    if(ws==="Top World")parts.push(company||"top brand");
-    else if(company)parts.push(company);
-    if(func)parts.push(func.split("/")[0].trim().toLowerCase());
-    if(city)parts.push(city);
-  }
-  var desc=(j.one_liner||j.path_logic||"").toLowerCase();
-  if(/\b[3-4]\+?\s*(?:years?|yrs?)\b/.test(desc))parts.push("stretch \u2014 exp req");
+  if(ws==="Top World")parts.push(company||"top brand");
+  else if(company)parts.push(company);
+  if(func)parts.push(func.split("/")[0].trim().toLowerCase());
+  if(city)parts.push(city);
   if(wt!=="Full-Time")parts.push(wt.toLowerCase());
   return parts.join(", ");
 }
