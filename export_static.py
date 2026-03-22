@@ -780,6 +780,69 @@ def _fix_function_family(func: str, title: str, tab: str) -> str:
 
 
 # ============================================================
+# APPLIED JOB MATCHING
+# ============================================================
+
+_GENERIC_COMPANY_WORDS = {
+    "group", "inc", "the", "llc", "corp", "partners", "bank", "services",
+    "solutions", "resources", "associates", "consulting", "financial",
+    "capital", "search", "staffing", "advisors", "technologies", "systems",
+    "international", "global", "management", "company", "de", "et", "la",
+    "le", "les", "des", "du", "sa", "sas",
+}
+_GENERIC_TITLE_WORDS = {
+    "associate", "analyst", "senior", "junior", "specialist", "officer",
+    "manager", "intern", "stage", "alternance", "verified", "h/f", "h/f/x",
+    "f/h", "m/f", "m/w/d", "cdi", "cdd", "h", "f", "x", "m", "w", "d",
+}
+_APPLIED_CSV = Path.home() / "Desktop" / "job apps" / "applied_jobs_cleaned.csv"
+
+
+def _meaningful_words(text: str, generic: set) -> set:
+    words = set(re.sub(r"[^a-z0-9 ]", " ", (text or "").lower()).split())
+    return {w for w in words if len(w) >= 4 and w not in generic} | {w for w in words if len(w) >= 2 and w not in generic and w.isalpha()}
+
+
+def _load_applied():
+    if not _APPLIED_CSV.exists():
+        return []
+    import csv as _csv
+    with open(_APPLIED_CSV, "r", encoding="utf-8", errors="replace") as f:
+        return list(_csv.DictReader(f))
+
+
+def _match_applied(job_company: str, job_title: str, applied_rows: list) -> bool:
+    jc_words = _meaningful_words(job_company, _GENERIC_COMPANY_WORDS)
+    jt_words = set(re.sub(r"[^a-z0-9 ]", " ", (job_title or "").lower()).split())
+    jt_words = {w for w in jt_words if len(w) >= 3 and w not in _GENERIC_TITLE_WORDS}
+
+    if not jc_words or not jt_words:
+        return False
+
+    for ar in applied_rows:
+        ac = ar.get("company", "") or ar.get("company_raw", "")
+        at = ar.get("title", "") or ar.get("title_raw", "")
+        ac_words = _meaningful_words(ac, _GENERIC_COMPANY_WORDS)
+        at_words = set(re.sub(r"[^a-z0-9 ]", " ", (at or "").lower()).split())
+        at_words = {w for w in at_words if len(w) >= 3 and w not in _GENERIC_TITLE_WORDS}
+
+        # Company: must share at least one meaningful word (4+ chars)
+        co_match = bool(jc_words & ac_words)
+        if not co_match:
+            continue
+
+        # Title: 50%+ word overlap on shorter set
+        if not jt_words or not at_words:
+            continue
+        overlap = jt_words & at_words
+        shorter = min(len(jt_words), len(at_words))
+        if shorter > 0 and len(overlap) / shorter >= 0.5:
+            return True
+
+    return False
+
+
+# ============================================================
 # MAIN EXPORT
 # ============================================================
 
@@ -799,6 +862,11 @@ def main():
     conn.close()
 
     print(f"Raw rows from DB: {len(rows)}")
+
+    # Load applied jobs for matching
+    applied_rows = _load_applied()
+    print(f"Applied jobs loaded: {len(applied_rows)}")
+
     all_jobs = []
 
     for row in rows:
@@ -897,6 +965,7 @@ def main():
             "compensation": comp_display,
             "tab": tab,
             "is_alternance": bool(_ALTERNANCE_RE.search(title)),
+            "applied": _match_applied(company, title, applied_rows),
             "_sort2": sort_secondary,
             "_created": row["created_at_utc"] or "",
         })
@@ -911,8 +980,9 @@ def main():
     comp_jobs = [j for j in all_jobs if j["tab"] == "compliance"]
     fash_jobs = [j for j in all_jobs if j["tab"] == "fashion"]
 
-    comp_jobs.sort(key=lambda j: (-j["score"], j["_sort2"][0], j["_sort2"][1]))
-    fash_jobs.sort(key=lambda j: (-j["score"], j["_sort2"][0], j["_sort2"][1]))
+    # Applied roles sort to bottom of their score tier
+    comp_jobs.sort(key=lambda j: (j.get("applied", False), -j["score"], j["_sort2"][0], j["_sort2"][1]))
+    fash_jobs.sort(key=lambda j: (j.get("applied", False), -j["score"], j["_sort2"][0], j["_sort2"][1]))
 
     for i, j in enumerate(comp_jobs): j["rank"] = i + 1
     for i, j in enumerate(fash_jobs): j["rank"] = i + 1
@@ -940,9 +1010,12 @@ def main():
     (DOCS / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
 
     # Summary
+    comp_applied = sum(1 for j in comp_visible if j.get("applied"))
+    fash_applied = sum(1 for j in fash_visible if j.get("applied"))
+
     print(f"\nExported {len(all_final)} jobs")
-    print(f"  Compliance: {len(comp_jobs)} total, {len(comp_visible)} visible (>={COMP_FLOOR}), {comp_hidden} hidden below floor")
-    print(f"  Fashion:    {len(fash_jobs)} total, {len(fash_visible)} visible (>={FASH_FLOOR}), {fash_hidden} hidden below floor")
+    print(f"  Compliance: {len(comp_jobs)} total, {len(comp_visible)} visible (>={COMP_FLOOR}), {comp_applied} applied, {len(comp_visible) - comp_applied} unapplied")
+    print(f"  Fashion:    {len(fash_jobs)} total, {len(fash_visible)} visible (>={FASH_FLOOR}), {fash_applied} applied, {len(fash_visible) - fash_applied} unapplied")
     print(f"  Dedup removed: {dedup_removed}")
 
     for label, visible in [("COMPLIANCE", comp_visible), ("FASHION", fash_visible)]:

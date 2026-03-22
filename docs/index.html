@@ -167,6 +167,7 @@ button{font-family:inherit}
   <div class="sep"></div>
   <span class="flabel">Type</span>
   <span id="typeChips"></span>
+  <span id="appliedToggle" style="display:none"></span>
   <span id="altToggle" style="display:none"></span>
   <div class="sep"></div>
   <input class="search" id="fSearch" placeholder="Search..." />
@@ -186,6 +187,7 @@ var LS_S="jobengine_saved_v2";
 var CITIES_ON=new Set();
 var TYPES_ON=new Set();
 var HIDE_ALT=true; // hide alternance by default in fashion tab
+var HIDE_APPLIED=true; // hide applied roles by default
 
 var COMP_KW=["compliance","regulatory","aml","kyc","risk","securities","broker-dealer","broker dealer","licensing","registration","account opening","onboarding","finra","financial crimes","bsa","anti-money","sanctions","trade surveillance"];
 var COMP_SRC={"nyc_compliance":1};
@@ -270,7 +272,7 @@ function buildChips(id, values, activeSet){
   });
 }
 
-function refreshChips(pool){
+function refreshChips(pool, floor){
   var cities=new Set(),types=new Set();
   pool.forEach(function(j){cities.add(cityLabel(j));types.add(typeLabel(j))});
   buildChips("cityChips",Array.from(cities).sort(),CITIES_ON);
@@ -280,6 +282,15 @@ function refreshChips(pool){
     typeArr=typeArr.filter(function(t){return t!=="Alternance"});
   }
   buildChips("typeChips",typeArr,TYPES_ON);
+  // Applied toggle
+  var appWrap=document.getElementById("appliedToggle");
+  var appCount=pool.filter(function(j){return j.applied&&j.score>=floor}).length;
+  if(appCount>0){
+    appWrap.innerHTML='<span class="chip'+(HIDE_APPLIED?" on":"")+'" id="hideAppChip">'+(HIDE_APPLIED?"Show":"Hide")+' Applied ('+appCount+')</span>';
+    document.getElementById("hideAppChip").addEventListener("click",function(){HIDE_APPLIED=!HIDE_APPLIED;render()});
+    appWrap.style.display="inline";
+  }else{appWrap.style.display="none";appWrap.innerHTML="";}
+
   // Alternance toggle for fashion tab
   var altWrap=document.getElementById("altToggle");
   if(LANE==="fashion"){
@@ -300,6 +311,8 @@ function passFilter(j){
   if(TYPES_ON.size>0&&!TYPES_ON.has(typeLabel(j)))return false;
   // Hide alternance in fashion tab unless toggled on
   if(LANE==="fashion"&&HIDE_ALT&&j.is_alternance)return false;
+  // Hide applied roles unless toggled on
+  if(HIDE_APPLIED&&j.applied)return false;
   if(SEARCH){
     var hay=((j.company_clean||j.company||"")+" "+(j.title||"")+" "+(j.lane||"")+" "+(j.city||"")+" "+(j.function_family||"")).toLowerCase();
     if(hay.indexOf(SEARCH)<0)return false;
@@ -346,7 +359,8 @@ function cardHTML(j,z,ctx){
   if(riskStr)h+='<div class="card-risk">'+e(riskStr)+'</div>';
   h+='</div>';
   h+='<div>';
-  if(j.url)h+='<a class="card-open" href="'+e(j.url)+'" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">Open</a>';
+  if(j.applied){h+='<span class="tag" style="background:rgba(255,255,255,.06);color:var(--dim)">Applied</span>';}
+  else if(j.url){h+='<a class="card-open" href="'+e(j.url)+'" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">Open</a>';}
   if(score)h+='<div class="card-score">'+score+'</div>';
   h+='</div>';
   h+='</div></div>';
@@ -383,8 +397,8 @@ function render(){
   // Pools (apply score floors for counts)
   var compAll=JOBS.filter(isComp);
   var fashAll=JOBS.filter(function(j){return!isComp(j)});
-  var compVisible=compAll.filter(function(j){return j.score>=COMP_FLOOR});
-  var fashVisible=fashAll.filter(function(j){return j.score>=FASH_FLOOR&&!(HIDE_ALT&&j.is_alternance)});
+  var compVisible=compAll.filter(function(j){return j.score>=COMP_FLOOR&&!(HIDE_APPLIED&&j.applied)});
+  var fashVisible=fashAll.filter(function(j){return j.score>=FASH_FLOOR&&!(HIDE_ALT&&j.is_alternance)&&!(HIDE_APPLIED&&j.applied)});
   document.getElementById("cntComp").textContent=compVisible.length;
   document.getElementById("cntFash").textContent=fashVisible.length;
 
@@ -403,7 +417,7 @@ function render(){
     var filtered=SHOW_ALL?pool:pool.filter(function(j){return j.score>=floor});
     hiddenCount=pool.length-pool.filter(function(j){return j.score>=floor}).length;
 
-    refreshChips(filtered);
+    refreshChips(filtered, floor);
     list=filtered.filter(passFilter);
     // Sort by score desc (secondary sort baked into data)
     list.sort(function(a,b){return(b.score||0)-(a.score||0)});
