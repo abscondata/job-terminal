@@ -104,6 +104,8 @@ button{font-family:inherit}
 .t-rejected{background:var(--red-bg);color:var(--red)}
 
 .card-reason{font-size:12px;color:var(--sub);margin-top:5px;font-style:italic}
+.card-risk{font-size:11px;color:var(--risk);margin-top:3px;opacity:.85}
+.card-comp{font-size:11px;color:var(--green);margin-top:2px}
 .card-score{font:600 11px system-ui;color:var(--dim);min-width:30px;text-align:right}
 .card-open{font-size:11px}
 
@@ -215,23 +217,14 @@ function typeOrder(j){
 function cityLabel(j){return j.city||"Other"}
 
 function reasonLine(j){
-  // Compliance tab: use the pre-built one_liner from export (contains full reason)
-  if(isComp(j) && j.one_liner) return j.one_liner;
-
-  // Fashion tab: build from components
+  // Both tabs now have pre-built one_liner from export
+  if(j.one_liner) return j.one_liner;
+  // Fallback
   var parts=[];
   var company=j.company_clean||j.company||"";
-  var city=j.city||"";
-  var func=j.function_family||"";
-  var wt=typeLabel(j);
-  var ws=j.world_simple||"";
-
-  if(ws==="Top World")parts.push(company||"top brand");
-  else if(company)parts.push(company);
-  if(func)parts.push(func.split("/")[0].trim().toLowerCase());
-  if(city)parts.push(city);
-  if(wt!=="Full-Time")parts.push(wt.toLowerCase());
-  return parts.join(", ");
+  if(company)parts.push(company);
+  if(j.city)parts.push(j.city);
+  return parts.join(", ")||"";
 }
 
 function shortLoc(loc){
@@ -319,6 +312,10 @@ function cardHTML(j,z,ctx){
   h+=sbTag;
   h+='</div>';
   h+='<div class="card-reason">'+e(reason)+'</div>';
+  var riskStr=j.risk||j.main_risk||"";
+  if(riskStr)h+='<div class="card-risk">'+e(riskStr)+'</div>';
+  var compStr=j.compensation||"";
+  if(compStr)h+='<div class="card-comp">'+e(compStr)+'</div>';
   h+='</div>';
   h+='<div>';
   if(j.url)h+='<a class="card-open" href="'+e(j.url)+'" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">Open</a>';

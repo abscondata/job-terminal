@@ -1,20 +1,8 @@
 {
-  "export_date": "2026-03-22T12:29:38+00:00",
-  "total_jobs": 965,
+  "export_date": "2026-03-22T12:41:08+00:00",
+  "total_jobs": 929,
   "jobs_by_tab": {
-    "compliance": 767,
-    "fashion": 198
-  },
-  "jobs_by_city": {
-    "NYC": 328,
-    "Other": 389,
-    "Miami": 47,
-    "Paris": 201
-  },
-  "jobs_by_type": {
-    "Full-Time": 820,
-    "Contract": 12,
-    "Intern": 64,
-    "Alternance": 69
+    "compliance": 728,
+    "fashion": 201
   }
 }
