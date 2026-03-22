@@ -1,5 +1,33 @@
 [
  {
+  "job_id": "4a9c51da-374b-4ece-b0de-73f0a4a43cee",
+  "fingerprint": "ce93474118b8b3f1a88dea474a0de7b96fe09c9e953d1b9da896c0f371aa1e4f",
+  "source": "linkedin",
+  "company": "Man Group",
+  "company_clean": "Man Group",
+  "title": "Compliance Associate",
+  "location": "New York, NY",
+  "url": "https://www.linkedin.com/jobs/view/compliance-associate-at-man-group-4361343702?position=2&pageNum=0&refId=auosdvSDEjZ0sgW0mircFA%3D%3D&trackingId=GSYZvIhvcdOenJy332o%2BzA%3D%3D",
+  "created_at": "2026-03-14T22:59:16+00:00",
+  "lane": "Low-Value Slop",
+  "city": "NYC",
+  "city_lane": "NYC",
+  "world_simple": "Other",
+  "world_tier": "Corporate World",
+  "function_family": "Compliance / Risk",
+  "type": "Full-Time",
+  "score": 100,
+  "power_score": 100.0,
+  "one_liner": "Man Group compliance associate, top-tier firm, on-site NYC",
+  "risk": "",
+  "main_risk": "",
+  "compensation": "",
+  "tab": "compliance",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 1
+ },
+ {
   "job_id": "79cf2c83-8cde-4f7e-8e8e-3b4f9c8882e5",
   "fingerprint": "c3566f0bd91c5b07840fac8b982fa3b4da0b1dc82761475a3196f49cc1353b50",
   "source": "efinancialcareers",
@@ -25,7 +53,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 1
+  "rank": 2
  },
  {
   "job_id": "33c2e411-9686-4409-93aa-6408a6702212",
@@ -53,7 +81,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 2
+  "rank": 3
  },
  {
   "job_id": "ca9ec7d6-7c69-41fc-8368-308c66c499b6",
@@ -81,7 +109,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 3
+  "rank": 4
  },
  {
   "job_id": "72db6c72-6bde-4c20-967d-5ac184338815",
@@ -109,7 +137,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 4
+  "rank": 5
  },
  {
   "job_id": "bbabc766-d2f9-48fc-9f0c-543fce5e234d",
@@ -137,7 +165,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 5
+  "rank": 6
  },
  {
   "job_id": "ac61d581-7190-48e6-a900-96382caa62dc",
@@ -165,7 +193,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 6
+  "rank": 7
  },
  {
   "job_id": "98fdd9f7-a3de-47c5-bee3-e46e0dedbe90",
@@ -193,7 +221,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 7
+  "rank": 8
  },
  {
   "job_id": "e0cab9dd-e8e4-4735-87c7-d42645a34bba",
@@ -221,7 +249,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 8
+  "rank": 9
  },
  {
   "job_id": "c921654c-da48-43ae-a5e4-69d51d408024",
@@ -249,7 +277,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 9
+  "rank": 10
  },
  {
   "job_id": "305713b5-7a8f-413d-8939-a4800609ef3e",
@@ -277,7 +305,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 10
+  "rank": 11
  },
  {
   "job_id": "2204bf4f-5a26-486e-8f77-ef140eacb496",
@@ -305,7 +333,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 11
+  "rank": 12
  },
  {
   "job_id": "18574a4d-c8ca-4d34-b922-36fd9f013370",
@@ -333,7 +361,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 12
+  "rank": 13
  },
  {
   "job_id": "d3c6b18a-6cf8-4b73-a08e-41badbe1ffa4",
@@ -361,7 +389,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 13
+  "rank": 14
  },
  {
   "job_id": "338d4a78-c7f7-45c2-b470-9b893afb0d01",
@@ -389,7 +417,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 14
+  "rank": 15
  },
  {
   "job_id": "9e085f72-b538-44b0-aae6-4990028a9669",
@@ -417,7 +445,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 15
+  "rank": 16
  },
  {
   "job_id": "62bcde79-838f-4e19-9cad-66b5bb2c3a05",
@@ -445,7 +473,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 16
+  "rank": 17
  },
  {
   "job_id": "d5511a6f-fb93-4db3-9147-a939fc47a1e1",
@@ -473,7 +501,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 17
+  "rank": 18
  },
  {
   "job_id": "c026267b-b7f2-4564-b4e4-419519f2dde1",
@@ -501,7 +529,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 18
+  "rank": 19
  },
  {
   "job_id": "ef93a87d-1559-4cd4-bfc9-f3a0b80a94fe",
@@ -529,7 +557,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 19
+  "rank": 20
  },
  {
   "job_id": "dc6cafd7-2efc-4574-9b6d-4c8347cc1585",
@@ -557,7 +585,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 20
+  "rank": 21
  },
  {
   "job_id": "0d21c76f-6df5-4cfb-af6d-b1b9bc50bae0",
@@ -585,7 +613,35 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 21
+  "rank": 22
+ },
+ {
+  "job_id": "d63e63eb-49d2-437c-bc22-a2840d12a5ba",
+  "fingerprint": "147d741c8120a1ef847a491a72fb0d7474fdc6c223f223386d2e0d32f6b22d23",
+  "source": "linkedin",
+  "company": "Current",
+  "company_clean": "Current",
+  "title": "Law Enforcement Compliance Analyst",
+  "location": "New York, NY",
+  "url": "https://www.linkedin.com/jobs/view/law-enforcement-compliance-analyst-at-current-4366232578?position=7&pageNum=0&refId=%2FAlp13MC0ns%2FuZQBAbvFLA%3D%3D&trackingId=pzwXQgpCYqTi8N%2FkwcsViA%3D%3D",
+  "created_at": "2026-03-14T22:59:16+00:00",
+  "lane": "Low-Value Slop",
+  "city": "NYC",
+  "city_lane": "NYC",
+  "world_simple": "Other",
+  "world_tier": "Corporate World",
+  "function_family": "Compliance / Risk",
+  "type": "Full-Time",
+  "score": 73,
+  "power_score": 73.0,
+  "one_liner": "Current compliance analyst, on-site NYC",
+  "risk": "",
+  "main_risk": "",
+  "compensation": "",
+  "tab": "compliance",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 23
  },
  {
   "job_id": "4ca61c2f-7935-403c-b66e-d5e55fd832ba",
@@ -613,7 +669,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 22
+  "rank": 24
  },
  {
   "job_id": "e9ff0396-b1a3-420e-8b11-cd681dc3f3cb",
@@ -641,7 +697,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 23
+  "rank": 25
  },
  {
   "job_id": "2b0981a3-d378-4c17-902f-850c4e852625",
@@ -669,7 +725,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 24
+  "rank": 26
  },
  {
   "job_id": "7aa30ca0-961b-416d-9f1f-2a2bb83cac43",
@@ -697,7 +753,35 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 25
+  "rank": 27
+ },
+ {
+  "job_id": "3bbe5262-8359-48a6-b9f7-cefe90d2f731",
+  "fingerprint": "15a7abae0ee10e4e116779df9b76c63a25efec33843e3752d0630f61be0e9420",
+  "source": "efinancialcareers",
+  "company": "Rothschild & Co",
+  "company_clean": "Rothschild & Co",
+  "title": "Global Advisory, Legal & Compliance Analyst, NY",
+  "location": "New York, United States",
+  "url": "https://www.efinancialcareers.com/jobs-United_States-New_York-Global_Advisory_Legal__Compliance_Analyst_NY.id23662641",
+  "created_at": "2026-03-14T23:00:15+00:00",
+  "lane": "Too Senior",
+  "city": "NYC",
+  "city_lane": "NYC",
+  "world_simple": "Other",
+  "world_tier": "Corporate World",
+  "function_family": "Compliance / Risk",
+  "type": "Full-Time",
+  "score": 73,
+  "power_score": 73.0,
+  "one_liner": "Rothschild & Co compliance analyst, on-site NYC",
+  "risk": "",
+  "main_risk": "",
+  "compensation": "",
+  "tab": "compliance",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 28
  },
  {
   "job_id": "dd7d670c-f9ed-4f35-8bbd-2ee49501355a",
@@ -725,7 +809,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 26
+  "rank": 29
  },
  {
   "job_id": "0e1724d8-faaf-4d78-9d30-dc5300b316a4",
@@ -753,7 +837,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 27
+  "rank": 30
  },
  {
   "job_id": "2049b8fb-cc4e-48a3-b91a-ec236c507737",
@@ -781,7 +865,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 28
+  "rank": 31
  },
  {
   "job_id": "f74abcba-b6da-4996-a513-45798de8f0c8",
@@ -809,7 +893,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 29
+  "rank": 32
  },
  {
   "job_id": "da38c5b4-2a6b-46de-a2fd-f0e32bf9580b",
@@ -837,7 +921,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 30
+  "rank": 33
  },
  {
   "job_id": "8e1e521a-6f65-4c5c-b331-885048dec976",
@@ -865,7 +949,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 31
+  "rank": 34
  },
  {
   "job_id": "0a19e9f7-2b18-47bc-9338-ad07f95b24b8",
@@ -893,7 +977,35 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 32
+  "rank": 35
+ },
+ {
+  "job_id": "72d8723a-b385-4963-ab3d-48d239b37da0",
+  "fingerprint": "d91c1b962662a6338f2cbf984a2690110e6352193f2e9211c371182c2cc0c0e3",
+  "source": "linkedin",
+  "company": "Arrow Search Partners",
+  "company_clean": "Arrow Search Partners",
+  "title": "Compliance Associate - Private Equity",
+  "location": "New York, NY",
+  "url": "https://www.linkedin.com/jobs/view/compliance-associate-private-equity-at-arrow-search-partners-4383737253?position=7&pageNum=0&refId=auosdvSDEjZ0sgW0mircFA%3D%3D&trackingId=P7lNgNE3QuYuk8zRPlGOQA%3D%3D",
+  "created_at": "2026-03-14T22:59:16+00:00",
+  "lane": "Low-Value Slop",
+  "city": "NYC",
+  "city_lane": "NYC",
+  "world_simple": "Other",
+  "world_tier": "Corporate World",
+  "function_family": "Compliance / Risk",
+  "type": "Full-Time",
+  "score": 61,
+  "power_score": 61.0,
+  "one_liner": "Arrow Search Partners compliance associate, on-site NYC",
+  "risk": "staffing agency posting, actual employer unclear",
+  "main_risk": "staffing agency posting, actual employer unclear",
+  "compensation": "",
+  "tab": "compliance",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 36
  },
  {
   "job_id": "c8ee68af-ae77-4b5d-81fe-f1ffcf0d6c51",
@@ -921,7 +1033,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 33
+  "rank": 37
  },
  {
   "job_id": "c1758788-222f-4ea2-97e9-d1547bda2f81",
@@ -949,7 +1061,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 34
+  "rank": 38
  },
  {
   "job_id": "cae1be50-0193-4213-9dd3-6a0fab154afb",
@@ -977,7 +1089,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 35
+  "rank": 39
  },
  {
   "job_id": "f872fe64-e344-4c76-87c7-07f35274bc1a",
@@ -1005,7 +1117,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 36
+  "rank": 40
  },
  {
   "job_id": "41626d5c-2ace-49d2-b4bd-c3dba6d786fb",
@@ -1033,7 +1145,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 37
+  "rank": 41
  },
  {
   "job_id": "9a057eac-e606-4fa8-851d-ba6927427d2b",
@@ -1061,7 +1173,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 38
+  "rank": 42
  },
  {
   "job_id": "5f7074a3-8b45-4f5a-a0d9-873b9daa0039",
@@ -1089,7 +1201,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 39
+  "rank": 43
  },
  {
   "job_id": "ee93d2fa-b4af-4fdb-9c49-97653b6d80b7",
@@ -1117,7 +1229,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 40
+  "rank": 44
  },
  {
   "job_id": "a612027c-1d73-4d5f-b27a-45c1c8241491",
@@ -1145,7 +1257,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 41
+  "rank": 45
  },
  {
   "job_id": "684a135e-d547-4a06-a464-5abf06ea6ed4",
@@ -1173,7 +1285,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 42
+  "rank": 46
  },
  {
   "job_id": "90adb003-0847-420b-9f31-262c8b015c62",
@@ -1201,7 +1313,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 43
+  "rank": 47
  },
  {
   "job_id": "54e4f6d9-be8e-442e-ba81-137a63401233",
@@ -1229,7 +1341,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 44
+  "rank": 48
  },
  {
   "job_id": "a8cb37fc-da45-470a-93ab-7c2005e7dd87",
@@ -1257,7 +1369,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 45
+  "rank": 49
  },
  {
   "job_id": "05bb7f4d-694c-4320-9f3c-5e70ba3255a2",
@@ -1285,7 +1397,35 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 46
+  "rank": 50
+ },
+ {
+  "job_id": "47274181-f9a8-4f4d-aef4-c3bb7e8e9bca",
+  "fingerprint": "898000f348320d542070b64092f29b496abe1a24137c2932557b1692aa147c4c",
+  "source": "linkedin",
+  "company": "Atlantic Group",
+  "company_clean": "Atlantic Group",
+  "title": "Senior Compliance Analyst (Investment Management)",
+  "location": "New York, NY",
+  "url": "https://www.linkedin.com/jobs/view/senior-compliance-analyst-investment-management-at-atlantic-group-4380165257?position=9&pageNum=0&refId=Sc%2B%2BMFFRRMj6f9vd1gyigQ%3D%3D&trackingId=202rELXBCK6zbWiUgSJilg%3D%3D",
+  "created_at": "2026-03-14T22:59:16+00:00",
+  "lane": "Too Senior",
+  "city": "NYC",
+  "city_lane": "NYC",
+  "world_simple": "Other",
+  "world_tier": "Corporate World",
+  "function_family": "Compliance / Risk",
+  "type": "Full-Time",
+  "score": 44,
+  "power_score": 44.0,
+  "one_liner": "Atlantic Group compliance analyst, on-site NYC",
+  "risk": "Senior title -- likely expects 3-5yr experience",
+  "main_risk": "Senior title -- likely expects 3-5yr experience",
+  "compensation": "",
+  "tab": "compliance",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 51
  },
  {
   "job_id": "bfcb2ea9-bd93-49c4-9a2e-b9e42d45540e",
@@ -1313,7 +1453,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 47
+  "rank": 52
  },
  {
   "job_id": "0864afc2-5fea-408c-b7ea-d21ab5c2cf53",
@@ -1341,7 +1481,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 48
+  "rank": 53
  },
  {
   "job_id": "99cf686a-3cc7-4ebf-b1c6-bcc026d42845",
@@ -1369,7 +1509,35 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 49
+  "rank": 54
+ },
+ {
+  "job_id": "270cd36e-55f1-4434-8f73-f6bc156ea3d2",
+  "fingerprint": "afff7526c6e1e04b02f5ee60f8b0dfd0ae377550aa0b6cda639d8d27dcf41847",
+  "source": "linkedin",
+  "company": "Cardea Group",
+  "company_clean": "Cardea Group",
+  "title": "Compliance and Operations Analyst",
+  "location": "New York City Metropolitan Area",
+  "url": "https://www.linkedin.com/jobs/view/compliance-and-operations-analyst-at-cardea-group-4383759343?position=9&pageNum=0&refId=yIhDcO3cJl%2Fh4eqW5AJGtw%3D%3D&trackingId=cj9bCUNgjECP1goL3vt7Cw%3D%3D",
+  "created_at": "2026-03-14T22:59:16+00:00",
+  "lane": "Low-Value Slop",
+  "city": "NYC",
+  "city_lane": "NYC",
+  "world_simple": "Other",
+  "world_tier": "Corporate World",
+  "function_family": "General Operations",
+  "type": "Full-Time",
+  "score": 43,
+  "power_score": 43.0,
+  "one_liner": "Cardea Group operations, on-site NYC",
+  "risk": "staffing agency posting, actual employer unclear",
+  "main_risk": "staffing agency posting, actual employer unclear",
+  "compensation": "",
+  "tab": "compliance",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 55
  },
  {
   "job_id": "d8f7aad4-f3da-4b99-a8f6-e5895cf22865",
@@ -1397,7 +1565,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 50
+  "rank": 56
  },
  {
   "job_id": "d96cdc98-bdc8-40e2-9e70-0bd9fc159dc3",
@@ -1425,7 +1593,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 51
+  "rank": 57
  },
  {
   "job_id": "e4c9b95a-8195-443a-976b-a9dcc9e28058",
@@ -1453,7 +1621,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 52
+  "rank": 58
  },
  {
   "job_id": "65be9f57-7468-4ce4-a567-c8053d389e09",
@@ -1481,7 +1649,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 53
+  "rank": 59
  },
  {
   "job_id": "f2ae494b-99ab-45dd-ab77-0fd9e7a398df",
@@ -1509,7 +1677,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 54
+  "rank": 60
  },
  {
   "job_id": "3cba11b5-a6d4-4e93-ada7-3bbdf48683cf",
@@ -1537,7 +1705,35 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 55
+  "rank": 61
+ },
+ {
+  "job_id": "6552e2d0-6ec8-4180-82e0-26d32b66f231",
+  "fingerprint": "bb033e8d3c6e66103323d3b44cbf0f9ce75c8d6e0168719232fd2d49d37bf7fb",
+  "source": "linkedin",
+  "company": "Crédit Agricole CIB",
+  "company_clean": "Crédit Agricole CIB",
+  "title": "Compliance – Reporting & Training Officer (RTO)",
+  "location": "New York, NY",
+  "url": "https://www.linkedin.com/jobs/view/compliance-%E2%80%93-reporting-training-officer-rto-at-cr%C3%A9dit-agricole-cib-4353994965?position=6&pageNum=0&refId=KsblRrOTAGVmJEnwTkVl8Q%3D%3D&trackingId=Z3dnutCY%2BPpSgF6CYP5lJA%3D%3D",
+  "created_at": "2026-03-14T22:59:16+00:00",
+  "lane": "Low-Value Slop",
+  "city": "NYC",
+  "city_lane": "NYC",
+  "world_simple": "Other",
+  "world_tier": "Corporate World",
+  "function_family": "Compliance / Risk",
+  "type": "Full-Time",
+  "score": 40,
+  "power_score": 40.0,
+  "one_liner": "Crédit Agricole CIB Compliance, on-site NYC",
+  "risk": "",
+  "main_risk": "",
+  "compensation": "",
+  "tab": "compliance",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 62
  },
  {
   "job_id": "68bbb2a4-c577-42d9-b4ca-3d696d66e8d4",
@@ -1565,7 +1761,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 56
+  "rank": 63
  },
  {
   "job_id": "450f5247-92a3-4720-b427-9a3f6add8426",
@@ -1593,7 +1789,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 57
+  "rank": 64
  },
  {
   "job_id": "a926a7d7-51a6-4eec-b067-eb1868df6ac6",
@@ -1621,7 +1817,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 58
+  "rank": 65
  },
  {
   "job_id": "fe709574-baaf-411c-8e0b-32c0438ea2f7",
@@ -1649,7 +1845,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 59
+  "rank": 66
  },
  {
   "job_id": "33b4b679-08bd-43b0-9dab-016efdd516f2",
@@ -1677,7 +1873,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 60
+  "rank": 67
  },
  {
   "job_id": "91cd2bbe-789b-4526-9ce6-8927ce4146a7",
@@ -1705,7 +1901,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 61
+  "rank": 68
  },
  {
   "job_id": "db213ca1-a373-4045-8638-635b5405ac70",
@@ -1733,7 +1929,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 62
+  "rank": 69
  },
  {
   "job_id": "2b038acf-740f-454d-9d23-677cde4167a3",
@@ -1761,7 +1957,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 63
+  "rank": 70
  },
  {
   "job_id": "697bcd1e-f22e-4996-90dc-b2ee5810cb12",
@@ -1789,7 +1985,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 64
+  "rank": 71
  },
  {
   "job_id": "758f1427-1731-4fc8-8b84-d5274669a3b6",
@@ -1817,7 +2013,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 65
+  "rank": 72
  },
  {
   "job_id": "02ba78ca-9dd9-4b3b-a77a-f14bbb0fcea6",
@@ -1845,7 +2041,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 66
+  "rank": 73
  },
  {
   "job_id": "4bc73afb-c1f7-4909-821d-17c18001aa4c",
@@ -1873,7 +2069,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 67
+  "rank": 74
  },
  {
   "job_id": "b5ee355e-f1ee-47be-a77b-de29bcaa8716",
@@ -1901,7 +2097,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 68
+  "rank": 75
  },
  {
   "job_id": "a409d617-c69e-40ad-a106-743e9b9ff449",
@@ -1929,7 +2125,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 69
+  "rank": 76
  },
  {
   "job_id": "31b63bc2-4bfd-4345-9380-77161df7afd0",
@@ -1957,7 +2153,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 70
+  "rank": 77
  },
  {
   "job_id": "dff1465c-6229-441f-88bf-eeb1961f1dd6",
@@ -1985,7 +2181,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 71
+  "rank": 78
  },
  {
   "job_id": "3016ab7b-94bc-4291-8e1a-939ee603af2e",
@@ -2013,7 +2209,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 72
+  "rank": 79
  },
  {
   "job_id": "47de44cc-9ec1-4b44-bd38-91b7807051ef",
@@ -2041,7 +2237,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 73
+  "rank": 80
  },
  {
   "job_id": "76527c05-2f9c-4855-845d-aa460f8d1905",
@@ -2069,7 +2265,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 74
+  "rank": 81
  },
  {
   "job_id": "c56556a6-2c49-4893-b23f-2c20b4612f6b",
@@ -2097,7 +2293,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 75
+  "rank": 82
  },
  {
   "job_id": "a4a116b5-e104-4a76-bae3-ece6b6e76bbe",
@@ -2125,7 +2321,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 76
+  "rank": 83
  },
  {
   "job_id": "5bf072c9-2326-4232-96d0-6ebfc0a21363",
@@ -2153,7 +2349,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 77
+  "rank": 84
  },
  {
   "job_id": "adc479b3-0355-4a03-a036-30bc46b281b6",
@@ -2181,7 +2377,7 @@
   "tab": "compliance",
   "is_alternance": true,
   "applied": false,
-  "rank": 78
+  "rank": 85
  },
  {
   "job_id": "1cb9f24c-c7d1-4ed0-874e-7cc10f908fa0",
@@ -2209,7 +2405,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 79
+  "rank": 86
  },
  {
   "job_id": "f9f4d290-5d71-46b2-93f8-b73b7f3efeda",
@@ -2237,7 +2433,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 80
+  "rank": 87
  },
  {
   "job_id": "70ebbf42-74fb-4286-9a85-30490783f28a",
@@ -2265,7 +2461,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 81
+  "rank": 88
  },
  {
   "job_id": "b6ef7030-4c5b-4e63-b9af-69a4f87dd198",
@@ -2293,7 +2489,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 82
+  "rank": 89
  },
  {
   "job_id": "db415300-125e-40d3-8721-f69ea81e3220",
@@ -2321,7 +2517,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 83
+  "rank": 90
  },
  {
   "job_id": "723a70fb-4c51-41c3-afe8-3ca7ba5d8b81",
@@ -2349,7 +2545,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 84
+  "rank": 91
  },
  {
   "job_id": "4b99bec9-6dd3-4eb4-948e-46747d4d4cc5",
@@ -2377,7 +2573,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 85
+  "rank": 92
  },
  {
   "job_id": "3bb0294f-145a-41ac-89e9-28593b9ba1e6",
@@ -2405,7 +2601,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 86
+  "rank": 93
  },
  {
   "job_id": "0dddf2c6-2371-4110-9c5a-e81ac46b9107",
@@ -2433,7 +2629,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 87
+  "rank": 94
  },
  {
   "job_id": "ab51d209-f75f-4181-a7ce-eccddb5c7c7d",
@@ -2461,7 +2657,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 88
+  "rank": 95
  },
  {
   "job_id": "fa77bb6c-fa6a-4c0a-98f1-f1e59d33b560",
@@ -2489,7 +2685,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 89
+  "rank": 96
  },
  {
   "job_id": "e6d8391a-5484-43ce-b596-c2f08adb0bb3",
@@ -2517,7 +2713,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 90
+  "rank": 97
  },
  {
   "job_id": "eccd2ffd-49ee-421f-8b14-1baecf396132",
@@ -2545,7 +2741,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 91
+  "rank": 98
  },
  {
   "job_id": "124b878f-6ab8-4f74-9c97-5bd46c51b0af",
@@ -2573,7 +2769,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 92
+  "rank": 99
  },
  {
   "job_id": "762f3881-f97a-4f64-bb30-1990f63a59cf",
@@ -2601,7 +2797,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 93
+  "rank": 100
  },
  {
   "job_id": "578d91ce-e464-4121-9b2c-299508555968",
@@ -2629,7 +2825,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 94
+  "rank": 101
  },
  {
   "job_id": "7c5656ed-9816-47a8-8245-430dd8c89fd8",
@@ -2657,7 +2853,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 95
+  "rank": 102
  },
  {
   "job_id": "0b019478-8289-4346-94db-f04cb7b2a5b7",
@@ -2685,7 +2881,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 96
+  "rank": 103
  },
  {
   "job_id": "f4ac3d92-e632-445d-963b-c1960e3f7bec",
@@ -2713,7 +2909,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 97
+  "rank": 104
  },
  {
   "job_id": "fc29224a-461b-4024-b3c4-25d9f348cfb7",
@@ -2741,7 +2937,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 98
+  "rank": 105
  },
  {
   "job_id": "894c1c7c-fb69-41a3-8bc2-0ef664e8c40f",
@@ -2769,7 +2965,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 99
+  "rank": 106
  },
  {
   "job_id": "e73b461a-0333-426c-a513-7bf5a6e2d317",
@@ -2797,7 +2993,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 100
+  "rank": 107
  },
  {
   "job_id": "2a9f952f-84fa-4d80-9a1d-b7a1a9c652b9",
@@ -2825,7 +3021,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 101
+  "rank": 108
  },
  {
   "job_id": "4e044e5d-3ada-41aa-a403-db5ec9c03a1b",
@@ -2853,7 +3049,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 102
+  "rank": 109
  },
  {
   "job_id": "813b8084-b85c-4812-abc6-6732c3d61e5c",
@@ -2881,7 +3077,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 103
+  "rank": 110
  },
  {
   "job_id": "e094882b-6bf0-49f6-b64f-5bc105824e05",
@@ -2909,7 +3105,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 104
+  "rank": 111
  },
  {
   "job_id": "09460f6e-7488-433c-bdcf-9c9ed83e6ac4",
@@ -2937,7 +3133,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 105
+  "rank": 112
  },
  {
   "job_id": "0c1904e7-7171-4eb2-b186-93de1a285622",
@@ -2965,7 +3161,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 106
+  "rank": 113
  },
  {
   "job_id": "6345864a-09da-4f65-8bdc-c171fa55da3c",
@@ -2993,7 +3189,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 107
+  "rank": 114
  },
  {
   "job_id": "38eee646-bfa1-4c9c-8f2a-3cdf88808273",
@@ -3021,7 +3217,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 108
+  "rank": 115
  },
  {
   "job_id": "ea210dac-4ce2-4626-bff5-6da75c09cace",
@@ -3049,7 +3245,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 109
+  "rank": 116
  },
  {
   "job_id": "32e0c292-9218-4fbf-b7c2-53ea892b534f",
@@ -3077,7 +3273,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 110
+  "rank": 117
  },
  {
   "job_id": "f5deec55-227d-4a81-b019-6447d5f5c88d",
@@ -3105,7 +3301,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 111
+  "rank": 118
  },
  {
   "job_id": "7a193f46-c149-4492-a2b7-c5f8d718190d",
@@ -3133,7 +3329,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 112
+  "rank": 119
  },
  {
   "job_id": "b5d726d3-b35b-444d-be8c-e0bbee1b00cc",
@@ -3161,7 +3357,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 113
+  "rank": 120
  },
  {
   "job_id": "c0c6a676-5d70-4cb1-a6ed-9a15b183a6a8",
@@ -3189,7 +3385,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 114
+  "rank": 121
  },
  {
   "job_id": "09e1fb11-3f50-4eba-a128-c73a530d6ed3",
@@ -3217,7 +3413,35 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 115
+  "rank": 122
+ },
+ {
+  "job_id": "426aae65-6e72-4e1e-95b1-bb55dc9346d3",
+  "fingerprint": "1139b461e022c35e881355927e88d256f67b71903fc6170050a5bea23cb76671",
+  "source": "lever",
+  "company": "Qonto",
+  "company_clean": "Qonto",
+  "title": "Regulatory Compliance Intern",
+  "location": "Paris | Paris",
+  "url": "https://jobs.lever.co/qonto/3df996a2-49a7-46d8-9304-2d2d1d601059",
+  "created_at": "2026-03-14T22:59:48+00:00",
+  "lane": "Too Senior",
+  "city": "Paris",
+  "city_lane": "Paris",
+  "world_simple": "Adjacent",
+  "world_tier": "Real Adjacent World",
+  "function_family": "Compliance / Risk",
+  "type": "Intern",
+  "score": 11,
+  "power_score": 11.0,
+  "one_liner": "Qonto regulatory, Paris",
+  "risk": "5yr+ experience likely required",
+  "main_risk": "5yr+ experience likely required",
+  "compensation": "",
+  "tab": "compliance",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 123
  },
  {
   "job_id": "2a0b0336-b8f3-4839-a7a6-ff1d863db1c0",
@@ -3245,7 +3469,35 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 116
+  "rank": 124
+ },
+ {
+  "job_id": "9be63f52-8d21-4231-867c-8334ef4309c2",
+  "fingerprint": "3cc8e1c8f4eabb3968194c2216495ffddc2b8a73250a0065ad794a8fa27a6f46",
+  "source": "linkedin",
+  "company": "Ascendo Resources",
+  "company_clean": "Ascendo Resources",
+  "title": "Senior Compliance Officer - Regulatory",
+  "location": "Miami, FL",
+  "url": "https://www.linkedin.com/jobs/view/senior-compliance-officer-regulatory-at-ascendo-resources-4382179196?position=2&pageNum=0&refId=ec5IhXBWgxm44pQ37pCmLA%3D%3D&trackingId=jfN1LzHo%2BtaxJoNYMwFZyg%3D%3D",
+  "created_at": "2026-03-14T22:59:16+00:00",
+  "lane": "Too Senior",
+  "city": "Miami",
+  "city_lane": "Miami",
+  "world_simple": "Other",
+  "world_tier": "Corporate World",
+  "function_family": "Compliance / Risk",
+  "type": "Full-Time",
+  "score": 7,
+  "power_score": 7.0,
+  "one_liner": "Ascendo Resources regulatory, Miami",
+  "risk": "Senior title -- likely expects 3-5yr experience; staffing agency posting, actual employer unclear",
+  "main_risk": "Senior title -- likely expects 3-5yr experience; staffing agency posting, actual employer unclear",
+  "compensation": "",
+  "tab": "compliance",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 125
  },
  {
   "job_id": "97403a14-a6de-4c6e-95ad-21641e005f08",
@@ -3273,7 +3525,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 117
+  "rank": 126
  },
  {
   "job_id": "171efa1c-15f3-4e11-b46c-df1b64281baf",
@@ -3301,7 +3553,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 118
+  "rank": 127
  },
  {
   "job_id": "5a27f920-e0c7-4bb9-b574-583f9766c8c8",
@@ -3329,7 +3581,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 119
+  "rank": 128
  },
  {
   "job_id": "8515c29e-e364-4b2f-8ed6-7e49ad4baa3c",
@@ -3357,7 +3609,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 120
+  "rank": 129
  },
  {
   "job_id": "aa67d1c8-90c3-466e-9a6f-1575e71aed6d",
@@ -3385,7 +3637,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 121
+  "rank": 130
  },
  {
   "job_id": "7535c7ca-7cfd-424e-9f77-ae3c2d5cddfa",
@@ -3413,7 +3665,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 122
+  "rank": 131
  },
  {
   "job_id": "fe26bc3b-fac4-4c66-a966-30bd5464a520",
@@ -3441,35 +3693,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 123
- },
- {
-  "job_id": "4a9c51da-374b-4ece-b0de-73f0a4a43cee",
-  "fingerprint": "ce93474118b8b3f1a88dea474a0de7b96fe09c9e953d1b9da896c0f371aa1e4f",
-  "source": "linkedin",
-  "company": "Man Group",
-  "company_clean": "Man Group",
-  "title": "Compliance Associate",
-  "location": "New York, NY",
-  "url": "https://www.linkedin.com/jobs/view/compliance-associate-at-man-group-4361343702?position=2&pageNum=0&refId=auosdvSDEjZ0sgW0mircFA%3D%3D&trackingId=GSYZvIhvcdOenJy332o%2BzA%3D%3D",
-  "created_at": "2026-03-14T22:59:16+00:00",
-  "lane": "Low-Value Slop",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Other",
-  "world_tier": "Corporate World",
-  "function_family": "Compliance / Risk",
-  "type": "Full-Time",
-  "score": 100,
-  "power_score": 100.0,
-  "one_liner": "Man Group compliance associate, top-tier firm, on-site NYC",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "applied": true,
-  "rank": 124
+  "rank": 132
  },
  {
   "job_id": "bf85cc75-6771-4b4a-af16-939b156a9299",
@@ -3497,7 +3721,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 125
+  "rank": 133
  },
  {
   "job_id": "9b23a29c-482e-46f0-ad2f-1d1860a91e75",
@@ -3525,7 +3749,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 126
+  "rank": 134
  },
  {
   "job_id": "d49284b1-5196-4b7f-9552-a03050cc79a2",
@@ -3553,7 +3777,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 127
+  "rank": 135
  },
  {
   "job_id": "89e7aa09-afab-484a-8079-b96ca0eab7ef",
@@ -3581,7 +3805,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 128
+  "rank": 136
  },
  {
   "job_id": "c94f08e9-76e1-48d1-b603-6e856031350e",
@@ -3609,7 +3833,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 129
+  "rank": 137
  },
  {
   "job_id": "0e477695-c6dc-414a-a622-10690f849119",
@@ -3637,7 +3861,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 130
+  "rank": 138
  },
  {
   "job_id": "3e0a377a-322c-4d72-bb73-71f2e8bac790",
@@ -3665,7 +3889,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 131
+  "rank": 139
  },
  {
   "job_id": "440ce540-fa6f-45ca-982d-221a0d5f7b20",
@@ -3693,35 +3917,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 132
- },
- {
-  "job_id": "d63e63eb-49d2-437c-bc22-a2840d12a5ba",
-  "fingerprint": "147d741c8120a1ef847a491a72fb0d7474fdc6c223f223386d2e0d32f6b22d23",
-  "source": "linkedin",
-  "company": "Current",
-  "company_clean": "Current",
-  "title": "Law Enforcement Compliance Analyst",
-  "location": "New York, NY",
-  "url": "https://www.linkedin.com/jobs/view/law-enforcement-compliance-analyst-at-current-4366232578?position=7&pageNum=0&refId=%2FAlp13MC0ns%2FuZQBAbvFLA%3D%3D&trackingId=pzwXQgpCYqTi8N%2FkwcsViA%3D%3D",
-  "created_at": "2026-03-14T22:59:16+00:00",
-  "lane": "Low-Value Slop",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Other",
-  "world_tier": "Corporate World",
-  "function_family": "Compliance / Risk",
-  "type": "Full-Time",
-  "score": 73,
-  "power_score": 73.0,
-  "one_liner": "Current compliance analyst, on-site NYC",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "applied": true,
-  "rank": 133
+  "rank": 140
  },
  {
   "job_id": "763e3dd1-bb0c-44c2-9e7d-739e4454b80d",
@@ -3749,7 +3945,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 134
+  "rank": 141
  },
  {
   "job_id": "c6e5b2e2-00dd-4103-b160-311f21777b52",
@@ -3777,7 +3973,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 135
+  "rank": 142
  },
  {
   "job_id": "0e41d863-5525-4367-b4d1-e2c0cbf1fc2b",
@@ -3805,35 +4001,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 136
- },
- {
-  "job_id": "3bbe5262-8359-48a6-b9f7-cefe90d2f731",
-  "fingerprint": "15a7abae0ee10e4e116779df9b76c63a25efec33843e3752d0630f61be0e9420",
-  "source": "efinancialcareers",
-  "company": "Rothschild & Co",
-  "company_clean": "Rothschild & Co",
-  "title": "Global Advisory, Legal & Compliance Analyst, NY",
-  "location": "New York, United States",
-  "url": "https://www.efinancialcareers.com/jobs-United_States-New_York-Global_Advisory_Legal__Compliance_Analyst_NY.id23662641",
-  "created_at": "2026-03-14T23:00:15+00:00",
-  "lane": "Too Senior",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Other",
-  "world_tier": "Corporate World",
-  "function_family": "Compliance / Risk",
-  "type": "Full-Time",
-  "score": 73,
-  "power_score": 73.0,
-  "one_liner": "Rothschild & Co compliance analyst, on-site NYC",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "applied": true,
-  "rank": 137
+  "rank": 143
  },
  {
   "job_id": "dfc91e3b-89aa-44fa-a9f8-4d50006b0b7a",
@@ -3861,7 +4029,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 138
+  "rank": 144
  },
  {
   "job_id": "61409de3-030b-4e15-9e3c-aeefb3d05688",
@@ -3889,7 +4057,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 139
+  "rank": 145
  },
  {
   "job_id": "53afce93-ac9d-4e1c-8c9d-d8620133f30b",
@@ -3917,7 +4085,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 140
+  "rank": 146
  },
  {
   "job_id": "45c5b095-c8b8-43e4-ba69-417ca600b4e4",
@@ -3945,7 +4113,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 141
+  "rank": 147
  },
  {
   "job_id": "9c377b22-7d61-48a8-b731-572dc70995e3",
@@ -3973,35 +4141,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 142
- },
- {
-  "job_id": "72d8723a-b385-4963-ab3d-48d239b37da0",
-  "fingerprint": "d91c1b962662a6338f2cbf984a2690110e6352193f2e9211c371182c2cc0c0e3",
-  "source": "linkedin",
-  "company": "Arrow Search Partners",
-  "company_clean": "Arrow Search Partners",
-  "title": "Compliance Associate - Private Equity",
-  "location": "New York, NY",
-  "url": "https://www.linkedin.com/jobs/view/compliance-associate-private-equity-at-arrow-search-partners-4383737253?position=7&pageNum=0&refId=auosdvSDEjZ0sgW0mircFA%3D%3D&trackingId=P7lNgNE3QuYuk8zRPlGOQA%3D%3D",
-  "created_at": "2026-03-14T22:59:16+00:00",
-  "lane": "Low-Value Slop",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Other",
-  "world_tier": "Corporate World",
-  "function_family": "Compliance / Risk",
-  "type": "Full-Time",
-  "score": 61,
-  "power_score": 61.0,
-  "one_liner": "Arrow Search Partners compliance associate, on-site NYC",
-  "risk": "staffing agency posting, actual employer unclear",
-  "main_risk": "staffing agency posting, actual employer unclear",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "applied": true,
-  "rank": 143
+  "rank": 148
  },
  {
   "job_id": "89c37af4-a353-45a2-95b7-34845d6a0b7f",
@@ -4029,7 +4169,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 144
+  "rank": 149
  },
  {
   "job_id": "2e64fb68-db35-43f7-a3a7-4b349d6235ae",
@@ -4057,7 +4197,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 145
+  "rank": 150
  },
  {
   "job_id": "55b9ab6d-a892-48aa-85f3-01fab5cfb02a",
@@ -4085,7 +4225,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 146
+  "rank": 151
  },
  {
   "job_id": "1ddc2734-9972-43e5-b4c0-cf9c7d2459dd",
@@ -4113,7 +4253,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 147
+  "rank": 152
  },
  {
   "job_id": "be430ac1-0828-4ff5-8da7-8dc03c25260b",
@@ -4141,7 +4281,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 148
+  "rank": 153
  },
  {
   "job_id": "e766e6d4-ef66-44ef-9fad-145a89c6334c",
@@ -4169,7 +4309,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 149
+  "rank": 154
  },
  {
   "job_id": "857a546e-c252-44d9-99ae-b080baeb9fa9",
@@ -4197,7 +4337,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 150
+  "rank": 155
  },
  {
   "job_id": "ad90e96c-3b3c-44fa-a872-fc15aab46ea9",
@@ -4225,7 +4365,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 151
+  "rank": 156
  },
  {
   "job_id": "e45fa276-479b-4ae8-91bb-4904af0e3593",
@@ -4253,7 +4393,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 152
+  "rank": 157
  },
  {
   "job_id": "180dbcf3-5070-472b-ac97-b3cbc2a1fbb8",
@@ -4281,35 +4421,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 153
- },
- {
-  "job_id": "47274181-f9a8-4f4d-aef4-c3bb7e8e9bca",
-  "fingerprint": "898000f348320d542070b64092f29b496abe1a24137c2932557b1692aa147c4c",
-  "source": "linkedin",
-  "company": "Atlantic Group",
-  "company_clean": "Atlantic Group",
-  "title": "Senior Compliance Analyst (Investment Management)",
-  "location": "New York, NY",
-  "url": "https://www.linkedin.com/jobs/view/senior-compliance-analyst-investment-management-at-atlantic-group-4380165257?position=9&pageNum=0&refId=Sc%2B%2BMFFRRMj6f9vd1gyigQ%3D%3D&trackingId=202rELXBCK6zbWiUgSJilg%3D%3D",
-  "created_at": "2026-03-14T22:59:16+00:00",
-  "lane": "Too Senior",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Other",
-  "world_tier": "Corporate World",
-  "function_family": "Compliance / Risk",
-  "type": "Full-Time",
-  "score": 44,
-  "power_score": 44.0,
-  "one_liner": "Atlantic Group compliance analyst, on-site NYC",
-  "risk": "Senior title -- likely expects 3-5yr experience",
-  "main_risk": "Senior title -- likely expects 3-5yr experience",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "applied": true,
-  "rank": 154
+  "rank": 158
  },
  {
   "job_id": "9fb97802-d95f-429d-8400-18ad9704d23b",
@@ -4337,35 +4449,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 155
- },
- {
-  "job_id": "270cd36e-55f1-4434-8f73-f6bc156ea3d2",
-  "fingerprint": "afff7526c6e1e04b02f5ee60f8b0dfd0ae377550aa0b6cda639d8d27dcf41847",
-  "source": "linkedin",
-  "company": "Cardea Group",
-  "company_clean": "Cardea Group",
-  "title": "Compliance and Operations Analyst",
-  "location": "New York City Metropolitan Area",
-  "url": "https://www.linkedin.com/jobs/view/compliance-and-operations-analyst-at-cardea-group-4383759343?position=9&pageNum=0&refId=yIhDcO3cJl%2Fh4eqW5AJGtw%3D%3D&trackingId=cj9bCUNgjECP1goL3vt7Cw%3D%3D",
-  "created_at": "2026-03-14T22:59:16+00:00",
-  "lane": "Low-Value Slop",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Other",
-  "world_tier": "Corporate World",
-  "function_family": "General Operations",
-  "type": "Full-Time",
-  "score": 43,
-  "power_score": 43.0,
-  "one_liner": "Cardea Group operations, on-site NYC",
-  "risk": "staffing agency posting, actual employer unclear",
-  "main_risk": "staffing agency posting, actual employer unclear",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "applied": true,
-  "rank": 156
+  "rank": 159
  },
  {
   "job_id": "48d19395-6be2-43da-9458-453e89d656af",
@@ -4393,35 +4477,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 157
- },
- {
-  "job_id": "6552e2d0-6ec8-4180-82e0-26d32b66f231",
-  "fingerprint": "bb033e8d3c6e66103323d3b44cbf0f9ce75c8d6e0168719232fd2d49d37bf7fb",
-  "source": "linkedin",
-  "company": "Crédit Agricole CIB",
-  "company_clean": "Crédit Agricole CIB",
-  "title": "Compliance – Reporting & Training Officer (RTO)",
-  "location": "New York, NY",
-  "url": "https://www.linkedin.com/jobs/view/compliance-%E2%80%93-reporting-training-officer-rto-at-cr%C3%A9dit-agricole-cib-4353994965?position=6&pageNum=0&refId=KsblRrOTAGVmJEnwTkVl8Q%3D%3D&trackingId=Z3dnutCY%2BPpSgF6CYP5lJA%3D%3D",
-  "created_at": "2026-03-14T22:59:16+00:00",
-  "lane": "Low-Value Slop",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Other",
-  "world_tier": "Corporate World",
-  "function_family": "Compliance / Risk",
-  "type": "Full-Time",
-  "score": 40,
-  "power_score": 40.0,
-  "one_liner": "Crédit Agricole CIB Compliance, on-site NYC",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "applied": true,
-  "rank": 158
+  "rank": 160
  },
  {
   "job_id": "61c968bb-1e63-4eec-9701-a49ac6ca1e0b",
@@ -4449,7 +4505,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 159
+  "rank": 161
  },
  {
   "job_id": "71176c3c-67d5-4b97-9c0c-7011710ec589",
@@ -4477,7 +4533,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 160
+  "rank": 162
  },
  {
   "job_id": "0756871f-c7f8-4288-bea7-ea788d64e498",
@@ -4505,7 +4561,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 161
+  "rank": 163
  },
  {
   "job_id": "d6ee60c9-6896-411a-88d7-0909fa47f8f0",
@@ -4533,7 +4589,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 162
+  "rank": 164
  },
  {
   "job_id": "25cb2659-2c0e-49f6-93b9-6eb3014ef082",
@@ -4561,7 +4617,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 163
+  "rank": 165
  },
  {
   "job_id": "ae20c111-d665-4636-b1a5-519558412dae",
@@ -4589,7 +4645,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 164
+  "rank": 166
  },
  {
   "job_id": "8bfbc5b4-1599-4738-b789-dea76e89c8ac",
@@ -4617,7 +4673,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 165
+  "rank": 167
  },
  {
   "job_id": "3f49de9c-7071-4261-a171-be13a108e63c",
@@ -4645,7 +4701,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 166
+  "rank": 168
  },
  {
   "job_id": "8953b904-31d6-4462-a11d-c7343a1c18f4",
@@ -4673,35 +4729,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 167
- },
- {
-  "job_id": "426aae65-6e72-4e1e-95b1-bb55dc9346d3",
-  "fingerprint": "1139b461e022c35e881355927e88d256f67b71903fc6170050a5bea23cb76671",
-  "source": "lever",
-  "company": "Qonto",
-  "company_clean": "Qonto",
-  "title": "Regulatory Compliance Intern",
-  "location": "Paris | Paris",
-  "url": "https://jobs.lever.co/qonto/3df996a2-49a7-46d8-9304-2d2d1d601059",
-  "created_at": "2026-03-14T22:59:48+00:00",
-  "lane": "Too Senior",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Adjacent",
-  "world_tier": "Real Adjacent World",
-  "function_family": "Compliance / Risk",
-  "type": "Intern",
-  "score": 11,
-  "power_score": 11.0,
-  "one_liner": "Qonto regulatory, Paris",
-  "risk": "5yr+ experience likely required",
-  "main_risk": "5yr+ experience likely required",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "applied": true,
-  "rank": 168
+  "rank": 169
  },
  {
   "job_id": "42a2acc2-7b05-4777-b97d-8e7e59718a27",
@@ -4726,34 +4754,6 @@
   "risk": "5yr+ experience likely required; low salary ($0K); staffing agency posting, actual employer unclear",
   "main_risk": "5yr+ experience likely required; low salary ($0K); staffing agency posting, actual employer unclear",
   "compensation": "$40K-$55K",
-  "tab": "compliance",
-  "is_alternance": false,
-  "applied": true,
-  "rank": 169
- },
- {
-  "job_id": "9be63f52-8d21-4231-867c-8334ef4309c2",
-  "fingerprint": "3cc8e1c8f4eabb3968194c2216495ffddc2b8a73250a0065ad794a8fa27a6f46",
-  "source": "linkedin",
-  "company": "Ascendo Resources",
-  "company_clean": "Ascendo Resources",
-  "title": "Senior Compliance Officer - Regulatory",
-  "location": "Miami, FL",
-  "url": "https://www.linkedin.com/jobs/view/senior-compliance-officer-regulatory-at-ascendo-resources-4382179196?position=2&pageNum=0&refId=ec5IhXBWgxm44pQ37pCmLA%3D%3D&trackingId=jfN1LzHo%2BtaxJoNYMwFZyg%3D%3D",
-  "created_at": "2026-03-14T22:59:16+00:00",
-  "lane": "Too Senior",
-  "city": "Miami",
-  "city_lane": "Miami",
-  "world_simple": "Other",
-  "world_tier": "Corporate World",
-  "function_family": "Compliance / Risk",
-  "type": "Full-Time",
-  "score": 7,
-  "power_score": 7.0,
-  "one_liner": "Ascendo Resources regulatory, Miami",
-  "risk": "Senior title -- likely expects 3-5yr experience; staffing agency posting, actual employer unclear",
-  "main_risk": "Senior title -- likely expects 3-5yr experience; staffing agency posting, actual employer unclear",
-  "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,

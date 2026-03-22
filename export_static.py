@@ -956,12 +956,23 @@ def _company_match(a: str, b: str) -> bool:
     return True
 
 
-def _match_applied(job_company: str, job_title: str, applied_rows: list) -> bool:
-    jt_words = set(re.sub(r"[^a-z0-9 ]", " ", (job_title or "").lower()).split())
-    jt_words = {w for w in jt_words if len(w) >= 3 and w not in _GENERIC_TITLE_WORDS}
+_TITLE_STRIP_WORDS = {
+    "compliance", "associate", "analyst", "senior", "junior", "specialist",
+    "officer", "manager", "intern", "stage", "alternance", "verified",
+    "h/f", "h/f/x", "f/h", "the", "a", "and", "de", "du", "des",
+    "le", "la", "les", "en", "et", "or", "for", "in", "at",
+    "h", "f", "x", "m", "w", "d", "ii", "iii", "iv",
+}
 
-    if not jt_words:
-        return False
+
+def _title_specific_words(title: str) -> set:
+    """Extract role-distinguishing words from a title, stripping generic compliance words."""
+    words = set(re.sub(r"[^a-z0-9 ]", " ", (title or "").lower()).split())
+    return {w for w in words if len(w) >= 2 and w not in _TITLE_STRIP_WORDS}
+
+
+def _match_applied(job_company: str, job_title: str, applied_rows: list) -> bool:
+    jt_specific = _title_specific_words(job_title)
 
     for ar in applied_rows:
         ac = ar.get("company", "") or ar.get("company_raw", "")
@@ -971,13 +982,21 @@ def _match_applied(job_company: str, job_title: str, applied_rows: list) -> bool
         if not _company_match(job_company, ac):
             continue
 
-        # Title: 50%+ word overlap on shorter set
-        at_words = set(re.sub(r"[^a-z0-9 ]", " ", (at or "").lower()).split())
-        at_words = {w for w in at_words if len(w) >= 3 and w not in _GENERIC_TITLE_WORDS}
-        if not at_words:
+        at_specific = _title_specific_words(at)
+
+        # Special rule: if BOTH titles strip to empty, they're both generic
+        # compliance titles at the same company — that's a match
+        if not jt_specific and not at_specific:
+            return True
+
+        # If one has specific words and the other doesn't, not a match
+        # (e.g. "Compliance Associate" vs "Marketing Compliance Officer")
+        if not jt_specific or not at_specific:
             continue
-        overlap = jt_words & at_words
-        shorter = min(len(jt_words), len(at_words))
+
+        # Both have specific words — require 50%+ overlap on shorter set
+        overlap = jt_specific & at_specific
+        shorter = min(len(jt_specific), len(at_specific))
         if shorter > 0 and len(overlap) / shorter >= 0.5:
             return True
 
