@@ -33,6 +33,14 @@ BRIDGE_LANES = {
 TOP_WORLDS = {"Top Luxury / Culture World"}
 ADJACENT_WORLDS = {"Real Adjacent World", "Premium But Generic World"}
 
+COMPLIANCE_KEYWORDS = [
+    "compliance", "regulatory", "aml", "kyc", "risk", "securities",
+    "broker-dealer", "broker dealer", "licensing", "registration",
+    "account opening", "onboarding", "finra", "financial crimes",
+    "bsa", "anti-money", "sanctions", "trade surveillance",
+]
+COMPLIANCE_SOURCES = {"nyc_compliance"}
+
 
 def detect_type(title: str) -> str:
     if _ALTERNANCE_RE.search(title or ""):
@@ -88,6 +96,21 @@ def world_simple(world_tier: str) -> str:
     return "Other"
 
 
+def detect_tab(source: str, title: str, function_family: str, classification: str, risk_flags: list) -> str:
+    """Classify job into 'compliance' or 'fashion' tab."""
+    if source in COMPLIANCE_SOURCES:
+        return "compliance"
+    hay = f"{title} {function_family} {classification}".lower()
+    for kw in COMPLIANCE_KEYWORDS:
+        if kw in hay:
+            return "compliance"
+    for flag in (risk_flags or []):
+        f = str(flag).lower()
+        if "compliance" in f or "analyst_lane" in f:
+            return "compliance"
+    return "fashion"
+
+
 def power_score(ev: dict) -> float:
     ss = ev.get("signal_scores", {})
     ds = ev.get("dimension_scores", {})
@@ -134,7 +157,12 @@ def main():
 
         classification = ev.get("classification", row["decision_reason"] or "")
         tier = tier_label(classification)
-        if tier == "Pass":
+        # Let compliance-lane roles through even if the fashion scorer marks them as Pass
+        is_compliance = detect_tab(
+            row["source"] or "", row["title"] or "",
+            ev.get("function_family", ""), classification, ev.get("risk_flags", []),
+        ) == "compliance"
+        if tier == "Pass" and not is_compliance:
             continue  # skip garbage
 
         world_raw = ev.get("world_tier", "")
@@ -170,6 +198,14 @@ def main():
             "compensation": ev.get("comp_record", {}).get("comp_text_raw", "") or row["compensation_text"] or "",
             "dimension_scores": ev.get("dimension_scores", {}),
             "signal_scores": ev.get("signal_scores", {}),
+            "tab": detect_tab(
+                row["source"] or "",
+                row["title"] or "",
+                ev.get("function_family", ""),
+                classification,
+                ev.get("risk_flags", []),
+            ),
+            "work_arrangement": ev.get("work_arrangement", ""),
             "_created": row["created_at_utc"] or "",
         })
 

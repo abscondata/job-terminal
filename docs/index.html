@@ -12,6 +12,10 @@
   --gold:#c9a96e;--gold-dim:#a08650;--gold-faint:rgba(201,169,110,.08);
   --blue:#7a9fc0;--blue-bg:rgba(122,159,192,.12);
   --risk:#d4745a;--fit:#6fcf97;
+  --green-bg:rgba(22,101,52,.15);--green:#6fcf97;
+  --amber-bg:rgba(146,64,14,.15);--amber:#f59e0b;
+  --red-bg:rgba(153,27,27,.12);--red:#ef4444;
+  --indigo-bg:rgba(55,48,163,.12);--indigo:#818cf8;
   --r:8px;
 }
 html,body{background:var(--bg);color:var(--text);font:13px/1.45 system-ui,-apple-system,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
@@ -23,35 +27,51 @@ button{font-family:inherit}
 .brand-line{width:36px;height:2px;background:var(--gold);margin:7px auto 5px;border-radius:1px}
 .header-sub{font-size:11px;color:var(--dim)}
 
-.tabs{display:flex;justify-content:center;gap:0;border-bottom:1px solid rgba(255,255,255,.06)}
-.tab{padding:9px 22px;font:600 11px system-ui;letter-spacing:.06em;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;text-transform:uppercase}
-.tab:hover{color:var(--sub)}
-.tab.on{color:var(--gold);border-bottom-color:var(--gold)}
+/* Lane tabs */
+.lane-tabs{display:flex;justify-content:center;gap:0;border-bottom:1px solid rgba(255,255,255,.06)}
+.lane-tab{
+  padding:10px 24px;font:700 11px system-ui;letter-spacing:.06em;
+  color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;
+  transition:all .15s;text-transform:uppercase;background:none;border-left:none;border-right:none;border-top:none;border-radius:0;
+}
+.lane-tab:hover{color:var(--sub)}
+.lane-tab.on{color:var(--gold);border-bottom-color:var(--gold)}
+.lane-tab .cnt{
+  display:inline-block;margin-left:5px;padding:1px 6px;border-radius:999px;
+  background:rgba(255,255,255,.06);font:600 10px system-ui;color:var(--dim);
+}
+.lane-tab.on .cnt{background:var(--gold-faint);color:var(--gold)}
 
+/* Sub-tabs for saved */
+.sub-tabs{display:flex;justify-content:center;gap:4px;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.03)}
+.sub-tab{
+  padding:4px 12px;border-radius:999px;border:none;
+  background:rgba(255,255,255,.04);color:var(--dim);
+  font:600 10px system-ui;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;
+}
+.sub-tab:hover{color:var(--sub)}
+.sub-tab.on{background:var(--gold-faint);color:var(--gold)}
+
+/* Composable filters */
 .filters{
   position:sticky;top:0;z-index:10;background:rgba(10,10,11,.95);backdrop-filter:blur(8px);
   padding:8px 12px;display:flex;gap:5px;flex-wrap:wrap;align-items:center;
   border-bottom:1px solid rgba(255,255,255,.04);
 }
-.pill{
-  padding:4px 11px;border-radius:999px;border:none;
+.flabel{font:700 9px system-ui;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-right:2px}
+.chip{
+  padding:4px 10px;border-radius:999px;border:none;
   background:rgba(255,255,255,.04);color:var(--dim);
-  font:600 10px system-ui;letter-spacing:.04em;text-transform:uppercase;
+  font:600 10px system-ui;letter-spacing:.03em;
   cursor:pointer;transition:all .12s;white-space:nowrap;
 }
-.pill:hover{background:rgba(255,255,255,.07);color:var(--sub)}
-.pill.on{background:var(--gold-faint);color:var(--gold)}
+.chip:hover{background:rgba(255,255,255,.07);color:var(--sub)}
+.chip.on{background:var(--gold-faint);color:var(--gold)}
 .sep{width:1px;height:16px;background:rgba(255,255,255,.06);margin:0 2px}
-select.fsel{
-  padding:4px 8px;border-radius:var(--r);border:none;
-  background:rgba(255,255,255,.04);color:var(--sub);
-  font:11px system-ui;cursor:pointer;outline:none;
-}
-select.fsel option{background:#1a1a1f;color:var(--text)}
 .search{
   padding:5px 10px;border-radius:var(--r);border:none;
   background:rgba(255,255,255,.04);color:var(--text);font:12px system-ui;
-  outline:none;min-width:100px;flex:1;max-width:200px;
+  outline:none;min-width:80px;flex:1;max-width:180px;
 }
 .search:focus{background:rgba(255,255,255,.07)}
 .search::placeholder{color:var(--dim)}
@@ -59,44 +79,41 @@ select.fsel option{background:#1a1a1f;color:var(--text)}
 .summary{padding:5px 14px;font-size:10px;color:var(--dim);letter-spacing:.02em}
 .wrap{padding:0 8px 80px;max-width:1100px;margin:0 auto}
 
-table{width:100%;border-collapse:collapse}
-th{
-  position:sticky;top:42px;z-index:5;background:var(--bg);
-  padding:7px 8px;text-align:left;
-  font:700 9px system-ui;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
-  cursor:pointer;user-select:none;white-space:nowrap;border-bottom:1px solid rgba(255,255,255,.06);
+/* Cards */
+.card{
+  padding:12px 14px;margin-bottom:2px;cursor:pointer;transition:background .1s;
+  border-bottom:1px solid rgba(255,255,255,.025);
 }
-th:hover{color:var(--sub)}
-th .arrow{font-size:8px;margin-left:3px;opacity:.4}
-th.sorted .arrow{opacity:1;color:var(--gold)}
-td{padding:8px 8px;vertical-align:middle;border:none}
-tr.row{cursor:pointer;transition:background .1s}
-tr.row:hover{background:var(--row-hover)!important}
-tr.row td{border-bottom:1px solid rgba(255,255,255,.025)}
-.r0{background:var(--row)}.r1{background:var(--row-alt)}
-
-.cell-rank{color:var(--dim);font:600 11px system-ui;width:32px;text-align:right}
-.cell-score{font:700 14px system-ui;color:var(--gold);width:40px;text-align:center}
-.cell-title{font-weight:500;color:var(--text);max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cell-company{color:var(--gold);font-weight:600;font-size:12px;white-space:nowrap}
-.cell-loc{color:var(--sub);font-size:11px;white-space:nowrap;max-width:110px;overflow:hidden;text-overflow:ellipsis}
-.cell-type{color:var(--dim);font-size:10px;text-transform:uppercase;letter-spacing:.03em}
+.card:hover{background:var(--row-hover)}
+.card.r0{background:var(--row)}.card.r1{background:var(--row-alt)}
+.card-top{display:flex;align-items:flex-start;gap:10px}
+.card-main{flex:1;min-width:0}
+.card-title{font-weight:600;font-size:14px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card-company{color:var(--gold);font-weight:600;font-size:12px;margin-top:1px}
+.card-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px;align-items:center}
 .tag{display:inline-block;padding:1px 7px;border-radius:999px;font:600 9px/1.7 system-ui;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap}
-.t-top{background:var(--gold-faint);color:var(--gold)}
-.t-bridge{background:var(--blue-bg);color:var(--blue)}
-.t-tw{background:rgba(201,169,110,.1);color:#c9a96e}
-.t-adj{background:rgba(122,159,192,.08);color:#7a9fc0}
-.t-ow{background:rgba(255,255,255,.04);color:var(--dim)}
+.t-city{background:rgba(122,159,192,.1);color:var(--blue)}
+.t-ft{background:var(--green-bg);color:var(--green)}
+.t-intern{background:var(--amber-bg);color:var(--amber)}
+.t-contract{background:var(--red-bg);color:var(--red)}
+.t-alt{background:var(--indigo-bg);color:var(--indigo)}
+.t-func{background:rgba(139,92,246,.08);color:#a78bfa}
+.t-world{background:var(--gold-faint);color:var(--gold-dim)}
+.t-saved{background:var(--green-bg);color:var(--green)}
+.t-maybe{background:var(--amber-bg);color:var(--amber)}
+.t-rejected{background:var(--red-bg);color:var(--red)}
 
-tr.detail-row{display:none}
-tr.detail-row.open{display:table-row}
-tr.detail-row td{padding:0}
-.detail-inner{padding:12px 14px 14px 20px;background:var(--row-hover);border-bottom:1px solid rgba(255,255,255,.04)}
+.card-reason{font-size:12px;color:var(--sub);margin-top:5px;font-style:italic}
+.card-score{font:600 11px system-ui;color:var(--dim);min-width:30px;text-align:right}
+.card-open{font-size:11px}
+
+/* Detail panel */
+.detail{display:none;padding:10px 14px 14px 20px;background:var(--row-hover);border-bottom:1px solid rgba(255,255,255,.04)}
+.card.expanded+.detail{display:block}
 .d-section{margin-bottom:8px}
 .d-label{font:700 9px system-ui;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:3px}
 .d-text{font-size:12px;line-height:1.45;color:var(--sub)}
-.d-text.risk{color:var(--risk)}
-.d-text.fit{color:var(--fit)}
+.d-text.risk{color:var(--risk)}.d-text.fit{color:var(--fit)}
 .d-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .btn{padding:6px 14px;border-radius:var(--r);border:1px solid var(--gold-dim);background:transparent;color:var(--gold);font:600 11px system-ui;cursor:pointer;transition:all .12s}
 .btn:hover{background:var(--gold-faint)}
@@ -108,33 +125,12 @@ tr.detail-row td{padding:0}
 .btn.rm:hover{background:rgba(212,116,90,.08)}
 
 .empty{padding:50px 20px;text-align:center;color:var(--dim);font-size:12px}
-.load-more{text-align:center;padding:14px}
-.load-more .btn{border-color:var(--dim);color:var(--sub)}
-.saved-footer{text-align:center;padding:14px}
 
-@media(max-width:768px){
-  .filters{padding:6px 8px;gap:4px}
-  .search{max-width:none;min-width:80px}
-  table.desk{display:none}
-  .mob{display:block!important}
-  .wrap{padding:0 0 80px}
-  th{top:38px}
+@media(max-width:600px){
+  .filters{padding:6px 8px;gap:3px}
+  .search{max-width:none;min-width:60px}
+  .card-title{font-size:13px}
 }
-@media(min-width:769px){.mob{display:none!important}}
-
-.mob{padding:0 6px}
-.mrow{padding:9px 12px;cursor:pointer;transition:background .1s;border-bottom:1px solid rgba(255,255,255,.025)}
-.mrow:hover{background:var(--row-hover)}
-.mrow.r0{background:var(--row)}.mrow.r1{background:var(--row-alt)}
-.m-line1{display:flex;align-items:center;gap:6px}
-.m-rank{color:var(--dim);font:600 11px system-ui;min-width:20px}
-.m-score{font:700 13px system-ui;color:var(--gold);min-width:24px}
-.m-title{font-weight:500;font-size:13px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
-.m-line2{display:flex;gap:6px;align-items:center;margin-top:3px;flex-wrap:wrap;padding-left:50px}
-.m-company{color:var(--gold);font-weight:600;font-size:11px}
-.m-loc{color:var(--dim);font-size:10px}
-.m-detail{display:none;padding:10px 12px 12px;background:var(--row-hover);border-bottom:1px solid rgba(255,255,255,.04)}
-.mrow.expanded+.m-detail{display:block}
 </style>
 </head>
 <body>
@@ -145,289 +141,296 @@ tr.detail-row td{padding:0}
   <div class="header-sub"><span id="hDate">-</span> &middot; <span id="hCount">0</span> roles</div>
 </div>
 
-<div class="tabs">
-  <div class="tab on" data-tab="jobs">Jobs</div>
-  <div class="tab" data-tab="saved">Saved <span id="sBadge">(0)</span></div>
+<div class="lane-tabs">
+  <button class="lane-tab on" data-lane="compliance">Compliance &amp; Ops <span class="cnt" id="cntComp">0</span></button>
+  <button class="lane-tab" data-lane="fashion">Fashion &amp; Direction <span class="cnt" id="cntFash">0</span></button>
+  <button class="lane-tab" data-lane="saved">Saved <span class="cnt" id="cntSaved">0</span></button>
 </div>
 
-<div id="vJobs">
-<div class="filters">
-  <button class="pill on" data-tier="all">All</button>
-  <button class="pill" data-tier="Top Pick">Top Pick</button>
-  <button class="pill" data-tier="Bridge">Bridge</button>
+<div class="sub-tabs" id="subTabs" style="display:none">
+  <button class="sub-tab on" data-sub="all">All</button>
+  <button class="sub-tab" data-sub="Applied">Applied</button>
+  <button class="sub-tab" data-sub="Saved">Saved</button>
+  <button class="sub-tab" data-sub="Maybe">Maybe</button>
+  <button class="sub-tab" data-sub="Rejected">Rejected</button>
+</div>
+
+<div class="filters" id="filterBar">
+  <span class="flabel">City</span>
+  <span id="cityChips"></span>
   <div class="sep"></div>
-  <button class="pill on" data-city="all">All</button>
-  <button class="pill" data-city="Paris">Paris</button>
-  <button class="pill" data-city="NYC">NYC</button>
-  <button class="pill" data-city="Miami">Miami</button>
-  <button class="pill" data-city="Other">Other</button>
+  <span class="flabel">Type</span>
+  <span id="typeChips"></span>
   <div class="sep"></div>
-  <button class="pill on" data-world="all">All</button>
-  <button class="pill" data-world="Top World">Top World</button>
-  <button class="pill" data-world="Adjacent">Adjacent</button>
-  <div class="sep"></div>
-  <button class="pill on" data-type="all">All Types</button>
-  <button class="pill" data-type="Full-Time">Full-Time</button>
-  <button class="pill" data-type="Intern">Intern</button>
-  <button class="pill" data-type="Alternance">Alternance</button>
-  <button class="pill" data-type="Contract">Contract</button>
-  <div class="sep"></div>
-  <select class="fsel" id="fSort">
-    <option value="default">Power Rank</option>
-    <option value="company">Company A-Z</option>
-    <option value="newest">Newest First</option>
-  </select>
   <input class="search" id="fSearch" placeholder="Search..." />
 </div>
-<div class="summary" id="summ"></div>
-<div class="wrap">
-  <table class="desk"><thead><tr>
-    <th data-col="rank" style="width:4%"># <span class="arrow"></span></th>
-    <th data-col="score" style="width:5%">Score <span class="arrow"></span></th>
-    <th data-col="title" style="width:30%">Title <span class="arrow"></span></th>
-    <th data-col="company" style="width:16%">Company <span class="arrow"></span></th>
-    <th data-col="location" style="width:12%">Location <span class="arrow"></span></th>
-    <th data-col="tier" style="width:10%">Tier <span class="arrow"></span></th>
-    <th data-col="world" style="width:11%">World <span class="arrow"></span></th>
-    <th data-col="type" style="width:8%">Type <span class="arrow"></span></th>
-  </tr></thead><tbody id="tbody"></tbody></table>
-  <div class="mob" id="mobody"></div>
-  <div id="loadWrap"></div>
-</div>
-</div>
 
-<div id="vSaved" style="display:none">
-<div class="summary" id="sSumm"></div>
-<div class="wrap">
-  <table class="desk"><thead><tr>
-    <th style="width:4%">#</th><th style="width:5%">Score</th><th style="width:30%">Title</th><th style="width:16%">Company</th><th style="width:12%">Location</th><th style="width:10%">Tier</th><th style="width:11%">World</th><th style="width:8%">Type</th>
-  </tr></thead><tbody id="sTbody"></tbody></table>
-  <div class="mob" id="sMob"></div>
-  <div class="saved-footer"><button class="btn" id="copyBtn">Copy saved list to clipboard</button></div>
-</div>
-</div>
+<div class="summary" id="summ"></div>
+<div class="wrap" id="wrap"></div>
 
 <script>
 var JOBS=[],META={},SAVED=[],SI={};
-var TAB="jobs",EXP=null,DISM={};
-var TIER="all",CITY="all",WORLD="all",TYPE_F="all",SEARCH="",SORT="default";
-var PAGE=100,SHOW=PAGE;
-var COL_SORT=null,COL_DIR=1;
-var LS_F="jt6_filters",LS_S="jobengine_saved";
+var LANE="compliance",SUB="all",EXP=null,DISM={};
+var SEARCH="";
+var LS_S="jobengine_saved_v2";
+
+var CITIES_ON=new Set();
+var TYPES_ON=new Set();
+
+var COMP_KW=["compliance","regulatory","aml","kyc","risk","securities","broker-dealer","broker dealer","licensing","registration","account opening","onboarding","finra","financial crimes","bsa","anti-money","sanctions","trade surveillance"];
+var COMP_SRC={"nyc_compliance":1};
 
 function e(s){return String(s==null?"":s).replace(/[&<>"']/g,function(m){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[m]||m})}
+
+function isComp(j){
+  if(j.tab==="compliance") return true;
+  if(COMP_SRC[j.source]) return true;
+  var hay=((j.title||"")+" "+(j.function_family||"")+" "+(j.lane||"")).toLowerCase();
+  for(var i=0;i<COMP_KW.length;i++){if(hay.indexOf(COMP_KW[i])>=0)return true}
+  return false;
+}
+
+function typeLabel(j){
+  var t=(j.type||"Full-Time");
+  if(t==="Intern")return"Intern";
+  if(t==="Alternance")return"Alternance";
+  if(t==="Contract")return"Contract";
+  return"Full-Time";
+}
+function typeTag(t){
+  if(t==="Full-Time")return'<span class="tag t-ft">Full-Time</span>';
+  if(t==="Intern")return'<span class="tag t-intern">Intern</span>';
+  if(t==="Contract")return'<span class="tag t-contract">Contract</span>';
+  if(t==="Alternance")return'<span class="tag t-alt">Alternance</span>';
+  return'<span class="tag">'+e(t)+'</span>';
+}
+function typeOrder(j){
+  var t=typeLabel(j);
+  if(t==="Full-Time")return 0;if(t==="Contract")return 1;if(t==="Intern")return 2;if(t==="Alternance")return 2;return 3;
+}
+
+function cityLabel(j){return j.city||"Other"}
+
+function reasonLine(j){
+  var parts=[];
+  var title=(j.title||"").toLowerCase();
+  var company=j.company_clean||j.company||"";
+  var city=j.city||"";
+  var func=j.function_family||"";
+  var wt=typeLabel(j);
+  var arr=(j.work_arrangement||"").toLowerCase();
+
+  if(isComp(j)){
+    if(title.indexOf("compliance")>=0&&title.indexOf("associate")>=0)parts.push("Compliance associate match");
+    else if(title.indexOf("compliance")>=0&&title.indexOf("analyst")>=0)parts.push("Compliance analyst match");
+    else if(title.indexOf("aml")>=0||title.indexOf("kyc")>=0)parts.push("AML/KYC match");
+    else if(title.indexOf("broker")>=0||title.indexOf("securities")>=0)parts.push("BD/securities match");
+    else if(title.indexOf("regulatory")>=0)parts.push("Regulatory ops match");
+    else if(title.indexOf("operations")>=0)parts.push("Operations match");
+    else parts.push(func||"Compliance-adjacent");
+    if(city)parts.push(city);
+    if(arr.indexOf("hybrid")>=0)parts.push("hybrid");
+    else if(arr.indexOf("onsite")>=0||arr.indexOf("office")>=0)parts.push("onsite");
+  }else{
+    var ws=j.world_simple||"";
+    if(ws==="Top World")parts.push(company||"top brand");
+    else if(company)parts.push(company);
+    if(func)parts.push(func.split("/")[0].trim().toLowerCase());
+    if(city)parts.push(city);
+  }
+  var desc=(j.one_liner||j.path_logic||"").toLowerCase();
+  if(/\b[3-4]\+?\s*(?:years?|yrs?)\b/.test(desc))parts.push("stretch \u2014 exp req");
+  if(wt!=="Full-Time")parts.push(wt.toLowerCase());
+  return parts.join(", ");
+}
 
 function shortLoc(loc){
   if(!loc)return"";
   var s=loc.replace(/,?\s*(?:Île-de-France|France|United States|USA|US)\s*$/i,"").trim();
   s=s.replace(/\s*\(\d+\)\s*$/,"").trim();
   s=s.replace(/^(?:Hybrid work in|Remote in)\s*/i,"").trim();
-  if(s.length>22)s=s.substring(0,20)+"\u2026";
+  if(s.length>25)s=s.substring(0,23)+"\u2026";
   return s;
 }
-
-function tierTag(t){return t==="Top Pick"?'<span class="tag t-top">Top Pick</span>':'<span class="tag t-bridge">Bridge</span>'}
-function worldTag(w){if(w==="Top World")return'<span class="tag t-tw">Top World</span>';if(w==="Adjacent")return'<span class="tag t-adj">Adjacent</span>';return'<span class="tag t-ow">'+e(w)+'</span>'}
 
 var INTERNAL_RE=/\b(bridge upside|borderline bridge|real bridge|prettier slop|mixed case|slop)\b/i;
 function cleanText(s){if(!s)return"";return s.replace(INTERNAL_RE,"").replace(/\s{2,}/g," ").trim()}
 
-function loadS(){try{SAVED=JSON.parse(localStorage.getItem(LS_S)||"[]")}catch(x){SAVED=[]}SI={};for(var i=0;i<SAVED.length;i++)SI[SAVED[i].fingerprint]=1;document.getElementById("sBadge").textContent="("+SAVED.length+")"}
+// --- Saved persistence ---
+function loadS(){try{SAVED=JSON.parse(localStorage.getItem(LS_S)||"[]")}catch(x){SAVED=[]}SI={};for(var i=0;i<SAVED.length;i++)SI[SAVED[i].fingerprint]=1;document.getElementById("cntSaved").textContent=SAVED.length}
 function saveS(){localStorage.setItem(LS_S,JSON.stringify(SAVED));loadS()}
-function loadF(){try{var f=JSON.parse(localStorage.getItem(LS_F));if(f){TIER=f.ti||"all";CITY=f.c||"all";WORLD=f.w||"all";TYPE_F=f.t||"all";SEARCH=f.s||"";SORT=f.so||"default"}}catch(x){}}
-function saveF(){localStorage.setItem(LS_F,JSON.stringify({ti:TIER,c:CITY,w:WORLD,t:TYPE_F,s:SEARCH,so:SORT}))}
+function saveJ(fp){for(var i=0;i<JOBS.length;i++){if(JOBS[i].fingerprint===fp&&!SI[fp]){SAVED.push({fingerprint:fp,saved_at:new Date().toISOString(),bucket:"Saved",job:JOBS[i]});break}}saveS();render()}
+function rmSaved(fp){SAVED=SAVED.filter(function(s){return s.fingerprint!==fp});saveS();render()}
+function setSavedBucket(fp,bucket){for(var i=0;i<SAVED.length;i++){if(SAVED[i].fingerprint===fp){SAVED[i].bucket=bucket;break}}saveS();render()}
 
-function syncUI(){
-  document.querySelectorAll("[data-tier]").forEach(function(p){p.classList.toggle("on",p.dataset.tier===TIER)});
-  document.querySelectorAll("[data-city]").forEach(function(p){p.classList.toggle("on",p.dataset.city===CITY)});
-  document.querySelectorAll("[data-world]").forEach(function(p){p.classList.toggle("on",p.dataset.world===WORLD)});
-  document.querySelectorAll("[data-type]").forEach(function(p){p.classList.toggle("on",p.dataset.type===TYPE_F)});
-  document.getElementById("fSearch").value=SEARCH;
-  document.getElementById("fSort").value=SORT;
+// --- Filter chips ---
+function buildChips(id, values, activeSet){
+  var el=document.getElementById(id);el.innerHTML="";
+  values.forEach(function(v){
+    var c=document.createElement("span");
+    c.className="chip"+(activeSet.size===0||activeSet.has(v)?" on":"");
+    c.textContent=v;
+    c.addEventListener("click",function(){
+      if(activeSet.has(v))activeSet.delete(v);else activeSet.add(v);
+      if(activeSet.size===values.length)activeSet.clear();
+      buildChips(id,values,activeSet);render();
+    });
+    el.appendChild(c);
+  });
 }
 
-function match(j){
-  if(TIER!=="all"&&j.tier!==TIER)return false;
-  if(CITY!=="all"&&j.city!==CITY)return false;
-  if(WORLD!=="all"&&j.world_simple!==WORLD)return false;
-  if(TYPE_F!=="all"&&(j.type||"Full-Time")!==TYPE_F)return false;
-  if(SEARCH){var h=((j.company_clean||j.company||"")+" "+(j.title||"")+" "+(j.lane||"")+" "+(j.city_lane||"")+" "+(j.world_simple||"")+" "+(j.function_family||"")).toLowerCase();if(h.indexOf(SEARCH)<0)return false}
+function refreshChips(pool){
+  var cities=new Set(),types=new Set();
+  pool.forEach(function(j){cities.add(cityLabel(j));types.add(typeLabel(j))});
+  buildChips("cityChips",Array.from(cities).sort(),CITIES_ON);
+  buildChips("typeChips",Array.from(types).sort(),TYPES_ON);
+}
+
+function passFilter(j){
+  if(CITIES_ON.size>0&&!CITIES_ON.has(cityLabel(j)))return false;
+  if(TYPES_ON.size>0&&!TYPES_ON.has(typeLabel(j)))return false;
+  if(SEARCH){
+    var hay=((j.company_clean||j.company||"")+" "+(j.title||"")+" "+(j.lane||"")+" "+(j.city||"")+" "+(j.function_family||"")).toLowerCase();
+    if(hay.indexOf(SEARCH)<0)return false;
+  }
   if(DISM[j.fingerprint])return false;
   return true;
 }
 
-function sortList(arr){
-  if(COL_SORT){
-    var col=COL_SORT,dir=COL_DIR;
-    arr.sort(function(a,b){
-      var va,vb;
-      if(col==="rank"){return((a.rank||999)-(b.rank||999))*dir}
-      if(col==="score"){return((b.score||0)-(a.score||0))*dir}
-      if(col==="title"){va=a.title||"";vb=b.title||""}
-      else if(col==="company"){va=a.company_clean||a.company||"";vb=b.company_clean||b.company||""}
-      else if(col==="location"){va=a.location||"";vb=b.location||""}
-      else if(col==="tier"){va=a.tier||"";vb=b.tier||""}
-      else if(col==="world"){va=a.world_simple||"";vb=b.world_simple||""}
-      else if(col==="type"){va=a.type||"";vb=b.type||""}
-      else{va="";vb=""}
-      return va<vb?-1*dir:va>vb?1*dir:0;
-    });
-    return;
-  }
-  if(SORT==="company"){arr.sort(function(a,b){return(a.company_clean||a.company||"").localeCompare(b.company_clean||b.company||"")})}
-  else if(SORT==="newest"){arr.sort(function(a,b){return(b.created_at||"").localeCompare(a.created_at||"")})}
-  else{arr.sort(function(a,b){return(a.rank||999)-(b.rank||999)})}
+// --- Card rendering ---
+function savedBucketOf(fp){
+  for(var i=0;i<SAVED.length;i++){if(SAVED[i].fingerprint===fp)return SAVED[i].bucket||"Saved"}
+  return"";
 }
 
-function detailHTML(j,ctx){
-  var h='<div class="detail-inner">';
-  var pl=cleanText(j.path_logic);
-  if(pl&&pl.length>10){h+='<div class="d-section"><div class="d-label">Why this matters</div><div class="d-text fit">'+e(pl)+'</div></div>'}
+function cardHTML(j,z,ctx){
+  var fp=j.fingerprint;
+  var isE=EXP===fp;
+  var wt=typeLabel(j);
+  var reason=reasonLine(j);
+  var score=j.score||0;
+  var sb=savedBucketOf(fp);
+  var sbTag="";
+  if(sb==="Applied")sbTag='<span class="tag t-saved">Applied</span>';
+  else if(sb==="Saved")sbTag='<span class="tag t-saved">Saved</span>';
+  else if(sb==="Maybe")sbTag='<span class="tag t-maybe">Maybe</span>';
+  else if(sb==="Rejected")sbTag='<span class="tag t-rejected">Rejected</span>';
+
+  var h='<div class="card r'+(z%2)+(isE?" expanded":"")+'" onclick="tog(\''+e(fp)+'\')">';
+  h+='<div class="card-top">';
+  h+='<div class="card-main">';
+  h+='<div class="card-title">'+e(j.title)+'</div>';
+  h+='<div class="card-company">'+e(j.company_clean||j.company)+'</div>';
+  h+='<div class="card-tags">';
+  h+='<span class="tag t-city">'+e(j.city||shortLoc(j.location))+'</span>';
+  h+=typeTag(wt);
+  if(j.function_family)h+='<span class="tag t-func">'+e(j.function_family)+'</span>';
+  if(j.world_simple&&j.world_simple!=="Other")h+='<span class="tag t-world">'+e(j.world_simple)+'</span>';
+  h+=sbTag;
+  h+='</div>';
+  h+='<div class="card-reason">'+e(reason)+'</div>';
+  h+='</div>';
+  h+='<div>';
+  if(j.url)h+='<a class="card-open" href="'+e(j.url)+'" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">Open</a>';
+  if(score)h+='<div class="card-score">'+score+'</div>';
+  h+='</div>';
+  h+='</div></div>';
+
+  // Detail panel
+  h+='<div class="detail">';
+  var pl=cleanText(j.path_logic||j.one_liner);
+  if(pl&&pl.length>10)h+='<div class="d-section"><div class="d-label">Why this matters</div><div class="d-text fit">'+e(pl)+'</div></div>';
   var mr=cleanText(j.main_risk);
-  if(mr&&mr.length>5){h+='<div class="d-section"><div class="d-label">Main risk</div><div class="d-text risk">'+e(mr)+'</div></div>'}
-  if(j.compensation){h+='<div class="d-section"><div class="d-label">Compensation</div><div class="d-text">'+e(j.compensation)+'</div></div>'}
+  if(mr&&mr.length>5)h+='<div class="d-section"><div class="d-label">Main risk</div><div class="d-text risk">'+e(mr)+'</div></div>';
+  if(j.compensation)h+='<div class="d-section"><div class="d-label">Compensation</div><div class="d-text">'+e(j.compensation)+'</div></div>';
   h+='<div class="d-actions">';
   if(j.url)h+='<a class="btn filled" href="'+e(j.url)+'" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">Open</a>';
-  if(ctx==="saved"){h+='<button class="btn rm" onclick="event.stopPropagation();rmSaved(\''+e(j.fingerprint)+'\')">Remove</button>'}
-  else{
-    if(!SI[j.fingerprint])h+='<button class="btn" onclick="event.stopPropagation();saveJ(\''+e(j.fingerprint)+'\')">Save</button>';
+  if(ctx==="saved"){
+    h+='<button class="btn" onclick="event.stopPropagation();setSavedBucket(\''+e(fp)+'\',\'Applied\')">Mark Applied</button>';
+    h+='<button class="btn ghost" onclick="event.stopPropagation();setSavedBucket(\''+e(fp)+'\',\'Maybe\')">Maybe</button>';
+    h+='<button class="btn rm" onclick="event.stopPropagation();rmSaved(\''+e(fp)+'\')">Remove</button>';
+  }else{
+    if(!SI[fp])h+='<button class="btn" onclick="event.stopPropagation();saveJ(\''+e(fp)+'\')">Save</button>';
     else h+='<button class="btn" style="opacity:.3;cursor:default" onclick="event.stopPropagation()">Saved</button>';
-    h+='<button class="btn ghost" onclick="event.stopPropagation();dismiss(\''+e(j.fingerprint)+'\')">Dismiss</button>';
+    h+='<button class="btn ghost" onclick="event.stopPropagation();dismiss(\''+e(fp)+'\')">Dismiss</button>';
   }
   h+='</div></div>';
+
   return h;
 }
 
-function rowHTML(j,z,isE,ctx){
-  var fp=j.fingerprint;
-  var h='<tr class="row r'+z+'" onclick="tog(\''+e(fp)+'\')">';
-  h+='<td class="cell-rank">'+j.rank+'</td>';
-  h+='<td class="cell-score">'+j.score+'</td>';
-  h+='<td class="cell-title">'+e(j.title)+'</td>';
-  h+='<td class="cell-company">'+e(j.company_clean||j.company)+'</td>';
-  h+='<td class="cell-loc">'+e(shortLoc(j.location))+'</td>';
-  h+='<td>'+tierTag(j.tier)+'</td>';
-  h+='<td>'+worldTag(j.world_simple)+'</td>';
-  h+='<td class="cell-type">'+e(j.type)+'</td>';
-  h+='</tr>';
-  h+='<tr class="detail-row'+(isE?" open":"")+'"><td colspan="8">'+detailHTML(j,ctx)+'</td></tr>';
-  return h;
-}
-
-function mobHTML(j,z,isE,ctx){
-  var fp=j.fingerprint;
-  var h='<div class="mrow r'+z+(isE?" expanded":"")+'" onclick="tog(\''+e(fp)+'\')">';
-  h+='<div class="m-line1"><span class="m-rank">#'+j.rank+'</span><span class="m-score">'+j.score+'</span><span class="m-title">'+e(j.title)+'</span></div>';
-  h+='<div class="m-line2"><span class="m-company">'+e(j.company_clean||j.company)+'</span><span class="m-loc">'+e(j.city)+'</span>'+tierTag(j.tier)+'</div>';
-  h+='</div>';
-  if(isE)h+='<div class="m-detail">'+detailHTML(j,ctx)+'</div>';
-  return h;
-}
-
+// --- Main render ---
 function render(){
-  if(TAB==="saved"){
-    document.getElementById("vJobs").style.display="none";
-    document.getElementById("vSaved").style.display="block";
-    var tb=document.getElementById("sTbody"),mb=document.getElementById("sMob");
-    if(!SAVED.length){
-      tb.innerHTML='<tr><td colspan="8" class="empty">No saved roles yet.</td></tr>';
-      mb.innerHTML='<div class="empty">No saved roles yet.</div>';
-      document.getElementById("sSumm").textContent="";
-      return;
+  var wrap=document.getElementById("wrap");
+  var subEl=document.getElementById("subTabs");
+  var filterBar=document.getElementById("filterBar");
+
+  // Pools
+  var compPool=JOBS.filter(isComp);
+  var fashPool=JOBS.filter(function(j){return!isComp(j)});
+  document.getElementById("cntComp").textContent=compPool.length;
+  document.getElementById("cntFash").textContent=fashPool.length;
+
+  var list=[];
+  var ctx="jobs";
+
+  if(LANE==="compliance"||LANE==="fashion"){
+    subEl.style.display="none";
+    filterBar.style.display="flex";
+    var pool=LANE==="compliance"?compPool:fashPool;
+    refreshChips(pool);
+    list=pool.filter(passFilter);
+    // Sort
+    if(LANE==="compliance"){
+      list.sort(function(a,b){var ta=typeOrder(a),tb=typeOrder(b);if(ta!==tb)return ta-tb;return(b.score||0)-(a.score||0)});
+    }else{
+      list.sort(function(a,b){return(b.score||0)-(a.score||0)});
     }
-    var dh="",mh="";
-    for(var i=0;i<SAVED.length;i++){
-      var j=SAVED[i].job,isE=EXP===j.fingerprint;
-      dh+=rowHTML(j,i%2,isE,"saved");
-      mh+=mobHTML(j,i%2,isE,"saved");
-    }
-    tb.innerHTML=dh;mb.innerHTML=mh;
-    document.getElementById("sSumm").textContent=SAVED.length+" saved role"+(SAVED.length===1?"":"s");
+  }else{
+    // Saved
+    subEl.style.display="flex";
+    filterBar.style.display="none";
+    ctx="saved";
+    list=SAVED.map(function(s){var j=Object.assign({},s.job);j._bucket=s.bucket||"Saved";return j});
+    if(SUB!=="all"){list=list.filter(function(j){return j._bucket===SUB})}
+  }
+
+  document.getElementById("summ").textContent="Showing "+list.length+" role"+(list.length===1?"":"s");
+
+  if(!list.length){
+    wrap.innerHTML='<div class="empty">No roles match your filters.</div>';
     return;
   }
 
-  document.getElementById("vJobs").style.display="block";
-  document.getElementById("vSaved").style.display="none";
-
-  var vis=[];
-  for(var k=0;k<JOBS.length;k++){if(match(JOBS[k]))vis.push(JOBS[k])}
-  sortList(vis);
-
-  var tc={};
-  for(var m=0;m<vis.length;m++){var t=vis[m].tier;tc[t]=(tc[t]||0)+1}
-  var parts=[];
-  if(tc["Top Pick"])parts.push(tc["Top Pick"]+" Top Pick"+(tc["Top Pick"]>1?"s":""));
-  if(tc["Bridge"])parts.push(tc["Bridge"]+" Bridge");
-  document.getElementById("summ").textContent="Showing "+vis.length+" role"+(vis.length===1?"":"s")+(parts.length?" \u2014 "+parts.join(", "):"");
-
-  document.querySelectorAll("th[data-col]").forEach(function(th){
-    th.classList.toggle("sorted",COL_SORT===th.dataset.col);
-    th.querySelector(".arrow").textContent=COL_SORT===th.dataset.col?(COL_DIR===1?"\u25B2":"\u25BC"):"\u25B2";
-  });
-
-  var limit=Math.min(vis.length,SHOW);
-  var dh="",mh="";
-  for(var p=0;p<limit;p++){
-    var j=vis[p],isE=EXP===j.fingerprint;
-    dh+=rowHTML(j,p%2,isE,"jobs");
-    mh+=mobHTML(j,p%2,isE,"jobs");
+  var html="";
+  for(var i=0;i<list.length;i++){
+    html+=cardHTML(list[i],i,ctx);
   }
-
-  document.getElementById("tbody").innerHTML=dh||'<tr><td colspan="8" class="empty">No roles match filters.</td></tr>';
-  document.getElementById("mobody").innerHTML=mh||'<div class="empty">No roles match filters.</div>';
-
-  var lw=document.getElementById("loadWrap");
-  if(vis.length>limit){lw.innerHTML='<div class="load-more"><button class="btn" onclick="more()">Load more ('+(vis.length-limit)+' remaining)</button></div>'}
-  else{lw.innerHTML=""}
+  wrap.innerHTML=html;
 }
 
 function tog(fp){EXP=EXP===fp?null:fp;render()}
-function more(){SHOW+=PAGE;render()}
-function saveJ(fp){for(var i=0;i<JOBS.length;i++){if(JOBS[i].fingerprint===fp&&!SI[fp]){SAVED.push({fingerprint:fp,saved_at:new Date().toISOString(),job:JOBS[i]});break}}saveS();render()}
-function rmSaved(fp){SAVED=SAVED.filter(function(s){return s.fingerprint!==fp});saveS();render()}
 function dismiss(fp){DISM[fp]=1;render()}
 
-function addPillListeners(attr,setter){
-  document.querySelectorAll("["+attr+"]").forEach(function(p){p.addEventListener("click",function(){
-    document.querySelectorAll("["+attr+"]").forEach(function(x){x.classList.remove("on")});p.classList.add("on");
-    setter(p.getAttribute(attr));SHOW=PAGE;COL_SORT=null;saveF();render();
-  })});
-}
-
-document.querySelectorAll(".tab").forEach(function(t){t.addEventListener("click",function(){
-  document.querySelectorAll(".tab").forEach(function(x){x.classList.remove("on")});t.classList.add("on");
-  TAB=t.dataset.tab;EXP=null;SHOW=PAGE;render();
+// --- Tab switching ---
+document.querySelectorAll(".lane-tab").forEach(function(t){t.addEventListener("click",function(){
+  document.querySelectorAll(".lane-tab").forEach(function(x){x.classList.remove("on")});t.classList.add("on");
+  LANE=t.dataset.lane;EXP=null;CITIES_ON.clear();TYPES_ON.clear();render();
 })});
-
-addPillListeners("data-tier",function(v){TIER=v});
-addPillListeners("data-city",function(v){CITY=v});
-addPillListeners("data-world",function(v){WORLD=v});
-addPillListeners("data-type",function(v){TYPE_F=v});
-
-document.getElementById("fSort").addEventListener("change",function(){SORT=this.value;SHOW=PAGE;COL_SORT=null;saveF();render()});
-document.getElementById("fSearch").addEventListener("input",function(){SEARCH=this.value.toLowerCase().trim();SHOW=PAGE;saveF();render()});
-
-document.querySelectorAll("th[data-col]").forEach(function(th){th.addEventListener("click",function(){
-  var col=th.dataset.col;
-  if(COL_SORT===col){COL_DIR*=-1}else{COL_SORT=col;COL_DIR=1}
-  render();
+document.querySelectorAll(".sub-tab").forEach(function(t){t.addEventListener("click",function(){
+  document.querySelectorAll(".sub-tab").forEach(function(x){x.classList.remove("on")});t.classList.add("on");
+  SUB=t.dataset.sub;render();
 })});
+document.getElementById("fSearch").addEventListener("input",function(){SEARCH=this.value.toLowerCase().trim();render()});
 
-document.getElementById("copyBtn").addEventListener("click",function(){
-  if(!SAVED.length){alert("No saved jobs.");return}
-  var lines=[];
-  for(var i=0;i<SAVED.length;i++){var j=SAVED[i].job;lines.push((j.title||"")+" @ "+(j.company_clean||j.company||""));if(j.url)lines.push(j.url);lines.push("")}
-  navigator.clipboard.writeText(lines.join("\n")).then(function(){alert("Copied "+SAVED.length+" roles to clipboard.")});
-});
-
+// --- Init ---
 (async function(){
-  loadF();syncUI();loadS();
+  loadS();
   try{
     var [jr,mr]=await Promise.all([fetch("jobs.json"),fetch("meta.json")]);
     JOBS=await jr.json();META=await mr.json();
   }catch(x){
-    document.getElementById("tbody").innerHTML='<tr><td colspan="8" class="empty">Could not load jobs.json. Serve with: python -m http.server</td></tr>';
-    document.getElementById("mobody").innerHTML='<div class="empty">Could not load jobs.json.</div>';
+    document.getElementById("wrap").innerHTML='<div class="empty">Could not load jobs.json.</div>';
     return;
   }
   document.getElementById("hDate").textContent=META.export_date?new Date(META.export_date).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}):"\u2014";
