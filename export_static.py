@@ -552,8 +552,8 @@ def _nyc_title_fit(title):
 def _nyc_company(company):
     norm = _norm(company)
     if not norm: return 8, "", 4
-    if _STAFFING_EXPANDED_RE.search(company): return 0, "staffing agency", 5
-    if _STAFFING_RE.search(company): return 0, "staffing agency", 5
+    if _STAFFING_EXPANDED_RE.search(company): return 15, "staffing agency", 5
+    if _STAFFING_RE.search(company): return 15, "staffing agency", 5
     if _INSURANCE_RE.search(company): return 0, "insurance", 5
     for c in _NYC_T1:
         if _words_match(c, norm):
@@ -644,6 +644,25 @@ def nyc_score(title, company, desc, location, comp_text):
 
     raw = title_pts + company_pts + adj
     score = max(0, min(100, round(raw * 100 / 70)))
+
+    # === TRUE DISQUALIFIERS: override score to 0 ===
+    _dq_lang = re.search(
+        r"\b(?:japanese|mandarin|chinese|korean|portuguese|arabic|russian|italian"
+        r"|german\s+bilingual|cantonese)\b", title, re.I,
+    )
+    if _dq_lang:
+        score = 0
+        risks = [f"Requires {_dq_lang.group(0).lower()}"]
+    _dq_loc = re.search(
+        r"\b(?:luxembourg|london|singapore|hong\s+kong|dublin|frankfurt|geneva|zurich|toronto|sydney|mumbai|bangalore)\b",
+        title, re.I,
+    )
+    if _dq_loc:
+        score = 0
+        risks = [f"Wrong location -- actually {_dq_loc.group(0)}"]
+    if re.search(r"\bfractional\b", title, re.I):
+        score = 0
+        risks = ["Fractional consulting gig, not a real position"]
 
     # Build reason: company-first format
     cc = clean_company(company)
