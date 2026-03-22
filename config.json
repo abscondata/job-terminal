@@ -163,6 +163,7 @@
             "nyc_compliance"
         ],
         "audit_rejects": true,
+        "include_alternance": false,
         "request_timeout": 30,
         "retry_attempts": 3,
         "inter_request_delay": 1.0,

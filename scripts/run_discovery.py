@@ -36,6 +36,7 @@ from scripts.profilculture import scrape as scrape_profilculture
 from scripts.welcometothejungle import scrape as pull_wttj_source
 
 TAG_RE = re.compile(r"<[^>]+>")
+_ALTERNANCE_RE = re.compile(r"\b(?:alternance|apprenti)", re.I)
 DESC_LIMIT = 14000
 ACTIVE_PATH_NOTE = (
     "Active path: targeted discovery -> lane-based path review -> manual triage and saved review. "
@@ -231,6 +232,7 @@ def main() -> None:
     greenhouse_max_age_days = int(disc.get("greenhouse_max_age_days", 60))
     wttj_max_age_days = int(disc.get("wttj_max_age_days", 21))
     audit_rejects_enabled = args.audit_rejects or bool(disc.get("audit_rejects", True))
+    include_alternance = bool(disc.get("include_alternance", True))
     fuzzy_enabled = bool(disc.get("fuzzy_dedupe", True))
     fuzzy_days = int(disc.get("fuzzy_dedupe_days", 120))
     fuzzy_allow_sources = set(disc.get("fuzzy_allow_sources") or [])
@@ -336,6 +338,7 @@ def main() -> None:
     print(f"[config] quick={args.quick}")
     print(f"[config] city_scope={city_scope}")
     print(f"[config] audit_rejects={audit_rejects_enabled}")
+    print(f"[config] include_alternance={include_alternance}")
     print(f"[config] fuzzy_dedupe={fuzzy_enabled} days={fuzzy_days}")
     print(f"[config] active_path={ACTIVE_PATH_NOTE}")
     print(f"[config] enabled_sources={sorted(enabled) if enabled else 'ALL'}")
@@ -493,6 +496,15 @@ def main() -> None:
                 "language_gate_block",
                 item,
                 detail={"gate": "language", "label": "block"},
+            )
+            return False
+
+        if not include_alternance and _ALTERNANCE_RE.search(title):
+            stats["rejected"] += 1
+            _audit_reject(
+                "alternance_excluded",
+                item,
+                detail={"reason": "include_alternance=false"},
             )
             return False
 
