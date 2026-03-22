@@ -28,8 +28,8 @@ COMPANY_SUFFIX = re.compile(
     r",?\s*\b(Inc\.?|LLC|Ltd\.?|Corp\.?|Co\.?|S\.?A\.?|S\.?A\.?S\.?|"
     r"SE|GmbH|PLC|N\.?V\.?|AG|SAS|SARL|SpA|Pty|Limited)\s*$", re.I,
 )
-_NYC_RE = re.compile(r"\b(?:new york|nyc|manhattan|brooklyn|jersey city|stamford|hoboken)\b", re.I)
-_MIAMI_RE = re.compile(r"\b(?:miami|fort lauderdale|boca raton|palm beach|south florida)\b", re.I)
+_NYC_RE = re.compile(r"\b(?:new york|nyc|manhattan|brooklyn|jersey city|stamford|hoboken|weehawken|newark|white plains)\b", re.I)
+_MIAMI_RE = re.compile(r"\b(?:miami|fort lauderdale|boca raton|palm beach|south florida|coral gables|doral|aventura|hollywood,?\s*fl)\b", re.I)
 _PARIS_RE = re.compile(r"\bparis\b", re.I)
 _HYBRID_RE = re.compile(r"\bhybrid\b", re.I)
 _SENIOR_RE = re.compile(r"\b(?:senior|sr\.?|director|vp|vice\s+president|head\s+of|chief|principal|managing\s+director|lead)\b", re.I)
@@ -65,6 +65,47 @@ COMPLIANCE_KEYWORDS = [
 COMP_FLOOR = 35
 FASH_FLOOR = 45
 TODAY = datetime(2026, 3, 22, tzinfo=timezone.utc)
+
+# Titles that should NEVER appear in compliance tab
+_NON_COMPLIANCE_TITLE_RE = re.compile(
+    r"\b(?:product\s+(?:manager|designer|lead|owner)"
+    r"|software\s+engineer|backend\s+engineer|frontend\s+engineer|fullstack"
+    r"|data\s+scien(?:ce|tist)|machine\s+learning|devops|sre\b"
+    r"|corporate\s+finance\s+manager|technical\s+accounting\s+manager"
+    r"|account\s+executive|account\s+manager|sales\s+(?:associate|manager|director)"
+    r"|options\s+specialist|trading\s+specialist|trader\b"
+    r"|marketing\s+manager|brand\s+manager|creative\s+director"
+    r"|ui\s+designer|ux\s+designer|graphic\s+designer"
+    r"|content\s+and\s+ai|content\s+moderator"
+    r"|code\s+compliance\s+inspector|building\s+inspector"
+    r"|safety\s+and\s+compliance|food\s+safety|fair\s+workweek"
+    r"|reservations?\s+(?:compliance|specialist))\b", re.I,
+)
+
+# Companies that are NOT financial services — exclude from compliance tab
+_NON_FINANCIAL_COMPANY_RE = re.compile(
+    r"\b(?:ikea|raising\s+cane|chicken\s+fingers?"
+    r"|independent\s+living|city\s+of\s+miami|city\s+of\s+new\s+york"
+    r"|ritz.carlton\s+yacht|marriott|hilton|hyatt"
+    r"|amazon\s+web\s+services|aws\b|google\b"
+    r"|walmart|target\b|costco|home\s+depot"
+    r"|interstate\s+waste)\b", re.I,
+)
+
+# Expanded staffing agency list for scoring penalty
+_STAFFING_EXPANDED_RE = re.compile(
+    r"\b(?:staffing|recruiting|talent\s+(?:acquisition|solutions)"
+    r"|search\s+partners|search\s+firm|manpower|adecco|robert\s+half"
+    r"|randstad|hays|kelly\s+services|aston\s+carter|kforce|teksystems"
+    r"|insight\s+global|beacon\s+hill|addison\s+group|phaxis|collabera"
+    r"|apex\s+systems|prokatchers|cynet\s+systems|nextgen"
+    r"|ascendo\s+resources|hireminds|cardea\s+group|madison.davis"
+    r"|coda\s+search|arrow\s+search|social\s+capital\s+resources"
+    r"|larson\s+maddox|barclay\s+simpson|ocr\s+alpha|plona\s+partners"
+    r"|selby\s+jennings|harrington\s+starr|compliance\s+risk\s+concepts"
+    r"|citi\s*staffing|glocap|options\s+group|odyssey\s+search"
+    r"|solomon\s+page|dynamic(?:s)?\s+(?:executive\s+)?search)\b", re.I,
+)
 
 # ============================================================
 # COMP EXTRACTION
@@ -277,11 +318,23 @@ def detect_type(title: str) -> str:
     return "Full-Time"
 
 
-def city_label(city_lane: str) -> str:
+def city_label_from_lane(city_lane: str) -> str:
     if not city_lane or city_lane == "Unknown": return "Other"
     if city_lane.startswith("Paris"): return "Paris"
     if city_lane == "NYC": return "NYC"
     if city_lane == "Miami": return "Miami"
+    return "Other"
+
+
+def city_label(city_lane: str, location: str = "") -> str:
+    """Resolve city from city_lane first, then fall back to location text parsing."""
+    result = city_label_from_lane(city_lane)
+    if result != "Other":
+        return result
+    # Fall back to location text
+    if _NYC_RE.search(location): return "NYC"
+    if _MIAMI_RE.search(location): return "Miami"
+    if _PARIS_RE.search(location): return "Paris"
     return "Other"
 
 
@@ -422,6 +475,7 @@ def _nyc_title_fit(title):
 def _nyc_company(company):
     norm = _norm(company)
     if not norm: return 8, "", 4
+    if _STAFFING_EXPANDED_RE.search(company): return 0, "staffing agency", 5
     if _STAFFING_RE.search(company): return 0, "staffing agency", 5
     if _INSURANCE_RE.search(company): return 0, "insurance", 5
     for c in _NYC_T1:
@@ -464,9 +518,18 @@ def nyc_score(title, company, desc, location, comp_text):
     if cv >= 100000: adj += 5
     elif cv > 0 and cv < 60000: adj -= 10; risks.append(f"low salary (${cv // 1000}K)")
 
-    if company_label == "staffing agency": risks.append("staffing agency posting, actual employer unclear")
+    if company_label == "staffing agency":
+        adj -= 8  # staffing penalty on top of 0 company points
+        risks.append("staffing agency posting, actual employer unclear")
     elif company_label == "insurance" and "insurance company, not finance" not in risks:
         risks.append("insurance company, not finance")
+
+    # Role specificity tiebreaker: compliance associate/analyst get +3 over generic "compliance officer" etc
+    tl_lower = title.lower()
+    if "compliance associate" in tl_lower or "compliance analyst" in tl_lower:
+        adj += 3
+    elif "aml analyst" in tl_lower or "kyc analyst" in tl_lower:
+        adj += 2
 
     raw = title_pts + company_pts + adj
     score = max(0, min(100, round(raw * 100 / 70)))
@@ -510,6 +573,20 @@ def nyc_score(title, company, desc, location, comp_text):
     extras = []
     if _SERIES7_RE.search(hay): extras.append("mentions Series 7")
     if _ENTRY_RE.search(title): extras.append("entry-level friendly")
+    # Niche identification for richer reasons
+    norm_co = _norm(company)
+    if company_label == "staffing agency":
+        pass  # already in risk
+    elif any(w in norm_co for w in ["crypto", "coinbase", "kraken", "gemini", "circle", "ripple", "block"]):
+        extras.append("crypto/fintech")
+    elif any(w in norm_co for w in ["hedge", "point72", "citadel", "millennium", "aqr", "two sigma", "de shaw", "bridgewater"]):
+        extras.append("hedge fund")
+    elif any(w in norm_co for w in ["blackstone", "kkr", "apollo", "carlyle", "warburg", "bain capital", "ares", "tpg"]):
+        extras.append("PE firm")
+    elif any(w in norm_co for w in ["bank", "citi", "jpmorgan", "goldman", "morgan stanley", "barclays", "ubs", "hsbc", "bnp", "wells fargo", "bofa"]):
+        extras.append("banking")
+    elif any(w in norm_co for w in ["asset", "blackrock", "vanguard", "fidelity", "pimco", "invesco", "neuberger", "wellington", "franklin"]):
+        extras.append("asset management")
     if extras: parts.append(", ".join(extras))
 
     reason = ", ".join(parts)
@@ -641,6 +718,24 @@ def paris_score(title, company, desc, location, world_tier, comp_text):
     return score, reason, risk, brand_tier, role_tier
 
 
+def _fix_function_family(func: str, title: str, tab: str) -> str:
+    """Override bad function_family tags. Gallery/Cultural at a fintech is wrong."""
+    if not func:
+        return func
+    func_l = func.lower()
+    if tab == "compliance" and ("gallery" in func_l or "cultural" in func_l or "fashion" in func_l):
+        # Derive from title instead
+        tl = title.lower()
+        if "compliance" in tl: return "Compliance"
+        if "aml" in tl or "kyc" in tl: return "AML / KYC"
+        if "risk" in tl: return "Risk"
+        if "operations" in tl: return "Operations"
+        if "regulatory" in tl: return "Regulatory"
+        if "onboarding" in tl: return "Client Onboarding"
+        return "Compliance"
+    return func
+
+
 # ============================================================
 # MAIN EXPORT
 # ============================================================
@@ -687,11 +782,18 @@ def main():
         if tab == "compliance":
             if _LEGAL_RE.search(title) and "compliance" not in title.lower(): continue
             if _SALES_RE.search(title): continue
-            # Fix 1: Only show compliance roles in NYC, Miami, or Paris
+            # Non-compliance function gate
+            if _NON_COMPLIANCE_TITLE_RE.search(title): continue
+            # Non-financial company gate
+            if _NON_FINANCIAL_COMPANY_RE.search(company): continue
+            # City gate: only NYC, Miami, Paris
             if not (_NYC_RE.search(location) or _MIAMI_RE.search(location) or _PARIS_RE.search(location)):
                 continue
 
         comp_display = extract_comp(title, description, comp_raw)
+        # Fix $0K display
+        if comp_display and comp_display in ("$0K", "$0K-$0K", "0"):
+            comp_display = ""
 
         if tab == "compliance":
             score, reason, risk, c_tier, t_fit = nyc_score(title, company, description, location, comp_raw)
@@ -710,6 +812,11 @@ def main():
         if stale_note and stale_note not in risk:
             risk = f"{risk}; {stale_note}" if risk else stale_note
 
+        resolved_city = city_label(ev.get("city_lane", ""), location)
+        # Hide "Other" city compliance roles
+        if tab == "compliance" and resolved_city == "Other":
+            continue
+
         all_jobs.append({
             "job_id": row["job_id"], "fingerprint": row["fingerprint"],
             "source": source, "company": company, "company_clean": clean_company(company),
@@ -717,11 +824,11 @@ def main():
             "url": row["url"] or row["apply_url"] or "",
             "created_at": row["created_at_utc"] or "",
             "lane": classification,
-            "city": city_label(ev.get("city_lane", "")),
+            "city": resolved_city,
             "city_lane": ev.get("city_lane", "Unknown"),
             "world_simple": "Top World" if world_tier == "Top Luxury / Culture World" else ("Adjacent" if world_tier in {"Real Adjacent World", "Premium But Generic World"} else "Other"),
             "world_tier": world_tier,
-            "function_family": ev.get("function_family", ""),
+            "function_family": _fix_function_family(ev.get("function_family", ""), title, tab),
             "type": detect_type(title),
             "score": score, "power_score": float(score),
             "one_liner": reason, "risk": risk, "main_risk": risk,
@@ -782,16 +889,18 @@ def main():
             print(f"\n=== {label} (empty) ==="); continue
         med = scores[len(scores) // 2]
         print(f"\n=== {label} visible: {len(visible)} roles (min={scores[0]}, median={med}, max={scores[-1]}) ===")
-        print("  TOP 3:")
-        for j in visible[:3]:
+        n_top = 20 if label == "COMPLIANCE" else 3
+        n_bot = 10 if label == "COMPLIANCE" else 3
+        print(f"  TOP {n_top}:")
+        for j in visible[:n_top]:
             print(f"    #{j['rank']:>3} s={j['score']:3d} | {j['company_clean'][:22]:<22s} | {j['title'][:42]}")
-            print(f"           {j['one_liner'][:70]}")
+            print(f"           {j['one_liner'][:75]}")
             if j["risk"]: print(f"           RISK: {j['risk'][:70]}")
             if j["compensation"]: print(f"           COMP: {j['compensation']}")
-        print("  BOTTOM 3:")
-        for j in visible[-3:]:
+        print(f"  BOTTOM {n_bot}:")
+        for j in visible[-n_bot:]:
             print(f"    #{j['rank']:>3} s={j['score']:3d} | {j['company_clean'][:22]:<22s} | {j['title'][:42]}")
-            print(f"           {j['one_liner'][:70]}")
+            print(f"           {j['one_liner'][:75]}")
             if j["risk"]: print(f"           RISK: {j['risk'][:70]}")
 
 
