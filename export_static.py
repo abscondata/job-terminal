@@ -218,10 +218,21 @@ _MONTH_MAP = {
 }
 
 
+_SEASON_YEAR_RE = re.compile(
+    r"\b([e\u00e9]t[e\u00e9]|printemps|automne|hiver|summer|spring|fall|autumn|winter)\s+(20\d{2})\b", re.I,
+)
+_SEASON_MONTH = {
+    "ete": 7, "printemps": 4, "automne": 10, "hiver": 1,
+    "summer": 7, "spring": 4, "fall": 10, "autumn": 10, "winter": 1,
+}
+_BARE_YEAR_RE = re.compile(r"\b(202[0-5])\b")
+
+
 def check_stale(title: str) -> tuple[str, bool]:
     """Check if title references a past date. Returns (risk_note, should_hide).
     should_hide=True if >6 months in the past.
     """
+    # Check month + year pattern
     for m in _MONTH_YEAR_RE.finditer(title):
         month_str = m.group(1).lower().replace("\u00e9", "e").replace("\u00fb", "u")
         year = int(m.group(2))
@@ -235,6 +246,29 @@ def check_stale(title: str) -> tuple[str, bool]:
             if months_ago > 6:
                 return f"Expired -- listed for {month_label} {year}", True
             return f"Possibly expired -- listed for {month_label} {year}", False
+
+    # Check season + year pattern (été 2023, printemps 2024, etc.)
+    for m in _SEASON_YEAR_RE.finditer(title):
+        season_str = m.group(1).lower().replace("\u00e9", "e")
+        year = int(m.group(2))
+        month = _SEASON_MONTH.get(season_str, 6)
+        target = datetime(year, month, 1, tzinfo=timezone.utc)
+        if target < TODAY:
+            months_ago = (TODAY.year - target.year) * 12 + (TODAY.month - target.month)
+            label = m.group(1).capitalize()
+            if months_ago > 6:
+                return f"Expired -- listed for {label} {year}", True
+            return f"Possibly expired -- listed for {label} {year}", False
+
+    # Check bare year (2020-2025 in title, not 2026+)
+    for m in _BARE_YEAR_RE.finditer(title):
+        year = int(m.group(1))
+        if year < TODAY.year:
+            months_ago = (TODAY.year - year) * 12 + TODAY.month
+            if months_ago > 12:
+                return f"Expired -- references {year}", True
+            return f"Possibly expired -- references {year}", False
+
     return "", False
 
 
@@ -666,7 +700,19 @@ _PARIS_FUNC_T1 = re.compile(r"\b(?:chef\s+de\s+projet|project\s+(?:coordinator|a
 _PARIS_FUNC_T2 = re.compile(r"\b(?:communication(?:s)?\s+(?:assistant|coordinator)|event(?:s)?\s+(?:coordinator|assistant)|visual\s+merchandising|vm\s+coordinator|studio\s+(?:coordinator|assistant)|gallery\s+(?:coordinator|assistant)|auction\s+(?:operations|coordinator)|creative\s+(?:operations|coordinator))\b", re.I)
 _PARIS_FUNC_T3 = re.compile(r"\b(?:marketing\s+(?:assistant|coordinator)|brand\s+(?:coordinator|assistant|strategy)|pr\s+(?:assistant|coordinator)|influence|relations\s+(?:presse|publiques))\b", re.I)
 _PARIS_COMPLIANCE_FUNC = re.compile(r"\b(?:compliance|conformit|aml|kyc|lcb|risque|contr.le\s+interne|audit\s+interne)\b", re.I)
-_PARIS_RETAIL_RE = re.compile(r"\b(?:vendeur|vendeuse|sales\s+associate|retail\s+sales|cashier|caissier|stockist)\b", re.I)
+_PARIS_RETAIL_RE = re.compile(
+    r"\b(?:vendeur|vendeuse|conseill(?:er|[e\u00e8]re)\s+de\s+(?:vente|mode)"
+    r"|assistant(?:e)?\s+de\s+vente|sales\s+(?:associate|advisor)"
+    r"|client\s+advisor|h[o\u00f4]te(?:sse)?\s+de\s+caisse|cashier|caissier)\b", re.I)
+_PARIS_STOCKROOM_RE = re.compile(r"\b(?:stockist[e]?|stock\s+(?:associate|coordinator)|magasinier|warehouse)\b", re.I)
+_PARIS_CRAFT_RE = re.compile(r"\b(?:repasseu[r|se]|retoucheu[r|se]|couturi[e\u00e8]re?|teinturerie|d[e\u00e9]tacheu[r|se]|pressing|polisseu[r|se]|sertisseu[r|se])\b", re.I)
+_PARIS_REPAIR_RE = re.compile(r"\b(?:service\s+entretien|service\s+r[e\u00e9]paration|apr[e\u00e8]s.vente|SAV\b|repair)\b", re.I)
+_PARIS_BOUTIQUE_SVC_RE = re.compile(r"\b(?:service\s+client(?:s|e)?\s+boutique)\b", re.I)
+_PARIS_SUPPLY_RE = re.compile(r"\b(?:supply\s+chain|omnistock|logistique|approvisionnement|demand\s+planning|inventory)\b", re.I)
+_PARIS_SUPPLY_CREATIVE_RE = re.compile(r"\b(?:cr[e\u00e9]ation|design|visual|atelier|production\s+artistique)\b", re.I)
+_PARIS_IT_RE = re.compile(r"(?:\bSI\b|\bIS\b|syst[e\u00e8]me(?:s)?\s+d.information|informatique|\bERP\b|\bSAP\b|data\s+engineer|\bBI\b|business\s+intelligence|d[e\u00e9]veloppeu[r|se]|developer|devops)", re.I)
+_PARIS_HR_RE = re.compile(r"\b(?:learning\s+(?:&|and|et)\s+development|formation\s+RH|ressources\s+humaines|people\s+ops|talent\s+acquisition|recrutement)\b", re.I)
+_PARIS_FINANCE_RE = re.compile(r"\b(?:contr[o\u00f4]le?\s+de\s+gestion|comptabilit|audit\s+interne|finance\s+manager|controller|accounts?\s+(?:payable|receivable))\b", re.I)
 _FRENCH_HEAVY_RE = re.compile(r"\b(?:excellente?\s+ma.trise\s+du?\s+fran.ais|fran.ais\s+(?:courant|natif|maternel)|niveau\s+c[12]\s+(?:en\s+)?fran.ais|r.daction|press\s+attach|attach.e?\s+de\s+presse|copywriter|r.dacteur|concepteur.r.dacteur)\b", re.I)
 _ENGLISH_POSTING_RE = re.compile(r"\b(?:we\s+are\s+looking|you\s+will|the\s+role|responsibilities|requirements|about\s+the\s+role|what\s+you|join\s+(?:us|our))\b", re.I)
 
@@ -688,8 +734,21 @@ def _paris_brand(company, world_tier):
 
 
 def _paris_role(title):
-    if _PARIS_RETAIL_RE.search(title): return 8, "retail sales", 5
-    if _PARIS_COMPLIANCE_FUNC.search(title): return 12, "compliance function", 4
+    # Downgrade categories first (0-5 role quality)
+    if _PARIS_RETAIL_RE.search(title): return 2, "retail sales", 8
+    if _PARIS_STOCKROOM_RE.search(title): return 2, "stockroom", 8
+    if _PARIS_CRAFT_RE.search(title): return 3, "skilled craft", 8
+    if _PARIS_REPAIR_RE.search(title): return 2, "repair/after-sales", 8
+    if _PARIS_BOUTIQUE_SVC_RE.search(title): return 3, "boutique client service", 8
+    if _PARIS_IT_RE.search(title): return 3, "IT/systems", 7
+    if _PARIS_HR_RE.search(title): return 4, "HR/training", 7
+    if _PARIS_FINANCE_RE.search(title): return 4, "finance/accounting", 7
+    # Supply chain — unless paired with creative
+    if _PARIS_SUPPLY_RE.search(title) and not _PARIS_SUPPLY_CREATIVE_RE.search(title):
+        return 5, "supply chain", 6
+    # Compliance at luxury house
+    if _PARIS_COMPLIANCE_FUNC.search(title): return 5, "compliance function", 6
+    # Good creative/direction roles
     if _PARIS_FUNC_T1.search(title): return 35, "project/coordination", 1
     if _PARIS_FUNC_T2.search(title): return 32, "creative/events/VM", 2
     if _PARIS_FUNC_T3.search(title): return 28, "marketing/brand/PR", 3
@@ -720,10 +779,27 @@ def paris_score(title, company, desc, location, world_tier, comp_text):
         adj -= 20
         risks.append("Alternance -- requires French school enrollment")
 
-    if _PARIS_COMPLIANCE_FUNC.search(title) and brand_pts >= 32:
-        risks.append("compliance function at luxury house -- direction value unclear")
+    # Downgrade category risk flags
     if _PARIS_RETAIL_RE.search(title):
-        risks.append("retail sales role dressed up by brand name")
+        risks.append("Retail sales role at luxury house -- no direction change value")
+    elif _PARIS_STOCKROOM_RE.search(title):
+        risks.append("Stockroom role -- manual work, no path value")
+    elif _PARIS_CRAFT_RE.search(title):
+        risks.append("Skilled craft role -- requires specific trade training")
+    elif _PARIS_REPAIR_RE.search(title):
+        risks.append("Repair/after-sales service -- retail support, not creative")
+    elif _PARIS_BOUTIQUE_SVC_RE.search(title):
+        risks.append("Boutique client service -- retail support role")
+    elif _PARIS_IT_RE.search(title):
+        risks.append("IT/systems role at luxury house -- wrong function")
+    elif _PARIS_HR_RE.search(title):
+        risks.append("HR/training role -- not creative function")
+    elif _PARIS_FINANCE_RE.search(title):
+        risks.append("Finance/accounting at luxury house -- back office")
+    elif _PARIS_SUPPLY_RE.search(title) and not _PARIS_SUPPLY_CREATIVE_RE.search(title):
+        risks.append("Supply chain/logistics -- operations, not creative direction")
+    elif _PARIS_COMPLIANCE_FUNC.search(title) and brand_pts >= 32:
+        risks.append("compliance function at luxury house -- direction value unclear")
 
     raw = brand_pts + role_pts + adj
     score = max(0, min(100, round(raw * 100 / 75)))
@@ -743,6 +819,14 @@ def paris_score(title, company, desc, location, world_tier, comp_text):
     elif role_label == "marketing/brand/PR": parts.append(f"{cc} brand/marketing")
     elif role_label == "compliance function": parts.append(f"Compliance at {cc}")
     elif role_label == "retail sales": parts.append(f"Retail at {cc}")
+    elif role_label == "stockroom": parts.append(f"Stockroom at {cc}")
+    elif role_label == "skilled craft": parts.append(f"Craft/atelier at {cc}")
+    elif role_label == "repair/after-sales": parts.append(f"Repair/SAV at {cc}")
+    elif role_label == "boutique client service": parts.append(f"Client service at {cc}")
+    elif role_label == "IT/systems": parts.append(f"IT/systems at {cc}")
+    elif role_label == "HR/training": parts.append(f"HR at {cc}")
+    elif role_label == "finance/accounting": parts.append(f"Finance at {cc}")
+    elif role_label == "supply chain": parts.append(f"Supply chain at {cc}")
     else: parts.append(cc or "Unknown")
 
     if brand_label: parts.append(brand_label)

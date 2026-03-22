@@ -1,33 +1,5 @@
 [
  {
-  "job_id": "1f9cc6a3-5d4b-4c13-8268-956293e390a5",
-  "fingerprint": "685734580e47e5e2a860ecc6c635d61fd6feda2e6ad6a31d3d9f63729cec977f",
-  "source": "efinancialcareers",
-  "company": "Blackstone",
-  "company_clean": "Blackstone",
-  "title": "2024 Blackstone Legal and Compliance Analyst",
-  "location": "New York, United States",
-  "url": "https://www.efinancialcareers.com/jobs-United_States-New_York-2024_Blackstone_Legal_and_Compliance_Analyst.id23733551",
-  "created_at": "2026-03-14T23:00:14+00:00",
-  "lane": "Low-Value Slop",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Other",
-  "world_tier": "Corporate World",
-  "function_family": "Compliance / Risk",
-  "type": "Full-Time",
-  "score": 100,
-  "power_score": 100.0,
-  "one_liner": "Blackstone compliance analyst, top-tier firm, on-site NYC, PE firm",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 1
- },
- {
   "job_id": "33c2e411-9686-4409-93aa-6408a6702212",
   "fingerprint": "dc11cea441b4d4113ac781c798c6a9c3053314913b771e85faaf8add3ad86c75",
   "source": "indeed",
@@ -53,7 +25,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 2
+  "rank": 1
  },
  {
   "job_id": "ac61d581-7190-48e6-a900-96382caa62dc",
@@ -81,7 +53,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 3
+  "rank": 2
  },
  {
   "job_id": "ca9ec7d6-7c69-41fc-8368-308c66c499b6",
@@ -109,7 +81,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 4
+  "rank": 3
  },
  {
   "job_id": "bbabc766-d2f9-48fc-9f0c-543fce5e234d",
@@ -137,7 +109,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 5
+  "rank": 4
  },
  {
   "job_id": "79cf2c83-8cde-4f7e-8e8e-3b4f9c8882e5",
@@ -165,7 +137,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 6
+  "rank": 5
  },
  {
   "job_id": "72db6c72-6bde-4c20-967d-5ac184338815",
@@ -190,6 +162,34 @@
   "risk": "",
   "main_risk": "",
   "compensation": "$71K-$84K",
+  "tab": "compliance",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 6
+ },
+ {
+  "job_id": "2049b8fb-cc4e-48a3-b91a-ec236c507737",
+  "fingerprint": "d99b791db9692abc513819c2de99b45181aa948a2a4065defc9e832ce795698a",
+  "source": "efinancialcareers",
+  "company": "UBS",
+  "company_clean": "UBS",
+  "title": "Americas Compliance Audit Expert",
+  "location": "New York, United States",
+  "url": "https://www.efinancialcareers.com/jobs-United_States-New_York-Americas_Compliance_Audit_Expert.id23918460",
+  "created_at": "2026-03-14T23:00:17+00:00",
+  "lane": "Low-Value Slop",
+  "city": "NYC",
+  "city_lane": "NYC",
+  "world_simple": "Adjacent",
+  "world_tier": "Real Adjacent World",
+  "function_family": "Compliance / Risk",
+  "type": "Full-Time",
+  "score": 79,
+  "power_score": 79.0,
+  "one_liner": "UBS Compliance, bulge bracket, on-site NYC, banking",
+  "risk": "",
+  "main_risk": "",
+  "compensation": "",
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
@@ -252,34 +252,6 @@
   "rank": 9
  },
  {
-  "job_id": "2049b8fb-cc4e-48a3-b91a-ec236c507737",
-  "fingerprint": "d99b791db9692abc513819c2de99b45181aa948a2a4065defc9e832ce795698a",
-  "source": "efinancialcareers",
-  "company": "UBS",
-  "company_clean": "UBS",
-  "title": "Americas Compliance Audit Expert",
-  "location": "New York, United States",
-  "url": "https://www.efinancialcareers.com/jobs-United_States-New_York-Americas_Compliance_Audit_Expert.id23918460",
-  "created_at": "2026-03-14T23:00:17+00:00",
-  "lane": "Low-Value Slop",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Adjacent",
-  "world_tier": "Real Adjacent World",
-  "function_family": "Compliance / Risk",
-  "type": "Full-Time",
-  "score": 79,
-  "power_score": 79.0,
-  "one_liner": "UBS Compliance, bulge bracket, on-site NYC, banking",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "compliance",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 10
- },
- {
   "job_id": "305713b5-7a8f-413d-8939-a4800609ef3e",
   "fingerprint": "086d09bcd3d357784cbd7a45cdd3b00359a62843de42ff72db88d215c347edc6",
   "source": "linkedin",
@@ -305,7 +277,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 11
+  "rank": 10
  },
  {
   "job_id": "f872fe64-e344-4c76-87c7-07f35274bc1a",
@@ -333,7 +305,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 12
+  "rank": 11
  },
  {
   "job_id": "2204bf4f-5a26-486e-8f77-ef140eacb496",
@@ -361,7 +333,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 13
+  "rank": 12
  },
  {
   "job_id": "9e085f72-b538-44b0-aae6-4990028a9669",
@@ -389,7 +361,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 14
+  "rank": 13
  },
  {
   "job_id": "62bcde79-838f-4e19-9cad-66b5bb2c3a05",
@@ -417,7 +389,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 15
+  "rank": 14
  },
  {
   "job_id": "98fdd9f7-a3de-47c5-bee3-e46e0dedbe90",
@@ -445,7 +417,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 16
+  "rank": 15
  },
  {
   "job_id": "e0cab9dd-e8e4-4735-87c7-d42645a34bba",
@@ -473,7 +445,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 17
+  "rank": 16
  },
  {
   "job_id": "d3c6b18a-6cf8-4b73-a08e-41badbe1ffa4",
@@ -501,7 +473,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 18
+  "rank": 17
  },
  {
   "job_id": "338d4a78-c7f7-45c2-b470-9b893afb0d01",
@@ -529,7 +501,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 19
+  "rank": 18
  },
  {
   "job_id": "d5511a6f-fb93-4db3-9147-a939fc47a1e1",
@@ -557,7 +529,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 20
+  "rank": 19
  },
  {
   "job_id": "c026267b-b7f2-4564-b4e4-419519f2dde1",
@@ -585,7 +557,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 21
+  "rank": 20
  },
  {
   "job_id": "ef93a87d-1559-4cd4-bfc9-f3a0b80a94fe",
@@ -613,7 +585,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 22
+  "rank": 21
  },
  {
   "job_id": "dc6cafd7-2efc-4574-9b6d-4c8347cc1585",
@@ -641,7 +613,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 23
+  "rank": 22
  },
  {
   "job_id": "c6e5b2e2-00dd-4103-b160-311f21777b52",
@@ -669,7 +641,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 24
+  "rank": 23
  },
  {
   "job_id": "e9ff0396-b1a3-420e-8b11-cd681dc3f3cb",
@@ -697,7 +669,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 25
+  "rank": 24
  },
  {
   "job_id": "2b0981a3-d378-4c17-902f-850c4e852625",
@@ -725,7 +697,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 26
+  "rank": 25
  },
  {
   "job_id": "7aa30ca0-961b-416d-9f1f-2a2bb83cac43",
@@ -753,7 +725,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 27
+  "rank": 26
  },
  {
   "job_id": "dd7d670c-f9ed-4f35-8bbd-2ee49501355a",
@@ -781,7 +753,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 28
+  "rank": 27
  },
  {
   "job_id": "da38c5b4-2a6b-46de-a2fd-f0e32bf9580b",
@@ -809,7 +781,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 29
+  "rank": 28
  },
  {
   "job_id": "0d21c76f-6df5-4cfb-af6d-b1b9bc50bae0",
@@ -837,7 +809,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 30
+  "rank": 29
  },
  {
   "job_id": "4ca61c2f-7935-403c-b66e-d5e55fd832ba",
@@ -865,7 +837,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 31
+  "rank": 30
  },
  {
   "job_id": "e4c9b95a-8195-443a-976b-a9dcc9e28058",
@@ -893,7 +865,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 32
+  "rank": 31
  },
  {
   "job_id": "a4a116b5-e104-4a76-bae3-ece6b6e76bbe",
@@ -921,7 +893,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 33
+  "rank": 32
  },
  {
   "job_id": "0e1724d8-faaf-4d78-9d30-dc5300b316a4",
@@ -949,7 +921,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 34
+  "rank": 33
  },
  {
   "job_id": "f74abcba-b6da-4996-a513-45798de8f0c8",
@@ -977,7 +949,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 35
+  "rank": 34
  },
  {
   "job_id": "0a19e9f7-2b18-47bc-9338-ad07f95b24b8",
@@ -1005,7 +977,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 36
+  "rank": 35
  },
  {
   "job_id": "c8ee68af-ae77-4b5d-81fe-f1ffcf0d6c51",
@@ -1033,7 +1005,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 37
+  "rank": 36
  },
  {
   "job_id": "9a057eac-e606-4fa8-851d-ba6927427d2b",
@@ -1061,7 +1033,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 38
+  "rank": 37
  },
  {
   "job_id": "8e1e521a-6f65-4c5c-b331-885048dec976",
@@ -1089,7 +1061,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 39
+  "rank": 38
  },
  {
   "job_id": "41626d5c-2ace-49d2-b4bd-c3dba6d786fb",
@@ -1117,7 +1089,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 40
+  "rank": 39
  },
  {
   "job_id": "c1758788-222f-4ea2-97e9-d1547bda2f81",
@@ -1145,7 +1117,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 41
+  "rank": 40
  },
  {
   "job_id": "90adb003-0847-420b-9f31-262c8b015c62",
@@ -1173,7 +1145,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 42
+  "rank": 41
  },
  {
   "job_id": "5f7074a3-8b45-4f5a-a0d9-873b9daa0039",
@@ -1201,7 +1173,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 43
+  "rank": 42
  },
  {
   "job_id": "65be9f57-7468-4ce4-a567-c8053d389e09",
@@ -1229,7 +1201,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 44
+  "rank": 43
  },
  {
   "job_id": "f2ae494b-99ab-45dd-ab77-0fd9e7a398df",
@@ -1257,7 +1229,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 45
+  "rank": 44
  },
  {
   "job_id": "3cba11b5-a6d4-4e93-ada7-3bbdf48683cf",
@@ -1285,7 +1257,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 46
+  "rank": 45
  },
  {
   "job_id": "68bbb2a4-c577-42d9-b4ca-3d696d66e8d4",
@@ -1313,7 +1285,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 47
+  "rank": 46
  },
  {
   "job_id": "450f5247-92a3-4720-b427-9a3f6add8426",
@@ -1341,7 +1313,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 48
+  "rank": 47
  },
  {
   "job_id": "ee93d2fa-b4af-4fdb-9c49-97653b6d80b7",
@@ -1369,7 +1341,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 49
+  "rank": 48
  },
  {
   "job_id": "a612027c-1d73-4d5f-b27a-45c1c8241491",
@@ -1397,7 +1369,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 50
+  "rank": 49
  },
  {
   "job_id": "684a135e-d547-4a06-a464-5abf06ea6ed4",
@@ -1425,7 +1397,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 51
+  "rank": 50
  },
  {
   "job_id": "a926a7d7-51a6-4eec-b067-eb1868df6ac6",
@@ -1453,7 +1425,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 52
+  "rank": 51
  },
  {
   "job_id": "fe709574-baaf-411c-8e0b-32c0438ea2f7",
@@ -1481,7 +1453,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 53
+  "rank": 52
  },
  {
   "job_id": "33b4b679-08bd-43b0-9dab-016efdd516f2",
@@ -1509,7 +1481,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 54
+  "rank": 53
  },
  {
   "job_id": "b6ef7030-4c5b-4e63-b9af-69a4f87dd198",
@@ -1537,7 +1509,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 55
+  "rank": 54
  },
  {
   "job_id": "91cd2bbe-789b-4526-9ce6-8927ce4146a7",
@@ -1565,7 +1537,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 56
+  "rank": 55
  },
  {
   "job_id": "db213ca1-a373-4045-8638-635b5405ac70",
@@ -1593,7 +1565,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 57
+  "rank": 56
  },
  {
   "job_id": "2b038acf-740f-454d-9d23-677cde4167a3",
@@ -1621,7 +1593,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 58
+  "rank": 57
  },
  {
   "job_id": "697bcd1e-f22e-4996-90dc-b2ee5810cb12",
@@ -1649,7 +1621,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 59
+  "rank": 58
  },
  {
   "job_id": "fe26bc3b-fac4-4c66-a966-30bd5464a520",
@@ -1677,7 +1649,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 60
+  "rank": 59
  },
  {
   "job_id": "758f1427-1731-4fc8-8b84-d5274669a3b6",
@@ -1705,7 +1677,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 61
+  "rank": 60
  },
  {
   "job_id": "02ba78ca-9dd9-4b3b-a77a-f14bbb0fcea6",
@@ -1733,7 +1705,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 62
+  "rank": 61
  },
  {
   "job_id": "4bc73afb-c1f7-4909-821d-17c18001aa4c",
@@ -1761,7 +1733,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 63
+  "rank": 62
  },
  {
   "job_id": "b5ee355e-f1ee-47be-a77b-de29bcaa8716",
@@ -1789,7 +1761,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 64
+  "rank": 63
  },
  {
   "job_id": "99cf686a-3cc7-4ebf-b1c6-bcc026d42845",
@@ -1817,7 +1789,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 65
+  "rank": 64
  },
  {
   "job_id": "31b63bc2-4bfd-4345-9380-77161df7afd0",
@@ -1845,7 +1817,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 66
+  "rank": 65
  },
  {
   "job_id": "dff1465c-6229-441f-88bf-eeb1961f1dd6",
@@ -1873,7 +1845,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 67
+  "rank": 66
  },
  {
   "job_id": "3016ab7b-94bc-4291-8e1a-939ee603af2e",
@@ -1901,7 +1873,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 68
+  "rank": 67
  },
  {
   "job_id": "47de44cc-9ec1-4b44-bd38-91b7807051ef",
@@ -1929,7 +1901,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 69
+  "rank": 68
  },
  {
   "job_id": "d8f7aad4-f3da-4b99-a8f6-e5895cf22865",
@@ -1957,7 +1929,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 70
+  "rank": 69
  },
  {
   "job_id": "76527c05-2f9c-4855-845d-aa460f8d1905",
@@ -1985,7 +1957,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 71
+  "rank": 70
  },
  {
   "job_id": "c56556a6-2c49-4893-b23f-2c20b4612f6b",
@@ -2013,7 +1985,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 72
+  "rank": 71
  },
  {
   "job_id": "54e4f6d9-be8e-442e-ba81-137a63401233",
@@ -2041,7 +2013,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 73
+  "rank": 72
  },
  {
   "job_id": "a8cb37fc-da45-470a-93ab-7c2005e7dd87",
@@ -2069,7 +2041,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 74
+  "rank": 73
  },
  {
   "job_id": "bfcb2ea9-bd93-49c4-9a2e-b9e42d45540e",
@@ -2097,7 +2069,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 75
+  "rank": 74
  },
  {
   "job_id": "d96cdc98-bdc8-40e2-9e70-0bd9fc159dc3",
@@ -2125,7 +2097,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 76
+  "rank": 75
  },
  {
   "job_id": "f9f4d290-5d71-46b2-93f8-b73b7f3efeda",
@@ -2153,7 +2125,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 77
+  "rank": 76
  },
  {
   "job_id": "70ebbf42-74fb-4286-9a85-30490783f28a",
@@ -2181,7 +2153,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 78
+  "rank": 77
  },
  {
   "job_id": "0864afc2-5fea-408c-b7ea-d21ab5c2cf53",
@@ -2209,7 +2181,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 79
+  "rank": 78
  },
  {
   "job_id": "db415300-125e-40d3-8721-f69ea81e3220",
@@ -2237,7 +2209,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 80
+  "rank": 79
  },
  {
   "job_id": "723a70fb-4c51-41c3-afe8-3ca7ba5d8b81",
@@ -2265,7 +2237,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 81
+  "rank": 80
  },
  {
   "job_id": "fa77bb6c-fa6a-4c0a-98f1-f1e59d33b560",
@@ -2293,7 +2265,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 82
+  "rank": 81
  },
  {
   "job_id": "e6d8391a-5484-43ce-b596-c2f08adb0bb3",
@@ -2321,7 +2293,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 83
+  "rank": 82
  },
  {
   "job_id": "578d91ce-e464-4121-9b2c-299508555968",
@@ -2349,7 +2321,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 84
+  "rank": 83
  },
  {
   "job_id": "7c5656ed-9816-47a8-8245-430dd8c89fd8",
@@ -2377,7 +2349,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 85
+  "rank": 84
  },
  {
   "job_id": "2a9f952f-84fa-4d80-9a1d-b7a1a9c652b9",
@@ -2405,7 +2377,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 86
+  "rank": 85
  },
  {
   "job_id": "4e044e5d-3ada-41aa-a403-db5ec9c03a1b",
@@ -2433,7 +2405,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 87
+  "rank": 86
  },
  {
   "job_id": "0b019478-8289-4346-94db-f04cb7b2a5b7",
@@ -2461,7 +2433,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 88
+  "rank": 87
  },
  {
   "job_id": "5bf072c9-2326-4232-96d0-6ebfc0a21363",
@@ -2489,7 +2461,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 89
+  "rank": 88
  },
  {
   "job_id": "aa67d1c8-90c3-466e-9a6f-1575e71aed6d",
@@ -2517,7 +2489,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 90
+  "rank": 89
  },
  {
   "job_id": "adc479b3-0355-4a03-a036-30bc46b281b6",
@@ -2545,7 +2517,7 @@
   "tab": "compliance",
   "is_alternance": true,
   "applied": false,
-  "rank": 91
+  "rank": 90
  },
  {
   "job_id": "f4ac3d92-e632-445d-963b-c1960e3f7bec",
@@ -2573,7 +2545,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 92
+  "rank": 91
  },
  {
   "job_id": "1cb9f24c-c7d1-4ed0-874e-7cc10f908fa0",
@@ -2601,7 +2573,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 93
+  "rank": 92
  },
  {
   "job_id": "fc29224a-461b-4024-b3c4-25d9f348cfb7",
@@ -2629,7 +2601,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 94
+  "rank": 93
  },
  {
   "job_id": "894c1c7c-fb69-41a3-8bc2-0ef664e8c40f",
@@ -2657,7 +2629,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 95
+  "rank": 94
  },
  {
   "job_id": "4b99bec9-6dd3-4eb4-948e-46747d4d4cc5",
@@ -2685,7 +2657,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 96
+  "rank": 95
  },
  {
   "job_id": "3bb0294f-145a-41ac-89e9-28593b9ba1e6",
@@ -2713,7 +2685,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 97
+  "rank": 96
  },
  {
   "job_id": "0dddf2c6-2371-4110-9c5a-e81ac46b9107",
@@ -2741,7 +2713,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 98
+  "rank": 97
  },
  {
   "job_id": "ab51d209-f75f-4181-a7ce-eccddb5c7c7d",
@@ -2769,7 +2741,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 99
+  "rank": 98
  },
  {
   "job_id": "2a0b0336-b8f3-4839-a7a6-ff1d863db1c0",
@@ -2797,7 +2769,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 100
+  "rank": 99
  },
  {
   "job_id": "05bb7f4d-694c-4320-9f3c-5e70ba3255a2",
@@ -2825,7 +2797,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 101
+  "rank": 100
  },
  {
   "job_id": "171efa1c-15f3-4e11-b46c-df1b64281baf",
@@ -2853,7 +2825,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 102
+  "rank": 101
  },
  {
   "job_id": "32e0c292-9218-4fbf-b7c2-53ea892b534f",
@@ -2881,7 +2853,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 103
+  "rank": 102
  },
  {
   "job_id": "f5deec55-227d-4a81-b019-6447d5f5c88d",
@@ -2909,7 +2881,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 104
+  "rank": 103
  },
  {
   "job_id": "7a193f46-c149-4492-a2b7-c5f8d718190d",
@@ -2937,7 +2909,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 105
+  "rank": 104
  },
  {
   "job_id": "eccd2ffd-49ee-421f-8b14-1baecf396132",
@@ -2965,7 +2937,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 106
+  "rank": 105
  },
  {
   "job_id": "ea210dac-4ce2-4626-bff5-6da75c09cace",
@@ -2993,7 +2965,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 107
+  "rank": 106
  },
  {
   "job_id": "813b8084-b85c-4812-abc6-6732c3d61e5c",
@@ -3021,7 +2993,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 108
+  "rank": 107
  },
  {
   "job_id": "e094882b-6bf0-49f6-b64f-5bc105824e05",
@@ -3049,7 +3021,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 109
+  "rank": 108
  },
  {
   "job_id": "a409d617-c69e-40ad-a106-743e9b9ff449",
@@ -3077,7 +3049,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 110
+  "rank": 109
  },
  {
   "job_id": "124b878f-6ab8-4f74-9c97-5bd46c51b0af",
@@ -3105,7 +3077,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 111
+  "rank": 110
  },
  {
   "job_id": "762f3881-f97a-4f64-bb30-1990f63a59cf",
@@ -3133,7 +3105,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 112
+  "rank": 111
  },
  {
   "job_id": "0c1904e7-7171-4eb2-b186-93de1a285622",
@@ -3161,7 +3133,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 113
+  "rank": 112
  },
  {
   "job_id": "6345864a-09da-4f65-8bdc-c171fa55da3c",
@@ -3189,7 +3161,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 114
+  "rank": 113
  },
  {
   "job_id": "38eee646-bfa1-4c9c-8f2a-3cdf88808273",
@@ -3217,7 +3189,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 115
+  "rank": 114
  },
  {
   "job_id": "b5d726d3-b35b-444d-be8c-e0bbee1b00cc",
@@ -3245,7 +3217,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 116
+  "rank": 115
  },
  {
   "job_id": "5a27f920-e0c7-4bb9-b574-583f9766c8c8",
@@ -3273,7 +3245,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 117
+  "rank": 116
  },
  {
   "job_id": "09e1fb11-3f50-4eba-a128-c73a530d6ed3",
@@ -3301,7 +3273,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 118
+  "rank": 117
  },
  {
   "job_id": "8515c29e-e364-4b2f-8ed6-7e49ad4baa3c",
@@ -3329,7 +3301,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 119
+  "rank": 118
  },
  {
   "job_id": "c0c6a676-5d70-4cb1-a6ed-9a15b183a6a8",
@@ -3357,7 +3329,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 120
+  "rank": 119
  },
  {
   "job_id": "e73b461a-0333-426c-a513-7bf5a6e2d317",
@@ -3385,7 +3357,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 121
+  "rank": 120
  },
  {
   "job_id": "7535c7ca-7cfd-424e-9f77-ae3c2d5cddfa",
@@ -3413,7 +3385,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 122
+  "rank": 121
  },
  {
   "job_id": "97403a14-a6de-4c6e-95ad-21641e005f08",
@@ -3441,7 +3413,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": false,
-  "rank": 123
+  "rank": 122
  },
  {
   "job_id": "4a9c51da-374b-4ece-b0de-73f0a4a43cee",
@@ -3469,7 +3441,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 124
+  "rank": 123
  },
  {
   "job_id": "bf85cc75-6771-4b4a-af16-939b156a9299",
@@ -3497,7 +3469,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 125
+  "rank": 124
  },
  {
   "job_id": "9b23a29c-482e-46f0-ad2f-1d1860a91e75",
@@ -3525,7 +3497,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 126
+  "rank": 125
  },
  {
   "job_id": "d49284b1-5196-4b7f-9552-a03050cc79a2",
@@ -3553,7 +3525,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 127
+  "rank": 126
  },
  {
   "job_id": "89e7aa09-afab-484a-8079-b96ca0eab7ef",
@@ -3581,7 +3553,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 128
+  "rank": 127
  },
  {
   "job_id": "c94f08e9-76e1-48d1-b603-6e856031350e",
@@ -3609,7 +3581,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 129
+  "rank": 128
  },
  {
   "job_id": "0e477695-c6dc-414a-a622-10690f849119",
@@ -3637,7 +3609,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 130
+  "rank": 129
  },
  {
   "job_id": "3e0a377a-322c-4d72-bb73-71f2e8bac790",
@@ -3665,7 +3637,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 131
+  "rank": 130
  },
  {
   "job_id": "18574a4d-c8ca-4d34-b922-36fd9f013370",
@@ -3693,7 +3665,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 132
+  "rank": 131
  },
  {
   "job_id": "440ce540-fa6f-45ca-982d-221a0d5f7b20",
@@ -3721,7 +3693,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 133
+  "rank": 132
  },
  {
   "job_id": "d63e63eb-49d2-437c-bc22-a2840d12a5ba",
@@ -3749,7 +3721,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 134
+  "rank": 133
  },
  {
   "job_id": "763e3dd1-bb0c-44c2-9e7d-739e4454b80d",
@@ -3777,7 +3749,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 135
+  "rank": 134
  },
  {
   "job_id": "0e41d863-5525-4367-b4d1-e2c0cbf1fc2b",
@@ -3805,7 +3777,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 136
+  "rank": 135
  },
  {
   "job_id": "3bbe5262-8359-48a6-b9f7-cefe90d2f731",
@@ -3833,7 +3805,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 137
+  "rank": 136
  },
  {
   "job_id": "dfc91e3b-89aa-44fa-a9f8-4d50006b0b7a",
@@ -3861,7 +3833,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 138
+  "rank": 137
  },
  {
   "job_id": "45c5b095-c8b8-43e4-ba69-417ca600b4e4",
@@ -3889,7 +3861,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 139
+  "rank": 138
  },
  {
   "job_id": "61409de3-030b-4e15-9e3c-aeefb3d05688",
@@ -3917,7 +3889,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 140
+  "rank": 139
  },
  {
   "job_id": "53afce93-ac9d-4e1c-8c9d-d8620133f30b",
@@ -3945,7 +3917,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 141
+  "rank": 140
  },
  {
   "job_id": "9c377b22-7d61-48a8-b731-572dc70995e3",
@@ -3973,7 +3945,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 142
+  "rank": 141
  },
  {
   "job_id": "72d8723a-b385-4963-ab3d-48d239b37da0",
@@ -4001,7 +3973,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 143
+  "rank": 142
  },
  {
   "job_id": "2e64fb68-db35-43f7-a3a7-4b349d6235ae",
@@ -4029,7 +4001,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 144
+  "rank": 143
  },
  {
   "job_id": "55b9ab6d-a892-48aa-85f3-01fab5cfb02a",
@@ -4057,7 +4029,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 145
+  "rank": 144
  },
  {
   "job_id": "1ddc2734-9972-43e5-b4c0-cf9c7d2459dd",
@@ -4085,7 +4057,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 146
+  "rank": 145
  },
  {
   "job_id": "89c37af4-a353-45a2-95b7-34845d6a0b7f",
@@ -4113,7 +4085,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 147
+  "rank": 146
  },
  {
   "job_id": "be430ac1-0828-4ff5-8da7-8dc03c25260b",
@@ -4141,7 +4113,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 148
+  "rank": 147
  },
  {
   "job_id": "48d19395-6be2-43da-9458-453e89d656af",
@@ -4169,7 +4141,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 149
+  "rank": 148
  },
  {
   "job_id": "6552e2d0-6ec8-4180-82e0-26d32b66f231",
@@ -4197,7 +4169,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 150
+  "rank": 149
  },
  {
   "job_id": "e766e6d4-ef66-44ef-9fad-145a89c6334c",
@@ -4225,7 +4197,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 151
+  "rank": 150
  },
  {
   "job_id": "61c968bb-1e63-4eec-9701-a49ac6ca1e0b",
@@ -4253,7 +4225,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 152
+  "rank": 151
  },
  {
   "job_id": "71176c3c-67d5-4b97-9c0c-7011710ec589",
@@ -4281,7 +4253,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 153
+  "rank": 152
  },
  {
   "job_id": "e45fa276-479b-4ae8-91bb-4904af0e3593",
@@ -4309,7 +4281,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 154
+  "rank": 153
  },
  {
   "job_id": "0756871f-c7f8-4288-bea7-ea788d64e498",
@@ -4337,7 +4309,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 155
+  "rank": 154
  },
  {
   "job_id": "d6ee60c9-6896-411a-88d7-0909fa47f8f0",
@@ -4365,7 +4337,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 156
+  "rank": 155
  },
  {
   "job_id": "25cb2659-2c0e-49f6-93b9-6eb3014ef082",
@@ -4393,7 +4365,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 157
+  "rank": 156
  },
  {
   "job_id": "857a546e-c252-44d9-99ae-b080baeb9fa9",
@@ -4421,7 +4393,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 158
+  "rank": 157
  },
  {
   "job_id": "ad90e96c-3b3c-44fa-a872-fc15aab46ea9",
@@ -4449,7 +4421,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 159
+  "rank": 158
  },
  {
   "job_id": "270cd36e-55f1-4434-8f73-f6bc156ea3d2",
@@ -4477,7 +4449,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 160
+  "rank": 159
  },
  {
   "job_id": "ae20c111-d665-4636-b1a5-519558412dae",
@@ -4505,7 +4477,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 161
+  "rank": 160
  },
  {
   "job_id": "9fb97802-d95f-429d-8400-18ad9704d23b",
@@ -4533,7 +4505,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 162
+  "rank": 161
  },
  {
   "job_id": "3f49de9c-7071-4261-a171-be13a108e63c",
@@ -4561,7 +4533,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 163
+  "rank": 162
  },
  {
   "job_id": "8953b904-31d6-4462-a11d-c7343a1c18f4",
@@ -4589,7 +4561,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 164
+  "rank": 163
  },
  {
   "job_id": "005a1c24-daa2-428b-bc8b-6f7f3b6e97e3",
@@ -4617,7 +4589,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 165
+  "rank": 164
  },
  {
   "job_id": "426aae65-6e72-4e1e-95b1-bb55dc9346d3",
@@ -4645,7 +4617,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 166
+  "rank": 165
  },
  {
   "job_id": "180dbcf3-5070-472b-ac97-b3cbc2a1fbb8",
@@ -4673,7 +4645,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 167
+  "rank": 166
  },
  {
   "job_id": "47274181-f9a8-4f4d-aef4-c3bb7e8e9bca",
@@ -4701,7 +4673,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 168
+  "rank": 167
  },
  {
   "job_id": "09460f6e-7488-433c-bdcf-9c9ed83e6ac4",
@@ -4729,7 +4701,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 169
+  "rank": 168
  },
  {
   "job_id": "9be63f52-8d21-4231-867c-8334ef4309c2",
@@ -4757,7 +4729,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 170
+  "rank": 169
  },
  {
   "job_id": "48710387-4ee0-4763-a1d6-1c4dff043a3a",
@@ -4785,7 +4757,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 171
+  "rank": 170
  },
  {
   "job_id": "a3fe9822-429a-4eda-b13b-111f2e365bae",
@@ -4813,7 +4785,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 172
+  "rank": 171
  },
  {
   "job_id": "8bfbc5b4-1599-4738-b789-dea76e89c8ac",
@@ -4841,7 +4813,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 173
+  "rank": 172
  },
  {
   "job_id": "42a2acc2-7b05-4777-b97d-8e7e59718a27",
@@ -4869,7 +4841,7 @@
   "tab": "compliance",
   "is_alternance": false,
   "applied": true,
-  "rank": 174
+  "rank": 173
  },
  {
   "job_id": "3d546b72-8016-40a1-b6fd-be80a56fdfe3",
@@ -4900,90 +4872,6 @@
   "rank": 1
  },
  {
-  "job_id": "4ef92c93-20d2-4d4c-bcfb-51e48ee33dbf",
-  "fingerprint": "3290b779f57d9530644878086219c5e6247ca45f120eaa3a54b716aef201d585",
-  "source": "linkedin",
-  "company": "Christian Dior Couture",
-  "company_clean": "Christian Dior Couture",
-  "title": "Assistant Chef de Projet SI Europe F/H - STAGE",
-  "location": "Paris, Île-de-France, France",
-  "url": "https://fr.linkedin.com/jobs/view/assistant-chef-de-projet-si-europe-f-h-stage-at-christian-dior-couture-4375182504?position=3&pageNum=0&refId=Oyvx77JUVOBpiMbJv%2BYc0Q%3D%3D&trackingId=k8ijgBor%2Ffq3NvlM%2FMzICw%3D%3D",
-  "created_at": "2026-03-21T16:31:19+00:00",
-  "lane": "Strategic Internship / Traineeship",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "Project Coordination",
-  "type": "Intern",
-  "score": 100,
-  "power_score": 100.0,
-  "one_liner": "Christian Dior Couture chef de projet, top maison, stage",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 2
- },
- {
-  "job_id": "86ddc730-11b4-4f1f-8421-aa776cb29407",
-  "fingerprint": "f8c0fbe7b1eb53d031a652e188f952a27235e9740e864463a75eedd560bf9748",
-  "source": "linkedin",
-  "company": "Christian Dior Couture",
-  "company_clean": "Christian Dior Couture",
-  "title": "Assistant Chef de Projet Transformation de la Supply Chain F/H - Stage",
-  "location": "Paris, Île-de-France, France",
-  "url": "https://fr.linkedin.com/jobs/view/assistant-chef-de-projet-transformation-de-la-supply-chain-f-h-stage-at-christian-dior-couture-4361686332?position=3&pageNum=0&refId=kIPL6GbFFEhiqqpGym1h8w%3D%3D&trackingId=P3G5YhbBpoeO54eK0ImWtQ%3D%3D",
-  "created_at": "2026-03-21T18:21:43+00:00",
-  "lane": "Strategic Internship / Traineeship",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "Project Coordination",
-  "type": "Intern",
-  "score": 100,
-  "power_score": 100.0,
-  "one_liner": "Christian Dior Couture chef de projet, top maison, stage",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 3
- },
- {
-  "job_id": "aef07605-7860-45e2-99c9-8ec9d386d099",
-  "fingerprint": "32bd1560df810cd75d4d1592788095b96145318de7ad8f11dbc606cb6cf05a39",
-  "source": "linkedin",
-  "company": "Christian Dior Couture",
-  "company_clean": "Christian Dior Couture",
-  "title": "Assistant Chef De Projet Supply Chain & Omnistock - F/H Stage",
-  "location": "Paris, Île-de-France, France",
-  "url": "https://fr.linkedin.com/jobs/view/assistant-chef-de-projet-supply-chain-omnistock-f-h-stage-at-christian-dior-couture-4346914331?position=4&pageNum=0&refId=kIPL6GbFFEhiqqpGym1h8w%3D%3D&trackingId=CqH84coGabCFOD1QUG0qfw%3D%3D",
-  "created_at": "2026-03-21T18:21:43+00:00",
-  "lane": "Strategic Internship / Traineeship",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "Project Coordination",
-  "type": "Intern",
-  "score": 100,
-  "power_score": 100.0,
-  "one_liner": "Christian Dior Couture chef de projet, top maison, stage",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 4
- },
- {
   "job_id": "4cc9ff56-393f-4402-835d-d6980e873cbc",
   "fingerprint": "70ef5e2b547c5f0c41555a433668cb6dad7f5902c625529485d5c1b6d569522d",
   "source": "indeed",
@@ -5009,7 +4897,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 5
+  "rank": 2
  },
  {
   "job_id": "06867e84-0a1d-4ffe-b97a-6737ccde9c58",
@@ -5037,7 +4925,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 6
+  "rank": 3
  },
  {
   "job_id": "9952473c-06e2-4c26-902f-28c1f78ab5b4",
@@ -5065,7 +4953,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 7
+  "rank": 4
  },
  {
   "job_id": "9ce51631-447e-406e-8a9a-b5143e354242",
@@ -5093,7 +4981,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 8
+  "rank": 5
  },
  {
   "job_id": "f1c1ccf8-ba06-427e-b9c8-ad2f7c517677",
@@ -5121,7 +5009,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 9
+  "rank": 6
  },
  {
   "job_id": "def13cdc-e43a-4697-a99b-a657cbd71ba9",
@@ -5149,7 +5037,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 10
+  "rank": 7
  },
  {
   "job_id": "96bd7788-20e0-4a52-93b3-d24f63e8cf09",
@@ -5177,7 +5065,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 11
+  "rank": 8
  },
  {
   "job_id": "fabec156-8ba9-478f-befa-5abbe9231cb5",
@@ -5205,7 +5093,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 12
+  "rank": 9
  },
  {
   "job_id": "f36dc37e-eb78-4c0d-997b-d9d4d2d4f3e4",
@@ -5233,7 +5121,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 13
+  "rank": 10
  },
  {
   "job_id": "42026fa5-faed-48a0-8ded-1e9e44e59754",
@@ -5261,7 +5149,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 14
+  "rank": 11
  },
  {
   "job_id": "9079f85f-51f3-4b6e-a4a5-232a55bb4c53",
@@ -5289,7 +5177,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 15
+  "rank": 12
  },
  {
   "job_id": "bace0e6d-09e6-4549-99b4-c6168e61aded",
@@ -5317,7 +5205,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 16
+  "rank": 13
  },
  {
   "job_id": "717a3864-89de-47b9-87e0-dd96a858347f",
@@ -5345,7 +5233,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 17
+  "rank": 14
  },
  {
   "job_id": "2afeac59-92a1-4bcf-8998-b69e7b818a0a",
@@ -5373,7 +5261,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 18
+  "rank": 15
  },
  {
   "job_id": "29f1ca5c-a4db-4b8a-bf78-1bf3b0185244",
@@ -5401,7 +5289,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 19
+  "rank": 16
  },
  {
   "job_id": "30fb68e3-4850-4d06-9bb0-6c49e8e69ee0",
@@ -5429,7 +5317,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 20
+  "rank": 17
  },
  {
   "job_id": "7e5a59d6-9b2f-48e0-99d3-b402ca1f4145",
@@ -5457,7 +5345,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 21
+  "rank": 18
  },
  {
   "job_id": "579c8464-e887-4123-ad55-742c59ab24ec",
@@ -5485,7 +5373,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 22
+  "rank": 19
  },
  {
   "job_id": "1db356ce-8183-408b-bf8d-0d2a71b0e6c2",
@@ -5513,7 +5401,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 23
+  "rank": 20
  },
  {
   "job_id": "50d42fb1-2f8b-48c7-9ee4-0197fe67dba9",
@@ -5541,7 +5429,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 24
+  "rank": 21
  },
  {
   "job_id": "bfde0bce-505e-4bfc-bf0f-481cd8dcf13b",
@@ -5569,7 +5457,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 25
+  "rank": 22
  },
  {
   "job_id": "507f780d-e3fd-4207-b3ce-fe715ed9f3f3",
@@ -5597,7 +5485,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 26
+  "rank": 23
  },
  {
   "job_id": "ed339fd2-a166-4ee6-93bc-a1f8ef84a0f3",
@@ -5625,7 +5513,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 27
+  "rank": 24
  },
  {
   "job_id": "b2e24ada-4293-462b-a080-aafe5603dfeb",
@@ -5653,63 +5541,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 28
- },
- {
-  "job_id": "39679c77-52d4-46c1-861b-438ea3822eb1",
-  "fingerprint": "58c20b2270dc07d95d6902cfafc7ecc30e887204d0b6c0a93f0857cbfacb2adf",
-  "source": "chanel",
-  "company": "Chanel",
-  "company_clean": "Chanel",
-  "title": "Couturier Retoucheur - Paris H/F",
-  "location": "Paris",
-  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/Retoucheuse-F-H_JOBREQ00054316_JCP",
-  "created_at": "2026-03-21T15:51:07+00:00",
-  "lane": "Paris Direction",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "Client Experience / Retail Excellence",
-  "type": "Full-Time",
-  "score": 73,
-  "power_score": 73.0,
-  "one_liner": "Chanel, top maison",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 29
- },
- {
-  "job_id": "330a5098-52e2-41a9-9ae6-7b31408fec91",
-  "fingerprint": "73ae7a37cdc6a4e3993b23fea27c86377582964b21be5b4f557d0e26121e9d91",
-  "source": "chanel",
-  "company": "Chanel",
-  "company_clean": "Chanel",
-  "title": "Stockiste - Paris - H/F/X",
-  "location": "Paris",
-  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/Stockiste-F-H_JOBREQ00048702_JCP",
-  "created_at": "2026-03-21T15:51:07+00:00",
-  "lane": "Paris Direction",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "Client Experience / Retail Excellence",
-  "type": "Full-Time",
-  "score": 73,
-  "power_score": 73.0,
-  "one_liner": "Chanel, top maison",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 30
+  "rank": 25
  },
  {
   "job_id": "3e0405f6-9ca7-41a2-9b6e-fa8cc09a48f5",
@@ -5737,35 +5569,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 31
- },
- {
-  "job_id": "cf977a0c-b1b4-4f99-978a-b4db6a8cc2f4",
-  "fingerprint": "e5bbb5f1dab044dd80e6e8ab919a9b816a92aa764c5a5faf11c84214285a88f0",
-  "source": "chanel",
-  "company": "Chanel",
-  "company_clean": "Chanel",
-  "title": "STAGE - Assistant(e) de Vente été 2023 (Paris)",
-  "location": "Paris",
-  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/STAGE---Assistant-e--de-Vente-t-2023--Paris-_JOBREQ00071620",
-  "created_at": "2026-03-21T15:51:07+00:00",
-  "lane": "Strategic Internship / Traineeship",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "Communications Support",
-  "type": "Intern",
-  "score": 73,
-  "power_score": 73.0,
-  "one_liner": "Chanel, top maison, stage",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 32
+  "rank": 26
  },
  {
   "job_id": "2f572968-a02a-4c26-9437-2eee9a4f748e",
@@ -5793,7 +5597,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 33
+  "rank": 27
  },
  {
   "job_id": "e99a7f7d-cab8-4091-973a-ef0080451c8f",
@@ -5821,91 +5625,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 34
- },
- {
-  "job_id": "d4f3f9d5-c384-4806-82ea-ab033ab49c94",
-  "fingerprint": "93e5d45fd6b4cdba6b6f4b34b38427ad5e6ecd63da282566f6684b8b2fb9a34b",
-  "source": "chanel",
-  "company": "Chanel",
-  "company_clean": "Chanel",
-  "title": "Conseiller de mode week-end H/F",
-  "location": "Paris",
-  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/Conseiller-de-mode-week-end-H-F_JOBREQ00062247",
-  "created_at": "2026-03-21T16:01:37+00:00",
-  "lane": "Paris Direction",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "Client Experience / Retail Excellence",
-  "type": "Full-Time",
-  "score": 73,
-  "power_score": 73.0,
-  "one_liner": "Chanel, top maison",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 35
- },
- {
-  "job_id": "be4a556d-7583-4f9b-ae90-b7c2e2ea8925",
-  "fingerprint": "99b81771604d55b9bb6abd634559c50f4f9347df829fbad70bf3d9e184bfe270",
-  "source": "chanel",
-  "company": "Chanel",
-  "company_clean": "Chanel",
-  "title": "Repasseur / Détacheur de Teinturerie Polyvalent 19M (H/F/X)",
-  "location": "Paris",
-  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/CDD---Repasseur-se--de-Teinturerie-Polyvalent-H-F-X_JOBREQ00097838",
-  "created_at": "2026-03-21T16:01:37+00:00",
-  "lane": "Paris Direction",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "Content / Production Support",
-  "type": "Full-Time",
-  "score": 73,
-  "power_score": 73.0,
-  "one_liner": "Chanel, top maison",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 36
- },
- {
-  "job_id": "7e573048-a3f6-4092-9c2f-c0762a24e7e7",
-  "fingerprint": "927b7442f1e719ebe5733f0d7295cc833e160af865b0aba7fcfe8144367bd0e2",
-  "source": "indeed",
-  "company": "Christian Dior Couture",
-  "company_clean": "Christian Dior Couture",
-  "title": "Trainee, Supply Chain Project Management",
-  "location": "New York, NY 10022 ( Midtown area )",
-  "url": "https://www.indeed.com/viewjob?jk=c35b89467270166d",
-  "created_at": "2026-03-21T18:21:11+00:00",
-  "lane": "NYC Direction",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "General Operations",
-  "type": "Full-Time",
-  "score": 73,
-  "power_score": 73.0,
-  "one_liner": "Christian Dior Couture, top maison",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 37
+  "rank": 28
  },
  {
   "job_id": "db7b390a-bc3a-4006-9fe2-1411ebdbb28e",
@@ -5933,7 +5653,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 38
+  "rank": 29
  },
  {
   "job_id": "2f3cb18d-a55a-456c-b6dc-e227bbf82d07",
@@ -5961,7 +5681,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 39
+  "rank": 30
  },
  {
   "job_id": "fd8af544-d95f-4766-92e6-cf09a66f355b",
@@ -5989,7 +5709,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 40
+  "rank": 31
  },
  {
   "job_id": "1c1aa622-059b-45bf-b21d-356e7fdda8a2",
@@ -6017,7 +5737,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 41
+  "rank": 32
  },
  {
   "job_id": "7bd48876-7641-43f4-bcc8-b44b3aaa9cbc",
@@ -6045,35 +5765,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 42
- },
- {
-  "job_id": "01edc8ac-924d-4788-b2cc-485ae798cc8e",
-  "fingerprint": "ddc4e441f2c65d10b7f97c13d8351cce8ddaa2b0928310823ae55615df4b831f",
-  "source": "indeed",
-  "company": "Bottega Veneta",
-  "company_clean": "Bottega Veneta",
-  "title": "BOTTEGA VENETA Stock Associate, Soho",
-  "location": "New York, NY 10022 ( Midtown area )",
-  "url": "https://www.indeed.com/viewjob?jk=fccd828f3ed6b807",
-  "created_at": "2026-03-21T18:37:43+00:00",
-  "lane": "NYC Direction",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Adjacent",
-  "world_tier": "Real Adjacent World",
-  "function_family": "Unclear",
-  "type": "Full-Time",
-  "score": 73,
-  "power_score": 73.0,
-  "one_liner": "Bottega Veneta, top maison",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 43
+  "rank": 33
  },
  {
   "job_id": "86b15702-4c08-4444-b74f-102e088723d0",
@@ -6101,7 +5793,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 44
+  "rank": 34
  },
  {
   "job_id": "5c1e71e2-12f6-4663-ada2-c6ef5403f602",
@@ -6129,7 +5821,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 45
+  "rank": 35
  },
  {
   "job_id": "2ae6b19d-6977-4a6f-bd2f-067259d0e09a",
@@ -6157,7 +5849,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 46
+  "rank": 36
  },
  {
   "job_id": "eeaf8711-b2aa-4d00-be94-3ec89701d910",
@@ -6185,7 +5877,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 47
+  "rank": 37
  },
  {
   "job_id": "ce39cbcd-b0e0-41ec-9b23-754aabd2229e",
@@ -6213,7 +5905,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 48
+  "rank": 38
  },
  {
   "job_id": "e9e0e84b-f076-4893-879c-3c2b6e8d7b99",
@@ -6241,7 +5933,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 49
+  "rank": 39
  },
  {
   "job_id": "ee698ba0-306d-4d99-8f82-a9ca07a0db9d",
@@ -6269,7 +5961,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 50
+  "rank": 40
  },
  {
   "job_id": "c809e547-3c92-4e53-a310-8d61c058ddbd",
@@ -6297,7 +5989,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 51
+  "rank": 41
  },
  {
   "job_id": "6a1e5977-3dfd-4333-8faf-37764c486166",
@@ -6325,7 +6017,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 52
+  "rank": 42
  },
  {
   "job_id": "ae8bb3be-f42e-49a0-a920-660f423a4cdd",
@@ -6353,7 +6045,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 53
+  "rank": 43
  },
  {
   "job_id": "b9edbb39-4d6d-45ce-8363-077314f28783",
@@ -6381,7 +6073,259 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 54
+  "rank": 44
+ },
+ {
+  "job_id": "7e573048-a3f6-4092-9c2f-c0762a24e7e7",
+  "fingerprint": "927b7442f1e719ebe5733f0d7295cc833e160af865b0aba7fcfe8144367bd0e2",
+  "source": "indeed",
+  "company": "Christian Dior Couture",
+  "company_clean": "Christian Dior Couture",
+  "title": "Trainee, Supply Chain Project Management",
+  "location": "New York, NY 10022 ( Midtown area )",
+  "url": "https://www.indeed.com/viewjob?jk=c35b89467270166d",
+  "created_at": "2026-03-21T18:21:11+00:00",
+  "lane": "NYC Direction",
+  "city": "NYC",
+  "city_lane": "NYC",
+  "world_simple": "Top World",
+  "world_tier": "Top Luxury / Culture World",
+  "function_family": "General Operations",
+  "type": "Full-Time",
+  "score": 60,
+  "power_score": 60.0,
+  "one_liner": "Supply chain at Christian Dior Couture, top maison",
+  "risk": "Supply chain/logistics -- operations, not creative direction",
+  "main_risk": "Supply chain/logistics -- operations, not creative direction",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 45
+ },
+ {
+  "job_id": "86ddc730-11b4-4f1f-8421-aa776cb29407",
+  "fingerprint": "f8c0fbe7b1eb53d031a652e188f952a27235e9740e864463a75eedd560bf9748",
+  "source": "linkedin",
+  "company": "Christian Dior Couture",
+  "company_clean": "Christian Dior Couture",
+  "title": "Assistant Chef de Projet Transformation de la Supply Chain F/H - Stage",
+  "location": "Paris, Île-de-France, France",
+  "url": "https://fr.linkedin.com/jobs/view/assistant-chef-de-projet-transformation-de-la-supply-chain-f-h-stage-at-christian-dior-couture-4361686332?position=3&pageNum=0&refId=kIPL6GbFFEhiqqpGym1h8w%3D%3D&trackingId=P3G5YhbBpoeO54eK0ImWtQ%3D%3D",
+  "created_at": "2026-03-21T18:21:43+00:00",
+  "lane": "Strategic Internship / Traineeship",
+  "city": "Paris",
+  "city_lane": "Paris",
+  "world_simple": "Top World",
+  "world_tier": "Top Luxury / Culture World",
+  "function_family": "Project Coordination",
+  "type": "Intern",
+  "score": 60,
+  "power_score": 60.0,
+  "one_liner": "Supply chain at Christian Dior Couture, top maison, stage",
+  "risk": "Supply chain/logistics -- operations, not creative direction",
+  "main_risk": "Supply chain/logistics -- operations, not creative direction",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 46
+ },
+ {
+  "job_id": "aef07605-7860-45e2-99c9-8ec9d386d099",
+  "fingerprint": "32bd1560df810cd75d4d1592788095b96145318de7ad8f11dbc606cb6cf05a39",
+  "source": "linkedin",
+  "company": "Christian Dior Couture",
+  "company_clean": "Christian Dior Couture",
+  "title": "Assistant Chef De Projet Supply Chain & Omnistock - F/H Stage",
+  "location": "Paris, Île-de-France, France",
+  "url": "https://fr.linkedin.com/jobs/view/assistant-chef-de-projet-supply-chain-omnistock-f-h-stage-at-christian-dior-couture-4346914331?position=4&pageNum=0&refId=kIPL6GbFFEhiqqpGym1h8w%3D%3D&trackingId=CqH84coGabCFOD1QUG0qfw%3D%3D",
+  "created_at": "2026-03-21T18:21:43+00:00",
+  "lane": "Strategic Internship / Traineeship",
+  "city": "Paris",
+  "city_lane": "Paris",
+  "world_simple": "Top World",
+  "world_tier": "Top Luxury / Culture World",
+  "function_family": "Project Coordination",
+  "type": "Intern",
+  "score": 60,
+  "power_score": 60.0,
+  "one_liner": "Supply chain at Christian Dior Couture, top maison, stage",
+  "risk": "Supply chain/logistics -- operations, not creative direction",
+  "main_risk": "Supply chain/logistics -- operations, not creative direction",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 47
+ },
+ {
+  "job_id": "4ef92c93-20d2-4d4c-bcfb-51e48ee33dbf",
+  "fingerprint": "3290b779f57d9530644878086219c5e6247ca45f120eaa3a54b716aef201d585",
+  "source": "linkedin",
+  "company": "Christian Dior Couture",
+  "company_clean": "Christian Dior Couture",
+  "title": "Assistant Chef de Projet SI Europe F/H - STAGE",
+  "location": "Paris, Île-de-France, France",
+  "url": "https://fr.linkedin.com/jobs/view/assistant-chef-de-projet-si-europe-f-h-stage-at-christian-dior-couture-4375182504?position=3&pageNum=0&refId=Oyvx77JUVOBpiMbJv%2BYc0Q%3D%3D&trackingId=k8ijgBor%2Ffq3NvlM%2FMzICw%3D%3D",
+  "created_at": "2026-03-21T16:31:19+00:00",
+  "lane": "Strategic Internship / Traineeship",
+  "city": "Paris",
+  "city_lane": "Paris",
+  "world_simple": "Top World",
+  "world_tier": "Top Luxury / Culture World",
+  "function_family": "Project Coordination",
+  "type": "Intern",
+  "score": 57,
+  "power_score": 57.0,
+  "one_liner": "IT/systems at Christian Dior Couture, top maison, stage",
+  "risk": "IT/systems role at luxury house -- wrong function",
+  "main_risk": "IT/systems role at luxury house -- wrong function",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 48
+ },
+ {
+  "job_id": "39679c77-52d4-46c1-861b-438ea3822eb1",
+  "fingerprint": "58c20b2270dc07d95d6902cfafc7ecc30e887204d0b6c0a93f0857cbfacb2adf",
+  "source": "chanel",
+  "company": "Chanel",
+  "company_clean": "Chanel",
+  "title": "Couturier Retoucheur - Paris H/F",
+  "location": "Paris",
+  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/Retoucheuse-F-H_JOBREQ00054316_JCP",
+  "created_at": "2026-03-21T15:51:07+00:00",
+  "lane": "Paris Direction",
+  "city": "Paris",
+  "city_lane": "Paris",
+  "world_simple": "Top World",
+  "world_tier": "Top Luxury / Culture World",
+  "function_family": "Client Experience / Retail Excellence",
+  "type": "Full-Time",
+  "score": 57,
+  "power_score": 57.0,
+  "one_liner": "Craft/atelier at Chanel, top maison",
+  "risk": "Skilled craft role -- requires specific trade training",
+  "main_risk": "Skilled craft role -- requires specific trade training",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 49
+ },
+ {
+  "job_id": "be4a556d-7583-4f9b-ae90-b7c2e2ea8925",
+  "fingerprint": "99b81771604d55b9bb6abd634559c50f4f9347df829fbad70bf3d9e184bfe270",
+  "source": "chanel",
+  "company": "Chanel",
+  "company_clean": "Chanel",
+  "title": "Repasseur / Détacheur de Teinturerie Polyvalent 19M (H/F/X)",
+  "location": "Paris",
+  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/CDD---Repasseur-se--de-Teinturerie-Polyvalent-H-F-X_JOBREQ00097838",
+  "created_at": "2026-03-21T16:01:37+00:00",
+  "lane": "Paris Direction",
+  "city": "Paris",
+  "city_lane": "Paris",
+  "world_simple": "Top World",
+  "world_tier": "Top Luxury / Culture World",
+  "function_family": "Content / Production Support",
+  "type": "Full-Time",
+  "score": 57,
+  "power_score": 57.0,
+  "one_liner": "Craft/atelier at Chanel, top maison",
+  "risk": "Skilled craft role -- requires specific trade training",
+  "main_risk": "Skilled craft role -- requires specific trade training",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 50
+ },
+ {
+  "job_id": "330a5098-52e2-41a9-9ae6-7b31408fec91",
+  "fingerprint": "73ae7a37cdc6a4e3993b23fea27c86377582964b21be5b4f557d0e26121e9d91",
+  "source": "chanel",
+  "company": "Chanel",
+  "company_clean": "Chanel",
+  "title": "Stockiste - Paris - H/F/X",
+  "location": "Paris",
+  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/Stockiste-F-H_JOBREQ00048702_JCP",
+  "created_at": "2026-03-21T15:51:07+00:00",
+  "lane": "Paris Direction",
+  "city": "Paris",
+  "city_lane": "Paris",
+  "world_simple": "Top World",
+  "world_tier": "Top Luxury / Culture World",
+  "function_family": "Client Experience / Retail Excellence",
+  "type": "Full-Time",
+  "score": 56,
+  "power_score": 56.0,
+  "one_liner": "Stockroom at Chanel, top maison",
+  "risk": "Stockroom role -- manual work, no path value",
+  "main_risk": "Stockroom role -- manual work, no path value",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 51
+ },
+ {
+  "job_id": "d4f3f9d5-c384-4806-82ea-ab033ab49c94",
+  "fingerprint": "93e5d45fd6b4cdba6b6f4b34b38427ad5e6ecd63da282566f6684b8b2fb9a34b",
+  "source": "chanel",
+  "company": "Chanel",
+  "company_clean": "Chanel",
+  "title": "Conseiller de mode week-end H/F",
+  "location": "Paris",
+  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/Conseiller-de-mode-week-end-H-F_JOBREQ00062247",
+  "created_at": "2026-03-21T16:01:37+00:00",
+  "lane": "Paris Direction",
+  "city": "Paris",
+  "city_lane": "Paris",
+  "world_simple": "Top World",
+  "world_tier": "Top Luxury / Culture World",
+  "function_family": "Client Experience / Retail Excellence",
+  "type": "Full-Time",
+  "score": 56,
+  "power_score": 56.0,
+  "one_liner": "Retail at Chanel, top maison",
+  "risk": "Retail sales role at luxury house -- no direction change value",
+  "main_risk": "Retail sales role at luxury house -- no direction change value",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 52
+ },
+ {
+  "job_id": "01edc8ac-924d-4788-b2cc-485ae798cc8e",
+  "fingerprint": "ddc4e441f2c65d10b7f97c13d8351cce8ddaa2b0928310823ae55615df4b831f",
+  "source": "indeed",
+  "company": "Bottega Veneta",
+  "company_clean": "Bottega Veneta",
+  "title": "BOTTEGA VENETA Stock Associate, Soho",
+  "location": "New York, NY 10022 ( Midtown area )",
+  "url": "https://www.indeed.com/viewjob?jk=fccd828f3ed6b807",
+  "created_at": "2026-03-21T18:37:43+00:00",
+  "lane": "NYC Direction",
+  "city": "NYC",
+  "city_lane": "NYC",
+  "world_simple": "Adjacent",
+  "world_tier": "Real Adjacent World",
+  "function_family": "Unclear",
+  "type": "Full-Time",
+  "score": 56,
+  "power_score": 56.0,
+  "one_liner": "Stockroom at Bottega Veneta, top maison",
+  "risk": "Stockroom role -- manual work, no path value",
+  "main_risk": "Stockroom role -- manual work, no path value",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 53
  },
  {
   "job_id": "b9d3dabd-b293-479d-a08e-7a60cf85c0ee",
@@ -6409,35 +6353,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 55
- },
- {
-  "job_id": "b8afea87-9f0b-4f30-8130-e8c3ddefb93e",
-  "fingerprint": "bf45edd2802437361efb6798d9e40c58b8ceeb691703cb041afeecabf56d00d1",
-  "source": "chanel",
-  "company": "Chanel",
-  "company_clean": "Chanel",
-  "title": "STAGE - Assistant(e) Service Entretien et Réparation - Boutique Mode (H/F) - Juillet 2026",
-  "location": "Paris",
-  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/STAGE---Assistant-e--Service-Entretien-et-Rparation---Boutique-Mode-PARIS--H-F-_JOBREQ00098796-2",
-  "created_at": "2026-03-21T16:01:37+00:00",
-  "lane": "Strategic Internship / Traineeship",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "Communications Support",
-  "type": "Intern",
-  "score": 53,
-  "power_score": 53.0,
-  "one_liner": "Chanel, top maison, stage",
-  "risk": "requires polished written French",
-  "main_risk": "requires polished written French",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 56
+  "rank": 54
  },
  {
   "job_id": "10905a38-b475-4e0c-9887-024f8343e7fb",
@@ -6465,7 +6381,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 57
+  "rank": 55
  },
  {
   "job_id": "14b9e22a-fa19-45d2-aef6-3c2449e2c477",
@@ -6493,7 +6409,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 58
+  "rank": 56
  },
  {
   "job_id": "87600d07-aef9-4db6-8a3f-70b6178f42d7",
@@ -6521,35 +6437,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 59
- },
- {
-  "job_id": "b3b7b24d-117a-48b1-b819-4161ac58aaa3",
-  "fingerprint": "e694962fe1ebc102717a50bb042c26efcd47d95d9757aee9b0a0f3263f2cf9e5",
-  "source": "chanel",
-  "company": "Chanel",
-  "company_clean": "Chanel",
-  "title": "ALTERNANCE - Stockiste Boutiques Mode Paris - Septembre 2026",
-  "location": "Paris",
-  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/ALTERNANCE---Stockiste-Boutiques-Mode-Paris---Septembre-2026_JOBREQ00109005",
-  "created_at": "2026-03-21T15:51:07+00:00",
-  "lane": "Strategic Internship / Traineeship",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "Communications Support",
-  "type": "Alternance",
-  "score": 47,
-  "power_score": 47.0,
-  "one_liner": "Chanel, top maison, alternance",
-  "risk": "Alternance -- requires French school enrollment",
-  "main_risk": "Alternance -- requires French school enrollment",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": true,
-  "applied": false,
-  "rank": 60
+  "rank": 57
  },
  {
   "job_id": "c661feed-acb5-4a2d-81da-d9dfa62aca09",
@@ -6577,7 +6465,35 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 61
+  "rank": 58
+ },
+ {
+  "job_id": "21cdcfb0-c440-4485-9ac4-bfecb8911cff",
+  "fingerprint": "e4858f3a47bd4c7239cf51924b56ca1f6bf87bb19713d3a8d42ed8a32cc864db",
+  "source": "chanel",
+  "company": "Chanel",
+  "company_clean": "Chanel",
+  "title": "ALTERNANCE - Conseiller(e) de Vente Boutiques Mode Paris / Septembre 2026",
+  "location": "Paris",
+  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/ALTERNANCE---Conseillre-de-Vente-Boutiques-Mode-Paris---Septembre-2026_JOBREQ00108927-4",
+  "created_at": "2026-03-21T16:01:36+00:00",
+  "lane": "Strategic Internship / Traineeship",
+  "city": "Paris",
+  "city_lane": "Paris",
+  "world_simple": "Top World",
+  "world_tier": "Top Luxury / Culture World",
+  "function_family": "Communications Support",
+  "type": "Alternance",
+  "score": 47,
+  "power_score": 47.0,
+  "one_liner": "Chanel, top maison, alternance",
+  "risk": "Alternance -- requires French school enrollment",
+  "main_risk": "Alternance -- requires French school enrollment",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": true,
+  "applied": false,
+  "rank": 59
  },
  {
   "job_id": "a53467bb-a2d0-4326-bc9b-f081f4660e08",
@@ -6605,7 +6521,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 62
+  "rank": 60
  },
  {
   "job_id": "77cd0431-ea37-4cdc-be86-7fb3f10c558d",
@@ -6633,7 +6549,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 63
+  "rank": 61
  },
  {
   "job_id": "11a89158-20c6-449d-a4f9-39041f76995f",
@@ -6661,7 +6577,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 64
+  "rank": 62
  },
  {
   "job_id": "4f672884-47b7-45a2-acfc-1ce10375f607",
@@ -6689,7 +6605,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 65
+  "rank": 63
  },
  {
   "job_id": "41fb7fb5-a63d-4225-a3ca-da08d1e451e6",
@@ -6717,7 +6633,35 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 66
+  "rank": 64
+ },
+ {
+  "job_id": "b8afea87-9f0b-4f30-8130-e8c3ddefb93e",
+  "fingerprint": "bf45edd2802437361efb6798d9e40c58b8ceeb691703cb041afeecabf56d00d1",
+  "source": "chanel",
+  "company": "Chanel",
+  "company_clean": "Chanel",
+  "title": "STAGE - Assistant(e) Service Entretien et Réparation - Boutique Mode (H/F) - Juillet 2026",
+  "location": "Paris",
+  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/STAGE---Assistant-e--Service-Entretien-et-Rparation---Boutique-Mode-PARIS--H-F-_JOBREQ00098796-2",
+  "created_at": "2026-03-21T16:01:37+00:00",
+  "lane": "Strategic Internship / Traineeship",
+  "city": "Paris",
+  "city_lane": "Paris",
+  "world_simple": "Top World",
+  "world_tier": "Top Luxury / Culture World",
+  "function_family": "Communications Support",
+  "type": "Intern",
+  "score": 36,
+  "power_score": 36.0,
+  "one_liner": "Repair/SAV at Chanel, top maison, stage",
+  "risk": "requires polished written French; Repair/after-sales service -- retail support, not creative",
+  "main_risk": "requires polished written French; Repair/after-sales service -- retail support, not creative",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 65
  },
  {
   "job_id": "4212cf1a-5e3f-4553-9d02-974b2f71d2b6",
@@ -6745,7 +6689,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 67
+  "rank": 66
  },
  {
   "job_id": "cae2e86b-70f2-4361-83f6-2cdb5fc4dcad",
@@ -6773,7 +6717,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 68
+  "rank": 67
  },
  {
   "job_id": "a0c3592b-0925-433a-9f1b-00b20e518156",
@@ -6801,7 +6745,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 69
+  "rank": 68
  },
  {
   "job_id": "943f4b97-ea1b-4972-9629-c561f580a9ce",
@@ -6829,7 +6773,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 70
+  "rank": 69
  },
  {
   "job_id": "2e5f4f45-c785-4dca-b9dc-06ea1bbd50c3",
@@ -6857,7 +6801,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 71
+  "rank": 70
  },
  {
   "job_id": "a246609e-17a6-4f45-a18d-4aa5fe4914ac",
@@ -6885,7 +6829,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 72
+  "rank": 71
  },
  {
   "job_id": "1a68eb5b-e991-4704-be77-7b3f50e9b263",
@@ -6913,7 +6857,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 73
+  "rank": 72
  },
  {
   "job_id": "3a452c08-0805-4730-b870-e5039ddf24bb",
@@ -6941,7 +6885,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 74
+  "rank": 73
  },
  {
   "job_id": "66332929-a67d-471e-87ff-cc479392acaa",
@@ -6969,7 +6913,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 75
+  "rank": 74
  },
  {
   "job_id": "fc889249-b101-4779-91cb-b4998ddc5b47",
@@ -6997,7 +6941,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 76
+  "rank": 75
  },
  {
   "job_id": "9e9c8f2e-71e4-4bd0-a7e3-09d20029d921",
@@ -7025,7 +6969,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": true,
-  "rank": 77
+  "rank": 76
  },
  {
   "job_id": "fa44bd5c-632e-49da-921e-b3f3ea26b6ed",
@@ -7053,7 +6997,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": true,
-  "rank": 78
+  "rank": 77
  },
  {
   "job_id": "fa1c8646-1f7f-4159-852e-c5a6879298b7",
@@ -7081,7 +7025,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": true,
-  "rank": 79
+  "rank": 78
  },
  {
   "job_id": "a0f192ad-89f2-435d-9a14-9482d51aa84c",
@@ -7109,7 +7053,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": true,
-  "rank": 80
+  "rank": 79
  },
  {
   "job_id": "99525b5f-9558-4a7a-9f71-801661f4ae6f",
@@ -7137,7 +7081,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": true,
-  "rank": 81
+  "rank": 80
  },
  {
   "job_id": "68b455b8-6789-4353-ac5a-b85ec3c05781",
@@ -7165,7 +7109,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": true,
-  "rank": 82
+  "rank": 81
  },
  {
   "job_id": "71c93dbf-bd07-4e9c-a956-be08e8c0f99b",
@@ -7193,7 +7137,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": true,
-  "rank": 83
+  "rank": 82
  },
  {
   "job_id": "95145de5-54c5-4916-a430-1ab2f97dc92a",
@@ -7221,6 +7165,6 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": true,
-  "rank": 84
+  "rank": 83
  }
 ]
