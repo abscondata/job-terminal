@@ -1,0 +1,206 @@
+{
+    "paths": {
+        "db_path": "data/jobengine.sqlite",
+        "runs_dir": "data/runs",
+        "resume_pdf": "assets/Robin Resume.pdf",
+        "user_data_dir": "profiles/chrome_persistent"
+    },
+    "browser": {
+        "channel": "chrome",
+        "headless": true
+    },
+    "policy": {
+        "min_comp_floor": 38000,
+        "profile": {
+            "target_market": "paris",
+            "target_cities": ["paris", "new york city", "miami"],
+            "target_worlds": [
+                "luxury",
+                "fashion",
+                "jewelry",
+                "beauty",
+                "art",
+                "culture",
+                "premium_brand"
+            ],
+            "target_brands": [
+                "lvmh",
+                "dior",
+                "louis vuitton",
+                "celine",
+                "sephora",
+                "richemont",
+                "cartier",
+                "van cleef & arpels",
+                "chloe",
+                "chloé",
+                "kering",
+                "saint laurent",
+                "balenciaga",
+                "boucheron",
+                "hermes",
+                "hermès",
+                "chanel"
+            ],
+            "languages": ["english", "french"],
+            "english_level": "native",
+            "french_spoken_level": "conversational",
+            "french_written_level": "limited",
+            "work_auth_countries": ["fr", "us", "global"],
+            "years_experience": 2.0,
+            "current_role": "Branch Examiner / Securities Coordination",
+            "current_employer": "GWN Securities",
+            "candidate_headline": "Project and operations professional pursuing a Paris-first direction leap",
+            "candidate_summary": "Project and operations professional strong in documentation, tracking, follow-up, reporting, Excel, stakeholder communication, and cross-team coordination.",
+            "core_strengths": [
+                "project coordination",
+                "operations support",
+                "documentation",
+                "follow-up",
+                "reporting",
+                "excel",
+                "stakeholder communication",
+                "cross-team coordination",
+                "task tracking",
+                "operational execution"
+            ],
+            "transition_signals": [
+                "art gallery business development support",
+                "connecticut ballet outreach",
+                "interest in art, design, and cultural organizations"
+            ],
+            "stronger_fit_functions": [
+                "project support",
+                "project coordination",
+                "communication support",
+                "event support",
+                "content production coordination",
+                "visual merchandising coordination",
+                "reporting",
+                "stakeholder execution"
+            ],
+            "weaker_fit_functions": [
+                "deep direct luxury experience",
+                "strong written french",
+                "art market specialist",
+                "finance analyst",
+                "aml",
+                "trade surveillance",
+                "operations analyst",
+                "generic us corporate role"
+            ],
+            "score_weights": {
+                "paris_location": 0.18,
+                "brand_world": 0.16,
+                "bridge_realism": 0.14,
+                "functional_fit": 0.14,
+                "resume_pride": 0.12,
+                "french_access": 0.10,
+                "culture_creativity": 0.08,
+                "escape_slop": 0.08,
+                "practicality": 0.10
+            },
+            "location_priority_scores": {
+                "paris_core": 100,
+                "paris_region": 90,
+                "nyc": 78,
+                "miami": 56,
+                "france_other": 42,
+                "us_other": 34,
+                "remote": 14,
+                "other": 24,
+                "unknown": 28
+            },
+            "red_flag_phrases": [
+                "time tracking",
+                "always on camera",
+                "webcam monitoring",
+                "activity monitoring",
+                "call center",
+                "cold calling",
+                "commission only",
+                "commission-based"
+            ],
+            "allow_remote_fallback": false,
+            "determinism_required": true,
+            "min_overall_threshold": 45
+        },
+        "caps": {
+            "fetch_per_run": 250
+        }
+    },
+    "hard_reject_phrases": [
+        "time tracking software",
+        "keystroke logging",
+        "keystroke monitoring",
+        "screenshots of employees",
+        "webcam monitoring",
+        "employee monitoring software",
+        "screen recording software",
+        "activity tracking software",
+        "call center",
+        "cold calling",
+        "outbound sales",
+        "commission only",
+        "commission-based"
+    ],
+    "queues": {
+        "REVIEW": 1,
+        "MAYBE": 2,
+        "REJECT": 3
+    },
+    "discovery": {
+        "enabled_sources": [
+            "welcometothejungle",
+            "kering",
+            "chanel",
+            "sothebys",
+            "christies",
+            "centre_pompidou",
+            "profilculture",
+            "linkedin",
+            "indeed",
+            "nyc_compliance"
+        ],
+        "audit_rejects": true,
+        "request_timeout": 30,
+        "retry_attempts": 3,
+        "inter_request_delay": 1.0,
+        "priority_source_cap": 120,
+        "fallback_source_cap": 60,
+        "source_caps": {
+            "chanel": 45,
+            "linkedin": 30,
+            "indeed": 20,
+            "welcometothejungle": 25,
+            "kering": 20,
+            "christies": 15,
+            "sothebys": 10,
+            "profilculture": 20,
+            "nyc_compliance": 40
+        },
+        "internship_cap_per_source": 10,
+        "traineeship_cap_per_source": 8,
+        "internship_cap_total": 24,
+        "traineeship_cap_total": 14,
+        "company_cap": 12,
+        "nyc_backfill_count": 8,
+        "nyc_backfill_days": 90,
+        "fetch_cap": 250,
+        "fuzzy_dedupe": true,
+        "fuzzy_dedupe_days": 120,
+        "fuzzy_allow_sources": [],
+        "workday_max_age_days": 45,
+        "greenhouse_max_age_days": 60,
+        "wttj_max_age_days": 21,
+        "scan_cap_multiplier": 3,
+        "stale_source_policy": {
+            "enabled": true,
+            "min_runs": 3,
+            "min_returned": 5,
+            "min_duplicate_rate": 0.9,
+            "cooldown_hours": 12
+        }
+    },
+    "credentials": {}
+}

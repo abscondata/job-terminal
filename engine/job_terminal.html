@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Job Terminal</title>
+  <style>
+    :root{
+      --bg:#f6f2ec;
+      --panel:#ffffff;
+      --ink:#1b1a16;
+      --muted:#6a6258;
+      --line:#e3d9cc;
+      --accent:#7a2f12;
+      --accent-2:#0f766e;
+      --good:#166534;
+      --warn:#92400e;
+      --bad:#991b1b;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:radial-gradient(circle at top left,#fbf8f3 0,#f4eee4 45%,#efe6d9 100%);
+      color:var(--ink);
+      font:14px/1.5 "Iowan Old Style","Palatino Linotype",Palatino,serif;
+    }
+    .topbar{
+      position:sticky;top:0;z-index:5;
+      background:rgba(251,248,243,.96);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--line);
+      padding:14px 18px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    }
+    .brand{font-weight:700;letter-spacing:.04em;font-size:16px}
+    .meta{color:var(--muted);font:12px/1.4 "Segoe UI",sans-serif}
+    .actions{display:flex;gap:8px;align-items:center}
+    button{
+      border:1px solid var(--line);
+      background:var(--panel);
+      color:var(--ink);
+      padding:8px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      font:600 12px "Segoe UI",sans-serif;
+      letter-spacing:.02em;
+    }
+    button.primary{background:#f1e2d2;border-color:#d9b48b}
+    button.ghost{background:transparent}
+
+    /* Lane tabs */
+    .lane-tabs{
+      display:flex;gap:0;padding:0 18px;margin-top:4px;
+    }
+    .lane-tab{
+      padding:10px 20px;
+      border:1px solid var(--line);
+      border-bottom:none;
+      background:var(--panel);
+      font:700 13px "Segoe UI",sans-serif;
+      color:var(--muted);
+      cursor:pointer;
+      border-radius:12px 12px 0 0;
+      position:relative;
+      top:1px;
+    }
+    .lane-tab.on{
+      background:#efe0d0;
+      color:var(--ink);
+      border-color:#d4b89d;
+      z-index:1;
+    }
+    .lane-tab .count{
+      display:inline-block;
+      margin-left:6px;
+      padding:1px 7px;
+      border-radius:999px;
+      background:rgba(0,0,0,.06);
+      font:600 11px "Segoe UI",sans-serif;
+      color:var(--muted);
+    }
+    .lane-tab.on .count{
+      background:rgba(122,47,18,.12);
+      color:var(--accent);
+    }
+
+    /* Sub-tabs for saved states */
+    .sub-tabs{
+      display:flex;gap:8px;flex-wrap:wrap;padding:0 18px 8px 18px;
+    }
+    .sub-tab{
+      padding:5px 10px;border-radius:999px;border:1px solid var(--line);
+      background:var(--panel);font:600 11px "Segoe UI",sans-serif;color:var(--muted);
+      cursor:pointer;
+    }
+    .sub-tab.on{background:#efe0d0;color:var(--ink);border-color:#d4b89d}
+
+    /* Filters */
+    .controls{
+      padding:10px 18px;
+      border-top:1px solid var(--line);
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+    }
+    .filter-group{display:flex;align-items:center;gap:4px}
+    .filter-group label{
+      font:600 10px/1.2 "Segoe UI",sans-serif;
+      letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+      white-space:nowrap;
+    }
+    .multi-select{
+      display:flex;gap:3px;flex-wrap:wrap;
+    }
+    .chip{
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      font:600 11px "Segoe UI",sans-serif;
+      color:var(--muted);
+      cursor:pointer;
+      user-select:none;
+    }
+    .chip.on{
+      background:#e8d5c0;color:var(--ink);border-color:#d4b89d;
+    }
+
+    .content{padding:0 18px 24px 18px}
+    .card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px;
+      margin-bottom:10px;
+      box-shadow:0 10px 24px rgba(91,64,37,.06);
+    }
+    .card-head{
+      display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start;
+    }
+    .title{font-size:15px;font-weight:700;margin-bottom:2px}
+    .company{color:var(--muted);font:12px "Segoe UI",sans-serif}
+    .meta-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;align-items:center}
+    .tag{display:inline-block;padding:2px 8px;border-radius:999px;font:600 10px "Segoe UI",sans-serif}
+    .tag.city{background:#cffafe;color:#155e75}
+    .tag.world{background:#dbeafe;color:#1d4ed8}
+    .tag.function{background:#ede9fe;color:#5b21b6}
+    .tag.type-ft{background:#dcfce7;color:#166534}
+    .tag.type-intern{background:#fef3c7;color:#92400e}
+    .tag.type-contract{background:#fee2e2;color:#991b1b}
+    .tag.type-alt{background:#e0e7ff;color:#3730a3}
+    .tag.saved-tag{background:#dcfce7;color:#166534}
+    .tag.rejected-tag{background:#fee2e2;color:#991b1b}
+    .tag.maybe-tag{background:#fef3c7;color:#92400e}
+    .reason-line{
+      margin-top:8px;
+      font:13px/1.5 "Segoe UI",sans-serif;
+      color:var(--muted);
+    }
+    .reason-line em{
+      font-style:normal;
+      color:var(--ink);
+    }
+    .score-small{
+      font:11px "Segoe UI",sans-serif;
+      color:var(--muted);
+      opacity:.6;
+    }
+    .actions-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+    .actions-row button{font-weight:600;padding:6px 10px;font-size:11px}
+    a{color:var(--accent);text-decoration:none}
+    .empty{
+      background:var(--panel);border:1px dashed var(--line);
+      border-radius:14px;padding:20px;color:var(--muted);text-align:center;
+    }
+    .status{padding:0 18px 18px 18px;color:var(--muted);font:12px "Segoe UI",sans-serif}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div>
+      <div class="brand">Job Terminal</div>
+      <div class="meta">Last updated: <span id="lastUpdated">-</span></div>
+    </div>
+    <div class="actions">
+      <button class="primary" id="refreshBtn">Refresh</button>
+    </div>
+  </div>
+
+  <!-- Two main lane tabs -->
+  <div class="lane-tabs">
+    <button class="lane-tab on" data-lane="compliance">Compliance &amp; Ops <span class="count" id="compCount">0</span></button>
+    <button class="lane-tab" data-lane="fashion">Fashion &amp; Direction <span class="count" id="fashCount">0</span></button>
+    <button class="lane-tab" data-lane="saved">Saved <span class="count" id="savedCount">0</span></button>
+  </div>
+
+  <!-- Sub-tabs for saved lane -->
+  <div class="sub-tabs" id="subTabs" style="display:none">
+    <button class="sub-tab on" data-sub="all">All</button>
+    <button class="sub-tab" data-sub="Applied">Applied</button>
+    <button class="sub-tab" data-sub="Saved">Saved</button>
+    <button class="sub-tab" data-sub="Maybe">Maybe</button>
+    <button class="sub-tab" data-sub="Rejected">Rejected</button>
+  </div>
+
+  <!-- Composable filters -->
+  <div class="controls" id="filtersBar">
+    <div class="filter-group">
+      <label>City</label>
+      <div class="multi-select" id="cityChips"></div>
+    </div>
+    <div class="filter-group">
+      <label>Type</label>
+      <div class="multi-select" id="typeChips"></div>
+    </div>
+    <div class="filter-group">
+      <label>Function</label>
+      <div class="multi-select" id="funcChips"></div>
+    </div>
+  </div>
+
+  <div class="content" id="content"></div>
+  <div class="status" id="status"></div>
+
+  <script>
+    var JOBS = [];
+    var SAVED = [];
+    var SAVED_INDEX = {};
+    var ACTIVE_LANE = "compliance";
+    var ACTIVE_SUB = "all";
+    var REFRESHING = false;
+    var LAST_UPDATED = "";
+    var EMPTY_REASON = "";
+
+    // Composable filter state: sets of active values (empty = all selected)
+    var ACTIVE_CITIES = new Set();
+    var ACTIVE_TYPES = new Set();
+    var ACTIVE_FUNCS = new Set();
+
+    function esc(s){
+      return String(s==null?"":s).replace(/[&<>\"']/g,function(m){
+        return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]||m;
+      });
+    }
+
+    /* ─── Lane classification ─── */
+
+    var COMPLIANCE_FUNCTIONS = [
+      "compliance","regulatory","aml","kyc","risk","operations analyst",
+      "securities","broker-dealer","broker dealer","licensing","registration",
+      "account opening","onboarding","finra","financial crimes","bsa",
+      "anti-money","sanctions","trade surveillance"
+    ];
+
+    var COMPLIANCE_SOURCES = ["nyc_compliance"];
+
+    function isComplianceLane(job){
+      // Source-based
+      if(COMPLIANCE_SOURCES.indexOf(job.source)>=0) return true;
+      // Function-based
+      var title = (job.title||"").toLowerCase();
+      var func = (job.function_family||"").toLowerCase();
+      var classification = (job.classification||"").toLowerCase();
+      var hay = title + " " + func + " " + classification;
+      for(var i=0;i<COMPLIANCE_FUNCTIONS.length;i++){
+        if(hay.indexOf(COMPLIANCE_FUNCTIONS[i])>=0) return true;
+      }
+      // Risk flags
+      var flags = job.risk_flags||[];
+      for(var j=0;j<flags.length;j++){
+        var f = String(flags[j]).toLowerCase();
+        if(f.indexOf("compliance")>=0 || f.indexOf("analyst_lane")>=0) return true;
+      }
+      return false;
+    }
+
+    function isFashionLane(job){
+      return !isComplianceLane(job);
+    }
+
+    /* ─── Sorting ─── */
+
+    function typeOrder(job){
+      var wt = (job.work_type_label||"Full-time").toLowerCase();
+      if(wt.indexOf("full")>=0) return 0;
+      if(wt.indexOf("contract")>=0 || wt.indexOf("freelance")>=0) return 1;
+      if(wt.indexOf("intern")>=0 || wt.indexOf("trainee")>=0 || wt.indexOf("apprent")>=0) return 2;
+      return 3;
+    }
+
+    function sortCompliance(list){
+      list.sort(function(a,b){
+        // Full-time > contract > intern
+        var ta = typeOrder(a), tb = typeOrder(b);
+        if(ta!==tb) return ta-tb;
+        // Then by score
+        var sa = Number(a.overall_score||a.score||0);
+        var sb = Number(b.overall_score||b.score||0);
+        return sb-sa;
+      });
+    }
+
+    function sortFashion(list){
+      list.sort(function(a,b){
+        // Brand quality * role quality — use overall_score which factors both
+        var sa = Number(a.overall_score||a.score||0);
+        var sb = Number(b.overall_score||b.score||0);
+        return sb-sa;
+      });
+    }
+
+    /* ─── Work type helpers ─── */
+
+    function workTypeLabel(job){
+      var wt = (job.work_type_label||"").toLowerCase();
+      if(wt.indexOf("intern")>=0) return "Intern";
+      if(wt.indexOf("trainee")>=0 || wt.indexOf("apprent")>=0) return "Alternance";
+      if(wt.indexOf("contract")>=0 || wt.indexOf("freelance")>=0) return "Contract";
+      return "Full-Time";
+    }
+
+    function workTypeTagClass(label){
+      if(label==="Full-Time") return "type-ft";
+      if(label==="Intern") return "type-intern";
+      if(label==="Contract") return "type-contract";
+      if(label==="Alternance") return "type-alt";
+      return "";
+    }
+
+    /* ─── Reason line builder ─── */
+
+    function buildReasonLine(job){
+      // Build a short, punchy one-liner explaining the rank
+      var parts = [];
+      var title = (job.title||"").toLowerCase();
+      var company = job.company||"";
+      var city = job.city_lane||"";
+      var world = job.world_tier||"";
+      var func = job.function_family||"";
+      var wt = workTypeLabel(job);
+      var arrangement = (job.work_arrangement||job.remote_hint||"").toLowerCase();
+
+      if(isComplianceLane(job)){
+        // Compliance reason
+        if(title.indexOf("compliance")>=0 && title.indexOf("associate")>=0) parts.push("Compliance associate match");
+        else if(title.indexOf("compliance")>=0 && title.indexOf("analyst")>=0) parts.push("Compliance analyst match");
+        else if(title.indexOf("aml")>=0 || title.indexOf("kyc")>=0) parts.push("AML/KYC match");
+        else if(title.indexOf("broker")>=0 || title.indexOf("securities")>=0) parts.push("BD/securities match");
+        else if(title.indexOf("regulatory")>=0) parts.push("Regulatory ops match");
+        else if(title.indexOf("operations")>=0) parts.push("Operations match");
+        else parts.push(func||"Compliance-adjacent");
+
+        if(city) parts.push(city.indexOf("NYC")>=0?"NYC":city);
+        if(arrangement.indexOf("hybrid")>=0) parts.push("hybrid");
+        else if(arrangement.indexOf("onsite")>=0 || arrangement.indexOf("office")>=0) parts.push("onsite");
+      }else{
+        // Fashion reason
+        if(world && world.indexOf("Top")>=0) parts.push(company||"top brand");
+        else if(company) parts.push(company);
+        if(func) parts.push(func.split("/")[0].trim().toLowerCase());
+        if(city) parts.push(city);
+      }
+
+      // Experience stretch indicator
+      var desc = (job.description_text||"").toLowerCase();
+      if(/\b[3-4]\+?\s*(?:years?|yrs?)\b/.test(desc)) parts.push("stretch — exp req");
+
+      if(wt!=="Full-Time") parts.push(wt.toLowerCase());
+
+      return parts.join(", ");
+    }
+
+    /* ─── Composable filter helpers ─── */
+
+    function cityGroup(job){
+      var lane = (job.city_lane||"").toLowerCase();
+      if(lane.indexOf("paris")===0) return "Paris";
+      if(lane.indexOf("nyc")===0) return "NYC";
+      if(lane.indexOf("miami")===0) return "Miami";
+      return "Other";
+    }
+
+    function bucketLabel(raw){
+      if(!raw) return "Saved";
+      if(raw==="Skip") return "Rejected";
+      if(raw==="Dream Bridge"||raw==="Strong Bridge"||raw==="Practical Paris Entry") return "Saved";
+      return raw;
+    }
+
+    function savedBucket(job){
+      var hit = SAVED_INDEX[job.fingerprint||""] || null;
+      return hit ? bucketLabel(hit.review_bucket) : "";
+    }
+
+    function passesFilters(job){
+      if(ACTIVE_CITIES.size>0 && !ACTIVE_CITIES.has(cityGroup(job))) return false;
+      if(ACTIVE_TYPES.size>0 && !ACTIVE_TYPES.has(workTypeLabel(job))) return false;
+      if(ACTIVE_FUNCS.size>0){
+        var fam = (job.function_family||"Other");
+        if(!ACTIVE_FUNCS.has(fam)) return false;
+      }
+      return true;
+    }
+
+    /* ─── Chip rendering ─── */
+
+    function buildChips(containerId, values, activeSet){
+      var el = document.getElementById(containerId);
+      el.innerHTML = "";
+      values.forEach(function(v){
+        var chip = document.createElement("span");
+        chip.className = "chip" + (activeSet.size===0 || activeSet.has(v) ? " on" : "");
+        chip.textContent = v;
+        chip.addEventListener("click", function(){
+          if(activeSet.has(v)){
+            activeSet.delete(v);
+          }else{
+            activeSet.add(v);
+          }
+          // If all selected or none selected, treat as "all"
+          if(activeSet.size===values.length) activeSet.clear();
+          buildChips(containerId, values, activeSet);
+          render();
+        });
+        el.appendChild(chip);
+      });
+    }
+
+    function refreshFilterChips(jobs){
+      var cities = new Set();
+      var types = new Set();
+      var funcs = new Set();
+      jobs.forEach(function(j){
+        cities.add(cityGroup(j));
+        types.add(workTypeLabel(j));
+        var f = j.function_family||"Other";
+        funcs.add(f);
+      });
+      buildChips("cityChips", Array.from(cities).sort(), ACTIVE_CITIES);
+      buildChips("typeChips", Array.from(types).sort(), ACTIVE_TYPES);
+      var funcArr = Array.from(funcs).sort();
+      if(funcArr.length>8) funcArr = funcArr.slice(0,8); // cap visible
+      buildChips("funcChips", funcArr, ACTIVE_FUNCS);
+    }
+
+    /* ─── Card rendering ─── */
+
+    function renderCard(job){
+      var saved = savedBucket(job);
+      var cityLabel = job.city_lane || job.location_text || "";
+      var wt = workTypeLabel(job);
+      var wtClass = workTypeTagClass(wt);
+      var url = job.apply_url || job.url || "";
+      var openLink = url ? '<a href="'+esc(url)+'" target="_blank" rel="noreferrer">Open</a>' : '';
+      var reason = buildReasonLine(job);
+      var score = Number(job.overall_score||job.score||0);
+
+      var bucketTag = "";
+      if(saved==="Applied") bucketTag='<span class="tag saved-tag">Applied</span>';
+      else if(saved==="Rejected") bucketTag='<span class="tag rejected-tag">Rejected</span>';
+      else if(saved==="Maybe") bucketTag='<span class="tag maybe-tag">Maybe</span>';
+      else if(saved==="Saved") bucketTag='<span class="tag saved-tag">Saved</span>';
+
+      var jobKey = job.job_id || job.fingerprint || "";
+      var actions = '';
+      actions += '<button onclick="setBucket(\''+esc(jobKey)+'\',\'Applied\')">Apply</button>';
+      actions += '<button onclick="setBucket(\''+esc(jobKey)+'\',\'Saved\')">Save</button>';
+      actions += '<button onclick="setBucket(\''+esc(jobKey)+'\',\'Maybe\')">Maybe</button>';
+      actions += '<button onclick="setBucket(\''+esc(jobKey)+'\',\'Rejected\')">Reject</button>';
+
+      return ''+
+        '<div class="card">' +
+          '<div class="card-head">' +
+            '<div>' +
+              '<div class="title">'+esc(job.title||"")+'</div>' +
+              '<div class="company">'+esc(job.company||"")+'</div>' +
+              '<div class="meta-row">' +
+                '<span class="tag city">'+esc(cityLabel)+'</span>' +
+                '<span class="tag '+wtClass+'">'+esc(wt)+'</span>' +
+                (job.function_family?'<span class="tag function">'+esc(job.function_family)+'</span>':'')+
+                (job.world_tier?'<span class="tag world">'+esc(job.world_tier)+'</span>':'')+
+                bucketTag +
+              '</div>' +
+            '</div>' +
+            '<div style="text-align:right">' +
+              openLink +
+              (score?'<div class="score-small">'+score+'</div>':'') +
+            '</div>' +
+          '</div>' +
+          '<div class="reason-line"><em>'+esc(reason)+'</em></div>' +
+          '<div class="actions-row">'+actions+'</div>' +
+        '</div>';
+    }
+
+    /* ─── Main render ─── */
+
+    function render(){
+      var content = document.getElementById("content");
+      var subTabsEl = document.getElementById("subTabs");
+      var list = [];
+
+      if(ACTIVE_LANE==="compliance" || ACTIVE_LANE==="fashion"){
+        subTabsEl.style.display = "none";
+        var pool = JOBS.filter(function(j){return j.recommendation!=="skip";});
+        if(ACTIVE_LANE==="compliance"){
+          list = pool.filter(isComplianceLane);
+          list = list.filter(passesFilters);
+          sortCompliance(list);
+        }else{
+          list = pool.filter(isFashionLane);
+          list = list.filter(passesFilters);
+          sortFashion(list);
+        }
+      }else{
+        // Saved lane
+        subTabsEl.style.display = "flex";
+        list = SAVED.map(function(s){return s;});
+        if(ACTIVE_SUB!=="all"){
+          list = list.filter(function(j){return bucketLabel(j.review_bucket)===ACTIVE_SUB;});
+        }
+        list = list.filter(passesFilters);
+      }
+
+      // Update counts
+      var compPool = JOBS.filter(function(j){return j.recommendation!=="skip" && isComplianceLane(j);});
+      var fashPool = JOBS.filter(function(j){return j.recommendation!=="skip" && isFashionLane(j);});
+      document.getElementById("compCount").textContent = compPool.length;
+      document.getElementById("fashCount").textContent = fashPool.length;
+      document.getElementById("savedCount").textContent = SAVED.length;
+
+      // Refresh filter chips based on current lane pool
+      var chipPool = ACTIVE_LANE==="compliance"?compPool:ACTIVE_LANE==="fashion"?fashPool:SAVED;
+      refreshFilterChips(chipPool);
+
+      if(!list.length){
+        var msg = EMPTY_REASON || "No jobs match your filters.";
+        content.innerHTML = '<div class="empty">'+esc(msg)+'</div>';
+        return;
+      }
+      var html = '';
+      for(var i=0;i<list.length;i++){
+        html += renderCard(list[i]);
+      }
+      content.innerHTML = html;
+    }
+
+    /* ─── Data loading ─── */
+
+    async function loadSaved(){
+      try{
+        var r = await fetch("/saved/list");
+        var d = await r.json();
+        SAVED = d.items || [];
+        SAVED_INDEX = {};
+        for(var i=0;i<SAVED.length;i++){
+          SAVED_INDEX[SAVED[i].fingerprint] = SAVED[i];
+        }
+      }catch(e){
+        SAVED = [];
+        SAVED_INDEX = {};
+      }
+    }
+
+    async function loadJobs(){
+      try{
+        var r = await fetch("/jobs/latest");
+        var d = await r.json();
+        if(d.error && !(d.meta && d.meta.cache_used)){
+          EMPTY_REASON = "Unable to load jobs. Check that the server can read the database.";
+          document.getElementById("status").textContent = "Unable to load jobs: " + d.error;
+          return;
+        }
+        if(Array.isArray(d.jobs)){
+          JOBS = d.jobs;
+        }
+        var updated = d.run && (d.run.ended_at_utc || d.run.started_at_utc);
+        if(updated) LAST_UPDATED = updated;
+        document.getElementById("lastUpdated").textContent = LAST_UPDATED ? new Date(LAST_UPDATED).toLocaleString() : "-";
+        if(d.meta && d.meta.db_exists === false){
+          EMPTY_REASON = "No database found. Run Refresh to build your shortlist.";
+        }else if(!d.run && d.meta && d.meta.run_count === 0){
+          EMPTY_REASON = "No saved shortlist yet. Click Refresh to build one.";
+        }else if(d.run && (!d.jobs || d.jobs.length === 0)){
+          EMPTY_REASON = "Latest run returned zero jobs. Click Refresh to try again.";
+        }else{
+          EMPTY_REASON = "";
+        }
+        if(d.refresh && d.refresh.running){
+          document.getElementById("status").textContent = "Refreshing...";
+        }else if(d.error && d.meta && d.meta.cache_used){
+          document.getElementById("status").textContent = "Using cached shortlist (db read error).";
+        }else{
+          document.getElementById("status").textContent = "";
+        }
+      }catch(e){
+        EMPTY_REASON = "Unable to load jobs. Check that the server is running.";
+        document.getElementById("status").textContent = "Unable to load jobs.";
+      }
+    }
+
+    async function setBucket(jobId, bucket){
+      var job = null;
+      for(var i=0;i<JOBS.length;i++) if(JOBS[i].job_id===jobId) job = JOBS[i];
+      if(!job){
+        for(var j=0;j<SAVED.length;j++) if(SAVED[j].job_id===jobId || SAVED[j].fingerprint===jobId) job = SAVED[j];
+      }
+      if(!job) return;
+      var payload = {review_bucket: bucket, role: job};
+      try{
+        var r = await fetch("/saved/save", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(payload)});
+        var d = await r.json();
+        if(!r.ok){alert(d.error || "Save failed");return;}
+        SAVED = d.items || [];
+        SAVED_INDEX = {};
+        for(var i=0;i<SAVED.length;i++){SAVED_INDEX[SAVED[i].fingerprint]=SAVED[i];}
+        render();
+      }catch(e){alert("Save failed");}
+    }
+
+    async function refreshJobs(){
+      if(REFRESHING) return;
+      REFRESHING = true;
+      document.getElementById("status").textContent = "Refreshing...";
+      try{await fetch("/refresh", {method:"POST"});}catch(e){}
+      pollRefresh();
+    }
+
+    async function pollRefresh(){
+      try{
+        var r = await fetch("/refresh/status");
+        var d = await r.json();
+        if(d.running){setTimeout(pollRefresh, 3000);return;}
+      }catch(e){}
+      REFRESHING = false;
+      await loadJobs();
+      await loadSaved();
+      render();
+    }
+
+    /* ─── Event listeners ─── */
+
+    document.getElementById("refreshBtn").addEventListener("click", refreshJobs);
+
+    // Lane tabs
+    document.querySelectorAll(".lane-tab").forEach(function(tab){
+      tab.addEventListener("click", function(){
+        document.querySelectorAll(".lane-tab").forEach(function(x){x.classList.remove("on");});
+        tab.classList.add("on");
+        ACTIVE_LANE = tab.dataset.lane;
+        // Reset filters on lane switch
+        ACTIVE_CITIES.clear();
+        ACTIVE_TYPES.clear();
+        ACTIVE_FUNCS.clear();
+        render();
+      });
+    });
+
+    // Sub-tabs (saved lane)
+    document.querySelectorAll(".sub-tab").forEach(function(tab){
+      tab.addEventListener("click", function(){
+        document.querySelectorAll(".sub-tab").forEach(function(x){x.classList.remove("on");});
+        tab.classList.add("on");
+        ACTIVE_SUB = tab.dataset.sub;
+        render();
+      });
+    });
+
+    /* ─── Init ─── */
+
+    (async function(){
+      await loadSaved();
+      await loadJobs();
+      render();
+    })();
+  </script>
+</body>
+</html>
