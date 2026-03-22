@@ -5124,62 +5124,6 @@
   "rank": 10
  },
  {
-  "job_id": "42026fa5-faed-48a0-8ded-1e9e44e59754",
-  "fingerprint": "e2f31cbec4f2be854e0f63248d9161ca38095970742c13dcaa5fe482a47aa3a7",
-  "source": "chanel",
-  "company": "Chanel",
-  "company_clean": "Chanel",
-  "title": "Internship - Global Learning &amp; Development F/H/X - Corporate",
-  "location": "Paris",
-  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/Internship---Global-Learning---Development-F-H-X----Corporate_JOBREQ00091278",
-  "created_at": "2026-03-21T16:01:37+00:00",
-  "lane": "Strategic Internship / Traineeship",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "Client Experience / Retail Excellence",
-  "type": "Intern",
-  "score": 80,
-  "power_score": 80.0,
-  "one_liner": "Chanel, top maison, stage, English-friendly",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 11
- },
- {
-  "job_id": "9079f85f-51f3-4b6e-a4a5-232a55bb4c53",
-  "fingerprint": "c0e3e8840e17f87fc4ae3f05732b1f0fd4520c9f4296c1ab67ad3f85d753b061",
-  "source": "linkedin",
-  "company": "Cartier",
-  "company_clean": "Cartier",
-  "title": "Client Experience Coordinator (Long-Term Temporary Assignment) - Soho",
-  "location": "New York, NY",
-  "url": "https://www.linkedin.com/jobs/view/client-experience-coordinator-long-term-temporary-assignment-soho-at-cartier-4375781616?position=1&pageNum=0&refId=aCcnfdOQPr%2BxyqolMGSCNw%3D%3D&trackingId=oY0QdFnp7wJVbEkNfuh5JA%3D%3D",
-  "created_at": "2026-03-21T18:37:28+00:00",
-  "lane": "NYC Direction",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "Client Experience / Retail Excellence",
-  "type": "Contract",
-  "score": 80,
-  "power_score": 80.0,
-  "one_liner": "Cartier, top maison, CDD",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 12
- },
- {
   "job_id": "bace0e6d-09e6-4549-99b4-c6168e61aded",
   "fingerprint": "c7d602b24bb802f5936d5d4cba1e773ba29e8278bffe198568a2c4f58ad1ee4f",
   "source": "linkedin",
@@ -5205,7 +5149,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 13
+  "rank": 11
  },
  {
   "job_id": "717a3864-89de-47b9-87e0-dd96a858347f",
@@ -5233,7 +5177,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 14
+  "rank": 12
  },
  {
   "job_id": "2afeac59-92a1-4bcf-8998-b69e7b818a0a",
@@ -5261,7 +5205,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 15
+  "rank": 13
  },
  {
   "job_id": "29f1ca5c-a4db-4b8a-bf78-1bf3b0185244",
@@ -5289,7 +5233,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 16
+  "rank": 14
  },
  {
   "job_id": "30fb68e3-4850-4d06-9bb0-6c49e8e69ee0",
@@ -5317,7 +5261,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 17
+  "rank": 15
  },
  {
   "job_id": "7e5a59d6-9b2f-48e0-99d3-b402ca1f4145",
@@ -5345,7 +5289,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 18
+  "rank": 16
  },
  {
   "job_id": "579c8464-e887-4123-ad55-742c59ab24ec",
@@ -5373,7 +5317,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 19
+  "rank": 17
  },
  {
   "job_id": "1db356ce-8183-408b-bf8d-0d2a71b0e6c2",
@@ -5401,7 +5345,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 20
+  "rank": 18
  },
  {
   "job_id": "50d42fb1-2f8b-48c7-9ee4-0197fe67dba9",
@@ -5429,7 +5373,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 21
+  "rank": 19
  },
  {
   "job_id": "bfde0bce-505e-4bfc-bf0f-481cd8dcf13b",
@@ -5457,7 +5401,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 22
+  "rank": 20
  },
  {
   "job_id": "507f780d-e3fd-4207-b3ce-fe715ed9f3f3",
@@ -5485,7 +5429,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 23
+  "rank": 21
  },
  {
   "job_id": "ed339fd2-a166-4ee6-93bc-a1f8ef84a0f3",
@@ -5513,7 +5457,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 24
+  "rank": 22
  },
  {
   "job_id": "b2e24ada-4293-462b-a080-aafe5603dfeb",
@@ -5541,7 +5485,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 25
+  "rank": 23
  },
  {
   "job_id": "68b455b8-6789-4353-ac5a-b85ec3c05781",
@@ -5569,7 +5513,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 26
+  "rank": 24
  },
  {
   "job_id": "3e0405f6-9ca7-41a2-9b6e-fa8cc09a48f5",
@@ -5597,91 +5541,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 27
- },
- {
-  "job_id": "2f572968-a02a-4c26-9437-2eee9a4f748e",
-  "fingerprint": "688b2dbc7362d58d5c3db912d85643a01a8ecf7afe3eead5c4573965544501c6",
-  "source": "chanel",
-  "company": "Chanel",
-  "company_clean": "Chanel",
-  "title": "STAGE - Hôte(sse) de Caisse (H/F) - Avenue Montaigne (Paris) - Juin 2026",
-  "location": "Paris",
-  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/STAGE---Hte-sse--de-Caisse--H-F----Avenue-Montaigne--Paris----Juin-2026_JOBREQ00109892",
-  "created_at": "2026-03-21T16:01:37+00:00",
-  "lane": "Strategic Internship / Traineeship",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "Communications Support",
-  "type": "Intern",
-  "score": 73,
-  "power_score": 73.0,
-  "one_liner": "Chanel, top maison, stage",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 28
- },
- {
-  "job_id": "e99a7f7d-cab8-4091-973a-ef0080451c8f",
-  "fingerprint": "e90395be7075802c0f1d76718d5f3cc7b2832dcb3b42fe5119b4e9c2945d1b0b",
-  "source": "chanel",
-  "company": "Chanel",
-  "company_clean": "Chanel",
-  "title": "STAGE - Assistant(e) de Vente - Boutique Mode",
-  "location": "Paris",
-  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/STAGE---Assistant-e--de-Vente---Boutique-Mode_JOBREQ00048315_JCP-1",
-  "created_at": "2026-03-21T16:01:37+00:00",
-  "lane": "Strategic Internship / Traineeship",
-  "city": "Paris",
-  "city_lane": "Paris",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "Client Experience / Retail Excellence",
-  "type": "Intern",
-  "score": 73,
-  "power_score": 73.0,
-  "one_liner": "Chanel, top maison, stage",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 29
- },
- {
-  "job_id": "db7b390a-bc3a-4006-9fe2-1411ebdbb28e",
-  "fingerprint": "80991986b7af79c580e590fd1ba32bc29947fb90a0374424310654bd358ec8e1",
-  "source": "linkedin",
-  "company": "Cartier",
-  "company_clean": "Cartier",
-  "title": "Operations Coordinator - Mansion",
-  "location": "New York, NY",
-  "url": "https://www.linkedin.com/jobs/view/operations-coordinator-mansion-at-cartier-4362673262?position=5&pageNum=0&refId=aCcnfdOQPr%2BxyqolMGSCNw%3D%3D&trackingId=KKc%2FdKju9lIiT1ZZGd%2Ffig%3D%3D",
-  "created_at": "2026-03-21T18:37:28+00:00",
-  "lane": "NYC Direction",
-  "city": "NYC",
-  "city_lane": "NYC",
-  "world_simple": "Top World",
-  "world_tier": "Top Luxury / Culture World",
-  "function_family": "General Operations",
-  "type": "Full-Time",
-  "score": 73,
-  "power_score": 73.0,
-  "one_liner": "Cartier, top maison",
-  "risk": "",
-  "main_risk": "",
-  "compensation": "",
-  "tab": "fashion",
-  "is_alternance": false,
-  "applied": false,
-  "rank": 30
+  "rank": 25
  },
  {
   "job_id": "2f3cb18d-a55a-456c-b6dc-e227bbf82d07",
@@ -5709,7 +5569,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 31
+  "rank": 26
  },
  {
   "job_id": "fd8af544-d95f-4766-92e6-cf09a66f355b",
@@ -5737,7 +5597,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 32
+  "rank": 27
  },
  {
   "job_id": "1c1aa622-059b-45bf-b21d-356e7fdda8a2",
@@ -5765,7 +5625,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 33
+  "rank": 28
  },
  {
   "job_id": "7bd48876-7641-43f4-bcc8-b44b3aaa9cbc",
@@ -5793,7 +5653,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 34
+  "rank": 29
  },
  {
   "job_id": "86b15702-4c08-4444-b74f-102e088723d0",
@@ -5821,7 +5681,35 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 35
+  "rank": 30
+ },
+ {
+  "job_id": "9079f85f-51f3-4b6e-a4a5-232a55bb4c53",
+  "fingerprint": "c0e3e8840e17f87fc4ae3f05732b1f0fd4520c9f4296c1ab67ad3f85d753b061",
+  "source": "linkedin",
+  "company": "Cartier",
+  "company_clean": "Cartier",
+  "title": "Client Experience Coordinator (Long-Term Temporary Assignment) - Soho",
+  "location": "New York, NY",
+  "url": "https://www.linkedin.com/jobs/view/client-experience-coordinator-long-term-temporary-assignment-soho-at-cartier-4375781616?position=1&pageNum=0&refId=aCcnfdOQPr%2BxyqolMGSCNw%3D%3D&trackingId=oY0QdFnp7wJVbEkNfuh5JA%3D%3D",
+  "created_at": "2026-03-21T18:37:28+00:00",
+  "lane": "NYC Direction",
+  "city": "NYC",
+  "city_lane": "NYC",
+  "world_simple": "Top World",
+  "world_tier": "Top Luxury / Culture World",
+  "function_family": "Client Experience / Retail Excellence",
+  "type": "Contract",
+  "score": 71,
+  "power_score": 71.0,
+  "one_liner": "Client service at Cartier, top maison, CDD",
+  "risk": "Boutique client service -- retail floor role",
+  "main_risk": "Boutique client service -- retail floor role",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 31
  },
  {
   "job_id": "5c1e71e2-12f6-4663-ada2-c6ef5403f602",
@@ -5849,7 +5737,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 36
+  "rank": 32
  },
  {
   "job_id": "2ae6b19d-6977-4a6f-bd2f-067259d0e09a",
@@ -5877,7 +5765,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 37
+  "rank": 33
  },
  {
   "job_id": "eeaf8711-b2aa-4d00-be94-3ec89701d910",
@@ -5905,7 +5793,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 38
+  "rank": 34
  },
  {
   "job_id": "ce39cbcd-b0e0-41ec-9b23-754aabd2229e",
@@ -5933,7 +5821,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 39
+  "rank": 35
  },
  {
   "job_id": "e9e0e84b-f076-4893-879c-3c2b6e8d7b99",
@@ -5961,7 +5849,35 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 40
+  "rank": 36
+ },
+ {
+  "job_id": "db7b390a-bc3a-4006-9fe2-1411ebdbb28e",
+  "fingerprint": "80991986b7af79c580e590fd1ba32bc29947fb90a0374424310654bd358ec8e1",
+  "source": "linkedin",
+  "company": "Cartier",
+  "company_clean": "Cartier",
+  "title": "Operations Coordinator - Mansion",
+  "location": "New York, NY",
+  "url": "https://www.linkedin.com/jobs/view/operations-coordinator-mansion-at-cartier-4362673262?position=5&pageNum=0&refId=aCcnfdOQPr%2BxyqolMGSCNw%3D%3D&trackingId=KKc%2FdKju9lIiT1ZZGd%2Ffig%3D%3D",
+  "created_at": "2026-03-21T18:37:28+00:00",
+  "lane": "NYC Direction",
+  "city": "NYC",
+  "city_lane": "NYC",
+  "world_simple": "Top World",
+  "world_tier": "Top Luxury / Culture World",
+  "function_family": "General Operations",
+  "type": "Full-Time",
+  "score": 67,
+  "power_score": 67.0,
+  "one_liner": "Operations at Cartier, top maison",
+  "risk": "General operations -- not clearly creative direction",
+  "main_risk": "General operations -- not clearly creative direction",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 37
  },
  {
   "job_id": "ee698ba0-306d-4d99-8f82-a9ca07a0db9d",
@@ -5989,7 +5905,35 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 41
+  "rank": 38
+ },
+ {
+  "job_id": "42026fa5-faed-48a0-8ded-1e9e44e59754",
+  "fingerprint": "e2f31cbec4f2be854e0f63248d9161ca38095970742c13dcaa5fe482a47aa3a7",
+  "source": "chanel",
+  "company": "Chanel",
+  "company_clean": "Chanel",
+  "title": "Internship - Global Learning &amp; Development F/H/X - Corporate",
+  "location": "Paris",
+  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/Internship---Global-Learning---Development-F-H-X----Corporate_JOBREQ00091278",
+  "created_at": "2026-03-21T16:01:37+00:00",
+  "lane": "Strategic Internship / Traineeship",
+  "city": "Paris",
+  "city_lane": "Paris",
+  "world_simple": "Top World",
+  "world_tier": "Top Luxury / Culture World",
+  "function_family": "Client Experience / Retail Excellence",
+  "type": "Intern",
+  "score": 65,
+  "power_score": 65.0,
+  "one_liner": "HR at Chanel, top maison, stage, English-friendly",
+  "risk": "HR/training role -- not creative function",
+  "main_risk": "HR/training role -- not creative function",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 39
  },
  {
   "job_id": "c809e547-3c92-4e53-a310-8d61c058ddbd",
@@ -6017,7 +5961,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 42
+  "rank": 40
  },
  {
   "job_id": "6a1e5977-3dfd-4333-8faf-37764c486166",
@@ -6045,7 +5989,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 43
+  "rank": 41
  },
  {
   "job_id": "ae8bb3be-f42e-49a0-a920-660f423a4cdd",
@@ -6073,7 +6017,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 44
+  "rank": 42
  },
  {
   "job_id": "b9edbb39-4d6d-45ce-8363-077314f28783",
@@ -6101,7 +6045,7 @@
   "tab": "fashion",
   "is_alternance": true,
   "applied": false,
-  "rank": 45
+  "rank": 43
  },
  {
   "job_id": "7e573048-a3f6-4092-9c2f-c0762a24e7e7",
@@ -6129,7 +6073,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 46
+  "rank": 44
  },
  {
   "job_id": "86ddc730-11b4-4f1f-8421-aa776cb29407",
@@ -6157,7 +6101,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 47
+  "rank": 45
  },
  {
   "job_id": "aef07605-7860-45e2-99c9-8ec9d386d099",
@@ -6185,7 +6129,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 48
+  "rank": 46
  },
  {
   "job_id": "4ef92c93-20d2-4d4c-bcfb-51e48ee33dbf",
@@ -6213,7 +6157,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 49
+  "rank": 47
  },
  {
   "job_id": "39679c77-52d4-46c1-861b-438ea3822eb1",
@@ -6241,7 +6185,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 50
+  "rank": 48
  },
  {
   "job_id": "be4a556d-7583-4f9b-ae90-b7c2e2ea8925",
@@ -6269,7 +6213,7 @@
   "tab": "fashion",
   "is_alternance": false,
   "applied": false,
-  "rank": 51
+  "rank": 49
  },
  {
   "job_id": "330a5098-52e2-41a9-9ae6-7b31408fec91",
@@ -6293,6 +6237,62 @@
   "one_liner": "Stockroom at Chanel, top maison",
   "risk": "Stockroom role -- manual work, no path value",
   "main_risk": "Stockroom role -- manual work, no path value",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 50
+ },
+ {
+  "job_id": "2f572968-a02a-4c26-9437-2eee9a4f748e",
+  "fingerprint": "688b2dbc7362d58d5c3db912d85643a01a8ecf7afe3eead5c4573965544501c6",
+  "source": "chanel",
+  "company": "Chanel",
+  "company_clean": "Chanel",
+  "title": "STAGE - Hôte(sse) de Caisse (H/F) - Avenue Montaigne (Paris) - Juin 2026",
+  "location": "Paris",
+  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/STAGE---Hte-sse--de-Caisse--H-F----Avenue-Montaigne--Paris----Juin-2026_JOBREQ00109892",
+  "created_at": "2026-03-21T16:01:37+00:00",
+  "lane": "Strategic Internship / Traineeship",
+  "city": "Paris",
+  "city_lane": "Paris",
+  "world_simple": "Top World",
+  "world_tier": "Top Luxury / Culture World",
+  "function_family": "Communications Support",
+  "type": "Intern",
+  "score": 56,
+  "power_score": 56.0,
+  "one_liner": "Retail at Chanel, top maison, stage",
+  "risk": "Retail sales role at luxury house -- no direction change value",
+  "main_risk": "Retail sales role at luxury house -- no direction change value",
+  "compensation": "",
+  "tab": "fashion",
+  "is_alternance": false,
+  "applied": false,
+  "rank": 51
+ },
+ {
+  "job_id": "e99a7f7d-cab8-4091-973a-ef0080451c8f",
+  "fingerprint": "e90395be7075802c0f1d76718d5f3cc7b2832dcb3b42fe5119b4e9c2945d1b0b",
+  "source": "chanel",
+  "company": "Chanel",
+  "company_clean": "Chanel",
+  "title": "STAGE - Assistant(e) de Vente - Boutique Mode",
+  "location": "Paris",
+  "url": "https://cc.wd3.myworkdayjobs.com/en-US/ChanelCareers/job/Paris/STAGE---Assistant-e--de-Vente---Boutique-Mode_JOBREQ00048315_JCP-1",
+  "created_at": "2026-03-21T16:01:37+00:00",
+  "lane": "Strategic Internship / Traineeship",
+  "city": "Paris",
+  "city_lane": "Paris",
+  "world_simple": "Top World",
+  "world_tier": "Top Luxury / Culture World",
+  "function_family": "Client Experience / Retail Excellence",
+  "type": "Intern",
+  "score": 56,
+  "power_score": 56.0,
+  "one_liner": "Retail at Chanel, top maison, stage",
+  "risk": "Retail sales role at luxury house -- no direction change value",
+  "main_risk": "Retail sales role at luxury house -- no direction change value",
   "compensation": "",
   "tab": "fashion",
   "is_alternance": false,

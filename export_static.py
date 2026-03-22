@@ -754,9 +754,10 @@ _PARIS_FUNC_T2 = re.compile(r"\b(?:communication(?:s)?\s+(?:assistant|coordinato
 _PARIS_FUNC_T3 = re.compile(r"\b(?:marketing\s+(?:assistant|coordinator)|brand\s+(?:coordinator|assistant|strategy)|pr\s+(?:assistant|coordinator)|influence|relations\s+(?:presse|publiques))\b", re.I)
 _PARIS_COMPLIANCE_FUNC = re.compile(r"\b(?:compliance|conformit|aml|kyc|lcb|risque|contr.le\s+interne|audit\s+interne)\b", re.I)
 _PARIS_RETAIL_RE = re.compile(
-    r"\b(?:vendeur|vendeuse|conseill(?:er|[e\u00e8]re)\s+de\s+(?:vente|mode)"
-    r"|assistant(?:e)?\s+de\s+vente|sales\s+(?:associate|advisor)"
-    r"|client\s+advisor|h[o\u00f4]te(?:sse)?\s+de\s+caisse|cashier|caissier)\b", re.I)
+    r"(?:vendeur|vendeuse|conseill(?:er|[e\u00e8]re)\s+de\s+(?:vente|mode)"
+    r"|assistant(?:\(e\)|e)?\s+de\s+vente|sales\s+(?:associate|advisor)"
+    r"|client\s+advisor|h[o\u00f4]te(?:\(sse\)|sse)?\s+de\s+caisse"
+    r"|cashier|caissier|caissi[e\u00e8]re|\bde\s+caisse\b)", re.I)
 _PARIS_STOCKROOM_RE = re.compile(r"\b(?:stockist[e]?|stock\s+(?:associate|coordinator)|magasinier|warehouse)\b", re.I)
 _PARIS_CRAFT_RE = re.compile(r"\b(?:repasseu[r|se]|retoucheu[r|se]|couturi[e\u00e8]re?|teinturerie|d[e\u00e9]tacheu[r|se]|pressing|polisseu[r|se]|sertisseu[r|se])\b", re.I)
 _PARIS_REPAIR_RE = re.compile(r"\b(?:service\s+entretien|service\s+r[e\u00e9]paration|apr[e\u00e8]s.vente|SAV\b|repair)\b", re.I)
@@ -764,7 +765,7 @@ _PARIS_BOUTIQUE_SVC_RE = re.compile(r"\b(?:service\s+client(?:s|e)?\s+boutique)\
 _PARIS_SUPPLY_RE = re.compile(r"\b(?:supply\s+chain|omnistock|logistique|approvisionnement|demand\s+planning|inventory)\b", re.I)
 _PARIS_SUPPLY_CREATIVE_RE = re.compile(r"\b(?:cr[e\u00e9]ation|design|visual|atelier|production\s+artistique)\b", re.I)
 _PARIS_IT_RE = re.compile(r"(?:\bSI\b|\bIS\b|syst[e\u00e8]me(?:s)?\s+d.information|informatique|\bERP\b|\bSAP\b|data\s+engineer|\bBI\b|business\s+intelligence|d[e\u00e9]veloppeu[r|se]|developer|devops)", re.I)
-_PARIS_HR_RE = re.compile(r"\b(?:learning\s+(?:&|and|et)\s+development|formation\s+RH|ressources\s+humaines|people\s+ops|talent\s+acquisition|recrutement)\b", re.I)
+_PARIS_HR_RE = re.compile(r"(?:learning\s+(?:&|&amp;|and|et)\s+development|\bL&D\b|formation\s+RH|ressources\s+humaines|people\s+ops|talent\s+acquisition|recrutement)", re.I)
 _PARIS_FINANCE_RE = re.compile(r"\b(?:contr[o\u00f4]le?\s+de\s+gestion|comptabilit|audit\s+interne|finance\s+manager|controller|accounts?\s+(?:payable|receivable))\b", re.I)
 _FRENCH_HEAVY_RE = re.compile(r"\b(?:excellente?\s+ma.trise\s+du?\s+fran.ais|fran.ais\s+(?:courant|natif|maternel)|niveau\s+c[12]\s+(?:en\s+)?fran.ais|r.daction|press\s+attach|attach.e?\s+de\s+presse|copywriter|r.dacteur|concepteur.r.dacteur)\b", re.I)
 _ENGLISH_POSTING_RE = re.compile(r"\b(?:we\s+are\s+looking|you\s+will|the\s+role|responsibilities|requirements|about\s+the\s+role|what\s+you|join\s+(?:us|our))\b", re.I)
@@ -805,6 +806,19 @@ def _paris_role(title):
     if _PARIS_FUNC_T1.search(title): return 35, "project/coordination", 1
     if _PARIS_FUNC_T2.search(title): return 32, "creative/events/VM", 2
     if _PARIS_FUNC_T3.search(title): return 28, "marketing/brand/PR", 3
+    # Vague operations coordinator — no creative signal
+    tl = title.lower()
+    if re.search(r"\boperations\s+coordinator\b", tl, re.I):
+        creative_signal = any(w in tl for w in ["visual", "vm", "merchandising", "communication",
+                                                  "events", "content", "brand", "creative"])
+        if not creative_signal:
+            return 10, "general operations", 6
+    # Boutique client experience — retail floor
+    if re.search(r"\bclient\s+experience\b", tl, re.I):
+        boutique_loc = any(w in tl for w in ["soho", "montaigne", "champs", "faubourg",
+                                               "fifth avenue", "madison avenue", "boutique"])
+        if boutique_loc:
+            return 8, "boutique client service", 8
     return 15, "", 4
 
 
@@ -853,6 +867,10 @@ def paris_score(title, company, desc, location, world_tier, comp_text):
         risks.append("Supply chain/logistics -- operations, not creative direction")
     elif _PARIS_COMPLIANCE_FUNC.search(title) and brand_pts >= 32:
         risks.append("compliance function at luxury house -- direction value unclear")
+    elif role_label == "general operations":
+        risks.append("General operations -- not clearly creative direction")
+    elif role_label == "boutique client service" and role_tier == 8:
+        risks.append("Boutique client service -- retail floor role")
 
     raw = brand_pts + role_pts + adj
     score = max(0, min(100, round(raw * 100 / 75)))
@@ -880,6 +898,8 @@ def paris_score(title, company, desc, location, world_tier, comp_text):
     elif role_label == "HR/training": parts.append(f"HR at {cc}")
     elif role_label == "finance/accounting": parts.append(f"Finance at {cc}")
     elif role_label == "supply chain": parts.append(f"Supply chain at {cc}")
+    elif role_label == "general operations": parts.append(f"Operations at {cc}")
+    elif role_label == "boutique client service": parts.append(f"Boutique client service at {cc}")
     else: parts.append(cc or "Unknown")
 
     if brand_label: parts.append(brand_label)
