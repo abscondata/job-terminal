@@ -705,7 +705,7 @@ def main():
             "one_liner": reason,
             "risk": risk,
             "path_logic": ev.get("path_logic", ""),
-            "main_risk": risk or ev.get("main_risk", ""),
+            "main_risk": risk,
             "compensation": comp_display,
             "tab": tab,
             "_created": row["created_at_utc"] or "",

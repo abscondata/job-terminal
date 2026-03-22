@@ -312,7 +312,7 @@ function cardHTML(j,z,ctx){
   h+=sbTag;
   h+='</div>';
   h+='<div class="card-reason">'+e(reason)+'</div>';
-  var riskStr=j.risk||j.main_risk||"";
+  var riskStr=j.risk||"";
   if(riskStr)h+='<div class="card-risk">'+e(riskStr)+'</div>';
   var compStr=j.compensation||"";
   if(compStr)h+='<div class="card-comp">'+e(compStr)+'</div>';
