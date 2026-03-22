@@ -127,6 +127,10 @@ button{font-family:inherit}
 .btn.rm:hover{background:rgba(212,116,90,.08)}
 
 .empty{padding:50px 20px;text-align:center;color:var(--dim);font-size:12px}
+.show-all-wrap{text-align:center;padding:16px}
+.show-all-btn{padding:6px 16px;border-radius:var(--r);border:1px solid var(--dim);background:transparent;color:var(--dim);font:600 11px system-ui;cursor:pointer}
+.show-all-btn:hover{color:var(--sub);border-color:var(--sub)}
+.t-comp{background:rgba(111,207,151,.1);color:var(--green);font-variant-numeric:tabular-nums}
 
 @media(max-width:600px){
   .filters{padding:6px 8px;gap:3px}
@@ -174,6 +178,8 @@ button{font-family:inherit}
 var JOBS=[],META={},SAVED=[],SI={};
 var LANE="compliance",SUB="all",EXP=null,DISM={};
 var SEARCH="";
+var SHOW_ALL=false;
+var COMP_FLOOR=35,FASH_FLOOR=45;
 var LS_S="jobengine_saved_v2";
 
 var CITIES_ON=new Set();
@@ -307,6 +313,8 @@ function cardHTML(j,z,ctx){
   h+='<div class="card-tags">';
   h+='<span class="tag t-city">'+e(j.city||shortLoc(j.location))+'</span>';
   h+=typeTag(wt);
+  var compStr=j.compensation||"";
+  if(compStr)h+='<span class="tag t-comp">'+e(compStr)+'</span>';
   if(j.function_family)h+='<span class="tag t-func">'+e(j.function_family)+'</span>';
   if(j.world_simple&&j.world_simple!=="Other")h+='<span class="tag t-world">'+e(j.world_simple)+'</span>';
   h+=sbTag;
@@ -314,8 +322,6 @@ function cardHTML(j,z,ctx){
   h+='<div class="card-reason">'+e(reason)+'</div>';
   var riskStr=j.risk||"";
   if(riskStr)h+='<div class="card-risk">'+e(riskStr)+'</div>';
-  var compStr=j.compensation||"";
-  if(compStr)h+='<div class="card-comp">'+e(compStr)+'</div>';
   h+='</div>';
   h+='<div>';
   if(j.url)h+='<a class="card-open" href="'+e(j.url)+'" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">Open</a>';
@@ -352,29 +358,34 @@ function render(){
   var subEl=document.getElementById("subTabs");
   var filterBar=document.getElementById("filterBar");
 
-  // Pools
-  var compPool=JOBS.filter(isComp);
-  var fashPool=JOBS.filter(function(j){return!isComp(j)});
-  document.getElementById("cntComp").textContent=compPool.length;
-  document.getElementById("cntFash").textContent=fashPool.length;
+  // Pools (apply score floors for counts)
+  var compAll=JOBS.filter(isComp);
+  var fashAll=JOBS.filter(function(j){return!isComp(j)});
+  var compVisible=compAll.filter(function(j){return j.score>=COMP_FLOOR});
+  var fashVisible=fashAll.filter(function(j){return j.score>=FASH_FLOOR});
+  document.getElementById("cntComp").textContent=compVisible.length;
+  document.getElementById("cntFash").textContent=fashVisible.length;
 
   var list=[];
   var ctx="jobs";
+  var hiddenCount=0;
 
   if(LANE==="compliance"||LANE==="fashion"){
     subEl.style.display="none";
     filterBar.style.display="flex";
-    var pool=LANE==="compliance"?compPool:fashPool;
-    refreshChips(pool);
-    list=pool.filter(passFilter);
-    // Sort
-    if(LANE==="compliance"){
-      list.sort(function(a,b){var ta=typeOrder(a),tb=typeOrder(b);if(ta!==tb)return ta-tb;return(b.score||0)-(a.score||0)});
-    }else{
-      list.sort(function(a,b){return(b.score||0)-(a.score||0)});
-    }
+    var isComp_=LANE==="compliance";
+    var pool=isComp_?compAll:fashAll;
+    var floor=isComp_?COMP_FLOOR:FASH_FLOOR;
+
+    // Apply score floor unless SHOW_ALL
+    var filtered=SHOW_ALL?pool:pool.filter(function(j){return j.score>=floor});
+    hiddenCount=pool.length-pool.filter(function(j){return j.score>=floor}).length;
+
+    refreshChips(filtered);
+    list=filtered.filter(passFilter);
+    // Sort by score desc (secondary sort baked into data)
+    list.sort(function(a,b){return(b.score||0)-(a.score||0)});
   }else{
-    // Saved
     subEl.style.display="flex";
     filterBar.style.display="none";
     ctx="saved";
@@ -393,6 +404,12 @@ function render(){
   for(var i=0;i<list.length;i++){
     html+=cardHTML(list[i],i,ctx);
   }
+  // Show all toggle for compliance/fashion tabs
+  if(!SHOW_ALL&&hiddenCount>0&&ctx==="jobs"){
+    html+='<div class="show-all-wrap"><button class="show-all-btn" onclick="SHOW_ALL=true;render()">Show '+hiddenCount+' lower-scored roles</button></div>';
+  }else if(SHOW_ALL&&hiddenCount>0&&ctx==="jobs"){
+    html+='<div class="show-all-wrap"><button class="show-all-btn" onclick="SHOW_ALL=false;render()">Hide lower-scored roles</button></div>';
+  }
   wrap.innerHTML=html;
 }
 
@@ -402,7 +419,7 @@ function dismiss(fp){DISM[fp]=1;render()}
 // --- Tab switching ---
 document.querySelectorAll(".lane-tab").forEach(function(t){t.addEventListener("click",function(){
   document.querySelectorAll(".lane-tab").forEach(function(x){x.classList.remove("on")});t.classList.add("on");
-  LANE=t.dataset.lane;EXP=null;CITIES_ON.clear();TYPES_ON.clear();render();
+  LANE=t.dataset.lane;EXP=null;SHOW_ALL=false;CITIES_ON.clear();TYPES_ON.clear();render();
 })});
 document.querySelectorAll(".sub-tab").forEach(function(t){t.addEventListener("click",function(){
   document.querySelectorAll(".sub-tab").forEach(function(x){x.classList.remove("on")});t.classList.add("on");
@@ -420,8 +437,10 @@ document.getElementById("fSearch").addEventListener("input",function(){SEARCH=th
     document.getElementById("wrap").innerHTML='<div class="empty">Could not load jobs.json.</div>';
     return;
   }
+  if(META.comp_floor)COMP_FLOOR=META.comp_floor;
+  if(META.fash_floor)FASH_FLOOR=META.fash_floor;
   document.getElementById("hDate").textContent=META.export_date?new Date(META.export_date).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}):"\u2014";
-  document.getElementById("hCount").textContent=META.total_jobs||JOBS.length;
+  document.getElementById("hCount").textContent=(META.compliance_visible||0)+(META.fashion_visible||0)||META.total_jobs||JOBS.length;
   render();
 })();
 </script>

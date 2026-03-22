@@ -1,8 +1,10 @@
 {
-  "export_date": "2026-03-22T12:42:13+00:00",
-  "total_jobs": 929,
-  "jobs_by_tab": {
-    "compliance": 728,
-    "fashion": 201
-  }
+  "export_date": "2026-03-22T12:54:50+00:00",
+  "total_jobs": 842,
+  "comp_floor": 35,
+  "fash_floor": 45,
+  "compliance_visible": 319,
+  "fashion_visible": 101,
+  "compliance_total": 694,
+  "fashion_total": 148
 }

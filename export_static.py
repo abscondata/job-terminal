@@ -20,7 +20,6 @@ DOCS = ROOT / "docs"
 # SHARED CONSTANTS & HELPERS
 # ============================================================
 
-STALE_YEARS = re.compile(r"\b(2019|2020|2021|2022|2023|2024|2025)\b")
 _INTERN_RE = re.compile(r"\b(?:stage|stagiaire|intern|internship)\b", re.I)
 _ALTERNANCE_RE = re.compile(r"\b(?:alternance|apprenti)", re.I)
 _CONTRACT_RE = re.compile(r"\b(?:CDD|temp|temporary|contract|seasonal)\b", re.I)
@@ -29,8 +28,6 @@ COMPANY_SUFFIX = re.compile(
     r",?\s*\b(Inc\.?|LLC|Ltd\.?|Corp\.?|Co\.?|S\.?A\.?|S\.?A\.?S\.?|"
     r"SE|GmbH|PLC|N\.?V\.?|AG|SAS|SARL|SpA|Pty|Limited)\s*$", re.I,
 )
-INTERNAL_RE = re.compile(r"\b(bridge upside|borderline bridge|real bridge|prettier slop|mixed case)\b", re.I)
-GENERIC_ONE_LINER = re.compile(r"^(Apply|Maybe|Skip):\s", re.I)
 _NYC_RE = re.compile(r"\b(?:new york|nyc|manhattan|brooklyn|jersey city|stamford|hoboken)\b", re.I)
 _MIAMI_RE = re.compile(r"\b(?:miami|fort lauderdale|boca raton|palm beach|south florida)\b", re.I)
 _PARIS_RE = re.compile(r"\bparis\b", re.I)
@@ -55,8 +52,6 @@ _STAFFING_RE = re.compile(
     r"insight\s+global|beacon\s+hill|addison\s+group|phaxis|collabera|"
     r"apex\s+systems|prokatchers|cynet\s+systems|nextgen)\b", re.I,
 )
-_COMP_RE = re.compile(r"\$\s*(\d[\d,]*)\s*k?", re.I)
-_COMP_K_RE = re.compile(r"\$\s*(\d+)\s*[kK]", re.I)
 TOP_PICK_LANES = {"Paris Direction", "NYC Direction", "Money / Platform Leap"}
 BRIDGE_LANES = {"Strategic Internship / Traineeship", "Interesting Stretch", "Miami Option", "Top-Brand Wrong-Function Risk"}
 
@@ -67,6 +62,194 @@ COMPLIANCE_KEYWORDS = [
     "bsa", "anti-money", "sanctions", "trade surveillance",
 ]
 
+COMP_FLOOR = 35
+FASH_FLOOR = 45
+TODAY = datetime(2026, 3, 22, tzinfo=timezone.utc)
+
+# ============================================================
+# COMP EXTRACTION
+# ============================================================
+
+_COMP_RANGE_RE = re.compile(r"\$\s*(\d[\d,]*)\s*[kK]?\s*[-\u2013]\s*\$?\s*(\d[\d,]*)\s*[kK]?", re.I)
+_COMP_K_RE = re.compile(r"\$\s*(\d+)\s*[kK]", re.I)
+_COMP_PLAIN_RE = re.compile(r"\$\s*(\d[\d,]+)", re.I)
+_COMP_EURO_RE = re.compile(r"(\d[\d\s]*)\s*[kK]?\s*\u20ac|(\d[\d\s]*)\s*\u20ac\s*[kK]?", re.I)
+_COMP_BONUS_RE = re.compile(r"\$\s*(\d+)\s*[kK]?\s*\+\s*(?:bonus|BONUS)", re.I)
+
+
+def extract_comp(title: str, desc: str, comp_text: str) -> str:
+    """Extract best salary string from all available text."""
+    for text in [comp_text, title, (desc or "")[:600]]:
+        if not text:
+            continue
+        # Bonus pattern: "$130+BONUS"
+        m = _COMP_BONUS_RE.search(text)
+        if m:
+            v = int(m.group(1))
+            if v < 1000:
+                return f"${v}K+bonus"
+            return f"${v // 1000}K+bonus"
+        # Range: "$80,000-$120,000" or "$80K-$120K"
+        m = _COMP_RANGE_RE.search(text)
+        if m:
+            a, b = m.group(1).replace(",", ""), m.group(2).replace(",", "")
+            va, vb = int(a), int(b)
+            if va < 1000: va *= 1000
+            if vb < 1000: vb *= 1000
+            if 30000 <= va <= 500000:
+                return f"${va // 1000}K-${vb // 1000}K"
+        # Single K: "$130K"
+        m = _COMP_K_RE.search(text)
+        if m:
+            v = int(m.group(1))
+            if 30 <= v <= 500:
+                return f"${v}K"
+        # Plain dollar: "$80,000"
+        m = _COMP_PLAIN_RE.search(text)
+        if m:
+            v = int(m.group(1).replace(",", ""))
+            if 30000 <= v <= 500000:
+                return f"${v // 1000}K"
+        # Euro
+        m = _COMP_EURO_RE.search(text)
+        if m:
+            raw = (m.group(1) or m.group(2) or "").replace(" ", "")
+            if raw:
+                v = int(raw)
+                if v < 1000:
+                    return f"{v}K\u20ac"
+                if 20000 <= v <= 200000:
+                    return f"{v // 1000}K\u20ac"
+    return ""
+
+
+def _comp_val(comp_str: str) -> int:
+    """Parse comp string to annual USD value for scoring adjustments."""
+    m = _COMP_K_RE.search(comp_str)
+    if m:
+        return int(m.group(1)) * 1000
+    m = _COMP_PLAIN_RE.search(comp_str)
+    if m:
+        return int(m.group(1).replace(",", ""))
+    return 0
+
+
+# ============================================================
+# STALE / EXPIRED DETECTION
+# ============================================================
+
+_MONTH_YEAR_RE = re.compile(
+    r"\b(janv(?:ier)?|f[e\u00e9]vr(?:ier)?|mars|avr(?:il)?|mai|juin|juill(?:et)?|ao[u\u00fb]t|sept(?:embre)?|oct(?:obre)?|nov(?:embre)?|d[e\u00e9]c(?:embre)?|"
+    r"january|february|march|april|may|june|july|august|september|octobre|november|december)\s+"
+    r"(20\d{2})\b", re.I,
+)
+
+_MONTH_MAP = {
+    "janvier": 1, "janv": 1, "january": 1,
+    "fevrier": 2, "f\u00e9vrier": 2, "february": 2, "f\u00e9vr": 2, "fevr": 2,
+    "mars": 3, "march": 3,
+    "avril": 4, "avr": 4, "april": 4,
+    "mai": 5, "may": 5,
+    "juin": 6, "june": 6,
+    "juillet": 7, "juill": 7, "july": 7,
+    "aout": 8, "ao\u00fbt": 8, "august": 8,
+    "septembre": 9, "sept": 9, "september": 9,
+    "octobre": 10, "oct": 10, "october": 10,
+    "novembre": 11, "nov": 11, "november": 11,
+    "decembre": 12, "d\u00e9cembre": 12, "d\u00e9c": 12, "dec": 12, "december": 12,
+}
+
+
+def check_stale(title: str) -> tuple[str, bool]:
+    """Check if title references a past date. Returns (risk_note, should_hide).
+    should_hide=True if >6 months in the past.
+    """
+    for m in _MONTH_YEAR_RE.finditer(title):
+        month_str = m.group(1).lower().replace("\u00e9", "e").replace("\u00fb", "u")
+        year = int(m.group(2))
+        month = _MONTH_MAP.get(month_str, 0)
+        if not month:
+            continue
+        target = datetime(year, month, 1, tzinfo=timezone.utc)
+        if target < TODAY:
+            months_ago = (TODAY.year - target.year) * 12 + (TODAY.month - target.month)
+            month_label = m.group(1).capitalize()
+            if months_ago > 6:
+                return f"Expired -- listed for {month_label} {year}", True
+            return f"Possibly expired -- listed for {month_label} {year}", False
+    return "", False
+
+
+# ============================================================
+# FUZZY DEDUP
+# ============================================================
+
+_DEDUP_STRIP_RE = re.compile(
+    r"\b(?:verified|h/f|h/f/x|f/h|m/f|m/w/d|m/f/d|"
+    r"stage|alternance|intern|internship|cdi|cdd|"
+    r"paris|new york|nyc|miami|france|united states|"
+    r"\(\d+\)|[,-])\b", re.I,
+)
+_MULTI_SPACE = re.compile(r"\s+")
+
+
+def _dedup_key(company: str, title: str) -> str:
+    """Normalize company+title for fuzzy dedup."""
+    c = COMPANY_SUFFIX.sub("", (company or "").lower().strip()).strip()
+    t = _DEDUP_STRIP_RE.sub(" ", (title or "").lower())
+    t = _MULTI_SPACE.sub(" ", t).strip()
+    return f"{c}|{t}"
+
+
+def _word_overlap(key_a: str, key_b: str) -> float:
+    """Return fraction of word overlap between two dedup keys."""
+    _, ta = key_a.split("|", 1) if "|" in key_a else ("", key_a)
+    _, tb = key_b.split("|", 1) if "|" in key_b else ("", key_b)
+    wa = set(ta.split())
+    wb = set(tb.split())
+    if not wa or not wb:
+        return 0.0
+    overlap = wa & wb
+    return len(overlap) / min(len(wa), len(wb))
+
+
+def fuzzy_dedup(jobs: list[dict]) -> tuple[list[dict], int]:
+    """Dedup by company + fuzzy title match (80%+ word overlap). Keep highest score.
+    Returns (deduped_list, removed_count)."""
+    # Group by normalized company
+    by_company: dict[str, list[dict]] = {}
+    for j in jobs:
+        c = COMPANY_SUFFIX.sub("", (j["company"] or "").lower().strip()).strip()
+        by_company.setdefault(c, []).append(j)
+
+    kept = []
+    removed = 0
+    for c, group in by_company.items():
+        if len(group) == 1:
+            kept.append(group[0])
+            continue
+        # Sort by score desc so we keep best
+        group.sort(key=lambda j: -j["score"])
+        accepted: list[dict] = []
+        for j in group:
+            jkey = _dedup_key(j["company"], j["title"])
+            is_dup = False
+            for a in accepted:
+                akey = _dedup_key(a["company"], a["title"])
+                if _word_overlap(jkey, akey) >= 0.8:
+                    is_dup = True
+                    break
+            if is_dup:
+                removed += 1
+            else:
+                accepted.append(j)
+        kept.extend(accepted)
+    return kept, removed
+
+
+# ============================================================
+# SHARED HELPERS
+# ============================================================
 
 def _norm(name: str) -> str:
     out = (name or "").lower().strip()
@@ -75,12 +258,9 @@ def _norm(name: str) -> str:
 
 
 def _words_match(needle: str, haystack: str) -> bool:
-    if needle == haystack:
-        return True
-    if re.search(r"\b" + re.escape(needle) + r"\b", haystack):
-        return True
-    if len(haystack) >= 3 and re.search(r"\b" + re.escape(haystack) + r"\b", needle):
-        return True
+    if needle == haystack: return True
+    if re.search(r"\b" + re.escape(needle) + r"\b", haystack): return True
+    if len(haystack) >= 3 and re.search(r"\b" + re.escape(haystack) + r"\b", needle): return True
     return False
 
 
@@ -105,27 +285,10 @@ def city_label(city_lane: str) -> str:
     return "Other"
 
 
-def extract_comp_from_text(title: str, desc: str) -> str:
-    """Try to extract salary from title or first 500 chars of description."""
-    for text in [title, (desc or "")[:500]]:
-        m = _COMP_K_RE.search(text)
-        if m:
-            val = int(m.group(1))
-            if 30 <= val <= 500:
-                return f"${val}K"
-        m = _COMP_RE.search(text)
-        if m:
-            val = int(m.group(1).replace(",", ""))
-            if 30000 <= val <= 500000:
-                return f"${val // 1000}K"
-    return ""
-
-
 # ============================================================
-# TAB ASSIGNMENT
+# TAB ASSIGNMENT (unchanged logic from previous version)
 # ============================================================
 
-# Luxury/fashion world companies for Paris lane
 _LUXURY_COMPANIES = {
     "chanel", "dior", "christian dior", "christian dior couture",
     "hermes", "louis vuitton", "cartier", "van cleef", "saint laurent",
@@ -163,72 +326,32 @@ _DIRECTION_FUNCTION_RE = re.compile(
 def _is_luxury_company(company: str) -> bool:
     norm = _norm(company)
     for lux in _LUXURY_COMPANIES:
-        if _words_match(lux, norm):
-            return True
+        if _words_match(lux, norm): return True
     return False
 
 
-def assign_tab(source: str, title: str, company: str, description: str,
-               location: str, function_family: str, classification: str,
-               risk_flags: list, world_tier: str) -> str:
-    """Assign job to 'compliance' or 'fashion' tab."""
+def assign_tab(source, title, company, description, location, function_family, classification, risk_flags, world_tier):
     title_lower = (title or "").lower()
     hay = f"{title} {function_family} {classification}".lower()
-
-    # 1. If it's a compliance/risk/AML role at a NON-luxury company → compliance
-    has_comp_signal = False
-    for kw in COMPLIANCE_KEYWORDS:
-        if kw in hay:
-            has_comp_signal = True
-            break
+    has_comp_signal = any(kw in hay for kw in COMPLIANCE_KEYWORDS)
     if not has_comp_signal:
-        for flag in (risk_flags or []):
-            if "compliance" in str(flag).lower() or "analyst_lane" in str(flag).lower():
-                has_comp_signal = True
-                break
-
+        has_comp_signal = any("compliance" in str(f).lower() or "analyst_lane" in str(f).lower() for f in (risk_flags or []))
     if has_comp_signal:
-        # If the company is a luxury house, keep in fashion (or both — we'll add to fashion)
-        if _is_luxury_company(company):
-            # Compliance at luxury house — fashion tab (it's about the direction context)
-            # BUT only if the function is compliance-specific, not project/coordination
-            if _DIRECTION_FUNCTION_RE.search(title):
-                return "fashion"
-            # It's compliance function at a luxury house — put in compliance
-            # (user can see it there, the company name makes it interesting)
-            return "compliance"
-        return "compliance"
-
-    # 2. Source-based
-    if source == "nyc_compliance":
-        return "compliance"
-
-    # 3. If company is luxury/fashion/art/culture → fashion
-    if _is_luxury_company(company):
-        return "fashion"
-
-    # 4. If world_tier indicates luxury/fashion
-    wt = (world_tier or "").lower()
-    if "luxury" in wt or "culture" in wt or "adjacent" in wt:
-        return "fashion"
-
-    # 5. If function/title is direction-change (creative/coordination/project at any company)
-    if _LUXURY_WORLD_RE.search(f"{title} {company} {description[:300]}"):
-        if _DIRECTION_FUNCTION_RE.search(title):
+        if _is_luxury_company(company) and _DIRECTION_FUNCTION_RE.search(title):
             return "fashion"
-
-    # 6. Fallback: use the existing classification
-    if classification in TOP_PICK_LANES or classification in BRIDGE_LANES:
-        return "fashion"
-
-    # If nothing matched and it has compliance signal from description only
+        return "compliance"
+    if source == "nyc_compliance": return "compliance"
+    if _is_luxury_company(company): return "fashion"
+    wt = (world_tier or "").lower()
+    if "luxury" in wt or "culture" in wt or "adjacent" in wt: return "fashion"
+    if _LUXURY_WORLD_RE.search(f"{title} {company} {(description or '')[:300]}"):
+        if _DIRECTION_FUNCTION_RE.search(title): return "fashion"
+    if classification in TOP_PICK_LANES or classification in BRIDGE_LANES: return "fashion"
     desc_lower = (description or "").lower()[:1500]
     for kw in COMPLIANCE_KEYWORDS[:6]:
         if kw in desc_lower:
-            if any(w in title_lower for w in ["analyst", "associate", "specialist",
-                                                "officer", "investigator", "operations"]):
+            if any(w in title_lower for w in ["analyst", "associate", "specialist", "officer", "investigator", "operations"]):
                 return "compliance"
-
     return "fashion"
 
 
@@ -236,34 +359,12 @@ def assign_tab(source: str, title: str, company: str, description: str,
 # NYC COMPLIANCE SCORING ENGINE
 # ============================================================
 
-# --- NYC Title fit (0-35) ---
-_NYC_TITLE_T1 = re.compile(
-    r"\b(?:compliance\s+(?:analyst|associate)"
-    r"|aml\s+(?:analyst|associate|investigator)"
-    r"|kyc\s+(?:analyst|associate))\b", re.I)
-_NYC_TITLE_T2 = re.compile(
-    r"\b(?:regulatory\s+(?:operations|compliance)\s+(?:analyst|associate|specialist)"
-    r"|broker.dealer\s+compliance"
-    r"|securities\s+(?:operations|compliance)"
-    r"|licensing\s+(?:analyst|specialist)"
-    r"|registration\s+(?:analyst|specialist))\b", re.I)
-_NYC_TITLE_T3 = re.compile(
-    r"\b(?:risk\s+(?:analyst|associate)"
-    r"|operations\s+(?:analyst|associate)"
-    r"|financial\s+crimes\s+(?:analyst|associate)"
-    r"|trade\s+surveillance\s+(?:analyst|associate)"
-    r"|sanctions\s+(?:analyst|specialist)"
-    r"|bsa\s+(?:analyst|associate))\b", re.I)
-_NYC_TITLE_T4 = re.compile(
-    r"\b(?:onboarding\s+(?:analyst|specialist|coordinator)"
-    r"|account\s+opening\s+(?:analyst|specialist)"
-    r"|client\s+onboarding)\b", re.I)
-_NYC_TITLE_WEAK = re.compile(
-    r"\b(?:data\s+analyst|general\s+counsel|eeo\s+compliance|sustainability"
-    r"|environmental|health\s+safety|osha|hipaa|privacy|it\s+compliance"
-    r"|information\s+security|cyber|soc\s+analyst)\b", re.I)
+_NYC_TITLE_T1 = re.compile(r"\b(?:compliance\s+(?:analyst|associate)|aml\s+(?:analyst|associate|investigator)|kyc\s+(?:analyst|associate))\b", re.I)
+_NYC_TITLE_T2 = re.compile(r"\b(?:regulatory\s+(?:operations|compliance)\s+(?:analyst|associate|specialist)|broker.dealer\s+compliance|securities\s+(?:operations|compliance)|licensing\s+(?:analyst|specialist)|registration\s+(?:analyst|specialist))\b", re.I)
+_NYC_TITLE_T3 = re.compile(r"\b(?:risk\s+(?:analyst|associate)|operations\s+(?:analyst|associate)|financial\s+crimes\s+(?:analyst|associate)|trade\s+surveillance\s+(?:analyst|associate)|sanctions\s+(?:analyst|specialist)|bsa\s+(?:analyst|associate))\b", re.I)
+_NYC_TITLE_T4 = re.compile(r"\b(?:onboarding\s+(?:analyst|specialist|coordinator)|account\s+opening\s+(?:analyst|specialist)|client\s+onboarding)\b", re.I)
+_NYC_TITLE_WEAK = re.compile(r"\b(?:data\s+analyst|general\s+counsel|eeo\s+compliance|sustainability|environmental|health\s+safety|osha|hipaa|privacy|it\s+compliance|information\s+security|cyber|soc\s+analyst)\b", re.I)
 
-# --- NYC Company prestige (0-35) ---
 _NYC_T1 = {
     "goldman sachs", "morgan stanley", "jpmorgan", "jp morgan", "j.p. morgan",
     "citigroup", "citi", "citibank", "ubs", "barclays", "deutsche bank",
@@ -299,161 +400,121 @@ _NYC_T3 = {
     "paypal", "chime", "betterment", "wealthfront",
     "oaktree", "pgim", "nuveen", "cohen & steers",
     "oppenheimer", "canaccord", "lpl financial",
-    "ameriprise", "edward jones",
-    "usaa", "us bank",
+    "ameriprise", "edward jones", "usaa", "us bank",
 }
+_BB_NAMES = {"goldman", "morgan stanley", "jpmorgan", "citi", "barclays", "ubs", "deutsche", "hsbc", "bnp", "bofa", "bank of america", "wells fargo", "nomura", "mizuho", "mufg", "credit suisse"}
 
 
-def _nyc_title_fit(title: str, desc: str) -> tuple[int, str]:
-    if _NYC_TITLE_WEAK.search(title):
-        return 5, "weak fit"
-    if _SENIOR_RE.search(title):
-        return 10, "senior stretch"
-    if _BILINGUAL_RE.search(title):
-        return 10, "language req"
-    if _NYC_TITLE_T1.search(title):
-        return 35, ""
-    if _NYC_TITLE_T2.search(title):
-        return 30, ""
-    if _NYC_TITLE_T3.search(title):
-        return 25, ""
-    if _NYC_TITLE_T4.search(title):
-        return 22, ""
-    # Generic compliance keyword in title
-    title_l = title.lower()
-    if "compliance" in title_l:
-        return 20, ""
-    if any(kw in title_l for kw in ["aml", "kyc", "regulatory", "risk"]):
-        return 18, ""
+def _nyc_title_fit(title):
+    if _NYC_TITLE_WEAK.search(title): return 5, "weak fit"
+    if _SENIOR_RE.search(title): return 10, "senior"
+    if _BILINGUAL_RE.search(title): return 10, "language"
+    if _NYC_TITLE_T1.search(title): return 35, ""
+    if _NYC_TITLE_T2.search(title): return 30, ""
+    if _NYC_TITLE_T3.search(title): return 25, ""
+    if _NYC_TITLE_T4.search(title): return 22, ""
+    tl = title.lower()
+    if "compliance" in tl: return 20, ""
+    if any(k in tl for k in ["aml", "kyc", "regulatory", "risk"]): return 18, ""
     return 8, "tangential"
 
 
-def _nyc_company_prestige(company: str) -> tuple[int, str]:
+def _nyc_company(company):
     norm = _norm(company)
-    if not norm:
-        return 8, "unknown"
-    if _STAFFING_RE.search(company):
-        return 0, "staffing agency"
-    if _INSURANCE_RE.search(company):
-        return 0, "insurance"
+    if not norm: return 8, "", 4
+    if _STAFFING_RE.search(company): return 0, "staffing agency", 5
+    if _INSURANCE_RE.search(company): return 0, "insurance", 5
     for c in _NYC_T1:
         if _words_match(c, norm):
-            return 35, "bulge bracket" if any(w in norm for w in ["goldman", "morgan stanley", "jpmorgan", "citi", "barclays", "ubs", "deutsche", "hsbc", "bnp", "bofa", "bank of america", "wells fargo", "nomura", "mizuho", "mufg", "credit suisse"]) else "top-tier firm"
+            lbl = "bulge bracket" if any(w in norm for w in _BB_NAMES) else "top-tier firm"
+            return 35, lbl, 1
     for c in _NYC_T2:
-        if _words_match(c, norm):
-            return 25, "strong firm"
+        if _words_match(c, norm): return 25, "strong firm", 2
     for c in _NYC_T3:
-        if _words_match(c, norm):
-            return 15, "solid firm"
-    return 8, ""
+        if _words_match(c, norm): return 15, "solid firm", 3
+    return 8, "", 4
 
 
-def nyc_score(title: str, company: str, desc: str, location: str, comp_text: str) -> tuple[int, str, str]:
-    """NYC compliance scoring. Returns (score 0-100, reason, risk)."""
-    title_pts, title_flag = _nyc_title_fit(title, desc)
-    company_pts, company_label = _nyc_company_prestige(company)
+def nyc_score(title, company, desc, location, comp_text):
+    title_pts, title_flag = _nyc_title_fit(title)
+    company_pts, company_label, company_tier = _nyc_company(company)
     hay = f"{title} {desc}"
-
-    # Practical adjustments
     adj = 0
     risks = []
 
     if _HIGH_EXP_RE.search(hay):
-        adj -= 20
-        risks.append("5yr+ experience likely required")
+        adj -= 20; risks.append("5yr+ experience likely required")
     if _SENIOR_RE.search(title):
-        adj -= 15
-        risks.append("senior title -- expects 3-5yr experience")
+        adj -= 15; risks.append("senior title, likely expects 3-5yr experience")
     if _LEGAL_RE.search(title):
-        adj -= 25
-        risks.append("legal/counsel role, not compliance")
+        adj -= 25; risks.append("legal/counsel role, not compliance")
     if _SALES_RE.search(hay):
-        adj -= 25
-        risks.append("commission/sales-based")
+        adj -= 25; risks.append("commission/sales-based")
     if _INSURANCE_RE.search(f"{company} {title}"):
-        adj -= 15
-        risks.append("insurance company, not finance")
+        adj -= 15; risks.append("insurance company, not finance")
     if _BILINGUAL_RE.search(f"{title} {desc[:500]}"):
-        adj -= 25
         m = _BILINGUAL_RE.search(f"{title} {desc[:500]}")
-        risks.append(f"requires {m.group(0).lower()}")
-    if _SERIES7_RE.search(hay):
-        adj += 10
-    if _ENTRY_RE.search(title):
-        adj += 5
-    if _HYBRID_RE.search(f"{location} {title}"):
-        adj += 3
+        adj -= 25; risks.append(f"requires {m.group(0).lower()}")
+    if _SERIES7_RE.search(hay): adj += 10
+    if _ENTRY_RE.search(title): adj += 5
+    if _HYBRID_RE.search(f"{location} {title}"): adj += 3
 
-    # Salary check
-    comp = comp_text or extract_comp_from_text(title, desc)
-    comp_val = 0
-    m = _COMP_K_RE.search(comp)
-    if m:
-        comp_val = int(m.group(1)) * 1000
-    else:
-        m = _COMP_RE.search(comp)
-        if m:
-            comp_val = int(m.group(1).replace(",", ""))
-    if comp_val >= 100000:
-        adj += 5
-    elif comp_val > 0 and comp_val < 60000:
-        adj -= 10
-        risks.append(f"low salary (${comp_val // 1000}K)")
+    comp = comp_text or extract_comp(title, desc, "")
+    cv = _comp_val(comp)
+    if cv >= 100000: adj += 5
+    elif cv > 0 and cv < 60000: adj -= 10; risks.append(f"low salary (${cv // 1000}K)")
 
-    if title_flag == "staffing agency":
-        risks.append("staffing agency posting, actual employer unclear")
-    elif company_label == "staffing agency":
-        risks.append("staffing agency posting, actual employer unclear")
-    elif company_label == "insurance":
-        if "insurance company, not finance" not in risks:
-            risks.append("insurance company, not finance")
+    if company_label == "staffing agency": risks.append("staffing agency posting, actual employer unclear")
+    elif company_label == "insurance" and "insurance company, not finance" not in risks:
+        risks.append("insurance company, not finance")
 
     raw = title_pts + company_pts + adj
     score = max(0, min(100, round(raw * 100 / 70)))
 
-    # Build reason
-    parts = []
-    title_l = title.lower()
-    if "compliance associate" in title_l: parts.append("Compliance associate")
-    elif "compliance analyst" in title_l: parts.append("Compliance analyst")
-    elif "aml" in title_l and any(w in title_l for w in ["analyst", "investigator", "associate"]): parts.append("AML analyst")
-    elif "kyc" in title_l and any(w in title_l for w in ["analyst", "associate", "specialist"]): parts.append("KYC analyst")
-    elif "broker" in title_l and "compliance" in title_l: parts.append("BD compliance")
-    elif "securities" in title_l: parts.append("Securities ops")
-    elif "regulatory" in title_l: parts.append("Regulatory")
-    elif "trade surveillance" in title_l: parts.append("Trade surveillance")
-    elif "risk" in title_l and any(w in title_l for w in ["analyst", "associate"]): parts.append("Risk analyst")
-    elif "onboarding" in title_l or "account opening" in title_l: parts.append("Client onboarding")
-    elif "financial crimes" in title_l: parts.append("Financial crimes")
-    elif "compliance" in title_l: parts.append("Compliance")
-    elif "operations" in title_l: parts.append("Operations")
-    else: parts.append("Compliance-adjacent")
-
+    # Build reason: company-first format
     cc = clean_company(company)
-    if company_label and company_label not in ("", "unknown", "staffing agency", "insurance"):
-        parts.append(f"at {cc}, {company_label}")
+    tl = title.lower()
+    # Role label
+    rl = "Compliance"
+    if "compliance associate" in tl: rl = "compliance associate"
+    elif "compliance analyst" in tl: rl = "compliance analyst"
+    elif "aml" in tl and any(w in tl for w in ["analyst", "investigator", "associate"]): rl = "AML analyst"
+    elif "kyc" in tl and any(w in tl for w in ["analyst", "associate", "specialist"]): rl = "KYC analyst"
+    elif "broker" in tl and "compliance" in tl: rl = "BD compliance"
+    elif "securities" in tl: rl = "securities ops"
+    elif "regulatory" in tl: rl = "regulatory"
+    elif "trade surveillance" in tl: rl = "trade surveillance"
+    elif "risk" in tl and any(w in tl for w in ["analyst", "associate"]): rl = "risk analyst"
+    elif "onboarding" in tl or "account opening" in tl: rl = "client onboarding"
+    elif "financial crimes" in tl: rl = "financial crimes"
+    elif "operations" in tl: rl = "operations"
+
+    parts = []
+    if company_label and company_label not in ("staffing agency", "insurance"):
+        parts.append(f"{cc} {rl}, {company_label}")
     elif cc:
-        parts.append(f"at {cc}")
+        parts.append(f"{cc} {rl}")
+    else:
+        parts.append(rl.capitalize())
 
     loc = location or ""
     if _NYC_RE.search(loc):
         arr = "hybrid" if _HYBRID_RE.search(loc) else "on-site"
         parts.append(f"{arr} NYC")
-    elif _MIAMI_RE.search(loc):
-        parts.append("Miami")
-    elif _PARIS_RE.search(loc):
-        parts.append("Paris")
+    elif _MIAMI_RE.search(loc): parts.append("Miami")
+    elif _PARIS_RE.search(loc): parts.append("Paris")
     else:
-        short = loc.split(",")[0].strip()[:25]
-        if short:
-            parts.append(short)
+        short = loc.split(",")[0].strip()[:20]
+        if short: parts.append(short)
 
-    if _SERIES7_RE.search(hay):
-        parts.append("mentions Series 7")
+    extras = []
+    if _SERIES7_RE.search(hay): extras.append("mentions Series 7")
+    if _ENTRY_RE.search(title): extras.append("entry-level friendly")
+    if extras: parts.append(", ".join(extras))
 
     reason = ", ".join(parts)
     risk = "; ".join(risks) if risks else ""
-    return score, reason, risk
+    return score, reason, risk, company_tier, title_pts
 
 
 # ============================================================
@@ -470,137 +531,93 @@ _PARIS_BRAND_T1 = {
 _PARIS_BRAND_T2 = {
     "sephora", "kering", "lvmh", "richemont",
     "chloe", "polene", "sezane", "zimmermann", "roger vivier", "moynat",
-    "parfums christian dior", "remy cointreau", "interparfums",
-    "maison crivelli",
+    "parfums christian dior", "remy cointreau", "interparfums", "maison crivelli",
 }
 _PARIS_BRAND_T3 = {
     "vestiaire collective", "christie", "christies", "sotheby", "sothebys",
-    "centre pompidou", "fondation louis vuitton", "palais de tokyo",
-    "musee", "galerie",
+    "centre pompidou", "fondation louis vuitton", "palais de tokyo", "musee", "galerie",
 }
-
-_PARIS_FUNC_T1 = re.compile(
-    r"\b(?:chef\s+de\s+projet|project\s+(?:coordinator|assistant)"
-    r"|production\s+(?:assistant|coordinator)"
-    r"|content\s+(?:coordinator|production)"
-    r"|coordination)\b", re.I)
-_PARIS_FUNC_T2 = re.compile(
-    r"\b(?:communication(?:s)?\s+(?:assistant|coordinator)"
-    r"|event(?:s)?\s+(?:coordinator|assistant)"
-    r"|visual\s+merchandising|vm\s+coordinator"
-    r"|studio\s+(?:coordinator|assistant)"
-    r"|gallery\s+(?:coordinator|assistant)"
-    r"|auction\s+(?:operations|coordinator)"
-    r"|creative\s+(?:operations|coordinator))\b", re.I)
-_PARIS_FUNC_T3 = re.compile(
-    r"\b(?:marketing\s+(?:assistant|coordinator)"
-    r"|brand\s+(?:coordinator|assistant|strategy)"
-    r"|pr\s+(?:assistant|coordinator)"
-    r"|influence|relations\s+(?:presse|publiques))\b", re.I)
-_PARIS_COMPLIANCE_FUNC = re.compile(
-    r"\b(?:compliance|conformit|aml|kyc|lcb|risque|contr.le\s+interne|audit\s+interne)\b", re.I)
-_PARIS_RETAIL_RE = re.compile(r"\b(?:vendeur|vendeuse|sales\s+associate|retail\s+sales|cashier|caissier)\b", re.I)
+_PARIS_FUNC_T1 = re.compile(r"\b(?:chef\s+de\s+projet|project\s+(?:coordinator|assistant)|production\s+(?:assistant|coordinator)|content\s+(?:coordinator|production)|coordination)\b", re.I)
+_PARIS_FUNC_T2 = re.compile(r"\b(?:communication(?:s)?\s+(?:assistant|coordinator)|event(?:s)?\s+(?:coordinator|assistant)|visual\s+merchandising|vm\s+coordinator|studio\s+(?:coordinator|assistant)|gallery\s+(?:coordinator|assistant)|auction\s+(?:operations|coordinator)|creative\s+(?:operations|coordinator))\b", re.I)
+_PARIS_FUNC_T3 = re.compile(r"\b(?:marketing\s+(?:assistant|coordinator)|brand\s+(?:coordinator|assistant|strategy)|pr\s+(?:assistant|coordinator)|influence|relations\s+(?:presse|publiques))\b", re.I)
+_PARIS_COMPLIANCE_FUNC = re.compile(r"\b(?:compliance|conformit|aml|kyc|lcb|risque|contr.le\s+interne|audit\s+interne)\b", re.I)
+_PARIS_RETAIL_RE = re.compile(r"\b(?:vendeur|vendeuse|sales\s+associate|retail\s+sales|cashier|caissier|stockist)\b", re.I)
 _FRENCH_HEAVY_RE = re.compile(r"\b(?:excellente?\s+ma.trise\s+du?\s+fran.ais|fran.ais\s+(?:courant|natif|maternel)|niveau\s+c[12]\s+(?:en\s+)?fran.ais|r.daction|press\s+attach|attach.e?\s+de\s+presse|copywriter|r.dacteur|concepteur.r.dacteur)\b", re.I)
 _ENGLISH_POSTING_RE = re.compile(r"\b(?:we\s+are\s+looking|you\s+will|the\s+role|responsibilities|requirements|about\s+the\s+role|what\s+you|join\s+(?:us|our))\b", re.I)
 
 
-def _paris_brand_score(company: str, world_tier: str) -> tuple[int, str]:
+def _paris_brand(company, world_tier):
     norm = _norm(company)
     for b in _PARIS_BRAND_T1:
-        if _words_match(b, norm):
-            return 40, "top maison"
+        if _words_match(b, norm): return 40, "top maison", 1
     for b in _PARIS_BRAND_T2:
-        if _words_match(b, norm):
-            return 32, "strong luxury brand"
+        if _words_match(b, norm): return 32, "strong luxury brand", 2
     for b in _PARIS_BRAND_T3:
-        if _words_match(b, norm):
-            return 22, "respected institution"
-    # Fall back to world_tier
+        if _words_match(b, norm): return 22, "respected institution", 3
     wt = (world_tier or "").lower()
-    if "luxury" in wt or "culture" in wt:
-        return 18, "luxury-adjacent"
-    if "adjacent" in wt or "premium" in wt:
-        return 12, "premium brand"
-    return 5, ""
+    if "luxury" in wt or "culture" in wt: return 18, "luxury-adjacent", 4
+    if "adjacent" in wt or "premium" in wt: return 12, "premium brand", 4
+    return 5, "", 5
 
 
-def _paris_role_score(title: str, desc: str) -> tuple[int, str]:
-    if _PARIS_RETAIL_RE.search(title):
-        return 8, "retail sales"
-    if _PARIS_COMPLIANCE_FUNC.search(title):
-        return 12, "compliance function"
-    if _PARIS_FUNC_T1.search(title):
-        return 35, "project/coordination"
-    if _PARIS_FUNC_T2.search(title):
-        return 32, "creative/events/VM"
-    if _PARIS_FUNC_T3.search(title):
-        return 28, "marketing/brand/PR"
-    return 15, ""
+def _paris_role(title):
+    if _PARIS_RETAIL_RE.search(title): return 8, "retail sales", 5
+    if _PARIS_COMPLIANCE_FUNC.search(title): return 12, "compliance function", 4
+    if _PARIS_FUNC_T1.search(title): return 35, "project/coordination", 1
+    if _PARIS_FUNC_T2.search(title): return 32, "creative/events/VM", 2
+    if _PARIS_FUNC_T3.search(title): return 28, "marketing/brand/PR", 3
+    return 15, "", 4
 
 
-def paris_score(title: str, company: str, desc: str, location: str,
-                world_tier: str, comp_text: str) -> tuple[int, str, str]:
-    """Paris fashion scoring. Returns (score 0-100, reason, risk)."""
-    brand_pts, brand_label = _paris_brand_score(company, world_tier)
-    role_pts, role_label = _paris_role_score(title, desc)
+def paris_score(title, company, desc, location, world_tier, comp_text):
+    brand_pts, brand_label, brand_tier = _paris_brand(company, world_tier)
+    role_pts, role_label, role_tier = _paris_role(title)
     adj = 0
     risks = []
 
-    # Language risk
     desc_sample = (desc or "")[:2000]
     if _FRENCH_HEAVY_RE.search(f"{title} {desc_sample}"):
-        adj -= 15
-        risks.append("requires strong written French")
+        adj -= 15; risks.append("requires polished written French")
     elif _ENGLISH_POSTING_RE.search(desc_sample):
         adj += 5
-    # Press/copywriter in title
     if re.search(r"\b(?:r.dacteur|copywriter|press\s+attach|attach.e?\s+de\s+presse)\b", title, re.I):
-        adj -= 20
-        risks.append("written French comms role")
+        adj -= 20; risks.append("written French comms role")
 
-    # Contract type
     title_l = title.lower()
     if _CDI_RE.search(title): adj += 10
     elif _CONTRACT_RE.search(title): adj += 5
-    elif _ALTERNANCE_RE.search(title): adj += 0
-    elif _INTERN_RE.search(title): adj += 0
     elif "freelance" in title_l: adj -= 5
 
-    # Compliance at luxury house risk
-    if _PARIS_COMPLIANCE_FUNC.search(title) and brand_pts >= 32:
-        risks.append("compliance function at luxury house -- better wallpaper, same identity")
+    # Alternance school enrollment flag
+    if _ALTERNANCE_RE.search(title):
+        risks.append("Alternance -- requires French school enrollment")
 
-    # Retail risk
+    if _PARIS_COMPLIANCE_FUNC.search(title) and brand_pts >= 32:
+        risks.append("compliance function at luxury house -- direction value unclear")
     if _PARIS_RETAIL_RE.search(title):
         risks.append("retail sales role dressed up by brand name")
 
     raw = brand_pts + role_pts + adj
     score = max(0, min(100, round(raw * 100 / 75)))
 
-    # Build reason
-    parts = []
+    # Build reason: company-first
     cc = clean_company(company)
-
+    parts = []
     if role_label == "project/coordination":
-        if "chef de projet" in title_l: parts.append(f"{cc} chef de projet")
-        else: parts.append(f"{cc} project coordination")
+        lbl = "chef de projet" if "chef de projet" in title_l else "project coordination"
+        parts.append(f"{cc} {lbl}")
     elif role_label == "creative/events/VM":
         if "visual merchandising" in title_l or "vm" in title_l: parts.append(f"{cc} visual merchandising")
-        elif "event" in title_l: parts.append(f"{cc} events coordination")
+        elif "event" in title_l: parts.append(f"{cc} events")
         elif "gallery" in title_l: parts.append(f"{cc} gallery")
-        elif "studio" in title_l: parts.append(f"{cc} studio coordination")
+        elif "studio" in title_l: parts.append(f"{cc} studio")
         else: parts.append(f"{cc} {role_label}")
-    elif role_label == "marketing/brand/PR":
-        parts.append(f"{cc} brand/marketing")
-    elif role_label == "compliance function":
-        parts.append(f"Compliance at {cc}")
-    elif role_label == "retail sales":
-        parts.append(f"Retail at {cc}")
-    else:
-        parts.append(f"{cc}" if cc else "Unknown brand")
+    elif role_label == "marketing/brand/PR": parts.append(f"{cc} brand/marketing")
+    elif role_label == "compliance function": parts.append(f"Compliance at {cc}")
+    elif role_label == "retail sales": parts.append(f"Retail at {cc}")
+    else: parts.append(cc or "Unknown")
 
-    if brand_label:
-        parts.append(brand_label)
+    if brand_label: parts.append(brand_label)
 
     typ = detect_type(title)
     if typ == "Alternance": parts.append("alternance")
@@ -613,7 +630,7 @@ def paris_score(title: str, company: str, desc: str, location: str,
 
     reason = ", ".join(parts)
     risk = "; ".join(risks) if risks else ""
-    return score, reason, risk
+    return score, reason, risk, brand_tier, role_tier
 
 
 # ============================================================
@@ -624,7 +641,6 @@ def main():
     DOCS.mkdir(exist_ok=True)
     conn = sqlite3.connect(str(DB))
     conn.row_factory = sqlite3.Row
-
     rows = conn.execute("""
         SELECT j.job_id, j.fingerprint, j.source, j.company, j.title,
                j.location_text, j.remote_type,
@@ -632,8 +648,7 @@ def main():
                j.url, j.apply_url, j.created_at_utc, j.description_text,
                d.queue, d.decision_reason, d.confidence,
                d.evidence_json, d.decided_at_utc
-        FROM decisions d
-        JOIN jobs_canonical j ON d.job_id = j.job_id
+        FROM decisions d JOIN jobs_canonical j ON d.job_id = j.job_id
     """).fetchall()
     conn.close()
 
@@ -642,10 +657,8 @@ def main():
 
     for row in rows:
         ev = {}
-        try:
-            ev = json.loads(row["evidence_json"] or "{}")
-        except Exception:
-            pass
+        try: ev = json.loads(row["evidence_json"] or "{}")
+        except Exception: pass
 
         classification = ev.get("classification", row["decision_reason"] or "")
         title = row["title"] or ""
@@ -654,120 +667,117 @@ def main():
         description = row["description_text"] or ""
         source = row["source"] or ""
         world_tier = ev.get("world_tier", "")
-        comp_text = ev.get("comp_record", {}).get("comp_text_raw", "") or row["compensation_text"] or ""
+        comp_raw = ev.get("comp_record", {}).get("comp_text_raw", "") or row["compensation_text"] or ""
 
         tab = assign_tab(source, title, company, description, location,
                          ev.get("function_family", ""), classification,
                          ev.get("risk_flags", []), world_tier)
 
-        # Gate: fashion tab uses existing fashion-scorer tier filter
         if tab == "fashion":
             tier = "Top Pick" if classification in TOP_PICK_LANES else ("Bridge" if classification in BRIDGE_LANES else "Pass")
-            if tier == "Pass":
-                continue
-
-        # Gate: compliance tab — reject pure legal and sales
+            if tier == "Pass": continue
         if tab == "compliance":
-            if _LEGAL_RE.search(title) and "compliance" not in title.lower():
-                continue
-            if _SALES_RE.search(title):
-                continue
+            if _LEGAL_RE.search(title) and "compliance" not in title.lower(): continue
+            if _SALES_RE.search(title): continue
 
-        # Score
+        comp_display = extract_comp(title, description, comp_raw)
+
         if tab == "compliance":
-            score, reason, risk = nyc_score(title, company, description, location, comp_text)
+            score, reason, risk, c_tier, t_fit = nyc_score(title, company, description, location, comp_raw)
+            sort_secondary = (c_tier, t_fit)
         else:
-            score, reason, risk = paris_score(title, company, description, location, world_tier, comp_text)
+            score, reason, risk, b_tier, r_tier = paris_score(title, company, description, location, world_tier, comp_raw)
+            sort_secondary = (b_tier, r_tier)
 
-        comp_display = comp_text
-        if not comp_display:
-            comp_display = extract_comp_from_text(title, description)
+        # Stale detection
+        stale_note, stale_hide = check_stale(title)
+        if stale_hide:
+            continue  # >6 months in past, hide entirely
+        if stale_note and stale_note not in risk:
+            risk = f"{risk}; {stale_note}" if risk else stale_note
 
         all_jobs.append({
-            "job_id": row["job_id"],
-            "fingerprint": row["fingerprint"],
-            "source": source,
-            "company": company,
-            "company_clean": clean_company(company),
-            "title": title,
-            "location": location,
+            "job_id": row["job_id"], "fingerprint": row["fingerprint"],
+            "source": source, "company": company, "company_clean": clean_company(company),
+            "title": title, "location": location,
             "url": row["url"] or row["apply_url"] or "",
             "created_at": row["created_at_utc"] or "",
             "lane": classification,
             "city": city_label(ev.get("city_lane", "")),
             "city_lane": ev.get("city_lane", "Unknown"),
-            "world_simple": "Top World" if world_tier in {"Top Luxury / Culture World"} else ("Adjacent" if world_tier in {"Real Adjacent World", "Premium But Generic World"} else "Other"),
+            "world_simple": "Top World" if world_tier == "Top Luxury / Culture World" else ("Adjacent" if world_tier in {"Real Adjacent World", "Premium But Generic World"} else "Other"),
             "world_tier": world_tier,
             "function_family": ev.get("function_family", ""),
             "type": detect_type(title),
-            "score": score,
-            "power_score": float(score),
-            "one_liner": reason,
-            "risk": risk,
-            "path_logic": ev.get("path_logic", ""),
-            "main_risk": risk,
+            "score": score, "power_score": float(score),
+            "one_liner": reason, "risk": risk, "main_risk": risk,
             "compensation": comp_display,
             "tab": tab,
+            "_sort2": sort_secondary,
             "_created": row["created_at_utc"] or "",
         })
 
-    print(f"After filters: {len(all_jobs)}")
+    print(f"After gate filters: {len(all_jobs)}")
 
-    # Dedupe
-    groups: dict[tuple[str, str], list[dict]] = {}
-    for job in all_jobs:
-        key = (job["company"].lower().strip(), job["title"].lower().strip())
-        groups.setdefault(key, []).append(job)
-    deduped = []
-    for group in groups.values():
-        group.sort(key=lambda j: j["_created"] or "", reverse=True)
-        deduped.append(group[0])
-    print(f"After dedupe: {len(deduped)} (removed {len(all_jobs) - len(deduped)})")
+    # Fuzzy dedup
+    all_jobs, dedup_removed = fuzzy_dedup(all_jobs)
+    print(f"After fuzzy dedup: {len(all_jobs)} (removed {dedup_removed})")
 
-    # Date filter
-    cutoff = (datetime.now(timezone.utc) - timedelta(days=60)).isoformat(timespec="seconds")
-    filtered = [j for j in deduped if not STALE_YEARS.search(j["title"]) or j["_created"] >= cutoff]
-    print(f"After date filter: {len(filtered)}")
+    # Sort per tab with secondary sort
+    comp_jobs = [j for j in all_jobs if j["tab"] == "compliance"]
+    fash_jobs = [j for j in all_jobs if j["tab"] == "fashion"]
 
-    # Sort & rank per tab
-    comp_jobs = sorted([j for j in filtered if j["tab"] == "compliance"], key=lambda j: -j["score"])
-    fash_jobs = sorted([j for j in filtered if j["tab"] == "fashion"], key=lambda j: -j["score"])
+    comp_jobs.sort(key=lambda j: (-j["score"], j["_sort2"][0], j["_sort2"][1]))
+    fash_jobs.sort(key=lambda j: (-j["score"], j["_sort2"][0], j["_sort2"][1]))
+
     for i, j in enumerate(comp_jobs): j["rank"] = i + 1
     for i, j in enumerate(fash_jobs): j["rank"] = i + 1
 
     all_final = comp_jobs + fash_jobs
     for j in all_final:
+        del j["_sort2"]
         del j["_created"]
+
+    # Stats
+    comp_visible = [j for j in comp_jobs if j["score"] >= COMP_FLOOR]
+    fash_visible = [j for j in fash_jobs if j["score"] >= FASH_FLOOR]
+    comp_hidden = len(comp_jobs) - len(comp_visible)
+    fash_hidden = len(fash_jobs) - len(fash_visible)
 
     # Write
     (DOCS / "jobs.json").write_text(json.dumps(all_final, ensure_ascii=False, indent=1), encoding="utf-8")
-    tab_counts = {}
-    for j in all_final:
-        tab_counts[j["tab"]] = tab_counts.get(j["tab"], 0) + 1
     meta = {
         "export_date": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "total_jobs": len(all_final),
-        "jobs_by_tab": tab_counts,
+        "comp_floor": COMP_FLOOR, "fash_floor": FASH_FLOOR,
+        "compliance_visible": len(comp_visible), "fashion_visible": len(fash_visible),
+        "compliance_total": len(comp_jobs), "fashion_total": len(fash_jobs),
     }
     (DOCS / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
 
     # Summary
     print(f"\nExported {len(all_final)} jobs")
-    print(f"  Compliance: {len(comp_jobs)}, Fashion: {len(fash_jobs)}")
+    print(f"  Compliance: {len(comp_jobs)} total, {len(comp_visible)} visible (>={COMP_FLOOR}), {comp_hidden} hidden below floor")
+    print(f"  Fashion:    {len(fash_jobs)} total, {len(fash_visible)} visible (>={FASH_FLOOR}), {fash_hidden} hidden below floor")
+    print(f"  Dedup removed: {dedup_removed}")
 
-    for label, jobs in [("COMPLIANCE", comp_jobs), ("FASHION", fash_jobs)]:
-        scores = [j["score"] for j in jobs]
-        if scores:
-            scores.sort()
-            med = scores[len(scores) // 2]
-            print(f"\n=== {label} (min={scores[0]}, median={med}, max={scores[-1]}) ===")
-        else:
-            print(f"\n=== {label} (empty) ===")
-        for j in jobs[:5]:
-            print(f"  #{j['rank']:>3} s={j['score']:3d} | {j['company_clean'][:22]:<22s} | {j['title'][:45]:<45s}")
-            print(f"         reason: {j['one_liner'][:75]}")
-            if j.get("risk"):
-                print(f"         risk:   {j['risk'][:75]}")
+    for label, visible in [("COMPLIANCE", comp_visible), ("FASHION", fash_visible)]:
+        scores = sorted([j["score"] for j in visible])
+        if not scores:
+            print(f"\n=== {label} (empty) ==="); continue
+        med = scores[len(scores) // 2]
+        print(f"\n=== {label} visible: {len(visible)} roles (min={scores[0]}, median={med}, max={scores[-1]}) ===")
+        print("  TOP 3:")
+        for j in visible[:3]:
+            print(f"    #{j['rank']:>3} s={j['score']:3d} | {j['company_clean'][:22]:<22s} | {j['title'][:42]}")
+            print(f"           {j['one_liner'][:70]}")
+            if j["risk"]: print(f"           RISK: {j['risk'][:70]}")
+            if j["compensation"]: print(f"           COMP: {j['compensation']}")
+        print("  BOTTOM 3:")
+        for j in visible[-3:]:
+            print(f"    #{j['rank']:>3} s={j['score']:3d} | {j['company_clean'][:22]:<22s} | {j['title'][:42]}")
+            print(f"           {j['one_liner'][:70]}")
+            if j["risk"]: print(f"           RISK: {j['risk'][:70]}")
 
 
 if __name__ == "__main__":
