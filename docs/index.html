@@ -185,6 +185,12 @@ tr.detail-row td{padding:0}
   <button class="pill" data-city="Miami">Miami</button>
   <button class="pill" data-city="Other">Other</button>
   <div class="sep"></div>
+  <button class="pill on" data-type="all">All Types</button>
+  <button class="pill" data-type="Full-Time">Full-Time</button>
+  <button class="pill" data-type="Intern">Intern</button>
+  <button class="pill" data-type="Alternance">Alternance</button>
+  <button class="pill" data-type="Contract">Contract</button>
+  <div class="sep"></div>
   <select class="fsel" id="fLane"><option value="all">All Lanes</option></select>
   <select class="fsel" id="fWorld"><option value="all">All Worlds</option></select>
   <select class="fsel" id="fSort">
@@ -223,10 +229,10 @@ tr.detail-row td{padding:0}
 <script>
 var JOBS=[],META={},SAVED=[],SI={};
 var TAB="jobs",EXP=null,DISM={};
-var QF={apply:true,maybe:false,skip:false},CITY="all",SEARCH="",LANE_F="all",WORLD_F="all",SORT="default";
+var QF={apply:true,maybe:false,skip:false},CITY="all",TYPE_F="all",SEARCH="",LANE_F="all",WORLD_F="all",SORT="default";
 var PAGE=100,SHOW=PAGE;
 var COL_SORT=null,COL_DIR=1;
-var LS_F="jt4_filters",LS_S="jobengine_saved";
+var LS_F="jt5_filters",LS_S="jobengine_saved";
 
 function e(s){return String(s==null?"":s).replace(/[&<>"']/g,function(m){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[m]||m})}
 
@@ -272,12 +278,13 @@ function cityTag(c){var g=cg(c);if(g==="Paris")return"t-paris";if(g==="NYC")retu
 
 function loadS(){try{SAVED=JSON.parse(localStorage.getItem(LS_S)||"[]")}catch(x){SAVED=[]}SI={};for(var i=0;i<SAVED.length;i++)SI[SAVED[i].fingerprint]=1;document.getElementById("sBadge").textContent="("+SAVED.length+")"}
 function saveS(){localStorage.setItem(LS_S,JSON.stringify(SAVED));loadS()}
-function loadF(){try{var f=JSON.parse(localStorage.getItem(LS_F));if(f){QF=f.q||QF;CITY=f.c||"all";SEARCH=f.s||"";LANE_F=f.l||"all";WORLD_F=f.w||"all";SORT=f.so||"default"}}catch(x){}if(!QF.apply&&!QF.maybe&&!QF.skip){QF={apply:true,maybe:false,skip:false}}}
-function saveF(){localStorage.setItem(LS_F,JSON.stringify({q:QF,c:CITY,s:SEARCH,l:LANE_F,w:WORLD_F,so:SORT}))}
+function loadF(){try{var f=JSON.parse(localStorage.getItem(LS_F));if(f){QF=f.q||QF;CITY=f.c||"all";TYPE_F=f.t||"all";SEARCH=f.s||"";LANE_F=f.l||"all";WORLD_F=f.w||"all";SORT=f.so||"default"}}catch(x){}if(!QF.apply&&!QF.maybe&&!QF.skip){QF={apply:true,maybe:false,skip:false}}}
+function saveF(){localStorage.setItem(LS_F,JSON.stringify({q:QF,c:CITY,t:TYPE_F,s:SEARCH,l:LANE_F,w:WORLD_F,so:SORT}))}
 
 function syncUI(){
   document.querySelectorAll("[data-q]").forEach(function(p){p.classList.toggle("on",!!QF[p.dataset.q])});
   document.querySelectorAll("[data-city]").forEach(function(p){p.classList.toggle("on",p.dataset.city===CITY)});
+  document.querySelectorAll("[data-type]").forEach(function(p){p.classList.toggle("on",p.dataset.type===TYPE_F)});
   document.getElementById("fSearch").value=SEARCH;
   document.getElementById("fLane").value=LANE_F;
   document.getElementById("fWorld").value=WORLD_F;
@@ -304,6 +311,7 @@ var LP={"Paris Direction":0,"NYC Direction":1,"Strategic Internship / Traineeshi
 function match(j){
   if(!QF[j.queue])return false;
   if(CITY!=="all"&&cg(j.city_lane)!==CITY)return false;
+  if(TYPE_F!=="all"&&(j.type||"Full-Time")!==TYPE_F)return false;
   if(LANE_F!=="all"&&cleanLane(j.lane)!==LANE_F)return false;
   if(WORLD_F!=="all"&&cleanWorld(j.world)!==WORLD_F)return false;
   if(SEARCH){var h=((j.company_clean||j.company||"")+" "+(j.title||"")+" "+(j.lane||"")+" "+(j.city_lane||"")+" "+(j.world||"")+" "+(j.function_family||"")).toLowerCase();if(h.indexOf(SEARCH)<0)return false}
@@ -466,6 +474,11 @@ document.querySelectorAll("[data-q]").forEach(function(p){p.addEventListener("cl
 document.querySelectorAll("[data-city]").forEach(function(p){p.addEventListener("click",function(){
   document.querySelectorAll("[data-city]").forEach(function(x){x.classList.remove("on")});p.classList.add("on");
   CITY=p.dataset.city;SHOW=PAGE;COL_SORT=null;saveF();render();
+})});
+
+document.querySelectorAll("[data-type]").forEach(function(p){p.addEventListener("click",function(){
+  document.querySelectorAll("[data-type]").forEach(function(x){x.classList.remove("on")});p.classList.add("on");
+  TYPE_F=p.dataset.type;SHOW=PAGE;COL_SORT=null;saveF();render();
 })});
 
 document.getElementById("fLane").addEventListener("change",function(){LANE_F=this.value;SHOW=PAGE;COL_SORT=null;saveF();render()});

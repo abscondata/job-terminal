@@ -12,6 +12,19 @@ DB = ROOT / "data" / "jobengine.sqlite"
 DOCS = ROOT / "docs"
 
 STALE_YEARS = re.compile(r"\b(2019|2020|2021|2022|2023|2024|2025)\b")
+_INTERN_RE = re.compile(r"\b(?:stage|stagiaire|intern|internship)\b", re.I)
+_ALTERNANCE_RE = re.compile(r"\b(?:alternance|apprenti)", re.I)
+_CONTRACT_RE = re.compile(r"\b(?:CDD|temp|temporary|contract|seasonal)\b", re.I)
+
+
+def detect_type(title: str) -> str:
+    if _ALTERNANCE_RE.search(title or ""):
+        return "Alternance"
+    if _INTERN_RE.search(title or ""):
+        return "Intern"
+    if _CONTRACT_RE.search(title or ""):
+        return "Contract"
+    return "Full-Time"
 COMPANY_SUFFIX = re.compile(
     r",?\s*\b(Inc\.?|LLC|Ltd\.?|Corp\.?|Co\.?|S\.?A\.?|S\.?A\.?S\.?|"
     r"SE|GmbH|PLC|N\.?V\.?|AG|SAS|SARL|SpA|Pty|Limited)\s*$",
@@ -142,6 +155,7 @@ def main():
             "world_tier": world_raw,
             "function_family": ev.get("function_family", ""),
             "work_type_label": ev.get("work_type_label", ""),
+            "type": detect_type(row["title"] or ""),
             "dimension_scores": ev.get("dimension_scores", {}),
             "signal_scores": ev.get("signal_scores", {}),
             "signal_bands": ev.get("signal_bands", {}),
