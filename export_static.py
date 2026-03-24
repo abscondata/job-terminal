@@ -1130,7 +1130,15 @@ def main():
                 comp_display = ""
 
         if tab == "compliance":
-            score, reason, risk, c_tier, t_fit = nyc_score(title, company, description, location, comp_raw)
+            # For nyc_compliance v2 source, use pre-computed scores from evidence
+            if source == "nyc_compliance" and ev.get("components"):
+                score = ev.get("score", 0)
+                reason = ev.get("reason", "")
+                risk = ev.get("risk", "")
+                c_tier = ev.get("firm_tier", 4)
+                t_fit = ev.get("components", {}).get("role_fit", 50)
+            else:
+                score, reason, risk, c_tier, t_fit = nyc_score(title, company, description, location, comp_raw)
             sort_secondary = (c_tier, t_fit)
         else:
             score, reason, risk, b_tier, r_tier = paris_score(title, company, description, location, world_tier, comp_raw)

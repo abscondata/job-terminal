@@ -1,17 +1,11 @@
 """
-Nuke all stale discovery state and rebuild from scratch.
+Nuke all stale discovery state and rebuild from scratch using v2 pipeline.
 
 Architecture:
-- Suppression lives in applied_jobs_cleaned.csv (the single source of truth)
+- Suppression lives in applied_jobs_cleaned.csv (single source of truth)
 - Python dedup at scrape time enforces suppression BEFORE jobs enter the DB
 - The DB only contains clean, unsuppressed jobs
-- No SQL-level suppression — that approach had a normalization mismatch bug
-
-Steps:
-1. DELETE all rows from runs, jobs_raw, jobs_canonical, decisions
-2. Delete all run directories and stale state files
-3. Run fresh discovery (scrape -> hard reject -> dedup against CSV -> score)
-4. Write clean results to DB + generate report.html
+- Rich evidence_json stores score components, bucket, penalties for export_static
 """
 from __future__ import annotations
 
@@ -62,7 +56,6 @@ def nuke_all(conn: sqlite3.Connection) -> None:
     print("[1/3] NUKING all discovery state...")
     for table in ("decisions", "jobs_canonical", "jobs_raw", "runs"):
         conn.execute(f"DELETE FROM {table}")
-    # Also clear suppressed_jobs if it exists (we don't use it anymore)
     try:
         conn.execute("DELETE FROM suppressed_jobs")
     except Exception:
@@ -70,34 +63,29 @@ def nuke_all(conn: sqlite3.Connection) -> None:
     conn.commit()
     conn.execute("VACUUM")
 
-    # Delete run directories
     runs_dir = ROOT / "data" / "runs"
     if runs_dir.exists():
         for child in runs_dir.iterdir():
             if child.is_dir():
                 shutil.rmtree(child, ignore_errors=True)
 
-    # Delete stale files
-    for f in ("last_meta.json", "last_run.log", "source_health.json", "audit_report.txt"):
+    for f in ("last_meta.json", "last_run.log", "source_health.json"):
         p = ROOT / "data" / f
         if p.exists():
             p.unlink()
 
-    # Delete old report
     for rpt in (ROOT / "docs" / "report.html",):
         if rpt.exists():
             rpt.unlink()
 
-    # Delete WAL/SHM (may fail if DB connection holds them)
     for ext in ("-wal", "-shm"):
         p = Path(str(DB_PATH) + ext)
         if p.exists():
             try:
                 p.unlink()
             except PermissionError:
-                pass  # held by our connection, will be cleaned on close
+                pass
 
-    # Verify
     for table in ("runs", "jobs_raw", "jobs_canonical", "decisions"):
         count = conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0]
         assert count == 0, f"{table} still has {count} rows!"
@@ -105,83 +93,28 @@ def nuke_all(conn: sqlite3.Connection) -> None:
 
 
 def run_fresh_discovery() -> dict:
-    """Run the compliance discovery pipeline. Returns results dict."""
-    print("[2/3] Running fresh compliance discovery...")
-    from scripts.run_compliance_discovery import (
-        scrape_indeed, hard_reject, score_job, load_applied_index, is_applied,
-    )
-
-    applied_index = load_applied_index()
-    print(f"  Applied index: {len(applied_index)} pairs (suppression source)")
-
-    raw_jobs = scrape_indeed()
-    print(f"  Scraped: {len(raw_jobs)} raw jobs")
-
-    passed = []
-    reject_count = 0
-    dedup_count = 0
-
-    for job in raw_jobs:
-        reason = hard_reject(
-            job["title"], job["company"], job["location"],
-            job["salary"], job["snippet"],
-        )
-        if reason:
-            reject_count += 1
-            continue
-
-        if is_applied(job["company"], job["title"], applied_index):
-            dedup_count += 1
-            print(f"  SUPPRESSED: [{job['title']}] at [{job['company']}]")
-            continue
-
-        passed.append(job)
-
-    for job in passed:
-        s = score_job(job["title"], job["company"], job["snippet"], job["salary"])
-        job.update(s)
-
-    passed.sort(key=lambda x: x["score"], reverse=True)
-
-    apply_jobs = [j for j in passed if j["tier"] == "APPLY"]
-    maybe_jobs = [j for j in passed if j["tier"] == "MAYBE"]
-    skip_jobs = [j for j in passed if j["tier"] == "SKIP"]
-
-    print(f"  Results: APPLY={len(apply_jobs)} MAYBE={len(maybe_jobs)} SKIP={len(skip_jobs)}")
-    print(f"  Rejected={reject_count} Suppressed={dedup_count}")
-
-    return {
-        "all": passed,
-        "apply": apply_jobs,
-        "maybe": maybe_jobs,
-        "skip": skip_jobs,
-        "meta": {
-            "total_scraped": len(raw_jobs),
-            "rejected": reject_count,
-            "deduped": dedup_count,
-            "apply_count": len(apply_jobs),
-            "maybe_count": len(maybe_jobs),
-            "skip_count": len(skip_jobs),
-            "generated": datetime.now().strftime("%Y-%m-%d %H:%M"),
-        },
-    }
+    """Run the v2 compliance discovery pipeline."""
+    print("[2/3] Running v2 compliance discovery...")
+    from scripts.run_compliance_discovery import run_pipeline
+    return run_pipeline()
 
 
 def write_results(conn: sqlite3.Connection, results: dict) -> None:
-    """Write clean results into DB and generate report.html."""
-    print("[3/3] Writing to DB + generating report...")
+    """Write results into DB with rich evidence for export_static."""
+    print("[3/3] Writing to DB...")
 
     now = utcnow()
     run_id = str(uuid.uuid4())
 
     conn.execute(
         "INSERT INTO runs(run_id,started_at_utc,ended_at_utc,mode,config_snapshot) VALUES(?,?,?,?,?)",
-        (run_id, now, now, "compliance_discovery", "{}"),
+        (run_id, now, now, "compliance_discovery_v2", "{}"),
     )
 
-    for job in results["all"]:
+    all_jobs = results["all"]
+    for job in all_jobs:
         job_id = str(uuid.uuid4())
-        fp = f"{_norm_company(job['company'])}|{_norm_title(job['title'])}|{job.get('job_key','')}"
+        fp = f"{_norm_company(job['company'])}|{_norm_title(job['title'])}|{job.get('job_key', '')}"
 
         conn.execute(
             """INSERT INTO jobs_canonical(
@@ -197,39 +130,40 @@ def write_results(conn: sqlite3.Connection, results: dict) -> None:
              "", 0, 0, now, fp),
         )
 
+        # Rich evidence for export_static to use
         evidence = {
             "score": job["score"],
-            "tier": job["tier"],
+            "bucket": job["bucket"],
             "reason": job["reason"],
-            "recommendation": job["tier"].lower() if job["tier"] != "SKIP" else "skip",
-            "classification": job["tier"],
-            "company": job["company"],
-            "title": job["title"],
-            "location_text": job["location"],
-            "url": job["url"],
-            "salary": job.get("salary", ""),
+            "risk": job.get("risk", ""),
+            "role_family": job["role_family"],
+            "firm_tier": job["firm_tier"],
+            "firm_label": job.get("firm_label", ""),
+            "components": job.get("components", {}),
+            "penalties": job.get("penalties", []),
+            "boosts": job.get("boosts", []),
+            # Fields expected by export_static
+            "classification": job["bucket"],
+            "recommendation": "apply" if job["score"] >= 60 else ("maybe" if job["score"] >= 38 else "skip"),
+            "function_family": "Compliance / Risk",
+            "city_lane": "NYC",
+            "comp_record": {"comp_text_raw": job.get("salary", "")},
         }
 
-        queue = 1 if job["tier"] == "APPLY" else 2 if job["tier"] == "MAYBE" else 3
+        queue = 1 if job["score"] >= 72 else 2 if job["score"] >= 50 else 3
         conn.execute(
             "INSERT INTO decisions(decision_id,run_id,job_id,queue,decision_reason,confidence,evidence_json,decided_at_utc) VALUES(?,?,?,?,?,?,?,?)",
-            (str(uuid.uuid4()), run_id, job_id, queue, job["tier"],
+            (str(uuid.uuid4()), run_id, job_id, queue, job["bucket"],
              job["score"] / 100.0, json.dumps(evidence, ensure_ascii=False), now),
         )
 
     conn.commit()
-    print(f"  DB: {len(results['all'])} jobs under run {run_id[:8]}")
-
-    # Generate report.html
-    from scripts.run_compliance_discovery import generate_report
-    report_jobs = results["apply"] + results["maybe"]
-    generate_report(report_jobs, results["meta"])
-    print(f"  Report: {ROOT / 'docs' / 'report.html'}")
+    print(f"  DB: {len(all_jobs)} jobs under run {run_id[:8]}")
 
 
 def main():
     print("=" * 60)
-    print("NUKE AND REBUILD")
+    print("NUKE AND REBUILD (v2)")
     print("=" * 60)
 
     conn = connect(str(DB_PATH))
@@ -240,13 +174,17 @@ def main():
     write_results(conn, results)
     conn.close()
 
-    m = results["meta"]
+    a = results.get("audit", {})
+    buckets = a.get("buckets", {})
     print(f"\n{'=' * 60}")
-    print(f"CLEAN STATE REBUILT")
-    print(f"  APPLY: {m['apply_count']}")
-    print(f"  MAYBE: {m['maybe_count']}")
-    print(f"  Suppressed: {m['deduped']}")
-    print(f"  Rejected: {m['rejected']}")
+    print("CLEAN STATE REBUILT")
+    print(f"  Strong Target: {buckets.get('Strong Target', 0)}")
+    print(f"  Strong Bridge: {buckets.get('Strong Bridge', 0)}")
+    print(f"  Stretch:       {buckets.get('Stretch', 0)}")
+    print(f"  Maybe:         {buckets.get('Maybe', 0)}")
+    print(f"  Low Value:     {buckets.get('Low Value', 0)}")
+    print(f"  Suppressed: {a.get('suppress_count', 0)}")
+    print(f"  Rejected: {sum(a.get('reject_reasons', {}).values())}")
     print(f"{'=' * 60}")
 
 
