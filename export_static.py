@@ -64,7 +64,7 @@ COMPLIANCE_KEYWORDS = [
 
 COMP_FLOOR = 35
 FASH_FLOOR = 45
-TODAY = datetime(2026, 3, 22, tzinfo=timezone.utc)
+TODAY = datetime.now(timezone.utc)
 
 # Titles that should NEVER appear in compliance tab
 _NON_COMPLIANCE_TITLE_RE = re.compile(
@@ -1091,27 +1091,31 @@ def main():
             tier = "Top Pick" if classification in TOP_PICK_LANES else ("Bridge" if classification in BRIDGE_LANES else "Pass")
             if tier == "Pass": continue
         if tab == "compliance":
-            if _LEGAL_RE.search(title) and "compliance" not in title.lower(): continue
-            if _SALES_RE.search(title) and "compliance" not in title.lower(): continue
-            # Non-compliance function gate (expanded)
-            if _NON_COMPLIANCE_TITLE_RE.search(title): continue
-            # Non-financial company gate
-            if _NON_FINANCIAL_COMPANY_RE.search(company): continue
-            # Validate title has actual compliance signal — reject roles that only
-            # got here because the company is financial
-            tl_check = title.lower()
-            has_compliance_title = any(kw in tl_check for kw in [
-                "compliance", "aml", "kyc", "regulatory", "risk",
-                "surveillance", "sanctions", "bsa", "financial crimes",
-                "anti-money", "onboarding", "account opening",
-                "licensing", "registration", "finra", "audit",
-                "conformit", "lcb", "risque", "contr",
-            ])
-            if not has_compliance_title:
-                continue
-            # City gate: only NYC, Miami, Paris
-            if not (_NYC_RE.search(location) or _MIAMI_RE.search(location) or _PARIS_RE.search(location)):
-                continue
+            # Jobs from nyc_compliance source were already pre-filtered by
+            # run_compliance_discovery.py (hard reject + location + industry gates).
+            # Skip the export-level gates to avoid double-filtering.
+            if source != "nyc_compliance":
+                if _LEGAL_RE.search(title) and "compliance" not in title.lower(): continue
+                if _SALES_RE.search(title) and "compliance" not in title.lower(): continue
+                # Non-compliance function gate (expanded)
+                if _NON_COMPLIANCE_TITLE_RE.search(title): continue
+                # Non-financial company gate
+                if _NON_FINANCIAL_COMPANY_RE.search(company): continue
+                # Validate title has actual compliance signal — reject roles that only
+                # got here because the company is financial
+                tl_check = title.lower()
+                has_compliance_title = any(kw in tl_check for kw in [
+                    "compliance", "aml", "kyc", "regulatory", "risk",
+                    "surveillance", "sanctions", "bsa", "financial crimes",
+                    "anti-money", "onboarding", "account opening",
+                    "licensing", "registration", "finra", "audit",
+                    "conformit", "lcb", "risque", "contr",
+                ])
+                if not has_compliance_title:
+                    continue
+                # City gate: only NYC, Miami, Paris
+                if not (_NYC_RE.search(location) or _MIAMI_RE.search(location) or _PARIS_RE.search(location)):
+                    continue
 
         comp_display = extract_comp(title, description, comp_raw)
         # Fix $0K / bad comp display

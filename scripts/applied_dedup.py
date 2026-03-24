@@ -61,7 +61,12 @@ def is_already_applied(
     title: str,
     applied_index: set[str],
 ) -> bool:
-    """Check if a company+title pair fuzzy-matches anything in applied list."""
+    """Check if a company+title pair fuzzy-matches anything in applied list.
+
+    Tightened matching to avoid over-suppression:
+    - Company substring match requires both sides ≥ 4 chars
+    - Title overlap measured against LARGER word set (≥ 60%)
+    """
     c = _norm(company)
     t = _title_core(title)
     if not c or not t:
@@ -71,21 +76,23 @@ def is_already_applied(
     if f"{c}|{t}" in applied_index:
         return True
 
-    # Check if applied company is a substring of discovered company or vice versa
+    t_words = set(t.split())
     for key in applied_index:
         ac, at = key.split("|", 1)
-        # Company must overlap
-        if ac not in c and c not in ac:
+        # Company: exact or safe substring (min 4 chars on both sides)
+        if c == ac:
+            pass
+        elif len(ac) >= 4 and len(c) >= 4 and (ac in c or c in ac):
+            pass
+        else:
             continue
-        # Title must share significant words
-        t_words = set(t.split())
+        # Title: word overlap ≥ 60% of LARGER set
         at_words = set(at.split())
         if not t_words or not at_words:
             continue
         overlap = t_words & at_words
-        # If >50% of the smaller set overlaps, it's a match
-        min_len = min(len(t_words), len(at_words))
-        if min_len > 0 and len(overlap) / min_len >= 0.6:
+        max_len = max(len(t_words), len(at_words))
+        if max_len > 0 and len(overlap) / max_len >= 0.6:
             return True
 
     return False

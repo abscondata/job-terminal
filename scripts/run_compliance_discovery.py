@@ -74,7 +74,7 @@ BROWSER_HEADERS = {
 
 TITLE_REJECT_RE = re.compile(
     r"\b(?:"
-    r"senior\s+(?:analyst|associate|officer|specialist|manager|director|compliance|aml|kyc)"
+    r"senior\s+(?:analyst|associate|officer|specialist|manager|director|compliance|aml|kyc|consultant)"
     r"|vice\s+president|vp\b|avp\b|svp\b|director|head\s+of|chief|principal"
     r"|managing\s+director|manager|lead\s+(?:analyst|associate)|supervisor"
     r"|financial\s+advisor|insurance\s+agent|sales\s+rep"
@@ -98,6 +98,7 @@ INDUSTRY_REJECT_RE = re.compile(
     r"|sports\s+betting|igaming|online\s+casino|sportsbook"
     r"|cybersecurity\s+firm|information\s+security\s+(?:firm|company)"
     r"|real\s+estate\s+(?:brokerage|agency)"
+    r"|pharmacy|construction\s+(?:company|contracting|inc)"
     r")\b",
     re.I,
 )
@@ -265,21 +266,41 @@ def load_applied_index() -> list[tuple[str, str]]:
 
 
 def is_applied(company: str, title: str, index: list[tuple[str, str]]) -> bool:
+    """Check if this job was already applied to. Tightened to avoid over-suppression.
+
+    Company match rules (must pass ONE):
+      - Exact normalized match
+      - One is a substring of the other, BUT only if the shorter side is ≥4 chars
+        (prevents "td" matching everything containing "td")
+
+    Title match rules:
+      - Word overlap ≥ 60% of the LARGER set (not smaller — prevents short titles
+        from matching everything)
+      - OR exact normalized match
+    """
     c = _norm_company(company)
     t = _norm_title(title)
     if not c or not t:
         return False
     t_words = set(t.split())
     for ac, at in index:
-        # Company must overlap (substring either direction)
-        if ac not in c and c not in ac:
+        # Company match: exact OR safe substring
+        if c == ac:
+            pass  # exact match
+        elif len(ac) >= 4 and len(c) >= 4 and (ac in c or c in ac):
+            pass  # substring match with min length guard
+        else:
             continue
+
+        # Title match: exact OR word overlap ≥ 60% of LARGER set
+        if t == at:
+            return True
         at_words = set(at.split())
         if not t_words or not at_words:
             continue
         overlap = t_words & at_words
-        min_len = min(len(t_words), len(at_words))
-        if min_len > 0 and len(overlap) / min_len >= 0.55:
+        max_len = max(len(t_words), len(at_words))
+        if max_len > 0 and len(overlap) / max_len >= 0.6:
             return True
     return False
 
@@ -324,6 +345,24 @@ def hard_reject(title: str, company: str, location: str, salary_text: str, snipp
     annual = _parse_salary_annual(salary_text)
     if annual is not None and annual < 50000:
         return f"low_salary:{annual}"
+
+    # Relevance gate: title must have at least one compliance/ops/finance signal.
+    # Without this, broad Indeed queries like "middle office" or "operations analyst"
+    # return software engineers, therapists, equity analysts, etc.
+    title_lower = title.lower()
+    has_relevance = ROLE_MATCH_RE.search(title) or any(kw in title_lower for kw in (
+        "compliance", "aml", "kyc", "bsa", "regulatory", "sanctions",
+        "financial crime", "anti-money", "onboarding", "account opening",
+        "licensing", "registration", "finra", "surveillance",
+        "operations analyst", "operations associate", "operations coordinator",
+        "operations specialist", "middle office", "trade support",
+        "fund operations", "fund accounting", "fund admin",
+        "securities", "broker dealer", "broker-dealer",
+        "risk analyst", "risk associate", "risk operations",
+        "client service", "due diligence",
+    ))
+    if not has_relevance:
+        return f"no_relevance:{title}"
 
     return None
 
