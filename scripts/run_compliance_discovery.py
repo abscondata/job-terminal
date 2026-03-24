@@ -214,8 +214,56 @@ HARD_INDUSTRY_RE = re.compile(
     r"|nursery|nurseries|landscaping"
     r"|hotel(?!\s+(?:compliance|risk))|hospitality|resort"
     r"|health\s+plan|health\s+insurance|managed\s+care"
+    # Real estate / housing (not financial services)
+    r"|lihtc|low.income\s+housing|affordable\s+housing|section\s+8"
+    r"|leasing\s+compliance|tenant|landlord|property\s+management"
+    # Clinical / pharma / biotech (non-investment)
+    r"|clinical\s+(?:risk|trial|research)|pharma(?:ceutical)?|biotech"
+    r"|hipaa|osha|epa\s+compliance|environmental\s+compliance"
+    # Manufacturing / industrial
+    r"|manufacturing|warehouse|logistics|supply\s+chain\s+compliance"
+    # HR / employment / workplace compliance
+    r"|hr\s+compliance|human\s+resources\s+compliance|labor\s+law|workplace\s+safety"
+    r"|workers?\s+comp(?:ensation)?"
     r")\b",
     re.I,
+)
+
+# Non-financial title signals — these indicate the "compliance" or "risk" in the title
+# is NOT financial-services compliance. Hard reject.
+NON_FINANCIAL_TITLE_RE = re.compile(
+    r"\b(?:clinical\s+risk|clinical\s+compliance"
+    r"|leasing\s+compliance|housing\s+compliance"
+    r"|environmental\s+(?:compliance|risk)"
+    r"|safety\s+(?:compliance|coordinator|officer)"
+    r"|code\s+compliance|building\s+(?:compliance|inspector)"
+    r"|fire\s+(?:compliance|safety)"
+    r"|food\s+(?:compliance|safety)"
+    r"|hipaa\s+(?:compliance|officer)"
+    r"|osha\s+(?:compliance|officer)"
+    r"|infection\s+control"
+    r"|quality\s+(?:assurance|control)(?!\s+(?:analyst|associate))"
+    r"|workers?\s+comp(?:ensation)?"
+    r"|fleet\s+compliance|transportation\s+compliance"
+    r"|customs\s+(?:broker|compliance|entry)"
+    r"|trade\s+compliance(?!\s+(?:analyst|officer|associate)))"
+    r"(?!\s+(?:finra|sec|broker|securities|financial))\b", re.I,
+)
+
+# Non-financial companies — names that clearly indicate non-FS
+NON_FINANCIAL_COMPANY_RE = re.compile(
+    r"\b(?:locust\s+cove|primma|safety\s+dynamics"
+    r"|old\s+mill|vocovision|metroplus"
+    r"|new\s+yorker\s+hotel|ritz.carlton|marriott|hilton|hyatt"
+    r"|ikea|raising\s+cane|walmart|target\b|costco|home\s+depot"
+    r"|amazon\s+web\s+services|aws\b"  # AWS is IT, not fin services (Amazon.com Services is different)
+    r"|interstate\s+waste|waste\s+management"
+    r"|eramet|topstep"
+    r"|nyc\s+health|health\s+\+\s+hospitals"
+    r"|con\s+edison|conedison"
+    r"|mta\b|metropolitan\s+transportation"
+    r"|(?:city|state)\s+(?:of\s+)?(?:new\s+york|ny)\b"
+    r"|new\s+york\s+(?:county|city)\s+(?:district|department))\b", re.I,
 )
 
 # Government — OK if SEC/FINRA/OCC/FDIC/Federal Reserve
@@ -228,7 +276,16 @@ NON_NYC_RE = re.compile(
     r"\b(?:white\s+plains|stamford|westchester|coral\s+gables"
     r"|parsippany|morristown|greenwich|darien|norwalk"
     r"|harrison|purchase|armonk|tarrytown|yonkers|jericho|melville"
-    r"|princeton|florham\s+park|short\s+hills|woodbridge|iselin)\b",
+    r"|princeton|florham\s+park|short\s+hills|woodbridge|iselin"
+    # NJ/CT suburbs — NOT NYC
+    r"|jersey\s+city|hoboken|weehawken|newark|secaucus|fort\s+lee"
+    r"|edgewater|palisades\s+park|north\s+bergen|bayonne"
+    r"|clifton|passaic|paterson|east\s+rutherford|rutherford"
+    r"|new\s+haven|bridgeport|hartford|danbury"
+    r"|white\s+plains|mount\s+kisco|rye|scarsdale"
+    # Long Island (not LIC which is Queens)
+    r"|garden\s+city|mineola|great\s+neck|hempstead"
+    r")\b",
     re.I,
 )
 
@@ -239,7 +296,7 @@ NYC_RE = re.compile(
     re.I,
 )
 
-# Jersey City — allowed with soft penalty (many real finance jobs there)
+# Jersey City detection — used for logging, but now treated as hard reject via NON_NYC_RE
 JC_RE = re.compile(r"\bjersey\s+city\b", re.I)
 
 BLOCKED_RE = re.compile(
@@ -499,19 +556,28 @@ def hard_reject(title: str, company: str, location: str,
     if HARD_TITLE_RE.search(title):
         return f"title:{title[:60]}"
 
-    # Location — must have NYC signal (or JC, which gets soft penalty)
+    # Location — must be in NYC proper (Manhattan, Brooklyn, Queens, Bronx, SI)
     loc = location.lower()
     if "remote" in loc and "hybrid" not in loc:
         return "remote_only"
     if NON_NYC_RE.search(location):
         return f"non_nyc:{location}"
-    if not NYC_RE.search(location) and "ny" not in loc and not JC_RE.search(location):
+    if not NYC_RE.search(location) and "ny" not in loc:
         return f"not_nyc:{location}"
 
     # Impossible industries
     blob = f"{title} {company} {snippet}"
     if HARD_INDUSTRY_RE.search(blob) and not FIN_GOV_RE.search(blob):
         return f"industry:{company}"
+
+    # Non-financial title signals (clinical risk, leasing compliance, OSHA, etc.)
+    if NON_FINANCIAL_TITLE_RE.search(title):
+        return f"non_fin_title:{title[:60]}"
+
+    # Non-financial companies
+    if NON_FINANCIAL_COMPANY_RE.search(company):
+        if not FIN_GOV_RE.search(blob) and not FINSERV_RE.search(blob):
+            return f"non_fin_company:{company[:40]}"
 
     # Government (unless financial regulator)
     if GOV_RE.search(blob) and not FIN_GOV_RE.search(blob) and not FINSERV_RE.search(blob):
@@ -750,9 +816,16 @@ def score_job(title: str, company: str, snippet: str,
             total = min(100, total + 3)
             boosts.append("direct compliance/ops match")
 
-    # Jersey City UI flag (no score penalty)
+    # Jersey City should be hard-rejected upstream; safety net
     if JC_RE.search(location):
-        penalties.append("Jersey City")
+        return {
+            "score": 0, "bucket": "Disqualified",
+            "reason": "Jersey City — not NYC",
+            "risk": "not NYC", "role_family": "disqualified",
+            "firm_tier": 0, "firm_label": "",
+            "penalties": ["not NYC"], "boosts": [],
+            "components": {"seniority": 0, "category": 0, "compensation": 0},
+        }
 
     # Experience penalty clamp: 3-4yr req caps at Tier 2 (max 79)
     if any("3-4yr" in p for p in penalties):

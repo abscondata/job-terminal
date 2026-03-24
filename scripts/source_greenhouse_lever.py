@@ -94,7 +94,14 @@ COMPLIANCE_KEYWORDS = re.compile(
 )
 
 NYC_KEYWORDS = re.compile(
-    r"\b(?:new\s+york|nyc|manhattan|brooklyn|jersey\s+city|ny\b)\b",
+    r"\b(?:new\s+york|nyc|manhattan|brooklyn|ny\b)\b",
+    re.I,
+)
+
+# Hard reject suburbs even if they appear in NYC-area results
+NON_NYC_SUBURBS = re.compile(
+    r"\b(?:jersey\s+city|hoboken|newark|weehawken|secaucus"
+    r"|stamford|greenwich|white\s+plains)\b",
     re.I,
 )
 
@@ -210,8 +217,10 @@ def scrape_greenhouse() -> tuple[list[dict], dict]:
             firm_stats["relevant"] += 1
             audit["relevant"] += 1
 
-            # Must be NYC-area
+            # Must be NYC proper — reject NJ/CT suburbs
             loc_blob = f"{location} {content[:300]}"
+            if NON_NYC_SUBURBS.search(location):
+                continue
             if not NYC_KEYWORDS.search(loc_blob):
                 continue
 
