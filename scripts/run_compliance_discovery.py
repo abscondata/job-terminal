@@ -826,40 +826,113 @@ def scrape_indeed(queries: list[str] | None = None,
 # PIPELINE ORCHESTRATOR
 # ═══════════════════════════════════════════════════════════════════════════════
 
-def run_pipeline() -> dict:
-    """Full pipeline: scrape → gate → suppress → score → bucket → audit."""
+def _cross_source_dedup(jobs: list[dict]) -> list[dict]:
+    """Deduplicate across sources. Same company+title = keep the one with better source."""
+    SOURCE_PRIORITY = {"greenhouse": 1, "lever": 2, "efinancialcareers": 3, "indeed": 4}
+    seen: dict[str, dict] = {}  # key -> best job
+    for job in jobs:
+        c = _norm_company(job["company"])
+        t = _norm_title(job["title"])
+        key = f"{c}|{t}"
+        if key in seen:
+            existing_prio = SOURCE_PRIORITY.get(seen[key].get("source", "indeed"), 5)
+            new_prio = SOURCE_PRIORITY.get(job.get("source", "indeed"), 5)
+            if new_prio < existing_prio:
+                seen[key] = job  # keep better source
+        else:
+            seen[key] = job
+    return list(seen.values())
 
-    print("[1/5] Loading applied jobs index...")
+
+def run_pipeline() -> dict:
+    """Full multi-source pipeline: scrape all -> gate -> suppress -> score -> bucket -> audit."""
+
+    print("[1/6] Loading applied jobs index...")
     applied_index = load_applied_index()
     print(f"  {len(applied_index)} applied pairs loaded")
 
-    print(f"[2/5] Scraping Indeed ({len(ALL_QUERIES)} queries, 7 clusters)...")
-    raw_jobs, scrape_audit = scrape_indeed()
-    print(f"  {scrape_audit['total_unique']} unique jobs from {scrape_audit['total_raw']} raw")
-    if scrape_audit["blocked_queries"]:
-        print(f"  WARNING: {scrape_audit['blocked_queries']} queries blocked by Indeed")
+    # ── MULTI-SOURCE SCRAPING ──────────────────────────────────────────────
+    source_audits = {}
 
-    print("[3/5] Hard reject gate + suppression...")
+    print(f"\n[2/6] Scraping Indeed ({len(ALL_QUERIES)} queries, 7 clusters)...")
+    indeed_jobs, indeed_audit = scrape_indeed()
+    for j in indeed_jobs:
+        j.setdefault("source", "indeed")
+    source_audits["indeed"] = indeed_audit
+    print(f"  Indeed: {indeed_audit['total_unique']} unique from {indeed_audit['total_raw']} raw")
+
+    print("\n[2/6] Scraping Greenhouse + Lever (direct employer boards)...")
+    try:
+        from scripts.source_greenhouse_lever import scrape_all as scrape_gh_lv
+        gh_lv_jobs, gh_lv_audit = scrape_gh_lv()
+        source_audits["greenhouse"] = gh_lv_audit.get("greenhouse", {})
+        source_audits["lever"] = gh_lv_audit.get("lever", {})
+        print(f"  Greenhouse: {gh_lv_audit['greenhouse']['nyc']} NYC jobs from "
+              f"{gh_lv_audit['greenhouse']['boards_checked']} boards "
+              f"({gh_lv_audit['greenhouse']['errors']} errors)")
+        print(f"  Lever: {gh_lv_audit['lever']['nyc']} NYC jobs from "
+              f"{gh_lv_audit['lever']['boards_checked']} boards "
+              f"({gh_lv_audit['lever']['errors']} errors)")
+    except Exception as exc:
+        gh_lv_jobs = []
+        source_audits["greenhouse"] = {"error": str(exc)[:80]}
+        source_audits["lever"] = {"error": str(exc)[:80]}
+        print(f"  Greenhouse/Lever FAILED: {exc}")
+
+    print("\n[2/6] Scraping eFinancialCareers...")
+    try:
+        from scripts.source_efinancialcareers import scrape as scrape_efc
+        efc_jobs, efc_audit = scrape_efc()
+        source_audits["efinancialcareers"] = efc_audit
+        print(f"  eFinancialCareers: {len(efc_jobs)} NYC jobs "
+              f"({efc_audit['raw']} raw, {efc_audit['errors']} errors, {efc_audit['blocked']} blocked)")
+    except Exception as exc:
+        efc_jobs = []
+        source_audits["efinancialcareers"] = {"error": str(exc)[:80]}
+        print(f"  eFinancialCareers FAILED: {exc}")
+
+    # Combine all sources
+    all_raw = indeed_jobs + gh_lv_jobs + efc_jobs
+    print(f"\n  TOTAL RAW: {len(all_raw)} jobs across all sources")
+
+    # Cross-source dedup
+    all_raw = _cross_source_dedup(all_raw)
+    print(f"  After cross-source dedup: {len(all_raw)}")
+
+    # ── GATE + SUPPRESS ────────────────────────────────────────────────────
+    print("\n[3/6] Hard reject gate + suppression...")
     reject_reasons: Counter = Counter()
     suppress_reasons: list[dict] = []
     passed: list[dict] = []
 
-    for job in raw_jobs:
+    for job in all_raw:
+        # Greenhouse/Lever jobs are pre-filtered for NYC+relevance, skip hard gate
+        source = job.get("source", "indeed")
+        if source in ("greenhouse", "lever"):
+            # Still check suppression
+            supp = is_applied(job["company"], job["title"], applied_index)
+            if supp:
+                suppress_reasons.append({
+                    "title": job["title"], "company": job["company"],
+                    "source": source, "reason": supp,
+                })
+                continue
+            passed.append(job)
+            continue
+
         reason = hard_reject(
             job["title"], job["company"], job["location"],
-            job["salary"], job["snippet"],
+            job.get("salary", ""), job.get("snippet", ""),
         )
         if reason:
-            bucket = reason.split(":")[0]
-            reject_reasons[bucket] += 1
+            reject_reasons[reason.split(":")[0]] += 1
             continue
 
         supp = is_applied(job["company"], job["title"], applied_index)
         if supp:
             suppress_reasons.append({
-                "title": job["title"],
-                "company": job["company"],
-                "reason": supp,
+                "title": job["title"], "company": job["company"],
+                "source": source, "reason": supp,
             })
             print(f"  SUPPRESSED: [{job['title'][:50]}] at [{job['company'][:30]}] ({supp.split(':')[0]})")
             continue
@@ -869,15 +942,34 @@ def run_pipeline() -> dict:
     print(f"  Passed: {len(passed)} | Rejected: {sum(reject_reasons.values())} | Suppressed: {len(suppress_reasons)}")
     print(f"  Reject breakdown: {dict(reject_reasons.most_common(8))}")
 
-    print("[4/5] Scoring (10-component model)...")
+    # ── SCORING ────────────────────────────────────────────────────────────
+    print("\n[4/6] Scoring (10-component model)...")
     for job in passed:
-        s = score_job(job["title"], job["company"], job["snippet"],
-                      job["salary"], job["location"])
+        s = score_job(job["title"], job["company"], job.get("snippet", ""),
+                      job.get("salary", ""), job.get("location", "New York, NY"))
         job.update(s)
+        # Boost source confidence for direct-employer ATS sources
+        if job.get("source") in ("greenhouse", "lever"):
+            old_src = job["components"]["source_confidence"]
+            job["components"]["source_confidence"] = max(old_src, 92)
+            # Recalculate total with boosted source confidence
+            c = job["components"]
+            job["score"] = max(0, min(100, round(
+                c["role_fit"] * 0.25 + c["attainability"] * 0.20 +
+                c["institutional"] * 0.15 + c["trajectory"] * 0.10 +
+                c["compensation"] * 0.08 + c["location"] * 0.05 +
+                c["source_confidence"] * 0.05 + c["seniority_match"] * 0.05 +
+                c["dead_end_risk"] * 0.04 + c["adjacency"] * 0.03
+            )))
+            # Re-bucket
+            if job["score"] >= 72: job["bucket"] = "Strong Target"
+            elif job["score"] >= 60: job["bucket"] = "Strong Bridge"
+            elif job["score"] >= 50: job["bucket"] = "Stretch"
+            elif job["score"] >= 38: job["bucket"] = "Maybe"
+            else: job["bucket"] = "Low Value"
 
     passed.sort(key=lambda x: x["score"], reverse=True)
 
-    # Bucket counts
     buckets: dict[str, list] = defaultdict(list)
     for job in passed:
         buckets[job["bucket"]].append(job)
@@ -888,12 +980,43 @@ def run_pipeline() -> dict:
           f"Maybe: {len(buckets['Maybe'])} | "
           f"Low Value: {len(buckets['Low Value'])}")
 
-    print("[5/5] Generating report...")
+    # ── SOURCE-BY-SOURCE YIELD ─────────────────────────────────────────────
+    print("\n[5/6] Source-by-source yield:")
+    source_yield = {}
+    for src_name in ("indeed", "greenhouse", "lever", "efinancialcareers"):
+        src_jobs = [j for j in passed if j.get("source", "indeed") == src_name]
+        src_st = sum(1 for j in src_jobs if j["bucket"] == "Strong Target")
+        src_sb = sum(1 for j in src_jobs if j["bucket"] == "Strong Bridge")
+        src_staffing = sum(1 for j in src_jobs if j.get("firm_tier") == 5)
+        src_direct = len(src_jobs) - src_staffing
+        source_yield[src_name] = {
+            "total": len(src_jobs),
+            "strong_target": src_st,
+            "strong_bridge": src_sb,
+            "direct_employer": src_direct,
+            "staffing": src_staffing,
+        }
+        if len(src_jobs) > 0:
+            top_firms = Counter(j["company"] for j in src_jobs).most_common(5)
+            source_yield[src_name]["top_firms"] = [f[0] for f in top_firms]
+            print(f"  {src_name:22s} | {len(src_jobs):3d} total | {src_st:2d} strong | "
+                  f"{src_sb:2d} bridge | {src_direct:3d} direct / {src_staffing:2d} staffing")
+        else:
+            source_yield[src_name]["top_firms"] = []
+            print(f"  {src_name:22s} | 0 jobs")
+
+    # ── REPORT + AUDIT ─────────────────────────────────────────────────────
+    print("\n[6/6] Generating report...")
     visible = [j for j in passed if j["score"] >= 38]
+
+    total_scraped = len(all_raw)
+    total_rejected = sum(reject_reasons.values())
+    total_suppressed = len(suppress_reasons)
+
     generate_report(visible, {
-        "total_scraped": scrape_audit["total_unique"],
-        "rejected": sum(reject_reasons.values()),
-        "suppressed": len(suppress_reasons),
+        "total_scraped": total_scraped,
+        "rejected": total_rejected,
+        "suppressed": total_suppressed,
         "strong_target": len(buckets["Strong Target"]),
         "strong_bridge": len(buckets["Strong Bridge"]),
         "stretch": len(buckets["Stretch"]),
@@ -903,12 +1026,12 @@ def run_pipeline() -> dict:
     })
     print(f"  Report: {REPORT_OUT}")
 
-    # Build audit trail
     audit = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "scrape": scrape_audit,
+        "sources": source_audits,
+        "source_yield": source_yield,
         "reject_reasons": dict(reject_reasons.most_common()),
-        "suppress_count": len(suppress_reasons),
+        "suppress_count": total_suppressed,
         "suppress_detail": suppress_reasons[:20],
         "buckets": {k: len(v) for k, v in buckets.items()},
         "total_scored": len(passed),
@@ -916,6 +1039,7 @@ def run_pipeline() -> dict:
         "top_10": [
             {"title": j["title"][:60], "company": j["company"][:30],
              "score": j["score"], "bucket": j["bucket"],
+             "source": j.get("source", "indeed"),
              "role_family": j["role_family"], "firm_tier": j["firm_tier"]}
             for j in passed[:10]
         ],
@@ -924,7 +1048,7 @@ def run_pipeline() -> dict:
     AUDIT_OUT.write_text(json.dumps(audit, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"  Audit trail: {AUDIT_OUT}")
 
-    # Cluster yield
+    # Cluster yield (Indeed only)
     cluster_yield: dict[str, dict] = {}
     for cluster_name, cluster_queries in QUERY_CLUSTERS.items():
         cq_set = set(cluster_queries)
@@ -934,7 +1058,7 @@ def run_pipeline() -> dict:
             "survivors": len(cluster_jobs),
             "strong_target": sum(1 for j in cluster_jobs if j["bucket"] == "Strong Target"),
         }
-    print("\n  Cluster yield:")
+    print("\n  Indeed cluster yield:")
     for cn, cy in cluster_yield.items():
         print(f"    {cn:25s} | {cy['queries']:2d} queries -> {cy['survivors']:3d} survivors ({cy['strong_target']} strong)")
 
@@ -943,9 +1067,9 @@ def run_pipeline() -> dict:
         "buckets": dict(buckets),
         "visible": visible,
         "meta": {
-            "total_scraped": scrape_audit["total_unique"],
-            "rejected": sum(reject_reasons.values()),
-            "deduped": len(suppress_reasons),
+            "total_scraped": total_scraped,
+            "rejected": total_rejected,
+            "deduped": total_suppressed,
             "apply_count": len(buckets["Strong Target"]) + len(buckets["Strong Bridge"]),
             "maybe_count": len(buckets["Stretch"]) + len(buckets["Maybe"]),
             "skip_count": len(buckets["Low Value"]),
