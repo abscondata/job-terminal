@@ -104,6 +104,27 @@ SENIOR_REJECT = re.compile(
     re.I,
 )
 
+# Title-level reject for wrong-function roles at financial firms
+WRONG_FUNCTION_RE = re.compile(
+    r"\b(?:"
+    r"(?<!compliance\s)(?<!risk\s)(?<!regulatory\s)engineer(?:ing)?\b"
+    r"|developer|(?:ux|ui)\s+designer|architect(?!\s+(?:compliance|risk))"
+    r"|(?<!\w)counsel\b|general\s+counsel|attorney|paralegal|lawyer"
+    r"|(?:research\s+)?scientist|researcher"
+    r"|investment\s+banking|relationship\s+banker|universal\s+banker"
+    r"|financial\s+advisor|private\s+(?:wealth|banking)\s+(?:associate|advisor)"
+    r"|(?:physical|respiratory|occupational)\s+therapist|clinician|nurse|physician"
+    r"|truck\s+driver|cdl\s+driver|security\s+guard|teacher"
+    r"|branch\s+examiner|summer\s+analyst|part[-\s]?time"
+    r"|data\s+(?:scientist|engineer)"
+    r"|product\s+(?:manager|designer|owner)"
+    r"|marketing\s+(?:manager|associate|coordinator)"
+    r"|recruiter|talent\s+(?:acquisition|partner)"
+    r"|(?:administrative|executive)\s+assistant"
+    r")\b",
+    re.I,
+)
+
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
     "Accept": "application/json",
@@ -182,6 +203,9 @@ def scrape_greenhouse() -> tuple[list[dict], dict]:
             # Hard reject impossible seniority
             if SENIOR_REJECT.search(title):
                 continue
+            # Hard reject wrong-function roles
+            if WRONG_FUNCTION_RE.search(title):
+                continue
 
             firm_stats["relevant"] += 1
             audit["relevant"] += 1
@@ -247,6 +271,8 @@ def scrape_lever() -> tuple[list[dict], dict]:
             if not COMPLIANCE_KEYWORDS.search(blob):
                 continue
             if SENIOR_REJECT.search(title):
+                continue
+            if WRONG_FUNCTION_RE.search(title):
                 continue
 
             firm_stats["relevant"] += 1

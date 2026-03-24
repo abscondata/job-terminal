@@ -154,16 +154,51 @@ BROWSER_HEADERS = {
 # These are HARD REJECTS — completely removed from pipeline
 HARD_TITLE_RE = re.compile(
     r"\b(?:"
+    # Seniority
     r"vice\s+president|(?<!\w)vp\b|avp\b|svp\b"
     r"|director(?!\s+of\s+(?:compliance|risk))"
     r"|head\s+of|chief|principal|managing\s+director"
+    # Engineering / IT / Design (any "engineer" unless preceded by compliance/risk)
+    r"|(?<!compliance\s)(?<!risk\s)(?<!regulatory\s)engineer(?:ing)?\b"
+    r"|developer|architect(?!\s+(?:compliance|risk))|designer"
+    r"|workday\s+(?:architect|consultant|engineer)"
+    # Legal (not compliance)
+    r"|(?<!\w)counsel\b|general\s+counsel|attorney|paralegal|lawyer"
+    # Research / Science
+    r"|(?:research\s+)?scientist|researcher"
+    # Sales / Client-facing banking
     r"|financial\s+advisor|insurance\s+agent|sales\s+rep(?:resentative)?"
-    r"|dental|nurse|physician|pharmacist|medical\s+(?:assistant|technician)"
-    r"|food\s+safety|scheduler|secretary|receptionist"
-    r"|intern\b|internship"
-    r"|attorney|(?<!\w)counsel\b|paralegal|lawyer"
-    r"|data\s+scientist|data\s+engineer|machine\s+learning|software\s+(?:engineer|developer)"
-    r"|truck\s+driver|cdl\s+driver|bus\s+driver|warehouse"
+    r"|relationship\s+banker|private\s+(?:wealth|banking)\s+(?:associate|advisor)"
+    r"|universal\s+banker"
+    # Investment banking (IB roles, not ops)
+    r"|investment\s+banking\s+(?:analyst|associate)"
+    # Healthcare / Clinical
+    r"|dental|nurse|physician|pharmacist|clinician"
+    r"|(?:physical|respiratory|occupational)\s+therapist"
+    r"|medical\s+(?:assistant|technician)|infection\s+control"
+    r"|(?:speech|slp)\s+(?:language\s+)?(?:pathologist|therapist)"
+    # Irrelevant
+    r"|truck\s+driver|cdl\s+driver|bus\s+driver|warehouse|security\s+guard"
+    r"|teacher|early\s+childhood|scheduler|secretary|receptionist"
+    r"|food\s+safety"
+    # Robin's current function he wants to leave
+    r"|branch\s+examiner"
+    # Programs / temp
+    r"|summer\s+analyst|intern\b|internship"
+    r"|part[-\s]?time"
+    # Accounting / Controller (not compliance)
+    r"|(?:financial\s+)?controller(?:ship)?"
+    r"|(?:financial\s+)?accounting\s+(?:advisory|analyst|associate|manager)"
+    # Claims / Insurance
+    r"|claims\s+(?:analyst|adjuster|examiner|specialist)"
+    # Product roles
+    r"|product\s+(?:manager|designer|owner|associate)"
+    # EEO / workplace compliance (not financial compliance)
+    r"|eeo\s+compliance|equal\s+employment"
+    # Speech / therapy / clinical
+    r"|(?:virtual\s+)?slp\b|speech\s+(?:language\s+)?patholog"
+    # Operations Manager at non-financial (too broad, handled by unclassified cap)
+    r"|(?:hotel|hospitality)\s+(?:manager|operations)"
     r")\b",
     re.I,
 )
@@ -176,6 +211,9 @@ HARD_INDUSTRY_RE = re.compile(
     r"|OPWDD|social\s+services|child\s+welfare"
     r"|sports\s+betting|igaming|online\s+casino|sportsbook"
     r"|pharmacy|construction\s+(?:company|contracting)"
+    r"|nursery|nurseries|landscaping"
+    r"|hotel(?!\s+(?:compliance|risk))|hospitality|resort"
+    r"|health\s+plan|health\s+insurance|managed\s+care"
     r")\b",
     re.I,
 )
@@ -479,9 +517,14 @@ def hard_reject(title: str, company: str, location: str,
     if GOV_RE.search(blob) and not FIN_GOV_RE.search(blob) and not FINSERV_RE.search(blob):
         return f"government:{company}"
 
-    # Contract/temp/seasonal (not part-time — some real roles say part-time hybrid)
+    # Contract/temp/seasonal
     if CONTRACT_RE.search(title):
         return "contract_temp"
+
+    # Salary floor: reject if stated max < $60k
+    annual = _parse_salary_annual(salary_text)
+    if annual is not None and annual < 60000:
+        return f"low_salary:{annual}"
 
     # Zero relevance — no compliance/ops/finance signal in title at all
     if not RELEVANCE_RE.search(title):
@@ -662,6 +705,21 @@ def score_job(title: str, company: str, snippet: str,
         adj * 0.03
     )
     total = max(0, min(100, total))
+
+    # ── POST-SCORE CAPS AND OVERRIDES ─────────────────────────────────────
+
+    # Staffing agency cap at 50
+    if firm_t == 5:
+        total = min(total, 50)
+
+    # "Officer" at non-bulge-bracket: extra -10
+    if "officer" in title_lower and firm_t > 1:
+        total = max(0, total - 10)
+        penalties.append("officer at non-top firm")
+
+    # Unclassified role (no compliance/ops signal matched): cap at 45
+    if role_family == "unclassified":
+        total = min(total, 45)
 
     # ── BUCKETING ──────────────────────────────────────────────────────────
     if total >= 72:
@@ -906,14 +964,21 @@ def run_pipeline() -> dict:
     passed: list[dict] = []
 
     for job in all_raw:
-        # Greenhouse/Lever jobs are pre-filtered for NYC+relevance, skip hard gate
         source = job.get("source", "indeed")
+        title = job["title"]
+
+        # ALL sources get title rejection — no bypassing
+        if HARD_TITLE_RE.search(title):
+            reject_reasons["title"] += 1
+            continue
+
+        # Greenhouse/Lever are pre-filtered for NYC+relevance at ATS level,
+        # so skip location/industry/relevance checks — but still check suppression
         if source in ("greenhouse", "lever"):
-            # Still check suppression
-            supp = is_applied(job["company"], job["title"], applied_index)
+            supp = is_applied(job["company"], title, applied_index)
             if supp:
                 suppress_reasons.append({
-                    "title": job["title"], "company": job["company"],
+                    "title": title, "company": job["company"],
                     "source": source, "reason": supp,
                 })
                 continue
