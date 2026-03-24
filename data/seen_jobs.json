@@ -1,0 +1,870 @@
+[
+ {
+  "role": "AML Onboarding Analyst",
+  "firm": "Bank of America",
+  "score": 88,
+  "type": "Onboarding",
+  "flag": ""
+ },
+ {
+  "role": "Global Financial Crimes Specialist",
+  "firm": "Bank of America",
+  "score": 87,
+  "type": "FinCrime",
+  "flag": ""
+ },
+ {
+  "role": "Compliance Associate - Data",
+  "firm": "Point72",
+  "score": 87,
+  "type": "Compliance",
+  "flag": ""
+ },
+ {
+  "role": "Operational Due Diligence Assoc",
+  "firm": "Carlyle Group",
+  "score": 86,
+  "type": "Due Diligence",
+  "flag": ""
+ },
+ {
+  "role": "Global Product Onboarding Analyst",
+  "firm": "Barclays",
+  "score": 86,
+  "type": "Onboarding",
+  "flag": ""
+ },
+ {
+  "role": "KYC Analyst - Onboarding",
+  "firm": "MUFG Bank",
+  "score": 86,
+  "type": "KYC/AML",
+  "flag": "JC"
+ },
+ {
+  "role": "Counterparty Onboarding Analyst",
+  "firm": "Schonfeld",
+  "score": 85,
+  "type": "Onboarding",
+  "flag": ""
+ },
+ {
+  "role": "FinCrime Compliance, 1st Line Risk",
+  "firm": "Goldman Sachs",
+  "score": 82,
+  "type": "FinCrime",
+  "flag": ""
+ },
+ {
+  "role": "Credit Risk Analyst (AVP)",
+  "firm": "Citi",
+  "score": 82,
+  "type": "Risk",
+  "flag": ""
+ },
+ {
+  "role": "Registered Client Svc Assoc",
+  "firm": "Morgan Stanley",
+  "score": 81,
+  "type": "Client Svc",
+  "flag": ""
+ },
+ {
+  "role": "Equity Vol Trade Support",
+  "firm": "Millennium",
+  "score": 81,
+  "type": "Trade Support",
+  "flag": ""
+ },
+ {
+  "role": "Enhanced Due Diligence Assoc",
+  "firm": "Robinhood",
+  "score": 81,
+  "type": "Due Diligence",
+  "flag": ""
+ },
+ {
+  "role": "Legal Compliance Coordinator",
+  "firm": "W Services Group",
+  "score": 80,
+  "type": "Compliance",
+  "flag": ""
+ },
+ {
+  "role": "Ops Analyst, Asset Servicing",
+  "firm": "TD Bank",
+  "score": 80,
+  "type": "Ops",
+  "flag": ""
+ },
+ {
+  "role": "Third Party Risk Associate",
+  "firm": "Point72",
+  "score": 79,
+  "type": "Risk",
+  "flag": ""
+ },
+ {
+  "role": "Enterprise Risk Assoc, Eq Vol",
+  "firm": "Schonfeld",
+  "score": 79,
+  "type": "Risk",
+  "flag": ""
+ },
+ {
+  "role": "Enterprise Risk Assoc, FX",
+  "firm": "Schonfeld",
+  "score": 79,
+  "type": "Risk",
+  "flag": ""
+ },
+ {
+  "role": "Treasury Operations Analyst",
+  "firm": "Port Authority NY/NJ",
+  "score": 79,
+  "type": "Ops",
+  "flag": ""
+ },
+ {
+  "role": "Sanctions Risk Specialist",
+  "firm": "Amazon",
+  "score": 78,
+  "type": "Risk",
+  "flag": ""
+ },
+ {
+  "role": "Regulatory Operations Assoc",
+  "firm": "Onyx Games",
+  "score": 77,
+  "type": "Reg Ops",
+  "flag": ""
+ },
+ {
+  "role": "Third Party Risk Specialist",
+  "firm": "Point72",
+  "score": 76,
+  "type": "Risk",
+  "flag": ""
+ },
+ {
+  "role": "Advertising Compliance Officer",
+  "firm": "Clear Street",
+  "score": 76,
+  "type": "Compliance",
+  "flag": "Officer"
+ },
+ {
+  "role": "Financial Due Diligence Mgr",
+  "firm": "Grant Thornton",
+  "score": 75,
+  "type": "Due Diligence",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Lead Data Risk Analyst",
+  "firm": "Early Warning Svc",
+  "score": 74,
+  "type": "Risk",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "KYC Advisory Controls Assoc",
+  "firm": "SMBC",
+  "score": 74,
+  "type": "KYC/AML",
+  "flag": "JC"
+ },
+ {
+  "role": "Loan Closer, Middle Office",
+  "firm": "Standard Chartered",
+  "score": 74,
+  "type": "Middle Office",
+  "flag": ""
+ },
+ {
+  "role": "Derivative SecMaster/Val MO Ops",
+  "firm": "Neuberger Berman",
+  "score": 73,
+  "type": "Middle Office",
+  "flag": "Sr"
+ },
+ {
+  "role": "Ethics Office Governance Analyst",
+  "firm": "SMBC",
+  "score": 73,
+  "type": "Controls",
+  "flag": "JC"
+ },
+ {
+  "role": "Senior Compliance Associate",
+  "firm": "Fireblocks",
+  "score": 73,
+  "type": "Compliance",
+  "flag": "Sr"
+ },
+ {
+  "role": "1st Line Risk & Controls Lead",
+  "firm": "Flagstar Bank",
+  "score": 71,
+  "type": "Controls",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Derivative Operations Analyst",
+  "firm": "Athene",
+  "score": 70,
+  "type": "Ops",
+  "flag": ""
+ },
+ {
+  "role": "HUD Compliance Specialist",
+  "firm": "L+M Development",
+  "score": 70,
+  "type": "Compliance",
+  "flag": ""
+ },
+ {
+  "role": "Cubist Business Analyst",
+  "firm": "Point72",
+  "score": 69,
+  "type": "Ops",
+  "flag": ""
+ },
+ {
+  "role": "Sector Analyst, MI-Data",
+  "firm": "Point72",
+  "score": 69,
+  "type": "Risk",
+  "flag": ""
+ },
+ {
+  "role": "P&L Valuations Associate",
+  "firm": "Schonfeld",
+  "score": 69,
+  "type": "Middle Office",
+  "flag": ""
+ },
+ {
+  "role": "Sr Analyst, MO Commodities",
+  "firm": "Standard Chartered",
+  "score": 69,
+  "type": "Middle Office",
+  "flag": "Sr"
+ },
+ {
+  "role": "Sr Mgr Trade Support Syndication",
+  "firm": "Scotiabank",
+  "score": 68,
+  "type": "Trade Support",
+  "flag": "Sr/Mgmt"
+ },
+ {
+  "role": "Client Services Assoc",
+  "firm": "HighTower Advisors",
+  "score": 68,
+  "type": "Client Svc",
+  "flag": ""
+ },
+ {
+  "role": "Market Data Solutions Specialist",
+  "firm": "Point72",
+  "score": 67,
+  "type": "Ops",
+  "flag": ""
+ },
+ {
+  "role": "Regulatory Reporting Analyst",
+  "firm": "TALENT SHIFT",
+  "score": 67,
+  "type": "Reg Reporting",
+  "flag": "Agency"
+ },
+ {
+  "role": "Client Svc Assoc (Series 65)",
+  "firm": "MOHR Enterprises",
+  "score": 67,
+  "type": "Client Svc",
+  "flag": ""
+ },
+ {
+  "role": "Market Intel Emerging Talent",
+  "firm": "Point72",
+  "score": 66,
+  "type": "Risk",
+  "flag": ""
+ },
+ {
+  "role": "Tech M&A Due Diligence Mgr",
+  "firm": "RSM",
+  "score": 66,
+  "type": "Due Diligence",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Transaction Analyst (P&C DD)",
+  "firm": "Lockton",
+  "score": 66,
+  "type": "Due Diligence",
+  "flag": "Sr"
+ },
+ {
+  "role": "Sr Consultant Financial DD - PE",
+  "firm": "CrossCountry",
+  "score": 64,
+  "type": "Due Diligence",
+  "flag": "Sr"
+ },
+ {
+  "role": "Research & Strategy Advisor",
+  "firm": "Schonfeld",
+  "score": 63,
+  "type": "Ops",
+  "flag": ""
+ },
+ {
+  "role": "Security Analyst, Bridge",
+  "firm": "Stripe",
+  "score": 63,
+  "type": "Risk",
+  "flag": ""
+ },
+ {
+  "role": "Underwriting Ops Associate",
+  "firm": "Ryan Specialty",
+  "score": 63,
+  "type": "Ops",
+  "flag": ""
+ },
+ {
+  "role": "Senior Business Analyst",
+  "firm": "Point72",
+  "score": 62,
+  "type": "Ops",
+  "flag": "Sr"
+ },
+ {
+  "role": "Brokerage Clearing Specialist",
+  "firm": "DriveWealth",
+  "score": 61,
+  "type": "Ops",
+  "flag": ""
+ },
+ {
+  "role": "Senior Fund Accountant",
+  "firm": "Schonfeld",
+  "score": 60,
+  "type": "Accounting",
+  "flag": "Sr"
+ },
+ {
+  "role": "Sr Associate - BD Accountant",
+  "firm": "Clear Street",
+  "score": 60,
+  "type": "Accounting",
+  "flag": "Sr"
+ },
+ {
+  "role": "Sr Associate - People Analytics",
+  "firm": "Clear Street",
+  "score": 60,
+  "type": "Ops",
+  "flag": "Sr"
+ },
+ {
+  "role": "Sr Associate, Settlements",
+  "firm": "Clear Street",
+  "score": 60,
+  "type": "Ops",
+  "flag": "Sr"
+ },
+ {
+  "role": "Comms Compliance Sr Specialist",
+  "firm": "Robinhood",
+  "score": 55,
+  "type": "Compliance",
+  "flag": "Sr"
+ },
+ {
+  "role": "Relationship Mgr (Client Svc)",
+  "firm": "MOHR Enterprises",
+  "score": 55,
+  "type": "Client Svc",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Reg Licensing Team Lead",
+  "firm": "Adyen",
+  "score": 54,
+  "type": "Reg Ops",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Sr Relationship Mgr II",
+  "firm": "Bank of America",
+  "score": 45,
+  "type": "Client Svc",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Debt Capital Markets Assoc",
+  "firm": "Barclays",
+  "score": 45,
+  "type": "DCM",
+  "flag": ""
+ },
+ {
+  "role": "US Liquidity Reporting Lead",
+  "firm": "Barclays",
+  "score": 45,
+  "type": "Reg Reporting",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Sec & Derivatives Sr Mgr",
+  "firm": "Citi",
+  "score": 45,
+  "type": "Ops",
+  "flag": "Sr/Mgmt"
+ },
+ {
+  "role": "Capital Planning Assoc",
+  "firm": "Morgan Stanley",
+  "score": 45,
+  "type": "Ops",
+  "flag": ""
+ },
+ {
+  "role": "Muni Sales & Trading Analyst",
+  "firm": "Morgan Stanley",
+  "score": 45,
+  "type": "Trading",
+  "flag": ""
+ },
+ {
+  "role": "Credit Risk: ISG Lending Assoc",
+  "firm": "Morgan Stanley",
+  "score": 45,
+  "type": "Risk",
+  "flag": ""
+ },
+ {
+  "role": "Wealth Mgmt Analyst",
+  "firm": "Morgan Stanley",
+  "score": 45,
+  "type": "WM",
+  "flag": ""
+ },
+ {
+  "role": "Alt Inv Fund Onboarding Analyst",
+  "firm": "Morgan Stanley",
+  "score": 45,
+  "type": "Onboarding",
+  "flag": ""
+ },
+ {
+  "role": "Sr Risk Mgr, Ad Trust Policy Ops",
+  "firm": "Amazon",
+  "score": 45,
+  "type": "Risk",
+  "flag": "Sr/Mgmt"
+ },
+ {
+  "role": "Sr Ad Policy Mgr, Ad Trust",
+  "firm": "Amazon",
+  "score": 45,
+  "type": "Policy",
+  "flag": "Sr/Mgmt"
+ },
+ {
+  "role": "Digital Asset Mgr FinCrime",
+  "firm": "Fidelity",
+  "score": 45,
+  "type": "FinCrime",
+  "flag": "Mgmt/JC"
+ },
+ {
+  "role": "Global Compliance & Reporting Mgr",
+  "firm": "EY",
+  "score": 45,
+  "type": "Compliance",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Customer Tax Ops Sr Analyst",
+  "firm": "EY",
+  "score": 45,
+  "type": "Tax Ops",
+  "flag": "Sr"
+ },
+ {
+  "role": "Investigator",
+  "firm": "Ethos Risk Svc",
+  "score": 45,
+  "type": "Investigations",
+  "flag": ""
+ },
+ {
+  "role": "Sr Investigative Analyst",
+  "firm": "NY DA Office",
+  "score": 45,
+  "type": "Investigations",
+  "flag": "Sr"
+ },
+ {
+  "role": "Regulatory Engagement Lead",
+  "firm": "JPMorgan",
+  "score": 45,
+  "type": "Compliance",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Risk Mgmt Compliance Sr Officer",
+  "firm": "JPMorgan",
+  "score": 45,
+  "type": "Compliance",
+  "flag": "Sr"
+ },
+ {
+  "role": "Compliance Quant Modeling Sr Assoc",
+  "firm": "JPMorgan",
+  "score": 45,
+  "type": "Compliance",
+  "flag": "Sr/JC"
+ },
+ {
+  "role": "AM Internal Client Advisor RIA",
+  "firm": "JPMorgan",
+  "score": 45,
+  "type": "Client Svc",
+  "flag": ""
+ },
+ {
+  "role": "Trade Lifecycle Assoc II",
+  "firm": "JPMorgan",
+  "score": 45,
+  "type": "Ops",
+  "flag": "JC"
+ },
+ {
+  "role": "Prime Fin Svc Transition Analyst",
+  "firm": "JPMorgan",
+  "score": 45,
+  "type": "Ops",
+  "flag": ""
+ },
+ {
+  "role": "Sr Assoc, Allocations Compliance",
+  "firm": "Ares Mgmt",
+  "score": 45,
+  "type": "Compliance",
+  "flag": "Sr"
+ },
+ {
+  "role": "Sr Delivery Consultant Cloud Sec",
+  "firm": "AWS",
+  "score": 45,
+  "type": "IT Security",
+  "flag": "Sr"
+ },
+ {
+  "role": "Sr Partner Solutions Consulting",
+  "firm": "AWS",
+  "score": 45,
+  "type": "Consulting",
+  "flag": "Sr"
+ },
+ {
+  "role": "AWS Assurance Specialist",
+  "firm": "AWS",
+  "score": 45,
+  "type": "Compliance",
+  "flag": ""
+ },
+ {
+  "role": "New Business Analyst",
+  "firm": "Barnum/MetLife",
+  "score": 45,
+  "type": "Ops",
+  "flag": ""
+ },
+ {
+  "role": "CIB Credit Assoc",
+  "firm": "TD Bank",
+  "score": 45,
+  "type": "Credit",
+  "flag": ""
+ },
+ {
+  "role": "Sr FinCrime KYC High Risk",
+  "firm": "TD Bank",
+  "score": 45,
+  "type": "KYC/AML",
+  "flag": "Sr/5yr+"
+ },
+ {
+  "role": "Head US Tech Risk Domain",
+  "firm": "TD Bank",
+  "score": 45,
+  "type": "Risk",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Compliance Manager",
+  "firm": "Invesco",
+  "score": 45,
+  "type": "Compliance",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Internal Audit Mgr FinCrime",
+  "firm": "Crowe LLP",
+  "score": 45,
+  "type": "Audit",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Sr Consultant FinCrime AML Tech",
+  "firm": "Crowe LLP",
+  "score": 45,
+  "type": "FinCrime",
+  "flag": "Sr"
+ },
+ {
+  "role": "AML Advisory Tech Specialist",
+  "firm": "Crowe LLP",
+  "score": 45,
+  "type": "AML Tech",
+  "flag": ""
+ },
+ {
+  "role": "BD Advisory Manager",
+  "firm": "Capital One",
+  "score": 45,
+  "type": "Compliance",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Sales Coord Global Markets Floor",
+  "firm": "BMO",
+  "score": 45,
+  "type": "Trading Floor",
+  "flag": ""
+ },
+ {
+  "role": "Client Svc Support WM SMA",
+  "firm": "Guggenheim",
+  "score": 45,
+  "type": "Client Svc",
+  "flag": ""
+ },
+ {
+  "role": "Oracle GTM Functional Mgr",
+  "firm": "Accenture",
+  "score": 45,
+  "type": "IT/Trade Mgmt",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Swap Dealer Compliance",
+  "firm": "SMBC",
+  "score": 45,
+  "type": "Compliance",
+  "flag": ""
+ },
+ {
+  "role": "Global FIG Analyst/Associate",
+  "firm": "SMBC",
+  "score": 45,
+  "type": "Banking",
+  "flag": ""
+ },
+ {
+  "role": "BD Private Side Compliance Adv",
+  "firm": "SMBC",
+  "score": 45,
+  "type": "Compliance",
+  "flag": ""
+ },
+ {
+  "role": "Product Compliance Mgr X Money",
+  "firm": "xAI",
+  "score": 45,
+  "type": "Compliance",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Sr Assoc AML Prevention KYC",
+  "firm": "NCS Wizards",
+  "score": 45,
+  "type": "KYC/AML",
+  "flag": "Sr/JC"
+ },
+ {
+  "role": "Compliance Project Coordinator",
+  "firm": "Paul Davis",
+  "score": 45,
+  "type": "Compliance",
+  "flag": ""
+ },
+ {
+  "role": "Financial Coordinator",
+  "firm": "Columbia Univ",
+  "score": 45,
+  "type": "Finance",
+  "flag": ""
+ },
+ {
+  "role": "Sr Grants Financial Analyst",
+  "firm": "Columbia Univ",
+  "score": 45,
+  "type": "Finance",
+  "flag": "Sr"
+ },
+ {
+  "role": "Sr Fintech Strategy Ops Mgr",
+  "firm": "Savvy Wealth",
+  "score": 45,
+  "type": "Ops",
+  "flag": "Sr/Mgmt"
+ },
+ {
+  "role": "Sr Analyst IT Risk",
+  "firm": "CardWorks",
+  "score": 45,
+  "type": "IT Risk",
+  "flag": "Sr"
+ },
+ {
+  "role": "Risk Compliance Manager",
+  "firm": "Atlas Search",
+  "score": 45,
+  "type": "Compliance",
+  "flag": "Mgmt/Agency"
+ },
+ {
+  "role": "Global AMLS Data Analyst",
+  "firm": "UN FCU",
+  "score": 45,
+  "type": "AML",
+  "flag": ""
+ },
+ {
+  "role": "AML Models Analytics Lead",
+  "firm": "Meta",
+  "score": 45,
+  "type": "AML",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Research Analyst Sanctions",
+  "firm": "Kharon",
+  "score": 45,
+  "type": "Sanctions",
+  "flag": ""
+ },
+ {
+  "role": "Asset Protection Security Spec",
+  "firm": "Victoria's Secret",
+  "score": 45,
+  "type": "Security",
+  "flag": ""
+ },
+ {
+  "role": "Surveillance Investigator",
+  "firm": "Robison Group",
+  "score": 45,
+  "type": "Investigations",
+  "flag": ""
+ },
+ {
+  "role": "Private Investigator",
+  "firm": "Endurance Inv",
+  "score": 45,
+  "type": "Investigations",
+  "flag": ""
+ },
+ {
+  "role": "Executive Protection Agent",
+  "firm": "Crisis24",
+  "score": 45,
+  "type": "Security",
+  "flag": ""
+ },
+ {
+  "role": "Fund Portfolio Mgmt Assoc",
+  "firm": "RXR",
+  "score": 45,
+  "type": "Ops",
+  "flag": ""
+ },
+ {
+  "role": "Email Marketing Manager",
+  "firm": "Zappos",
+  "score": 45,
+  "type": "Marketing",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Business Analyst Accounting",
+  "firm": "Bop",
+  "score": 45,
+  "type": "Accounting",
+  "flag": ""
+ },
+ {
+  "role": "Cash Application Analyst",
+  "firm": "Public Partnerships",
+  "score": 45,
+  "type": "Ops",
+  "flag": ""
+ },
+ {
+  "role": "Sr Analyst Payment Integrity",
+  "firm": "Oscar Health",
+  "score": 45,
+  "type": "Ops",
+  "flag": "Sr"
+ },
+ {
+  "role": "Sr Compliance Mgr DSM Infra",
+  "firm": "LSEG",
+  "score": 45,
+  "type": "Compliance",
+  "flag": "Sr/Mgmt"
+ },
+ {
+  "role": "Mgr BD Regulatory Finance",
+  "firm": "Vista Equity",
+  "score": 45,
+  "type": "Reg Finance",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Customs Brokerage Entry Mgr",
+  "firm": "Unipac Shipping",
+  "score": 45,
+  "type": "Trade Compliance",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Oracle GTM Functional Mgr",
+  "firm": "Logic",
+  "score": 45,
+  "type": "IT/Trade Mgmt",
+  "flag": "Mgmt"
+ },
+ {
+  "role": "Privacy Ops Project Specialist",
+  "firm": "Con Edison",
+  "score": 45,
+  "type": "Compliance",
+  "flag": ""
+ },
+ {
+  "role": "GRC Analyst",
+  "firm": "Doppel",
+  "score": 45,
+  "type": "GRC",
+  "flag": ""
+ }
+]

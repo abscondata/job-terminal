@@ -536,229 +536,318 @@ def hard_reject(title: str, company: str, location: str,
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# 10-COMPONENT SCORING ENGINE
+# HIRE PROBABILITY SCORING ENGINE (3 components)
+#   Seniority Fit  45%  — #1 predictor of whether Robin gets an interview
+#   Category Match 35%  — how well the role matches Robin's compliance/ops lane
+#   Comp Alignment 20%  — salary range sanity check
+#
+# NO firm prestige scoring. Robin evaluates firm fit himself.
 # ═══════════════════════════════════════════════════════════════════════════════
 
-def _firm_tier(company: str) -> tuple[int, str]:
-    """Return (tier_number, label). Lower tier = better."""
-    c = company.lower()
-    if STAFFING_RE.search(company):
-        return 5, "staffing"
-    for firm in TIER_1_FIRMS:
-        if firm in c or c.replace(",", "").replace(".", "").strip() in firm:
-            return 1, "tier1"
-    for firm in TIER_2_FIRMS:
-        if firm in c or c.replace(",", "").replace(".", "").strip() in firm:
-            return 2, "tier2"
-    for firm in TIER_3_FIRMS:
-        if firm in c or c.replace(",", "").replace(".", "").strip() in firm:
-            return 3, "tier3"
-    if FINSERV_RE.search(f"{company}"):
-        return 4, "finserv"
-    return 6, "unknown"
+# Category tiers: how well does this role match Robin's lane?
+# Tier A (100): direct compliance ops / onboarding / licensing / BD ops / KYC-AML analyst
+# Tier B (75):  adjacent (risk ops, controls, securities ops, middle office, fund ops)
+# Tier C (50):  tangential (investigations, reg reporting, client service at fin firm)
+# Tier D (25):  weak (generic ops, accounting, IT compliance, audit, credit)
+
+_CAT_A = re.compile(
+    r"\b(?:compliance\s+(?:analyst|associate|specialist|coordinator|testing|monitoring)"
+    r"|(?:licensing|registration)\s+(?:analyst|specialist|associate|coordinator)"
+    r"|(?:kyc|aml|bsa|cdd)\s+(?:analyst|associate|investigator|specialist)"
+    r"|(?:onboarding|account\s+opening)\s+(?:analyst|specialist|associate|coordinator)"
+    r"|client\s+onboarding"
+    r"|regulatory\s+(?:operations|compliance|affairs)\s+(?:analyst|associate|specialist)"
+    r"|broker[-\s]?dealer\s+(?:compliance|operations)"
+    r"|(?:capital\s+markets|securities)\s+compliance"
+    r"|investment\s+(?:compliance|adviser\s+compliance)"
+    r"|(?:asset\s+management|fund)\s+compliance"
+    r"|compliance\s+(?:analytics|data)"
+    r"|advertising\s+compliance)\b", re.I)
+
+_CAT_B = re.compile(
+    r"\b(?:risk\s+(?:analyst|associate|specialist|operations)"
+    r"|(?:operational|credit|market|enterprise)\s+risk"
+    r"|(?:controls?|governance)\s+(?:analyst|associate|advisory|specialist)"
+    r"|first\s+line\s+(?:risk|controls?)"
+    r"|securities\s+(?:operations|ops)"
+    r"|(?:clearing|settlement|custody)\s+(?:operations|analyst|associate)"
+    r"|middle\s+office|trade\s+support"
+    r"|fund\s+(?:operations|accounting|admin)"
+    r"|sanctions\s+(?:analyst|specialist|associate)"
+    r"|financial\s+crim(?:e|es)\s+(?:analyst|associate|specialist)"
+    r"|(?:trade|market|communications?)\s+surveillance"
+    r"|transaction\s+monitoring"
+    r"|due\s+diligence"
+    r"|anti[-\s]?money\s+laundering"
+    r"|prime\s+(?:services|brokerage|finance|fin\s+svc))\b", re.I)
+
+_CAT_C = re.compile(
+    r"\b(?:operations\s+(?:analyst|associate|coordinator|specialist)"
+    r"|client\s+(?:service|services)\s+(?:analyst|associate|specialist)"
+    r"|regulatory\s+reporting|prudential\s+reporting"
+    r"|transition\s+(?:analyst|associate|manager))\b", re.I)
+
+_CAT_D = re.compile(
+    r"\b(?:audit|accounting|tax|credit\s+(?:analyst|officer)"
+    r"|IT\s+(?:compliance|risk|security)"
+    r"|marketing|recruiting|talent)\b", re.I)
+
+# Hard disqualifier categories — score = 0
+_DISQUALIFY_RE = re.compile(
+    r"\b(?:(?<!\w)director\b|vice\s+president|(?<!\w)vp\b|head\s+of"
+    r"|managing\s+director|principal|partner\b"
+    r"|(?<!\w)trading(?!\s+(?:support|operations|ops|surveillance|compliance))\b"
+    r"|IT\s+security|(?:soc\s*2|nist|iso\s*27001)"
+    r"|(?:capital\s+markets|investment)\s+banking"
+    r"|commission[-\s]?based|cold\s+calling)\b", re.I)
 
 
-def _classify_role(title: str) -> tuple[str, int]:
-    """Return (role_family_name, base_fit_score)."""
-    for name, score, pattern in ROLE_FAMILIES:
-        if pattern.search(title):
-            return name, score
+def _classify_category(title: str, snippet: str) -> tuple[str, int]:
+    """Return (category_label, base_score 0-100)."""
+    if _CAT_A.search(title):
+        return "direct_target", 100
+    if _CAT_B.search(title):
+        return "strong_adjacent", 75
+    # Check snippet for A/B signals if title is generic
+    if _CAT_A.search(snippet[:400]):
+        return "direct_target_from_desc", 85
+    if _CAT_B.search(snippet[:400]):
+        return "adjacent_from_desc", 65
+    if _CAT_C.search(title):
+        return "tangential", 50
+    if _CAT_D.search(title):
+        return "weak_fit", 25
     return "unclassified", 20
+
+
+def _seniority_score(title: str, snippet: str) -> tuple[int, list[str]]:
+    """Return (score 0-100, list of penalty/boost notes).
+
+    Full marks for entry/analyst/associate. Heavy penalties for senior+.
+    """
+    tl = title.lower()
+    score = 70  # baseline
+    notes = []
+
+    # ── Boosts ──
+    if any(kw in tl for kw in ("analyst", "associate")):
+        score += 15
+        notes.append("analyst/associate level")
+    if any(kw in tl for kw in ("specialist", "coordinator")):
+        score += 10
+        notes.append("specialist/coordinator level")
+    if "entry" in tl or "junior" in tl or "jr" in tl:
+        score += 20
+        notes.append("entry level")
+    if re.search(r"\b(?:entry\s+level|0[-\s]?[12]\s*years?|1[-\s]?2\s*years?)\b", snippet, re.I):
+        score += 12
+        notes.append("low experience bar")
+    if re.search(r"\b(?:series\s*7|SIE|finra\s+license)\b", snippet, re.I):
+        score += 8
+        notes.append("Series 7 valued")
+    if re.search(r"\bbroker[-\s]?dealer\b", snippet, re.I):
+        score += 5
+        notes.append("BD experience match")
+
+    # ── Penalties ──
+    if re.search(r"\bsenior\b", title, re.I):
+        score -= 25
+        notes.append("senior title")
+    if re.search(r"\b(?:manager|lead)\b", title, re.I):
+        score -= 20
+        notes.append("management/lead")
+    if re.search(r"\bsupervisor\b", title, re.I):
+        score -= 15
+        notes.append("supervisory")
+    if "officer" in tl:
+        score -= 10
+        notes.append("officer level")
+    if "consultant" in tl:
+        score -= 10
+        notes.append("consultant role")
+    if re.search(r"\b[3-4]\+?\s*(?:years?|yrs?)\s*(?:of\s+)?(?:experience|exp)\b", snippet, re.I):
+        score -= 30
+        notes.append("3-4yr experience req")
+    if re.search(r"\b(?:[5-9]|1[0-9]|20)\+?\s*(?:years?|yrs?)\s*(?:of\s+)?(?:experience|exp)\b", snippet, re.I):
+        score -= 40
+        notes.append("5yr+ experience req")
+    if re.search(r"\b(?:cpa|cfa|cams|acams|jd|ll\.?m|juris\s+doctor)\b", snippet, re.I):
+        score -= 10
+        notes.append("requires certification")
+    # Data/quant/technical skills Robin doesn't have
+    if re.search(r"\b(?:sql|python|r\b|tableau|power\s*bi|data\s+(?:science|engineer|analytics))\b", snippet, re.I):
+        if "data" in tl or "analytics" in tl or "quant" in tl:
+            score -= 25
+            notes.append("data/quant skills required")
+    # Even without snippet, "data" in title is a signal
+    if "data" in tl and ("compliance" in tl or "risk" in tl):
+        score -= 15
+        notes.append("data-focused compliance role")
+
+    return max(0, min(100, score)), notes
+
+
+def _comp_score(salary_text: str) -> tuple[int, list[str]]:
+    """Return (score 0-100, notes).
+
+    $80-150K or unlisted = full. <$60K = penalty. >$200K = seniority red flag.
+    """
+    annual = _parse_salary_annual(salary_text)
+    if annual is None:
+        return 70, []  # unknown — neutral
+
+    if annual >= 200000:
+        return 30, [f"${annual//1000}K signals senior role"]
+    if annual >= 150000:
+        return 55, [f"${annual//1000}K — possibly senior"]
+    if annual >= 100000:
+        return 95, [f"${annual//1000}K in sweet spot"]
+    if annual >= 80000:
+        return 90, [f"${annual//1000}K in range"]
+    if annual >= 65000:
+        return 75, [f"${annual//1000}K — adequate"]
+    if annual >= 60000:
+        return 60, [f"${annual//1000}K — low but passable"]
+    return 20, [f"${annual//1000}K — below floor"]
 
 
 def score_job(title: str, company: str, snippet: str,
               salary_text: str, location: str) -> dict:
-    """10-component scoring calibrated to Robin's profile. Returns rich dict."""
+    """Hire probability scoring: how likely is Robin to get an interview?
 
+    3 components:
+      Seniority Fit  (45%)
+      Category Match (35%)
+      Comp Alignment (20%)
+
+    No firm prestige scoring. Staffing penalty is the only firm-level signal.
+    """
     title_lower = title.lower()
-    blob = f"{title} {company} {snippet}"
-    firm_t, firm_label = _firm_tier(company)
-    role_family, base_role_fit = _classify_role(title)
-    annual = _parse_salary_annual(salary_text)
     penalties = []
     boosts = []
 
-    # ── 1. ROLE FIT (25%) ──────────────────────────────────────────────────
-    role_fit = base_role_fit
-    # Snippet can reveal compliance context even if title is generic
-    if role_fit < 60 and RELEVANCE_RE.search(snippet[:400]):
-        role_fit = min(role_fit + 15, 70)
+    # ── HARD DISQUALIFY ──────────────────────────────────────────────────
+    if _DISQUALIFY_RE.search(title):
+        return {
+            "score": 0, "bucket": "Disqualified",
+            "reason": f"hard disqualifier in title",
+            "risk": title[:60], "role_family": "disqualified",
+            "firm_tier": 0, "firm_label": "",
+            "penalties": ["disqualified"], "boosts": [],
+            "components": {"seniority": 0, "category": 0, "compensation": 0},
+        }
 
-    # ── 2. ATTAINABILITY (20%) ─────────────────────────────────────────────
-    attain = 72  # baseline: Series 7 + 8 months BD compliance
-    if any(kw in title_lower for kw in ("analyst", "associate")):
-        attain += 8
-    if re.search(r"\b(?:entry\s+level|0[-\s]?[12]\s*years?|1[-\s]?2\s*years?)\b", snippet, re.I):
-        attain += 12; boosts.append("entry level")
-    if re.search(r"\b(?:series\s*7|SIE|finra\s+license)\b", snippet, re.I):
-        attain += 10; boosts.append("Series 7 match")
-    if re.search(r"\bbroker[-\s]?dealer\b", snippet, re.I):
-        attain += 5; boosts.append("BD experience match")
-    # Penalties
-    if re.search(r"\bsenior\b", title, re.I):
-        attain -= 18; penalties.append("senior title")
-    if re.search(r"\b(?:manager|lead)\b", title, re.I):
-        attain -= 20; penalties.append("management level")
-    if re.search(r"\bsupervisor\b", title, re.I):
-        attain -= 15; penalties.append("supervisory role")
-    if re.search(r"\b[3-4]\+?\s*(?:years?|yrs?)\s*(?:of\s+)?(?:experience|exp)\b", snippet, re.I):
-        attain -= 12; penalties.append("3-4yr experience")
-    if re.search(r"\b(?:[5-9]|1[0-9]|20)\+?\s*(?:years?|yrs?)\s*(?:of\s+)?(?:experience|exp)\b", snippet, re.I):
-        attain -= 25; penalties.append("5yr+ experience")
-    if re.search(r"\b(?:cpa|cfa|cams|acams|jd|ll\.?m|juris\s+doctor)\b", snippet, re.I):
-        attain -= 12; penalties.append("requires certification")
-    if "officer" in title_lower:
-        attain -= 8; penalties.append("officer level")
-    if "consultant" in title_lower:
-        attain -= 10; penalties.append("consultant role")
-    attain = max(5, min(100, attain))
+    # ── 1. SENIORITY FIT (45%) ───────────────────────────────────────────
+    sen_score, sen_notes = _seniority_score(title, snippet)
+    penalties.extend([n for n in sen_notes if any(w in n for w in ("senior", "management", "lead", "officer", "supervisor", "experience", "certification", "consultant"))])
+    boosts.extend([n for n in sen_notes if any(w in n for w in ("entry", "analyst", "specialist", "Series", "BD", "low exp"))])
 
-    # ── 3. INSTITUTIONAL QUALITY (15%) ─────────────────────────────────────
-    inst = {1: 95, 2: 82, 3: 68, 4: 55, 5: 35, 6: 40}[firm_t]
+    # ── 2. CATEGORY MATCH (35%) ──────────────────────────────────────────
+    cat_label, cat_score = _classify_category(title, snippet)
 
-    # ── 4. TRAJECTORY VALUE (10%) ──────────────────────────────────────────
-    traj = 50
-    if firm_t <= 2 and role_fit >= 70:
-        traj = 95  # compliance at top firm = career-making
-    elif firm_t <= 2:
-        traj = 80  # any role at top firm = platform value
-    elif firm_t == 3 and role_fit >= 60:
-        traj = 70
-    elif role_fit >= 80:
-        traj = 75  # strong compliance role anywhere
-    elif firm_t == 5:
-        traj = 40  # staffing
+    # Category-level adjustments
+    if cat_label in ("weak_fit", "unclassified"):
+        penalties.append(f"weak category fit ({cat_label})")
 
-    # ── 5. COMPENSATION (8%) ───────────────────────────────────────────────
-    comp_score = 50  # unknown
-    if annual:
-        if annual >= 120000: comp_score = 95
-        elif annual >= 100000: comp_score = 85
-        elif annual >= 80000: comp_score = 75
-        elif annual >= 65000: comp_score = 60
-        elif annual >= 50000: comp_score = 45
-        else: comp_score = 25; penalties.append(f"low salary (${annual//1000}K)")
+    # ── 3. COMPENSATION ALIGNMENT (20%) ──────────────────────────────────
+    comp_s, comp_notes = _comp_score(salary_text)
+    penalties.extend([n for n in comp_notes if "senior" in n or "below" in n or "low" in n])
+    boosts.extend([n for n in comp_notes if "sweet spot" in n or "in range" in n])
 
-    # ── 6. LOCATION (5%) ──────────────────────────────────────────────────
-    loc_score = 80
-    if NYC_RE.search(location):
-        loc_score = 95
-        if re.search(r"\bhybrid\b", location, re.I):
-            loc_score = 90
-    elif JC_RE.search(location):
-        loc_score = 60; penalties.append("Jersey City")
-
-    # ── 7. SOURCE CONFIDENCE (5%) ──────────────────────────────────────────
-    src_score = 85  # Indeed direct posting
-    if firm_t == 5:
-        src_score = 40; penalties.append("staffing agency")
-
-    # ── 8. SENIORITY MATCH (5%) ───────────────────────────────────────────
-    sen = 80
-    if any(kw in title_lower for kw in ("analyst", "associate")):
-        sen = 95
-    if "entry" in title_lower or "junior" in title_lower:
-        sen = 100
-    if "specialist" in title_lower:
-        sen = 82
-    if "coordinator" in title_lower:
-        sen = 85
-    if "officer" in title_lower:
-        sen = 50
-    if re.search(r"\bsenior\b", title, re.I):
-        sen = 30
-    if re.search(r"\b(?:manager|lead|supervisor)\b", title, re.I):
-        sen = 20
-
-    # ── 9. DEAD-END RISK (4%) ─────────────────────────────────────────────
-    dead_end = 70
-    if firm_t <= 2 and role_fit >= 60:
-        dead_end = 95  # great career trajectory
-    elif firm_t <= 3:
-        dead_end = 75
-    elif firm_t == 5:
-        dead_end = 30  # staffing can be dead-end
-    if role_fit < 40:
-        dead_end = max(dead_end - 20, 10)
-
-    # ── 10. ADJACENCY BONUS (3%) ──────────────────────────────────────────
-    adj = 50
-    if role_family in ("ops_analyst", "client_service", "middle_office", "fund_ops"):
-        if firm_t <= 3:
-            adj = 85  # adjacent role at good firm = bridge value
-        else:
-            adj = 60
-    if role_family in ("risk_analyst", "controls", "securities_ops"):
-        adj = 75  # strong adjacency to compliance
-
-    # ── WEIGHTED TOTAL ─────────────────────────────────────────────────────
+    # ── WEIGHTED TOTAL ───────────────────────────────────────────────────
     total = round(
-        role_fit * 0.25 +
-        attain * 0.20 +
-        inst * 0.15 +
-        traj * 0.10 +
-        comp_score * 0.08 +
-        loc_score * 0.05 +
-        src_score * 0.05 +
-        sen * 0.05 +
-        dead_end * 0.04 +
-        adj * 0.03
+        sen_score * 0.45 +
+        cat_score * 0.35 +
+        comp_s * 0.20
     )
     total = max(0, min(100, total))
 
-    # ── POST-SCORE CAPS AND OVERRIDES ─────────────────────────────────────
+    # ── POST-SCORE ADJUSTMENTS (no firm prestige) ────────────────────────
 
-    # Staffing agency cap at 50
-    if firm_t == 5:
-        total = min(total, 50)
-
-    # "Officer" at non-bulge-bracket: extra -10
-    if "officer" in title_lower and firm_t > 1:
+    # Staffing agency: -10 penalty
+    is_staffing = bool(STAFFING_RE.search(company))
+    if is_staffing:
         total = max(0, total - 10)
-        penalties.append("officer at non-top firm")
+        penalties.append("staffing agency")
 
-    # Unclassified role (no compliance/ops signal matched): cap at 45
-    if role_family == "unclassified":
-        total = min(total, 45)
+    # Bonuses — only if seniority isn't already penalized
+    if sen_score >= 65:
+        if any(kw in title_lower for kw in ("analyst", "associate", "specialist", "coordinator")):
+            total = min(100, total + 5)
+            if "analyst/associate level" not in boosts:
+                boosts.append("entry-level title")
+        if cat_label == "direct_target":
+            total = min(100, total + 5)
+            boosts.append("direct compliance/ops match")
 
-    # ── BUCKETING ──────────────────────────────────────────────────────────
-    if total >= 72:
-        bucket = "Strong Target"
-    elif total >= 60:
-        bucket = "Strong Bridge"
+    # Compensation in $100K range bonus
+    annual = _parse_salary_annual(salary_text)
+    if annual and 80000 <= annual <= 150000:
+        total = min(100, total + 3)
+
+    total = max(0, min(100, total))
+
+    # ── BUCKETING ────────────────────────────────────────────────────────
+    if total >= 80:
+        bucket = "Tier 1 — Apply Immediately"
+    elif total >= 65:
+        bucket = "Tier 2 — Review & Apply"
     elif total >= 50:
-        bucket = "Stretch"
-    elif total >= 38:
-        bucket = "Maybe"
+        bucket = "Tier 3 — Low Priority"
     else:
-        bucket = "Low Value"
+        bucket = "Below Threshold"
 
-    # ── ONE-LINER REASON ───────────────────────────────────────────────────
+    # ── ONE-LINER REASON ─────────────────────────────────────────────────
     parts = []
-    role_label = role_family.replace("_", " ").title()
-    if role_fit >= 80:
-        parts.append(f"strong {role_label} match")
-    elif role_fit >= 60:
-        parts.append(f"good {role_label} fit")
-    elif role_fit >= 40:
-        parts.append(f"adjacent ({role_label})")
+    cat_labels = {
+        "direct_target": "direct compliance/ops match",
+        "direct_target_from_desc": "compliance signal in description",
+        "strong_adjacent": "strong adjacent role",
+        "adjacent_from_desc": "adjacent signal in description",
+        "tangential": "tangential fit",
+    }
+    if cat_label in cat_labels:
+        parts.append(cat_labels[cat_label])
 
-    firm_labels = {1: "bulge bracket/top-tier", 2: "strong firm", 3: "solid firm", 5: "staffing agency"}
-    if firm_t in firm_labels:
-        parts.append(firm_labels[firm_t])
-
-    if annual and annual >= 80000:
-        parts.append(f"${annual:,}/yr")
-
-    if attain >= 80:
+    if sen_score >= 80:
         parts.append("realistic hire")
-    elif attain < 50:
-        parts.append("stretch on experience")
+    elif sen_score >= 60:
+        parts.append("plausible hire")
+    elif sen_score < 40:
+        parts.append("stretch — likely too senior")
+
+    if annual:
+        if 80000 <= annual <= 150000:
+            parts.append(f"${annual:,}/yr")
+        elif annual > 150000:
+            parts.append(f"${annual:,}/yr (seniority signal)")
+        else:
+            parts.append(f"${annual:,}/yr (low)")
+
+    if JC_RE.search(location):
+        parts.append("Jersey City")
+        penalties.append("Jersey City")
 
     reason = "; ".join(parts) if parts else "review posting"
 
-    # ── RISK STRING ────────────────────────────────────────────────────────
+    # ── RISK STRING ──────────────────────────────────────────────────────
     risk = "; ".join(penalties[:3]) if penalties else ""
+
+    # Firm tier for downstream use (not in scoring)
+    c = company.lower()
+    if is_staffing:
+        ft, fl = 5, "staffing"
+    elif any(f in c for f in TIER_1_FIRMS):
+        ft, fl = 1, "tier1"
+    elif any(f in c for f in TIER_2_FIRMS):
+        ft, fl = 2, "tier2"
+    elif any(f in c for f in TIER_3_FIRMS):
+        ft, fl = 3, "tier3"
+    else:
+        ft, fl = 4, "other"
+
+    # Role family for downstream use
+    role_family = cat_label
 
     return {
         "score": total,
@@ -766,21 +855,14 @@ def score_job(title: str, company: str, snippet: str,
         "reason": reason,
         "risk": risk,
         "role_family": role_family,
-        "firm_tier": firm_t,
-        "firm_label": firm_label,
+        "firm_tier": ft,
+        "firm_label": fl,
         "penalties": penalties,
         "boosts": boosts,
         "components": {
-            "role_fit": role_fit,
-            "attainability": attain,
-            "institutional": inst,
-            "trajectory": traj,
-            "compensation": comp_score,
-            "location": loc_score,
-            "source_confidence": src_score,
-            "seniority_match": sen,
-            "dead_end_risk": dead_end,
-            "adjacency": adj,
+            "seniority": sen_score,
+            "category": cat_score,
+            "compensation": comp_s,
         },
     }
 
@@ -1008,30 +1090,14 @@ def run_pipeline() -> dict:
     print(f"  Reject breakdown: {dict(reject_reasons.most_common(8))}")
 
     # ── SCORING ────────────────────────────────────────────────────────────
-    print("\n[4/6] Scoring (10-component model)...")
+    print("\n[4/6] Scoring (hire probability model)...")
     for job in passed:
         s = score_job(job["title"], job["company"], job.get("snippet", ""),
                       job.get("salary", ""), job.get("location", "New York, NY"))
         job.update(s)
-        # Boost source confidence for direct-employer ATS sources
-        if job.get("source") in ("greenhouse", "lever"):
-            old_src = job["components"]["source_confidence"]
-            job["components"]["source_confidence"] = max(old_src, 92)
-            # Recalculate total with boosted source confidence
-            c = job["components"]
-            job["score"] = max(0, min(100, round(
-                c["role_fit"] * 0.25 + c["attainability"] * 0.20 +
-                c["institutional"] * 0.15 + c["trajectory"] * 0.10 +
-                c["compensation"] * 0.08 + c["location"] * 0.05 +
-                c["source_confidence"] * 0.05 + c["seniority_match"] * 0.05 +
-                c["dead_end_risk"] * 0.04 + c["adjacency"] * 0.03
-            )))
-            # Re-bucket
-            if job["score"] >= 72: job["bucket"] = "Strong Target"
-            elif job["score"] >= 60: job["bucket"] = "Strong Bridge"
-            elif job["score"] >= 50: job["bucket"] = "Stretch"
-            elif job["score"] >= 38: job["bucket"] = "Maybe"
-            else: job["bucket"] = "Low Value"
+
+    # Filter out disqualified jobs
+    passed = [j for j in passed if j["bucket"] != "Disqualified"]
 
     passed.sort(key=lambda x: x["score"], reverse=True)
 
@@ -1039,19 +1105,22 @@ def run_pipeline() -> dict:
     for job in passed:
         buckets[job["bucket"]].append(job)
 
-    print(f"  Strong Target: {len(buckets['Strong Target'])} | "
-          f"Strong Bridge: {len(buckets['Strong Bridge'])} | "
-          f"Stretch: {len(buckets['Stretch'])} | "
-          f"Maybe: {len(buckets['Maybe'])} | "
-          f"Low Value: {len(buckets['Low Value'])}")
+    t1 = "Tier 1 — Apply Immediately"
+    t2 = "Tier 2 — Review & Apply"
+    t3 = "Tier 3 — Low Priority"
+    bt = "Below Threshold"
+    print(f"  Tier 1: {len(buckets[t1])} | "
+          f"Tier 2: {len(buckets[t2])} | "
+          f"Tier 3: {len(buckets[t3])} | "
+          f"Below: {len(buckets[bt])}")
 
     # ── SOURCE-BY-SOURCE YIELD ─────────────────────────────────────────────
     print("\n[5/6] Source-by-source yield:")
     source_yield = {}
     for src_name in ("indeed", "greenhouse", "lever", "efinancialcareers"):
         src_jobs = [j for j in passed if j.get("source", "indeed") == src_name]
-        src_st = sum(1 for j in src_jobs if j["bucket"] == "Strong Target")
-        src_sb = sum(1 for j in src_jobs if j["bucket"] == "Strong Bridge")
+        src_st = sum(1 for j in src_jobs if j["score"] >= 80)
+        src_sb = sum(1 for j in src_jobs if 65 <= j["score"] < 80)
         src_staffing = sum(1 for j in src_jobs if j.get("firm_tier") == 5)
         src_direct = len(src_jobs) - src_staffing
         source_yield[src_name] = {
@@ -1072,7 +1141,7 @@ def run_pipeline() -> dict:
 
     # ── REPORT + AUDIT ─────────────────────────────────────────────────────
     print("\n[6/6] Generating report...")
-    visible = [j for j in passed if j["score"] >= 38]
+    visible = [j for j in passed if j["score"] >= 50]
 
     total_scraped = len(all_raw)
     total_rejected = sum(reject_reasons.values())
@@ -1082,11 +1151,11 @@ def run_pipeline() -> dict:
         "total_scraped": total_scraped,
         "rejected": total_rejected,
         "suppressed": total_suppressed,
-        "strong_target": len(buckets["Strong Target"]),
-        "strong_bridge": len(buckets["Strong Bridge"]),
-        "stretch": len(buckets["Stretch"]),
-        "maybe": len(buckets["Maybe"]),
-        "low_value": len(buckets["Low Value"]),
+        "strong_target": len(buckets.get(t1, [])),
+        "strong_bridge": len(buckets.get(t2, [])),
+        "stretch": len(buckets.get(t3, [])),
+        "maybe": len(buckets.get(bt, [])),
+        "low_value": 0,
         "generated": datetime.now().strftime("%Y-%m-%d %H:%M"),
     })
     print(f"  Report: {REPORT_OUT}")
@@ -1121,7 +1190,7 @@ def run_pipeline() -> dict:
         cluster_yield[cluster_name] = {
             "queries": len(cluster_queries),
             "survivors": len(cluster_jobs),
-            "strong_target": sum(1 for j in cluster_jobs if j["bucket"] == "Strong Target"),
+            "strong_target": sum(1 for j in cluster_jobs if j["score"] >= 80),
         }
     print("\n  Indeed cluster yield:")
     for cn, cy in cluster_yield.items():
@@ -1135,9 +1204,9 @@ def run_pipeline() -> dict:
             "total_scraped": total_scraped,
             "rejected": total_rejected,
             "deduped": total_suppressed,
-            "apply_count": len(buckets["Strong Target"]) + len(buckets["Strong Bridge"]),
-            "maybe_count": len(buckets["Stretch"]) + len(buckets["Maybe"]),
-            "skip_count": len(buckets["Low Value"]),
+            "apply_count": len(buckets.get(t1, [])) + len(buckets.get(t2, [])),
+            "maybe_count": len(buckets.get(t3, [])),
+            "skip_count": len(buckets.get(bt, [])),
             "generated": datetime.now().strftime("%Y-%m-%d %H:%M"),
         },
         "audit": audit,
@@ -1157,17 +1226,16 @@ def generate_report(jobs: list[dict], meta: dict) -> None:
     REPORT_OUT.parent.mkdir(parents=True, exist_ok=True)
 
     bucket_colors = {
-        "Strong Target": ("st", "#065f46", "#34d399", "#022c22", "#6ee7b7"),
-        "Strong Bridge": ("sb", "#1e3a5f", "#60a5fa", "#172554", "#93c5fd"),
-        "Stretch": ("sr", "#78350f", "#fbbf24", "#451a03", "#fcd34d"),
-        "Maybe": ("mb", "#3f3f46", "#a1a1aa", "#27272a", "#d4d4d8"),
-        "Low Value": ("lv", "#3f3f46", "#71717a", "#27272a", "#a1a1aa"),
+        "Tier 1 — Apply Immediately": ("t1apply", "#065f46", "#34d399", "#022c22", "#6ee7b7"),
+        "Tier 2 — Review & Apply": ("t2review", "#1e3a5f", "#60a5fa", "#172554", "#93c5fd"),
+        "Tier 3 — Low Priority": ("t3low", "#78350f", "#fbbf24", "#451a03", "#fcd34d"),
+        "Below Threshold": ("below", "#3f3f46", "#71717a", "#27272a", "#a1a1aa"),
     }
 
     rows_html = ""
     for i, j in enumerate(jobs, 1):
-        bucket = j.get("bucket", "Maybe")
-        bkey, bg, fg, badge_bg, badge_fg = bucket_colors.get(bucket, bucket_colors["Maybe"])
+        bucket = j.get("bucket", "Below Threshold")
+        bkey, bg, fg, badge_bg, badge_fg = bucket_colors.get(bucket, bucket_colors["Below Threshold"])
         sal = j.get("salary") or "Not listed"
         risk = j.get("risk", "")
         firm_tag = ""
@@ -1247,10 +1315,9 @@ body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
   <h1>NYC Compliance Discovery</h1>
   <div class="stats">
     <span>Scraped <b>{meta['total_scraped']}</b></span>
-    <span>Strong <b>{st}</b></span>
-    <span>Bridge <b>{sb}</b></span>
-    <span>Stretch <b>{sr}</b></span>
-    <span>Maybe <b>{mb}</b></span>
+    <span>Tier 1 <b>{st}</b></span>
+    <span>Tier 2 <b>{sb}</b></span>
+    <span>Tier 3 <b>{sr}</b></span>
     <span>Rejected <b>{meta['rejected']}</b></span>
     <span>Suppressed <b>{meta['suppressed']}</b></span>
     <span>{meta['generated']}</span>
@@ -1258,11 +1325,10 @@ body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
 </div>
 
 <div class="filters">
-  <button class="filter-btn active" onclick="flt('all',this)">All ({st+sb+sr+mb})</button>
-  <button class="filter-btn" onclick="flt('st',this)">Strong ({st})</button>
-  <button class="filter-btn" onclick="flt('sb',this)">Bridge ({sb})</button>
-  <button class="filter-btn" onclick="flt('sr',this)">Stretch ({sr})</button>
-  <button class="filter-btn" onclick="flt('mb',this)">Maybe ({mb})</button>
+  <button class="filter-btn active" onclick="flt('all',this)">All ({st+sb+sr})</button>
+  <button class="filter-btn" onclick="flt('t1apply',this)">Tier 1 — Apply ({st})</button>
+  <button class="filter-btn" onclick="flt('t2review',this)">Tier 2 — Review ({sb})</button>
+  <button class="filter-btn" onclick="flt('t3low',this)">Tier 3 — Low ({sr})</button>
 </div>
 
 <div class="cards" id="cards">
@@ -1302,10 +1368,9 @@ if __name__ == "__main__":
     print(f"\n{'='*60}")
     print(f"PIPELINE COMPLETE")
     print(f"  Scraped: {m['total_scraped']}")
-    print(f"  Strong Target: {a['buckets'].get('Strong Target', 0)}")
-    print(f"  Strong Bridge: {a['buckets'].get('Strong Bridge', 0)}")
-    print(f"  Stretch:       {a['buckets'].get('Stretch', 0)}")
-    print(f"  Maybe:         {a['buckets'].get('Maybe', 0)}")
-    print(f"  Low Value:     {a['buckets'].get('Low Value', 0)}")
+    print(f"  Tier 1 (Apply):  {a['buckets'].get('Tier 1 — Apply Immediately', 0)}")
+    print(f"  Tier 2 (Review): {a['buckets'].get('Tier 2 — Review & Apply', 0)}")
+    print(f"  Tier 3 (Low):    {a['buckets'].get('Tier 3 — Low Priority', 0)}")
+    print(f"  Below Threshold: {a['buckets'].get('Below Threshold', 0)}")
     print(f"  Rejected: {m['rejected']} | Suppressed: {m['deduped']}")
     print(f"{'='*60}")
