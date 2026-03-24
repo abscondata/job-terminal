@@ -75,8 +75,21 @@ CREATE TABLE IF NOT EXISTS saved_roles (
   updated_at_utc TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS suppressed_jobs (
+  suppression_id TEXT PRIMARY KEY,
+  company_norm TEXT NOT NULL,
+  title_norm TEXT NOT NULL,
+  url TEXT,
+  source_job_id TEXT,
+  fingerprint TEXT,
+  reason TEXT NOT NULL,
+  suppressed_at_utc TEXT NOT NULL
+);
+
 CREATE UNIQUE INDEX IF NOT EXISTS idx_jobs_fingerprint ON jobs_canonical(fingerprint);
 CREATE INDEX IF NOT EXISTS idx_jobs_run ON jobs_canonical(run_id);
 CREATE INDEX IF NOT EXISTS idx_decisions_run ON decisions(run_id);
 CREATE INDEX IF NOT EXISTS idx_saved_roles_bucket ON saved_roles(review_bucket);
 CREATE INDEX IF NOT EXISTS idx_saved_roles_updated ON saved_roles(updated_at_utc);
+CREATE INDEX IF NOT EXISTS idx_suppressed_company_title ON suppressed_jobs(company_norm, title_norm);
+CREATE INDEX IF NOT EXISTS idx_suppressed_fingerprint ON suppressed_jobs(fingerprint);
