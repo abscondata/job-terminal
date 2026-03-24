@@ -314,36 +314,18 @@ def _latest_run(conn: sqlite3.Connection) -> sqlite3.Row | None:
 
 
 def _latest_jobs(conn: sqlite3.Connection, run_id: str) -> list[dict]:
-    # Check if suppressed_jobs table exists
-    has_suppression = bool(conn.execute(
-        "SELECT 1 FROM sqlite_master WHERE type='table' AND name='suppressed_jobs'"
-    ).fetchone())
-
-    if has_suppression:
-        rows = conn.execute(
-            """
-            SELECT j.job_id,j.fingerprint,j.source,j.company,j.title,j.location_text,
-                   j.url,j.apply_url,j.description_text,d.evidence_json,d.decided_at_utc
-            FROM decisions d
-            JOIN jobs_canonical j ON d.job_id = j.job_id
-            LEFT JOIN suppressed_jobs s
-              ON s.company_norm = LOWER(REPLACE(REPLACE(REPLACE(j.company,',',' '),'.',''),"'",''))
-              AND s.title_norm = LOWER(REPLACE(REPLACE(REPLACE(j.title,',',' '),'.',''),"'",''))
-            WHERE d.run_id = ? AND s.suppression_id IS NULL
-            """,
-            (run_id,),
-        ).fetchall()
-    else:
-        rows = conn.execute(
-            """
-            SELECT j.job_id,j.fingerprint,j.source,j.company,j.title,j.location_text,
-                   j.url,j.apply_url,j.description_text,d.evidence_json,d.decided_at_utc
-            FROM decisions d
-            JOIN jobs_canonical j ON d.job_id = j.job_id
-            WHERE d.run_id = ?
-            """,
-            (run_id,),
-        ).fetchall()
+    # Suppression is enforced at discovery time (Python dedup against applied CSV).
+    # The DB only contains clean, non-suppressed jobs. No SQL-level filtering needed.
+    rows = conn.execute(
+        """
+        SELECT j.job_id,j.fingerprint,j.source,j.company,j.title,j.location_text,
+               j.url,j.apply_url,j.description_text,d.evidence_json,d.decided_at_utc
+        FROM decisions d
+        JOIN jobs_canonical j ON d.job_id = j.job_id
+        WHERE d.run_id = ?
+        """,
+        (run_id,),
+    ).fetchall()
     out = []
     for row in rows:
         try:
