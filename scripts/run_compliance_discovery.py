@@ -212,6 +212,18 @@ HARD_TITLE_RE = re.compile(
     r"|(?:virtual\s+)?slp\b|speech\s+(?:language\s+)?patholog"
     # Operations Manager at non-financial (too broad, handled by unclassified cap)
     r"|(?:hotel|hospitality)\s+(?:manager|operations)"
+    # HR roles
+    r"|human\s+resources\s+(?:generalist|coordinator|specialist|manager)"
+    r"|(?<!\w)hr\s+(?:generalist|coordinator|specialist)"
+    # Legal assistant / law firm roles
+    r"|legal\s+assistant|corporate\s+associate(?!\s+compliance)"
+    r"|law\s+firm"
+    # Customer success (not financial onboarding)
+    r"|customer\s+success"
+    # Security specialist (physical/IT, not financial)
+    r"|security\s+specialist(?!\s+(?:compliance|financial|risk))"
+    # Family office accountant
+    r"|(?:family\s+office\s+)?accountant"
     r")\b",
     re.I,
 )
@@ -238,6 +250,12 @@ HARD_INDUSTRY_RE = re.compile(
     # HR / employment / workplace compliance
     r"|hr\s+compliance|human\s+resources\s+compliance|labor\s+law|workplace\s+safety"
     r"|workers?\s+comp(?:ensation)?"
+    # Non-financial companies that show up in compliance searches
+    r"|fedex|federal\s+express|ups\b|amazon(?!\s+(?:financial|web))"
+    r"|premium\s+health|health\s+center"
+    r"|staffgreat|staff\s+great"
+    r"|torres\s+zheng|law\s+firm(?!\s+compliance)"
+    r"|oakleaf\s+partnership"
     r")\b",
     re.I,
 )
@@ -661,6 +679,7 @@ _CAT_A = re.compile(
     r"|investment\s+(?:compliance|adviser\s+compliance)"
     r"|(?:asset\s+management|fund)\s+compliance"
     r"|advertising\s+compliance"
+    r"|communications?\s+(?:review|compliance|surveillance)"
     r"|sanctions\s+(?:analyst|specialist|associate|screening|compliance)"
     r"|(?:controls?|governance)\s+(?:analyst|associate|advisory|specialist)"
     r"|first\s+line\s+(?:risk|controls?)"
@@ -679,6 +698,11 @@ _CAT_B = re.compile(
     r"|due\s+diligence|enhanced\s+due\s+diligence"
     r"|anti[-\s]?money\s+laundering"
     r"|prime\s+(?:services|brokerage|finance|fin\s+svc)"
+    r"|(?:trade|trading)\s+(?:operations|support|ops)"
+    r"|market\s+operations"
+    r"|brokerage\s+(?:clearing|operations|specialist)"
+    r"|correspondent\s+(?:risk|services|clearing)"
+    r"|transition\s+(?:analyst|associate|management)"
     r"|compliance\s+(?:analytics|data))\b", re.I)
 
 _CAT_C = re.compile(
@@ -704,7 +728,14 @@ _CAT_D = re.compile(
     r"|financial\s+(?:advisor|planner|consultant)"
     r"|(?:investment|equity\s+research)\s+analyst"
     r"|corporate\s+(?:development|strategy)"
-    r"|accountant)\b", re.I)
+    r"|accountant"
+    # Learned from skipped jobs
+    r"|wealth\s+(?:relationship|officer|advisor)"
+    r"|people\s+(?:ops|operations|office)"
+    r"|ogc\s+analyst|conflicts?\s+analyst"
+    r"|deal\s+desk\s+analyst"
+    r"|secured\s+lending\s+analyst"
+    r"|investor\s+relations)\b", re.I)
 
 # Hard disqualifier — score = 0, never show
 _DISQUALIFY_RE = re.compile(
@@ -877,6 +908,47 @@ def score_job(title: str, company: str, snippet: str,
     if is_staffing:
         total = max(0, total - 10)
         penalties.append("staffing agency")
+
+    # ── LEARNED BOOSTS (from Robin's actual apply decisions) ────────────
+    # These title/function patterns came from jobs Robin actually applied to.
+    # They get a meaningful boost because they match his real revealed preference.
+    _APPLIED_PATTERN = re.compile(
+        r"\b(?:compliance\s+(?:coordinator|analyst|specialist)"
+        r"|communications?\s+(?:review|compliance|surveillance)"
+        r"|trade\s+(?:operations|support|ops)"
+        r"|market\s+operations"
+        r"|clearing|correspondent\s+risk"
+        r"|(?:onboarding|account\s+opening)\s+(?:analyst|specialist|associate)"
+        r"|operations\s+(?:specialist|analyst|associate)"
+        r"|transition\s+analyst"
+        r"|brokerage\s+(?:clearing|operations|specialist))\b", re.I)
+
+    if _APPLIED_PATTERN.search(title):
+        total = min(100, total + 8)
+        boosts.append("matches applied pattern")
+
+    # ── LEARNED PENALTIES (from Robin's skip decisions) ────────────────
+    # These are roles Robin consistently skips. They're not hard rejects
+    # (the scoring should still show them if everything else is perfect)
+    # but they get a meaningful penalty.
+    _SKIPPED_PATTERN = re.compile(
+        r"\b(?:wealth\s+(?:relationship|analyst|officer|associate|advisor)"
+        r"|portfolio\s+analyst"
+        r"|(?:cib|corporate)\s+credit"
+        r"|people\s+(?:ops|operations|office)"
+        r"|human\s+resources|(?<!\w)hr\s+(?:coordinator|generalist)"
+        r"|ogc\s+analyst|conflicts?\s+analyst"
+        r"|strategy\s+(?:analyst|advisor|specialist|consultant)"
+        r"|data\s+specialist"
+        r"|deal\s+desk"
+        r"|research\s+(?:analyst|advisor)"
+        r"|investment\s+(?:analyst|risk\s+analyst)"
+        r"|secured\s+lending|fixed\s+income\s+(?:division|analyst)"
+        r"|recruiting\s+(?:operations|coordinator))\b", re.I)
+
+    if _SKIPPED_PATTERN.search(title):
+        total = max(0, total - 12)
+        penalties.append("matches skipped pattern")
 
     # Bonuses (only if seniority plausible AND no experience/data penalty)
     has_penalty = any("experience" in p or "data" in p for p in penalties)
@@ -1213,7 +1285,9 @@ def run_pipeline() -> dict:
                 "title": job["title"], "company": job["company"],
                 "source": source, "reason": supp,
             })
-            print(f"  SUPPRESSED: [{job['title'][:50]}] at [{job['company'][:30]}] ({supp.split(':')[0]})")
+            t_safe = job['title'][:50].encode('ascii', 'replace').decode()
+            c_safe = job['company'][:30].encode('ascii', 'replace').decode()
+            print(f"  SUPPRESSED: [{t_safe}] at [{c_safe}] ({supp.split(':')[0]})")
             continue
 
         passed.append(job)
