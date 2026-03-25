@@ -651,93 +651,119 @@ def hard_reject(title: str, company: str, location: str,
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# HIRE PROBABILITY SCORING ENGINE (3 components)
-#   Category Match 45%  — #1 driver: is this the right universe?
-#   Seniority Fit  35%  — cliff model: OK until serious senior signals
-#   Comp Alignment 20%  — salary range sanity check
-#
-# NO firm prestige scoring. Robin evaluates firm fit himself.
+# EMPLOYER TYPE CLASSIFICATION
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# ── CATEGORY TIERS ──
-# A (100): Direct targets — onboarding, compliance, KYC/AML, licensing, BD ops,
-#          reg ops, sanctions, controls, regulatory reporting, securities compliance
-# B (90):  Cool reach — risk, FinCrime, due diligence, middle office, trade support,
-#          surveillance, prime svcs, data compliance. LIGHT penalty.
-# C (70):  Tangential — generic ops analyst, client service, transitions
-# D (30):  Wrong universe — accounting, IT, credit analysis, audit, tax, marketing
+_LAW_FIRM_RE = re.compile(
+    r"\b(?:law\s+firm|(?:llp|pllc)\b|latham|watkins|sullivan\s+cromwell"
+    r"|skadden|davis\s+polk|wachtell|cravath|simpson\s+thacher"
+    r"|cleary\s+gottlieb|milbank|debevoise|paul\s+weiss|willkie"
+    r"|kirkland\s+ellis|quinn\s+emanuel|dechert|proskauer"
+    r"|kahana\s+feld|mcclure\s+harrison|torres\s+zheng"
+    r"|oakleaf\s+partnership|white\s+case|gibson\s+dunn"
+    r"|cadwalader|fried\s+frank|stroock|weil\s+gotshal)\b", re.I)
 
-_CAT_A = re.compile(
-    r"\b(?:compliance\s+(?:analyst|associate|specialist|coordinator|testing|monitoring|officer)"
+_GOVERNMENT_RE = re.compile(
+    r"\b(?:city\s+of\s+(?:new\s+york|miami|los\s+angeles)"
+    r"|state\s+of\s+|department\s+of\s+"
+    r"|public\s+(?:health|housing|school|transit)"
+    r"|(?:county|borough|municipal|federal)\s+(?:government|office|agency)"
+    r"|u\.?s\.?\s+(?:government|army|navy|air\s+force))\b", re.I)
+
+_NON_FINANCE_COMPANY_RE = re.compile(
+    r"\b(?:datadog|mikeworldwide|mww|aim[e\u00e9]\s+leon\s+dore"
+    r"|fedex|federal\s+express|ups\b|amazon(?!\s+(?:financial|web))"
+    r"|premium\s+health|health\s+center|staffgreat"
+    r"|chronograph|gibel|remx"
+    r"|google(?!\s+(?:finance|capital))|meta(?!\s+(?:financial|platforms))"
+    r"|netflix|spotify|uber(?!\s+(?:money|financial))|lyft"
+    r"|walmart|target\b|costco|home\s+depot"
+    r"|marriott|hilton|hyatt"
+    r"|ikea|raising\s+cane)\b", re.I)
+
+# Financial regulators are OK
+_FIN_REGULATOR_RE = re.compile(r"\b(?:SEC|FINRA|OCC|FDIC|Federal\s+Reserve|CFTC|NFA)\b", re.I)
+
+
+def _employer_type(company: str) -> str:
+    """Classify employer. Returns: elite_finance, finance, staffing, law_firm, government, non_finance."""
+    if _LAW_FIRM_RE.search(company):
+        return "law_firm"
+    if _GOVERNMENT_RE.search(company) and not _FIN_REGULATOR_RE.search(company):
+        return "government"
+    if STAFFING_RE.search(company):
+        return "staffing"
+    c = company.lower()
+    if any(f in c for f in TIER_1_FIRMS):
+        return "elite_finance"
+    if any(f in c for f in TIER_2_FIRMS):
+        return "finance"
+    if any(f in c for f in TIER_3_FIRMS):
+        return "finance"
+    if _NON_FINANCE_COMPANY_RE.search(company):
+        return "non_finance"
+    # Check for financial services signals in company name
+    if FINSERV_RE.search(company):
+        return "finance"
+    # Default: unknown — treated as finance (benefit of the doubt)
+    return "finance"
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SCORING ENGINE v3 — Behavior-calibrated hire probability
+#
+# Learned from Robin's actual apply/skip decisions:
+#   Applied to: compliance analyst/coordinator, comms review, trade ops,
+#               market ops, clearing/correspondent risk, trade support
+#   Skipped:    pure risk/investment/portfolio/credit/wealth analyst,
+#               law firms, government, non-finance ops, HR, wrong-dept
+#
+# Three components: Category Match (45%) + Seniority Fit (35%) + Comp (20%)
+# Plus: employer_type hard filters and title-based penalties/boosts
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ── TITLE TIER CLASSIFICATION ──
+# Tier 1 (+40 base): Direct compliance/ops/onboarding/KYC/AML targets
+_TITLE_TIER_1 = re.compile(
+    r"\b(?:compliance\s+(?:analyst|associate|specialist|coordinator|testing|monitoring)"
     r"|(?:licensing|registration)\s+(?:analyst|specialist|associate|coordinator)"
     r"|(?:kyc|aml|bsa|cdd)\s+(?:analyst|associate|investigator|specialist)"
     r"|(?:onboarding|account\s+opening)\s+(?:analyst|specialist|associate|coordinator)"
     r"|client\s+onboarding"
-    r"|regulatory\s+(?:operations|compliance|affairs)\s+(?:analyst|associate|specialist)"
+    r"|regulatory\s+(?:operations|compliance|affairs)"
     r"|broker[-\s]?dealer\s+(?:compliance|operations)"
     r"|(?:capital\s+markets|securities)\s+compliance"
     r"|investment\s+(?:compliance|adviser\s+compliance)"
     r"|(?:asset\s+management|fund)\s+compliance"
     r"|advertising\s+compliance"
     r"|communications?\s+(?:review|compliance|surveillance)"
-    r"|sanctions\s+(?:analyst|specialist|associate|screening|compliance)"
-    r"|(?:controls?|governance)\s+(?:analyst|associate|advisory|specialist)"
-    r"|first\s+line\s+(?:risk|controls?)"
-    r"|regulatory\s+reporting|prudential\s+reporting)\b", re.I)
+    r"|sanctions\s+(?:analyst|specialist|associate)"
+    r"|finra\s+compliance)\b", re.I)
 
-_CAT_B = re.compile(
-    r"\b(?:risk\s+(?:analyst|associate|specialist|operations)"
-    r"|(?:operational|credit|market|enterprise)\s+risk"
-    r"|securities\s+(?:operations|ops)"
-    r"|(?:clearing|settlement|custody)\s+(?:operations|analyst|associate)"
-    r"|middle\s+office|trade\s+support"
-    r"|fund\s+(?:operations|accounting|admin)"
-    r"|financial\s+crim(?:e|es)\s+(?:analyst|associate|specialist)"
-    r"|(?:trade|market|communications?)\s+surveillance"
-    r"|transaction\s+monitoring"
-    r"|due\s+diligence|enhanced\s+due\s+diligence"
-    r"|anti[-\s]?money\s+laundering"
-    r"|prime\s+(?:services|brokerage|finance|fin\s+svc)"
-    r"|(?:trade|trading)\s+(?:operations|support|ops)"
+# Tier 2 (+30 base): Strong ops/trade/clearing/middle office
+_TITLE_TIER_2 = re.compile(
+    r"\b(?:(?:trade|trading)\s+(?:operations|support|ops)"
     r"|market\s+operations"
+    r"|operations\s+(?:analyst|associate|specialist)"
+    r"|middle\s+office"
+    r"|(?:clearing|settlement|custody)\s+(?:operations|analyst|associate|specialist)"
     r"|brokerage\s+(?:clearing|operations|specialist)"
     r"|correspondent\s+(?:risk|services|clearing)"
-    r"|transition\s+(?:analyst|associate|management)"
-    r"|compliance\s+(?:analytics|data))\b", re.I)
-
-_CAT_C = re.compile(
-    r"\b(?:operations\s+(?:analyst|associate|coordinator|specialist)"
-    r"|client\s+(?:service|services)\s+(?:analyst|associate|specialist)"
+    r"|securities\s+(?:operations|ops)"
+    r"|(?:BD|broker.dealer)\s+operations"
     r"|transition\s+(?:analyst|associate))\b", re.I)
 
-_CAT_D = re.compile(
-    r"\b(?:audit(?:or|ing)?|accounting|tax\s+(?:analyst|associate)"
-    r"|credit\s+(?:analyst|officer)"
-    r"|IT\s+(?:compliance|risk|security)"
-    r"|marketing|recruiting|talent\s+(?:acquisition|partner)"
-    r"|branch\s+exam(?:iner|ination)"
-    r"|insurance\s+(?:sales|agent)|call\s+center"
-    # Non-compliance functions that sometimes appear at finance firms
-    r"|data\s+(?:scientist|engineer|science)"
-    r"|(?:software|backend|frontend|fullstack)\s+engineer"
-    r"|product\s+(?:manager|designer|owner)"
-    r"|strategy\s+(?:analyst|associate|advisor|consultant)"
-    r"|(?:ux|ui)\s+design"
-    r"|recruiting\s+(?:operations|coordinator|specialist)"
-    r"|human\s+resources|(?<!\w)hr\s+(?:analyst|coordinator|specialist)"
-    r"|financial\s+(?:advisor|planner|consultant)"
-    r"|(?:investment|equity\s+research)\s+analyst"
-    r"|corporate\s+(?:development|strategy)"
-    r"|accountant"
-    # Learned from skipped jobs
-    r"|wealth\s+(?:relationship|officer|advisor)"
-    r"|people\s+(?:ops|operations|office)"
-    r"|ogc\s+analyst|conflicts?\s+analyst"
-    r"|deal\s+desk\s+analyst"
-    r"|secured\s+lending\s+analyst"
-    r"|investor\s+relations)\b", re.I)
+# Tier 3 (+15 base): Conditional — only at finance firms with compliance context
+_TITLE_TIER_3 = re.compile(
+    r"\b(?:risk\s+(?:analyst|associate|specialist)"
+    r"|(?:controls?|governance)\s+(?:analyst|associate|advisory)"
+    r"|first\s+line\s+(?:risk|controls?)"
+    r"|financial\s+crim(?:e|es)"
+    r"|due\s+diligence|anti[-\s]?money\s+laundering"
+    r"|transaction\s+monitoring"
+    r"|(?:trade|market)\s+surveillance)\b", re.I)
 
-# Hard disqualifier — score = 0, never show
+# ── HARD DISQUALIFIERS (score = 0) ──
 _DISQUALIFY_RE = re.compile(
     r"\b(?:(?<!\w)director\b|vice\s+president|(?<!\w)vp\b|head\s+of"
     r"|managing\s+director|principal|partner\b"
@@ -746,52 +772,85 @@ _DISQUALIFY_RE = re.compile(
     r"|IT\s+security|(?:soc\s*2|nist|iso\s*27001)"
     r"|(?:capital\s+markets|investment)\s+banking"
     r"|commission[-\s]?based|cold\s+calling"
-    r"|branch\s+exam(?:iner|ination))\b", re.I)
+    r"|branch\s+exam(?:iner|ination)"
+    r"|(?:financial\s+)?advisor|wealth\s+advisor"
+    r"|insurance\s+(?:sales|agent))\b", re.I)
+
+# ── SENIOR + ANALYST/SPECIALIST hard filter ──
+_SENIOR_TITLE_RE = re.compile(r"\bsenior\s+(?:analyst|specialist|associate)\b", re.I)
+
+# ── PURE WRONG-LANE TITLES (heavy penalty -25) ──
+_WRONG_LANE_RE = re.compile(
+    r"\b(?:(?:portfolio|investment\s+risk|credit|wealth)\s+analyst"
+    r"|deal\s+desk|conflicts?\s+analyst"
+    r"|(?:data|strategy|product)\s+(?:specialist|analyst)"
+    r"|(?:investment|equity\s+research)\s+analyst"
+    r"|ogc\s+analyst"
+    r"|secured\s+lending"
+    r"|fixed\s+income\s+(?:division|analyst)"
+    r"|(?:cib|corporate)\s+credit)\b", re.I)
+
+# ── WRONG DEPARTMENT AT GOOD FIRMS (penalty -20) ──
+_WRONG_DEPT_RE = re.compile(
+    r"\b(?:recruiting\s+(?:operations|coordinator)"
+    r"|people\s+(?:office|operations|ops)"
+    r"|human\s+resources|(?<!\w)hr\s+(?:coordinator|generalist|specialist)"
+    r"|(?:financial\s+)?accounting|accountant"
+    r"|audit(?:or|ing)?\b"
+    r"|tax\s+(?:analyst|associate))\b", re.I)
 
 
 def _classify_category(title: str, snippet: str) -> tuple[str, int]:
-    """A=100, B=90, C=70, D=30, unclassified=default 70 (tangential).
+    """Title-tier scoring. Returns (label, base_score).
 
-    Key fix: "compliance" anywhere in title = Cat A minimum.
-    "Accountant" = Cat D. Default to Cat C (70) not 25.
+    Tier 1 (100): Direct compliance/ops/onboarding/KYC/AML
+    Tier 2 (85):  Strong ops/trade/clearing/middle office
+    Tier 3 (70):  Conditional risk/controls/surveillance (only at finance firms)
+    Compliance in title (100): Auto Cat A
+    Generic ops from desc (80): Description has compliance signal
+    Wrong lane (30): Pure investment/portfolio/credit/wealth
+    Wrong dept (25): HR/accounting/recruiting at finance firm
     """
     tl = title.lower()
 
-    # Cat D first — wrong universe takes priority over loose keyword matches
-    if _CAT_D.search(title):
-        # Exception: if "compliance" is also in the title, it's financial compliance
-        if "compliance" not in tl:
-            return "wrong_universe", 30
+    # Wrong department — these are NEVER compliance even at Goldman
+    if _WRONG_DEPT_RE.search(title) and "compliance" not in tl:
+        return "wrong_dept", 25
 
-    # Cat A — direct target
-    if _CAT_A.search(title):
-        return "direct_target", 100
+    # Wrong lane — pure investment/portfolio/credit roles
+    if _WRONG_LANE_RE.search(title) and "compliance" not in tl:
+        return "wrong_lane", 30
 
-    # "Compliance" anywhere in title = Cat A even if specific pattern didn't match
+    # Tier 1 — direct compliance/ops target
+    if _TITLE_TIER_1.search(title):
+        return "tier1_direct", 100
+
+    # "Compliance" anywhere in title = Tier 1
     if "compliance" in tl:
-        return "direct_target", 100
+        return "tier1_direct", 100
 
-    # Cat B — cool reach
-    if _CAT_B.search(title):
-        return "cool_reach", 90
+    # Tier 2 — strong ops/trade/clearing
+    if _TITLE_TIER_2.search(title):
+        return "tier2_ops", 85
 
-    # Check snippet for A/B signals if title is generic
-    if _CAT_A.search(snippet[:400]) or "compliance" in snippet[:400].lower():
-        return "direct_from_desc", 90
-    if _CAT_B.search(snippet[:400]):
-        return "reach_from_desc", 80
+    # Tier 3 — conditional (risk, controls, surveillance)
+    if _TITLE_TIER_3.search(title):
+        return "tier3_conditional", 70
 
-    # Cat C — tangential (operations, client service, transitions)
-    if _CAT_C.search(title):
-        return "tangential", 70
+    # Check description for compliance/ops signals
+    snip = snippet[:500].lower()
+    if "compliance" in snip or "kyc" in snip or "aml" in snip or "onboarding" in snip:
+        return "desc_compliance", 80
+    if any(kw in snip for kw in ("trade support", "clearing", "settlement",
+                                  "middle office", "securities operations")):
+        return "desc_ops", 75
 
-    # "Accountant" = wrong universe
-    if "accountant" in tl:
-        return "wrong_universe", 30
+    # Generic operations title
+    if re.search(r"\boperations\s+(?:analyst|associate|specialist|coordinator)\b", title, re.I):
+        return "generic_ops", 65
 
-    # Default: tangential (70), not 25
-    # Most roles that survive the hard gate have SOME finance relevance
-    return "unclassified", 70
+    # Default — no clear signal
+    return "unclassified", 50
 
 
 def _seniority_score(title: str, snippet: str) -> tuple[int, list[str]]:
@@ -816,13 +875,13 @@ def _seniority_score(title: str, snippet: str) -> tuple[int, list[str]]:
 
     # Cliff penalties
     if re.search(r"\bsenior\b", title, re.I):
-        score -= 15; notes.append("senior title")
+        score -= 20; notes.append("senior title")
     if re.search(r"\blead\b", title, re.I):
         score -= 15; notes.append("lead title")
     if re.search(r"\bsupervisor\b", title, re.I):
         score -= 12; notes.append("supervisory")
     if "officer" in tl:
-        score -= 8; notes.append("officer level")
+        score -= 10; notes.append("officer level")
     if "consultant" in tl:
         score -= 8; notes.append("consultant role")
     # 5yr+ = safety net (should be disqualified upstream)
@@ -845,26 +904,62 @@ def _comp_score(salary_text: str) -> tuple[int, list[str]]:
     if annual >= 200000:
         return 30, [f"${annual//1000}K signals senior role"]
     if annual >= 150000:
-        return 60, [f"${annual//1000}K — possibly senior"]
+        return 60, [f"${annual//1000}K -- possibly senior"]
     if annual >= 100000:
         return 95, [f"${annual//1000}K in sweet spot"]
     if annual >= 80000:
         return 90, [f"${annual//1000}K in range"]
     if annual >= 65000:
-        return 75, [f"${annual//1000}K — adequate"]
+        return 75, [f"${annual//1000}K -- adequate"]
     if annual >= 60000:
-        return 60, [f"${annual//1000}K — low but passable"]
-    return 25, [f"${annual//1000}K — below floor"]
+        return 60, [f"${annual//1000}K -- low but passable"]
+    return 25, [f"${annual//1000}K -- below floor"]
 
 
 def score_job(title: str, company: str, snippet: str,
               salary_text: str, location: str) -> dict:
-    """Hire probability: Category (45%) + Seniority (35%) + Comp (20%)."""
+    """Hire probability: Category (45%) + Seniority (35%) + Comp (20%).
+
+    Employer-type layer: law_firm and government = hard filter.
+    Non-finance = hard filter unless compliance title.
+    Staffing agencies scored identically to direct employers on role fit.
+    """
     title_lower = title.lower()
     penalties = []
     boosts = []
 
-    # Hard disqualify
+    # ── EMPLOYER TYPE HARD FILTERS ──
+    emp_type = _employer_type(company)
+
+    if emp_type == "law_firm":
+        return {
+            "score": 0, "bucket": "Disqualified",
+            "reason": "law firm",
+            "risk": "law firm -- not financial services", "role_family": "disqualified",
+            "firm_tier": 0, "firm_label": "law_firm",
+            "penalties": ["law firm"], "boosts": [],
+            "components": {"seniority": 0, "category": 0, "compensation": 0},
+        }
+    if emp_type == "government":
+        return {
+            "score": 0, "bucket": "Disqualified",
+            "reason": "government role",
+            "risk": "government -- not financial services", "role_family": "disqualified",
+            "firm_tier": 0, "firm_label": "government",
+            "penalties": ["government"], "boosts": [],
+            "components": {"seniority": 0, "category": 0, "compensation": 0},
+        }
+    if emp_type == "non_finance" and "compliance" not in title_lower and "regulatory" not in title_lower:
+        return {
+            "score": 0, "bucket": "Disqualified",
+            "reason": "non-financial company, no compliance title",
+            "risk": "not financial services", "role_family": "disqualified",
+            "firm_tier": 0, "firm_label": "non_finance",
+            "penalties": ["non-finance company"], "boosts": [],
+            "components": {"seniority": 0, "category": 0, "compensation": 0},
+        }
+
+    # ── TITLE HARD DISQUALIFIERS ──
     if _DISQUALIFY_RE.search(title):
         return {
             "score": 0, "bucket": "Disqualified",
@@ -875,100 +970,58 @@ def score_job(title: str, company: str, snippet: str,
             "components": {"seniority": 0, "category": 0, "compensation": 0},
         }
 
-    # 1. CATEGORY MATCH (45%)
-    cat_label, cat_score = _classify_category(title, snippet)
-    if cat_label == "wrong_universe":
-        penalties.append("wrong universe")
-    elif cat_label == "unclassified":
-        penalties.append("no category signal")
-    # Data/quant in title = category reach (reduces category, not seniority)
-    if "data" in title_lower and ("compliance" in title_lower or "risk" in title_lower):
-        cat_score = max(0, cat_score - 30)
-        penalties.append("data-focused role (reach)")
+    # Senior + Analyst/Specialist = hard filter (from skipped data)
+    if _SENIOR_TITLE_RE.search(title):
+        return {
+            "score": 0, "bucket": "Disqualified",
+            "reason": "Senior Analyst/Specialist -- too senior",
+            "risk": "senior title", "role_family": "disqualified",
+            "firm_tier": 0, "firm_label": "",
+            "penalties": ["senior title hard filter"], "boosts": [],
+            "components": {"seniority": 0, "category": 0, "compensation": 0},
+        }
 
-    # 2. SENIORITY FIT (35%)
-    sen_score, sen_notes = _seniority_score(title, snippet)
-    penalties.extend([n for n in sen_notes if any(w in n for w in
-        ("senior", "lead", "officer", "supervisor", "experience", "certification",
-         "consultant", "data", "prefers"))])
-    boosts.extend([n for n in sen_notes if any(w in n for w in
-        ("entry", "analyst", "specialist", "Series", "BD", "low exp"))])
-
-    # 3. COMPENSATION (20%)
-    comp_s, comp_notes = _comp_score(salary_text)
-    penalties.extend([n for n in comp_notes if "senior" in n or "below" in n or "low" in n])
-    boosts.extend([n for n in comp_notes if "sweet spot" in n or "in range" in n])
-
-    # Weighted total
-    total = round(cat_score * 0.45 + sen_score * 0.35 + comp_s * 0.20)
-    total = max(0, min(100, total))
-
-    # Staffing agency: -10
-    is_staffing = bool(STAFFING_RE.search(company))
-    if is_staffing:
-        total = max(0, total - 10)
-        penalties.append("staffing agency")
-
-    # ── LEARNED BOOSTS (from Robin's actual apply decisions) ────────────
-    # These title/function patterns came from jobs Robin actually applied to.
-    # They get a meaningful boost because they match his real revealed preference.
-    _APPLIED_PATTERN = re.compile(
-        r"\b(?:compliance\s+(?:coordinator|analyst|specialist)"
-        r"|communications?\s+(?:review|compliance|surveillance)"
-        r"|trade\s+(?:operations|support|ops)"
-        r"|market\s+operations"
-        r"|clearing|correspondent\s+risk"
-        r"|(?:onboarding|account\s+opening)\s+(?:analyst|specialist|associate)"
-        r"|operations\s+(?:specialist|analyst|associate)"
-        r"|transition\s+analyst"
-        r"|brokerage\s+(?:clearing|operations|specialist))\b", re.I)
-
-    if _APPLIED_PATTERN.search(title):
-        total = min(100, total + 8)
-        boosts.append("matches applied pattern")
-
-    # ── LEARNED PENALTIES (from Robin's skip decisions) ────────────────
-    # These are roles Robin consistently skips. They're not hard rejects
-    # (the scoring should still show them if everything else is perfect)
-    # but they get a meaningful penalty.
-    _SKIPPED_PATTERN = re.compile(
-        r"\b(?:wealth\s+(?:relationship|analyst|officer|associate|advisor)"
-        r"|portfolio\s+analyst"
-        r"|(?:cib|corporate)\s+credit"
-        r"|people\s+(?:ops|operations|office)"
-        r"|human\s+resources|(?<!\w)hr\s+(?:coordinator|generalist)"
-        r"|ogc\s+analyst|conflicts?\s+analyst"
-        r"|strategy\s+(?:analyst|advisor|specialist|consultant)"
-        r"|data\s+specialist"
-        r"|deal\s+desk"
-        r"|research\s+(?:analyst|advisor)"
-        r"|investment\s+(?:analyst|risk\s+analyst)"
-        r"|secured\s+lending|fixed\s+income\s+(?:division|analyst)"
-        r"|recruiting\s+(?:operations|coordinator))\b", re.I)
-
-    if _SKIPPED_PATTERN.search(title):
-        total = max(0, total - 12)
-        penalties.append("matches skipped pattern")
-
-    # Bonuses (only if seniority plausible AND no experience/data penalty)
-    has_penalty = any("experience" in p or "data" in p for p in penalties)
-    if sen_score >= 75 and not has_penalty:
-        if any(kw in title_lower for kw in ("analyst", "associate", "specialist", "coordinator")):
-            total = min(100, total + 3)
-        if cat_label in ("direct_target", "direct_from_desc"):
-            total = min(100, total + 3)
-            boosts.append("direct compliance/ops match")
-
-    # Jersey City should be hard-rejected upstream; safety net
+    # Jersey City safety net
     if JC_RE.search(location):
         return {
             "score": 0, "bucket": "Disqualified",
-            "reason": "Jersey City — not NYC",
+            "reason": "Jersey City -- not NYC",
             "risk": "not NYC", "role_family": "disqualified",
             "firm_tier": 0, "firm_label": "",
             "penalties": ["not NYC"], "boosts": [],
             "components": {"seniority": 0, "category": 0, "compensation": 0},
         }
+
+    # ── 1. CATEGORY MATCH (45%) ──
+    cat_label, cat_score = _classify_category(title, snippet)
+    if cat_label in ("wrong_dept", "wrong_lane"):
+        penalties.append(cat_label.replace("_", " "))
+
+    # Elite finance firm boost for Tier 1/2 titles
+    if emp_type == "elite_finance" and cat_label in ("tier1_direct", "tier2_ops"):
+        cat_score = min(100, cat_score + 5)
+        boosts.append("elite firm + strong title")
+
+    # ── 2. SENIORITY FIT (35%) ──
+    sen_score, sen_notes = _seniority_score(title, snippet)
+    penalties.extend([n for n in sen_notes if any(w in n for w in
+        ("senior", "lead", "officer", "supervisor", "experience", "certification",
+         "consultant"))])
+    boosts.extend([n for n in sen_notes if any(w in n for w in
+        ("entry", "analyst", "specialist", "Series", "BD", "low exp"))])
+
+    # ── 3. COMPENSATION (20%) ──
+    comp_s, comp_notes = _comp_score(salary_text)
+    penalties.extend([n for n in comp_notes if "senior" in n or "below" in n or "low" in n])
+    boosts.extend([n for n in comp_notes if "sweet spot" in n or "in range" in n])
+
+    # ── WEIGHTED TOTAL ──
+    total = round(cat_score * 0.45 + sen_score * 0.35 + comp_s * 0.20)
+    total = max(0, min(100, total))
+
+    # NOTE: No staffing penalty. Agencies are just a channel.
+    # Robin applied to Phaxis and OCR Alpha. Score on role fit only.
+    is_staffing = bool(STAFFING_RE.search(company))
 
     # Experience penalty clamp: 3-4yr req caps at Tier 2 (max 79)
     if any("3-4yr" in p for p in penalties):
@@ -991,21 +1044,31 @@ def score_job(title: str, company: str, snippet: str,
     # ── ONE-LINER REASON ─────────────────────────────────────────────────
     parts = []
     cat_labels = {
-        "direct_target": "direct compliance/ops match",
-        "direct_from_desc": "compliance signal in description",
-        "cool_reach": "cool reach role",
-        "reach_from_desc": "adjacent signal in description",
-        "tangential": "tangential fit",
+        "tier1_direct": "direct compliance/ops match",
+        "tier2_ops": "strong ops/trade/clearing match",
+        "tier3_conditional": "risk/controls/surveillance (conditional)",
+        "desc_compliance": "compliance signal in description",
+        "desc_ops": "ops signal in description",
+        "generic_ops": "generic ops role",
+        "wrong_lane": "wrong lane -- not compliance/ops",
+        "wrong_dept": "wrong department",
     }
     if cat_label in cat_labels:
         parts.append(cat_labels[cat_label])
+
+    if emp_type == "elite_finance":
+        parts.append("elite firm")
+    elif emp_type == "finance":
+        parts.append("finance firm")
+    if is_staffing:
+        parts.append("via staffing agency")
 
     if sen_score >= 80:
         parts.append("realistic hire")
     elif sen_score >= 60:
         parts.append("plausible hire")
     elif sen_score < 40:
-        parts.append("stretch — likely too senior")
+        parts.append("stretch -- likely too senior")
 
     if annual:
         if 80000 <= annual <= 150000:
@@ -1025,17 +1088,9 @@ def score_job(title: str, company: str, snippet: str,
     risk = "; ".join(penalties[:3]) if penalties else ""
 
     # Firm tier for downstream use (not in scoring)
-    c = company.lower()
-    if is_staffing:
-        ft, fl = 5, "staffing"
-    elif any(f in c for f in TIER_1_FIRMS):
-        ft, fl = 1, "tier1"
-    elif any(f in c for f in TIER_2_FIRMS):
-        ft, fl = 2, "tier2"
-    elif any(f in c for f in TIER_3_FIRMS):
-        ft, fl = 3, "tier3"
-    else:
-        ft, fl = 4, "other"
+    emp_tier_map = {"elite_finance": (1, "elite_finance"), "finance": (2, "finance"),
+                    "staffing": (5, "staffing"), "non_finance": (4, "non_finance")}
+    ft, fl = emp_tier_map.get(emp_type, (4, "other"))
 
     # Role family for downstream use
     role_family = cat_label
