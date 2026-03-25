@@ -20,64 +20,38 @@ ROOT = Path(__file__).resolve().parent.parent
 # Curated list: firm name -> (ats_type, board_id)
 # ═══════════════════════════════════════════════════════════════════════════════
 
+# Verified working Greenhouse boards (tested 2026-03-24)
 GREENHOUSE_BOARDS = {
-    # Fintech / crypto
-    "Coinbase": "coinbase",
-    "Ramp": "ramp",
-    "Robinhood": "robinhood",
-    "Stripe": "stripe",
-    "Plaid": "plaid",
-    "Anchorage Digital": "anchoragedigital",
-    "Circle": "circle",
-    "Gemini": "gemini",
-    "Ripple": "ripple",
-    "Kraken": "krakendigital",
-    "Paxos": "paxos",
-    "Chainalysis": "chainalysis",
-    "Fireblocks": "fireblocks",
-    "Figure": "figure",
-    # PE / HF / AM
-    "Two Sigma": "twosigma",
-    "Citadel": "citadel",
-    "Point72": "point72",
-    "D.E. Shaw": "deshaw",
-    "Bridgewater": "bridgewaterassociates",
-    "Man Group": "mangroup",
-    "Millennium": "millenniummanagement",
-    "Balyasny": "balyasnyassetmanagement",
-    "Schonfeld": "schonfeld",
-    "Ares Management": "aresmanagement",
-    "General Atlantic": "generalatlantic",
-    "Warburg Pincus": "warburgpincus",
-    "Carlyle": "carlaborationhq",
-    "Apollo": "apollo",
-    "TPG": "tpg",
-    # Mid-market / specialty
-    "Clear Street": "clearstreet",
-    "DriveWealth": "drivewealth",
-    "Marqeta": "marqeta",
-    "Brex": "brex",
-    "SoFi": "solofinance",
-    "Affirm": "affirm",
-    "Adyen": "adyen",
-    # Exchanges
-    "Nasdaq": "nasdaq",
-    "DTCC": "dtcc",
-    "ICE": "theice",
-    "Cboe": "cboe",
+    # Fintech / crypto — verified working
+    "Coinbase": "coinbase",          # 217 jobs
+    "Robinhood": "robinhood",        # 153 jobs
+    "Stripe": "stripe",              # 507 jobs
+    "Gemini": "gemini",              # 11 jobs
+    "Ripple": "ripple",              # 133 jobs
+    "Fireblocks": "fireblocks",      # 74 jobs
+    "Figure": "figure",              # 19 jobs
+    "SoFi": "sofi",                  # 208 jobs (was broken as "solofinance")
+    "Affirm": "affirm",              # 159 jobs
+    # PE / HF / AM — verified working
+    "Point72": "point72",            # 269 jobs
+    "Man Group": "mangroup",         # 58 jobs
+    "Schonfeld": "schonfeld",        # 49 jobs
+    "General Atlantic": "generalatlantic",  # 26 jobs
+    "Warburg Pincus": "warburgpincusllc",   # 3 jobs (was broken as "warburgpincus")
+    "Apollo": "apollo",              # 3 jobs
+    "Jane Street": "janestreet",     # 228 jobs (was in Lever, actually Greenhouse)
+    # Mid-market / specialty — verified working
+    "Clear Street": "clearstreet",   # 46 jobs
+    "DriveWealth": "drivewealth",    # 40 jobs
+    "Marqeta": "marqeta",            # 23 jobs
+    "Brex": "brex",                  # 247 jobs
+    "Adyen": "adyen",                # 289 jobs
 }
+# 21 working boards, ~2500+ total jobs to filter through
 
+# Only verified working Lever boards
 LEVER_BOARDS = {
-    "Webull": "webull",
-    "Virtu Financial": "virtufinancial",
-    "Hudson River Trading": "hudson-river-trading",
-    "Jane Street": "janestreet",
-    "Flow Traders": "flowtraders",
-    "Tower Research": "tower-research-capital",
-    "Akuna Capital": "akunacapital",
-    "Copper": "copperco",
-    "BitGo": "bitgo",
-    "Apex Fintech Solutions": "apexfintechsolutions",
+    "Plaid": "plaid",                # 95 jobs (was in Greenhouse, actually Lever)
 }
 
 # Role-family keywords for filtering ATS results

@@ -130,22 +130,35 @@ ALL_QUERIES = []
 for cluster_queries in QUERY_CLUSTERS.values():
     ALL_QUERIES.extend(cluster_queries)
 
-BROWSER_HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/124.0.0.0 Safari/537.36"
-    ),
-    "Accept": (
-        "text/html,application/xhtml+xml,application/xml;q=0.9,"
-        "image/avif,image/webp,*/*;q=0.8"
-    ),
-    "Accept-Language": "en-US,en;q=0.9",
-    "Cache-Control": "no-cache",
-    "Pragma": "no-cache",
-    "Referer": "https://www.google.com/",
-    "Upgrade-Insecure-Requests": "1",
-}
+# Rotate user agents to avoid fingerprinting
+_USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Safari/605.1.15",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0",
+]
+
+def _get_headers() -> dict:
+    return {
+        "User-Agent": random.choice(_USER_AGENTS),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Cache-Control": "no-cache",
+        "Pragma": "no-cache",
+        "Referer": "https://www.google.com/",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "cross-site",
+        "Sec-Fetch-User": "?1",
+        "DNT": "1",
+    }
+
+# Keep a static copy for code that references it
+BROWSER_HEADERS = _get_headers()
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HARD REJECT PATTERNS — only truly impossible jobs
@@ -444,9 +457,27 @@ def _extract(block: str, pattern: str) -> str:
 def _fetch(url: str, params: dict | None = None, timeout: int = 20) -> str:
     if params:
         url = f"{url}?{urllib.parse.urlencode(params, doseq=True)}"
-    req = urllib.request.Request(url, headers=BROWSER_HEADERS)
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        return resp.read().decode("utf-8", errors="replace")
+    req = urllib.request.Request(url, headers=_get_headers())
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            data = resp.read()
+            # Handle gzip
+            if resp.headers.get("Content-Encoding") == "gzip":
+                import gzip
+                data = gzip.decompress(data)
+            return data.decode("utf-8", errors="replace")
+    except urllib.error.HTTPError as e:
+        if e.code in (401, 403, 429):
+            # Rate limited — back off and retry once
+            time.sleep(random.uniform(3, 6))
+            req2 = urllib.request.Request(url, headers=_get_headers())
+            with urllib.request.urlopen(req2, timeout=timeout) as resp:
+                data = resp.read()
+                if resp.headers.get("Content-Encoding") == "gzip":
+                    import gzip
+                    data = gzip.decompress(data)
+                return data.decode("utf-8", errors="replace")
+        raise
 
 
 def _parse_salary_annual(salary_text: str) -> int | None:
@@ -676,20 +707,48 @@ _DISQUALIFY_RE = re.compile(
 
 
 def _classify_category(title: str, snippet: str) -> tuple[str, int]:
-    """A=100, B=90, C=70, D=30, unclassified=25."""
+    """A=100, B=90, C=70, D=30, unclassified=default 70 (tangential).
+
+    Key fix: "compliance" anywhere in title = Cat A minimum.
+    "Accountant" = Cat D. Default to Cat C (70) not 25.
+    """
+    tl = title.lower()
+
+    # Cat D first — wrong universe takes priority over loose keyword matches
+    if _CAT_D.search(title):
+        # Exception: if "compliance" is also in the title, it's financial compliance
+        if "compliance" not in tl:
+            return "wrong_universe", 30
+
+    # Cat A — direct target
     if _CAT_A.search(title):
         return "direct_target", 100
+
+    # "Compliance" anywhere in title = Cat A even if specific pattern didn't match
+    if "compliance" in tl:
+        return "direct_target", 100
+
+    # Cat B — cool reach
     if _CAT_B.search(title):
         return "cool_reach", 90
-    if _CAT_A.search(snippet[:400]):
+
+    # Check snippet for A/B signals if title is generic
+    if _CAT_A.search(snippet[:400]) or "compliance" in snippet[:400].lower():
         return "direct_from_desc", 90
     if _CAT_B.search(snippet[:400]):
         return "reach_from_desc", 80
+
+    # Cat C — tangential (operations, client service, transitions)
     if _CAT_C.search(title):
         return "tangential", 70
-    if _CAT_D.search(title):
+
+    # "Accountant" = wrong universe
+    if "accountant" in tl:
         return "wrong_universe", 30
-    return "unclassified", 25
+
+    # Default: tangential (70), not 25
+    # Most roles that survive the hard gate have SOME finance relevance
+    return "unclassified", 70
 
 
 def _seniority_score(title: str, snippet: str) -> tuple[int, list[str]]:
@@ -849,9 +908,9 @@ def score_job(title: str, company: str, snippet: str,
     parts = []
     cat_labels = {
         "direct_target": "direct compliance/ops match",
-        "direct_target_from_desc": "compliance signal in description",
-        "strong_adjacent": "strong adjacent role",
-        "adjacent_from_desc": "adjacent signal in description",
+        "direct_from_desc": "compliance signal in description",
+        "cool_reach": "cool reach role",
+        "reach_from_desc": "adjacent signal in description",
         "tangential": "tangential fit",
     }
     if cat_label in cat_labels:
@@ -992,8 +1051,8 @@ def scrape_indeed(queries: list[str] | None = None,
             all_jobs.extend(page_jobs)
             if len(page_jobs) < 8:
                 break
-            time.sleep(random.uniform(0.8, 1.8))
-        time.sleep(random.uniform(0.4, 1.0))
+            time.sleep(random.uniform(2.0, 4.0))  # longer delay between pages
+        time.sleep(random.uniform(1.5, 3.5))  # longer delay between queries
 
         query_audit[query] = qa
 

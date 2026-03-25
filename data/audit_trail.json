@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-24T23:49:13.361469+00:00",
+  "timestamp": "2026-03-25T00:19:25.754707+00:00",
   "sources": {
     "indeed": {
       "query_count": 62,
@@ -8,19 +8,173 @@
       "blocked_queries": 0,
       "failed_queries": 62,
       "query_detail": {
-        "investment adviser compliance": {
-          "query": "investment adviser compliance",
+        "trade surveillance analyst": {
+          "query": "trade surveillance analyst",
           "raw": 0,
           "unique": 0,
           "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
+          "error": "HTTP Error 403: Forbidden"
         },
         "regulatory operations analyst": {
           "query": "regulatory operations analyst",
           "raw": 0,
           "unique": 0,
           "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "due diligence analyst": {
+          "query": "due diligence analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "client onboarding analyst financial": {
+          "query": "client onboarding analyst financial",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "licensing analyst FINRA": {
+          "query": "licensing analyst FINRA",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "fund accounting analyst": {
+          "query": "fund accounting analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "compliance data analyst": {
+          "query": "compliance data analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "compliance specialist bank": {
+          "query": "compliance specialist bank",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "operational risk analyst": {
+          "query": "operational risk analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "anti money laundering analyst": {
+          "query": "anti money laundering analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "transaction monitoring analyst": {
+          "query": "transaction monitoring analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "fund compliance analyst": {
+          "query": "fund compliance analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "enhanced due diligence analyst": {
+          "query": "enhanced due diligence analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "first line risk": {
+          "query": "first line risk",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "trade support analyst": {
+          "query": "trade support analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "compliance coordinator financial": {
+          "query": "compliance coordinator financial",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "BSA analyst": {
+          "query": "BSA analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "controls analyst financial": {
+          "query": "controls analyst financial",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "trade compliance analyst": {
+          "query": "trade compliance analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "compliance analytics analyst": {
+          "query": "compliance analytics analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "compliance associate": {
+          "query": "compliance associate",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "controls advisory": {
+          "query": "controls advisory",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "financial crimes analyst": {
+          "query": "financial crimes analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "capital markets compliance": {
+          "query": "capital markets compliance",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
         },
         "settlement operations analyst": {
           "query": "settlement operations analyst",
@@ -34,213 +188,45 @@
           "raw": 0,
           "unique": 0,
           "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "enhanced due diligence analyst": {
-          "query": "enhanced due diligence analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "governance analyst bank": {
-          "query": "governance analyst bank",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "registration analyst broker dealer": {
-          "query": "registration analyst broker dealer",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "securities operations analyst": {
-          "query": "securities operations analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "internal controls analyst": {
-          "query": "internal controls analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "FINRA compliance": {
-          "query": "FINRA compliance",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "client service associate investment": {
-          "query": "client service associate investment",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "regulatory reporting analyst": {
-          "query": "regulatory reporting analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "compliance monitoring": {
-          "query": "compliance monitoring",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "operational risk analyst": {
-          "query": "operational risk analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "asset management compliance": {
-          "query": "asset management compliance",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "operations associate bank financial": {
-          "query": "operations associate bank financial",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "controls advisory": {
-          "query": "controls advisory",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "CDD analyst financial": {
-          "query": "CDD analyst financial",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "transaction monitoring analyst": {
-          "query": "transaction monitoring analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "middle office analyst": {
-          "query": "middle office analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "compliance analytics analyst": {
-          "query": "compliance analytics analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "client onboarding analyst financial": {
-          "query": "client onboarding analyst financial",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "compliance operations financial": {
-          "query": "compliance operations financial",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "anti money laundering analyst": {
-          "query": "anti money laundering analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "risk associate financial services": {
-          "query": "risk associate financial services",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "financial crime analyst": {
-          "query": "financial crime analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "fund compliance analyst": {
-          "query": "fund compliance analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
+          "error": "HTTP Error 403: Forbidden"
         },
         "surveillance analyst financial": {
           "query": "surveillance analyst financial",
           "raw": 0,
           "unique": 0,
           "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
+          "error": "HTTP Error 403: Forbidden"
         },
-        "due diligence analyst": {
-          "query": "due diligence analyst",
+        "communications surveillance": {
+          "query": "communications surveillance",
           "raw": 0,
           "unique": 0,
           "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
+          "error": "HTTP Error 403: Forbidden"
         },
-        "compliance coordinator financial": {
-          "query": "compliance coordinator financial",
+        "internal controls analyst": {
+          "query": "internal controls analyst",
           "raw": 0,
           "unique": 0,
           "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
+          "error": "HTTP Error 403: Forbidden"
         },
-        "compliance analyst": {
-          "query": "compliance analyst",
+        "asset management compliance": {
+          "query": "asset management compliance",
           "raw": 0,
           "unique": 0,
           "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
+          "error": "HTTP Error 403: Forbidden"
         },
-        "financial crimes analyst": {
-          "query": "financial crimes analyst",
+        "onboarding analyst bank": {
+          "query": "onboarding analyst bank",
           "raw": 0,
           "unique": 0,
           "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
+          "error": "HTTP Error 403: Forbidden"
         },
-        "compliance testing": {
-          "query": "compliance testing",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "capital markets compliance": {
-          "query": "capital markets compliance",
+        "registration analyst broker dealer": {
+          "query": "registration analyst broker dealer",
           "raw": 0,
           "unique": 0,
           "pages": 0,
@@ -251,38 +237,38 @@
           "raw": 0,
           "unique": 0,
           "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "middle office analyst": {
+          "query": "middle office analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "clearing operations analyst": {
+          "query": "clearing operations analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "investment adviser compliance": {
+          "query": "investment adviser compliance",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "compliance testing": {
+          "query": "compliance testing",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
         },
         "account opening analyst financial": {
           "query": "account opening analyst financial",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "KYC associate": {
-          "query": "KYC associate",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "BSA analyst": {
-          "query": "BSA analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "operations analyst investment bank": {
-          "query": "operations analyst investment bank",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "compliance associate": {
-          "query": "compliance associate",
           "raw": 0,
           "unique": 0,
           "pages": 0,
@@ -293,150 +279,164 @@
           "raw": 0,
           "unique": 0,
           "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
+          "error": "HTTP Error 403: Forbidden"
         },
-        "controls analyst financial": {
-          "query": "controls analyst financial",
+        "CDD analyst financial": {
+          "query": "CDD analyst financial",
           "raw": 0,
           "unique": 0,
           "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "fund accounting analyst": {
-          "query": "fund accounting analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "broker dealer compliance": {
-          "query": "broker dealer compliance",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "onboarding analyst bank": {
-          "query": "onboarding analyst bank",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "trade surveillance analyst": {
-          "query": "trade surveillance analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "communications surveillance": {
-          "query": "communications surveillance",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "compliance specialist bank": {
-          "query": "compliance specialist bank",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "compliance data analyst": {
-          "query": "compliance data analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "AML associate": {
-          "query": "AML associate",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "investment compliance analyst": {
-          "query": "investment compliance analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "sanctions analyst": {
-          "query": "sanctions analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "regulatory compliance analyst": {
-          "query": "regulatory compliance analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "first line risk": {
-          "query": "first line risk",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "trade support analyst": {
-          "query": "trade support analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
+          "error": "HTTP Error 403: Forbidden"
         },
         "AML analyst": {
           "query": "AML analyst",
           "raw": 0,
           "unique": 0,
           "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "market surveillance": {
-          "query": "market surveillance",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "clearing operations analyst": {
-          "query": "clearing operations analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "trade compliance analyst": {
-          "query": "trade compliance analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
-        },
-        "licensing analyst FINRA": {
-          "query": "licensing analyst FINRA",
-          "raw": 0,
-          "unique": 0,
-          "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
+          "error": "HTTP Error 403: Forbidden"
         },
         "risk analyst bank": {
           "query": "risk analyst bank",
           "raw": 0,
           "unique": 0,
           "pages": 0,
-          "error": "HTTP Error 401: Unauthorized"
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "securities operations analyst": {
+          "query": "securities operations analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "sanctions analyst": {
+          "query": "sanctions analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "operations analyst investment bank": {
+          "query": "operations analyst investment bank",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "KYC associate": {
+          "query": "KYC associate",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "investment compliance analyst": {
+          "query": "investment compliance analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "regulatory compliance analyst": {
+          "query": "regulatory compliance analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "financial crime analyst": {
+          "query": "financial crime analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "market surveillance": {
+          "query": "market surveillance",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "FINRA compliance": {
+          "query": "FINRA compliance",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "AML associate": {
+          "query": "AML associate",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "compliance analyst": {
+          "query": "compliance analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "operations associate bank financial": {
+          "query": "operations associate bank financial",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "regulatory reporting analyst": {
+          "query": "regulatory reporting analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "broker dealer compliance": {
+          "query": "broker dealer compliance",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "compliance operations financial": {
+          "query": "compliance operations financial",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "governance analyst bank": {
+          "query": "governance analyst bank",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
         },
         "KYC analyst": {
           "query": "KYC analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "client service associate investment": {
+          "query": "client service associate investment",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "risk associate financial services": {
+          "query": "risk associate financial services",
+          "raw": 0,
+          "unique": 0,
+          "pages": 0,
+          "error": "HTTP Error 403: Forbidden"
+        },
+        "compliance monitoring": {
+          "query": "compliance monitoring",
           "raw": 0,
           "unique": 0,
           "pages": 0,
@@ -445,20 +445,17 @@
       }
     },
     "greenhouse": {
-      "boards_checked": 40,
-      "boards_with_jobs": 18,
-      "raw": 2323,
-      "relevant": 180,
-      "nyc": 33,
-      "errors": 22,
+      "boards_checked": 21,
+      "boards_with_jobs": 21,
+      "raw": 2762,
+      "relevant": 199,
+      "nyc": 40,
+      "errors": 0,
       "firm_detail": {
         "Coinbase": {
           "total": 217,
           "relevant": 24,
           "nyc": 0
-        },
-        "Ramp": {
-          "error": "HTTP Error 404: Not Found"
         },
         "Robinhood": {
           "total": 153,
@@ -470,15 +467,6 @@
           "relevant": 53,
           "nyc": 2
         },
-        "Plaid": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Anchorage Digital": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Circle": {
-          "error": "HTTP Error 404: Not Found"
-        },
         "Gemini": {
           "total": 11,
           "relevant": 0,
@@ -488,15 +476,6 @@
           "total": 133,
           "relevant": 2,
           "nyc": 0
-        },
-        "Kraken": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Paxos": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Chainalysis": {
-          "error": "HTTP Error 404: Not Found"
         },
         "Fireblocks": {
           "total": 74,
@@ -508,41 +487,30 @@
           "relevant": 1,
           "nyc": 0
         },
-        "Two Sigma": {
-          "error": "HTTP Error 404: Not Found"
+        "SoFi": {
+          "total": 208,
+          "relevant": 1,
+          "nyc": 0
         },
-        "Citadel": {
-          "error": "HTTP Error 404: Not Found"
+        "Affirm": {
+          "total": 159,
+          "relevant": 4,
+          "nyc": 0
         },
         "Point72": {
           "total": 269,
           "relevant": 20,
           "nyc": 9
         },
-        "D.E. Shaw": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Bridgewater": {
-          "error": "HTTP Error 404: Not Found"
-        },
         "Man Group": {
           "total": 58,
           "relevant": 12,
           "nyc": 2
         },
-        "Millennium": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Balyasny": {
-          "error": "HTTP Error 404: Not Found"
-        },
         "Schonfeld": {
           "total": 49,
           "relevant": 9,
           "nyc": 6
-        },
-        "Ares Management": {
-          "error": "HTTP Error 404: Not Found"
         },
         "General Atlantic": {
           "total": 26,
@@ -550,18 +518,19 @@
           "nyc": 0
         },
         "Warburg Pincus": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Carlyle": {
-          "error": "HTTP Error 404: Not Found"
+          "total": 3,
+          "relevant": 0,
+          "nyc": 0
         },
         "Apollo": {
           "total": 3,
           "relevant": 0,
           "nyc": 0
         },
-        "TPG": {
-          "error": "HTTP Error 404: Not Found"
+        "Jane Street": {
+          "total": 228,
+          "relevant": 18,
+          "nyc": 7
         },
         "Clear Street": {
           "total": 46,
@@ -583,70 +552,25 @@
           "relevant": 2,
           "nyc": 0
         },
-        "SoFi": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Affirm": {
-          "total": 159,
-          "relevant": 4,
-          "nyc": 0
-        },
         "Adyen": {
           "total": 289,
           "relevant": 28,
           "nyc": 2
-        },
-        "Nasdaq": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "DTCC": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "ICE": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Cboe": {
-          "error": "HTTP Error 404: Not Found"
         }
       }
     },
     "lever": {
-      "boards_checked": 10,
-      "boards_with_jobs": 0,
-      "raw": 0,
-      "relevant": 0,
-      "nyc": 0,
-      "errors": 10,
+      "boards_checked": 1,
+      "boards_with_jobs": 1,
+      "raw": 95,
+      "relevant": 4,
+      "nyc": 1,
+      "errors": 0,
       "firm_detail": {
-        "Webull": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Virtu Financial": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Hudson River Trading": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Jane Street": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Flow Traders": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Tower Research": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Akuna Capital": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Copper": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "BitGo": {
-          "error": "HTTP Error 404: Not Found"
-        },
-        "Apex Fintech Solutions": {
-          "error": "HTTP Error 404: Not Found"
+        "Plaid": {
+          "total": 95,
+          "relevant": 4,
+          "nyc": 1
         }
       }
     },
@@ -669,26 +593,28 @@
       "top_firms": []
     },
     "greenhouse": {
-      "total": 6,
-      "strong_target": 1,
-      "strong_bridge": 0,
-      "direct_employer": 6,
+      "total": 11,
+      "strong_target": 7,
+      "strong_bridge": 2,
+      "direct_employer": 11,
       "staffing": 0,
       "top_firms": [
+        "Jane Street",
         "Stripe",
+        "Robinhood",
         "DriveWealth",
-        "Clear Street",
-        "Schonfeld",
-        "Robinhood"
+        "Schonfeld"
       ]
     },
     "lever": {
-      "total": 0,
-      "strong_target": 0,
+      "total": 1,
+      "strong_target": 1,
       "strong_bridge": 0,
-      "direct_employer": 0,
+      "direct_employer": 1,
       "staffing": 0,
-      "top_firms": []
+      "top_firms": [
+        "Plaid"
+      ]
     },
     "efinancialcareers": {
       "total": 0,
@@ -700,7 +626,7 @@
     }
   },
   "reject_reasons": {},
-  "suppress_count": 27,
+  "suppress_count": 28,
   "suppress_detail": [
     {
       "title": "Crypto AML Investigator",
@@ -824,13 +750,13 @@
     }
   ],
   "buckets": {
-    "Tier 1 — Apply Immediately": 1,
-    "Tier 3 — Low Priority": 4,
-    "Below Threshold": 1,
-    "Tier 2 — Review & Apply": 0
+    "Tier 1 — Apply Immediately": 8,
+    "Tier 2 — Review & Apply": 2,
+    "Tier 3 — Low Priority": 2,
+    "Below Threshold": 0
   },
-  "total_scored": 6,
-  "total_visible": 5,
+  "total_scored": 12,
+  "total_visible": 12,
   "top_10": [
     {
       "title": "Affiliate Services Licensing Specialist, Regulatory Affairs ",
@@ -842,19 +768,64 @@
       "firm_tier": 2
     },
     {
-      "title": "Brokerage Clearing Specialist, Purchase & Sales Operations",
-      "company": "DriveWealth",
-      "score": 60,
-      "bucket": "Tier 3 — Low Priority",
+      "title": "Compliance Coordinator",
+      "company": "Jane Street",
+      "score": 97,
+      "bucket": "Tier 1 — Apply Immediately",
       "source": "greenhouse",
-      "role_family": "unclassified",
+      "role_family": "direct_target",
+      "firm_tier": 1
+    },
+    {
+      "title": "Compliance Specialist, Global Communications Review",
+      "company": "Jane Street",
+      "score": 97,
+      "bucket": "Tier 1 — Apply Immediately",
+      "source": "greenhouse",
+      "role_family": "direct_target",
+      "firm_tier": 1
+    },
+    {
+      "title": "Risk Analyst, Customer Oversight",
+      "company": "Plaid",
+      "score": 90,
+      "bucket": "Tier 1 — Apply Immediately",
+      "source": "lever",
+      "role_family": "cool_reach",
       "firm_tier": 2
     },
     {
-      "title": "Senior Associate - Accountant, Broker Dealer",
-      "company": "Clear Street",
-      "score": 55,
-      "bucket": "Tier 3 — Low Priority",
+      "title": "Communications Compliance Senior Specialist",
+      "company": "Robinhood",
+      "score": 86,
+      "bucket": "Tier 1 — Apply Immediately",
+      "source": "greenhouse",
+      "role_family": "direct_target",
+      "firm_tier": 2
+    },
+    {
+      "title": "Data Specialist",
+      "company": "Jane Street",
+      "score": 80,
+      "bucket": "Tier 1 — Apply Immediately",
+      "source": "greenhouse",
+      "role_family": "unclassified",
+      "firm_tier": 1
+    },
+    {
+      "title": "Strategy and Product Specialist",
+      "company": "Jane Street",
+      "score": 80,
+      "bucket": "Tier 1 — Apply Immediately",
+      "source": "greenhouse",
+      "role_family": "unclassified",
+      "firm_tier": 1
+    },
+    {
+      "title": "Brokerage Clearing Specialist, Purchase & Sales Operations",
+      "company": "DriveWealth",
+      "score": 80,
+      "bucket": "Tier 1 — Apply Immediately",
       "source": "greenhouse",
       "role_family": "unclassified",
       "firm_tier": 2
@@ -862,26 +833,17 @@
     {
       "title": "Research & Strategy Advisor, Schonfeld Family Office",
       "company": "Schonfeld",
-      "score": 54,
-      "bucket": "Tier 3 — Low Priority",
+      "score": 74,
+      "bucket": "Tier 2 — Review & Apply",
       "source": "greenhouse",
       "role_family": "unclassified",
       "firm_tier": 1
     },
     {
-      "title": "Communications Compliance Senior Specialist",
-      "company": "Robinhood",
-      "score": 52,
-      "bucket": "Tier 3 — Low Priority",
-      "source": "greenhouse",
-      "role_family": "unclassified",
-      "firm_tier": 2
-    },
-    {
       "title": "Regulatory Licensing and Affairs Team Lead - North America",
       "company": "Adyen",
-      "score": 49,
-      "bucket": "Below Threshold",
+      "score": 69,
+      "bucket": "Tier 2 — Review & Apply",
       "source": "greenhouse",
       "role_family": "unclassified",
       "firm_tier": 2
