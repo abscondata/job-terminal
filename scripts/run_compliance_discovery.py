@@ -690,9 +690,21 @@ _CAT_D = re.compile(
     r"\b(?:audit(?:or|ing)?|accounting|tax\s+(?:analyst|associate)"
     r"|credit\s+(?:analyst|officer)"
     r"|IT\s+(?:compliance|risk|security)"
-    r"|marketing|recruiting|talent"
+    r"|marketing|recruiting|talent\s+(?:acquisition|partner)"
     r"|branch\s+exam(?:iner|ination)"
-    r"|insurance\s+(?:sales|agent)|call\s+center)\b", re.I)
+    r"|insurance\s+(?:sales|agent)|call\s+center"
+    # Non-compliance functions that sometimes appear at finance firms
+    r"|data\s+(?:scientist|engineer|science)"
+    r"|(?:software|backend|frontend|fullstack)\s+engineer"
+    r"|product\s+(?:manager|designer|owner)"
+    r"|strategy\s+(?:analyst|associate|advisor|consultant)"
+    r"|(?:ux|ui)\s+design"
+    r"|recruiting\s+(?:operations|coordinator|specialist)"
+    r"|human\s+resources|(?<!\w)hr\s+(?:analyst|coordinator|specialist)"
+    r"|financial\s+(?:advisor|planner|consultant)"
+    r"|(?:investment|equity\s+research)\s+analyst"
+    r"|corporate\s+(?:development|strategy)"
+    r"|accountant)\b", re.I)
 
 # Hard disqualifier — score = 0, never show
 _DISQUALIFY_RE = re.compile(
@@ -1075,7 +1087,7 @@ def scrape_indeed(queries: list[str] | None = None,
 
 def _cross_source_dedup(jobs: list[dict]) -> list[dict]:
     """Deduplicate across sources. Same company+title = keep the one with better source."""
-    SOURCE_PRIORITY = {"greenhouse": 1, "lever": 2, "efinancialcareers": 3, "indeed": 4}
+    SOURCE_PRIORITY = {"linkedin": 1, "greenhouse": 2, "lever": 3, "efinancialcareers": 4, "indeed": 5}
     seen: dict[str, dict] = {}  # key -> best job
     for job in jobs:
         c = _norm_company(job["company"])
@@ -1126,6 +1138,19 @@ def run_pipeline() -> dict:
         source_audits["lever"] = {"error": str(exc)[:80]}
         print(f"  Greenhouse/Lever FAILED: {exc}")
 
+    print("\n[2/6] Scraping LinkedIn (primary source)...")
+    try:
+        from scripts.source_linkedin import scrape_all as scrape_linkedin
+        li_jobs, li_audit = scrape_linkedin(max_pages_per_query=3, max_detail_fetches=150)
+        source_audits["linkedin"] = li_audit
+        print(f"  LinkedIn: {li_audit['unique_after_dedup']} unique from "
+              f"{li_audit['total_raw']} raw across {li_audit['queries_run']} queries "
+              f"({li_audit['descriptions_fetched']} descriptions fetched)")
+    except Exception as exc:
+        li_jobs = []
+        source_audits["linkedin"] = {"error": str(exc)[:80]}
+        print(f"  LinkedIn FAILED: {exc}")
+
     print("\n[2/6] Scraping eFinancialCareers...")
     try:
         from scripts.source_efinancialcareers import scrape as scrape_efc
@@ -1138,8 +1163,8 @@ def run_pipeline() -> dict:
         source_audits["efinancialcareers"] = {"error": str(exc)[:80]}
         print(f"  eFinancialCareers FAILED: {exc}")
 
-    # Combine all sources
-    all_raw = indeed_jobs + gh_lv_jobs + efc_jobs
+    # Combine all sources — LinkedIn first (primary)
+    all_raw = li_jobs + gh_lv_jobs + indeed_jobs + efc_jobs
     print(f"\n  TOTAL RAW: {len(all_raw)} jobs across all sources")
 
     # Cross-source dedup
@@ -1224,7 +1249,7 @@ def run_pipeline() -> dict:
     # ── SOURCE-BY-SOURCE YIELD ─────────────────────────────────────────────
     print("\n[5/6] Source-by-source yield:")
     source_yield = {}
-    for src_name in ("indeed", "greenhouse", "lever", "efinancialcareers"):
+    for src_name in ("linkedin", "indeed", "greenhouse", "lever", "efinancialcareers"):
         src_jobs = [j for j in passed if j.get("source", "indeed") == src_name]
         src_st = sum(1 for j in src_jobs if j["score"] >= 80)
         src_sb = sum(1 for j in src_jobs if 65 <= j["score"] < 80)
