@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-25T23:46:40.759236+00:00",
+  "timestamp": "2026-03-26T00:30:10.630795+00:00",
   "sources": {
     "indeed": {
       "query_count": 62,
@@ -8,120 +8,8 @@
       "blocked_queries": 0,
       "failed_queries": 0,
       "query_detail": {
-        "compliance testing": {
-          "query": "compliance testing",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "securities operations analyst": {
-          "query": "securities operations analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "compliance data analyst": {
-          "query": "compliance data analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "internal controls analyst": {
-          "query": "internal controls analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "compliance analytics analyst": {
-          "query": "compliance analytics analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "transaction monitoring analyst": {
-          "query": "transaction monitoring analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "regulatory compliance analyst": {
-          "query": "regulatory compliance analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "risk analyst bank": {
-          "query": "risk analyst bank",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "controls advisory": {
-          "query": "controls advisory",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "regulatory operations analyst": {
-          "query": "regulatory operations analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "clearing operations analyst": {
-          "query": "clearing operations analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "FINRA compliance": {
-          "query": "FINRA compliance",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "financial crimes analyst": {
-          "query": "financial crimes analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "trade compliance analyst": {
-          "query": "trade compliance analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "fund compliance analyst": {
-          "query": "fund compliance analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "licensing analyst FINRA": {
-          "query": "licensing analyst FINRA",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "due diligence analyst": {
-          "query": "due diligence analyst",
+        "fund accounting analyst": {
+          "query": "fund accounting analyst",
           "raw": 0,
           "unique": 0,
           "pages": 1,
@@ -134,20 +22,6 @@
           "pages": 1,
           "error": null
         },
-        "compliance operations financial": {
-          "query": "compliance operations financial",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "operations associate bank financial": {
-          "query": "operations associate bank financial",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
         "middle office analyst": {
           "query": "middle office analyst",
           "raw": 0,
@@ -155,127 +29,15 @@
           "pages": 1,
           "error": null
         },
-        "sanctions analyst": {
-          "query": "sanctions analyst",
+        "FINRA compliance": {
+          "query": "FINRA compliance",
           "raw": 0,
           "unique": 0,
           "pages": 1,
           "error": null
         },
-        "regulatory reporting analyst": {
-          "query": "regulatory reporting analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "communications surveillance": {
-          "query": "communications surveillance",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "KYC associate": {
-          "query": "KYC associate",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "controls analyst financial": {
-          "query": "controls analyst financial",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "enhanced due diligence analyst": {
-          "query": "enhanced due diligence analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "client service associate investment": {
-          "query": "client service associate investment",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "compliance coordinator financial": {
-          "query": "compliance coordinator financial",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "compliance associate": {
-          "query": "compliance associate",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "governance analyst bank": {
-          "query": "governance analyst bank",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "AML associate": {
-          "query": "AML associate",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "market surveillance": {
-          "query": "market surveillance",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "surveillance analyst financial": {
-          "query": "surveillance analyst financial",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "AML analyst": {
-          "query": "AML analyst",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "CDD analyst financial": {
-          "query": "CDD analyst financial",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "onboarding analyst bank": {
-          "query": "onboarding analyst bank",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "asset management compliance": {
-          "query": "asset management compliance",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "risk associate financial services": {
-          "query": "risk associate financial services",
+        "investment adviser compliance": {
+          "query": "investment adviser compliance",
           "raw": 0,
           "unique": 0,
           "pages": 1,
@@ -295,29 +57,15 @@
           "pages": 1,
           "error": null
         },
-        "client onboarding analyst financial": {
-          "query": "client onboarding analyst financial",
+        "clearing operations analyst": {
+          "query": "clearing operations analyst",
           "raw": 0,
           "unique": 0,
           "pages": 1,
           "error": null
         },
-        "risk analytics financial": {
-          "query": "risk analytics financial",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "account opening analyst financial": {
-          "query": "account opening analyst financial",
-          "raw": 0,
-          "unique": 0,
-          "pages": 1,
-          "error": null
-        },
-        "trade surveillance analyst": {
-          "query": "trade surveillance analyst",
+        "KYC associate": {
+          "query": "KYC associate",
           "raw": 0,
           "unique": 0,
           "pages": 1,
@@ -330,22 +78,85 @@
           "pages": 1,
           "error": null
         },
-        "financial crime analyst": {
-          "query": "financial crime analyst",
+        "asset management compliance": {
+          "query": "asset management compliance",
           "raw": 0,
           "unique": 0,
           "pages": 1,
           "error": null
         },
-        "KYC analyst": {
-          "query": "KYC analyst",
+        "sanctions analyst": {
+          "query": "sanctions analyst",
           "raw": 0,
           "unique": 0,
           "pages": 1,
           "error": null
         },
-        "registration analyst broker dealer": {
-          "query": "registration analyst broker dealer",
+        "investment compliance analyst": {
+          "query": "investment compliance analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "regulatory reporting analyst": {
+          "query": "regulatory reporting analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "regulatory compliance analyst": {
+          "query": "regulatory compliance analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "risk analytics financial": {
+          "query": "risk analytics financial",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "trade compliance analyst": {
+          "query": "trade compliance analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "enhanced due diligence analyst": {
+          "query": "enhanced due diligence analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "fund compliance analyst": {
+          "query": "fund compliance analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "compliance monitoring": {
+          "query": "compliance monitoring",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "governance analyst bank": {
+          "query": "governance analyst bank",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "compliance data analyst": {
+          "query": "compliance data analyst",
           "raw": 0,
           "unique": 0,
           "pages": 1,
@@ -358,6 +169,27 @@
           "pages": 1,
           "error": null
         },
+        "AML analyst": {
+          "query": "AML analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "compliance coordinator financial": {
+          "query": "compliance coordinator financial",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "compliance operations financial": {
+          "query": "compliance operations financial",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
         "anti money laundering analyst": {
           "query": "anti money laundering analyst",
           "raw": 0,
@@ -365,22 +197,134 @@
           "pages": 1,
           "error": null
         },
-        "capital markets compliance": {
-          "query": "capital markets compliance",
+        "regulatory operations analyst": {
+          "query": "regulatory operations analyst",
           "raw": 0,
           "unique": 0,
           "pages": 1,
           "error": null
         },
-        "operations analyst investment bank": {
-          "query": "operations analyst investment bank",
+        "AML associate": {
+          "query": "AML associate",
           "raw": 0,
           "unique": 0,
           "pages": 1,
           "error": null
         },
-        "fund accounting analyst": {
-          "query": "fund accounting analyst",
+        "risk analyst bank": {
+          "query": "risk analyst bank",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "onboarding analyst bank": {
+          "query": "onboarding analyst bank",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "licensing analyst FINRA": {
+          "query": "licensing analyst FINRA",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "communications surveillance": {
+          "query": "communications surveillance",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "financial crime analyst": {
+          "query": "financial crime analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "surveillance analyst financial": {
+          "query": "surveillance analyst financial",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "trade surveillance analyst": {
+          "query": "trade surveillance analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "KYC analyst": {
+          "query": "KYC analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "internal controls analyst": {
+          "query": "internal controls analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "client onboarding analyst financial": {
+          "query": "client onboarding analyst financial",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "BSA analyst": {
+          "query": "BSA analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "transaction monitoring analyst": {
+          "query": "transaction monitoring analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "compliance testing": {
+          "query": "compliance testing",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "market surveillance": {
+          "query": "market surveillance",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "CDD analyst financial": {
+          "query": "CDD analyst financial",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "controls advisory": {
+          "query": "controls advisory",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "first line risk": {
+          "query": "first line risk",
           "raw": 0,
           "unique": 0,
           "pages": 1,
@@ -400,36 +344,57 @@
           "pages": 1,
           "error": null
         },
-        "BSA analyst": {
-          "query": "BSA analyst",
+        "controls analyst financial": {
+          "query": "controls analyst financial",
           "raw": 0,
           "unique": 0,
           "pages": 1,
           "error": null
         },
-        "investment adviser compliance": {
-          "query": "investment adviser compliance",
+        "capital markets compliance": {
+          "query": "capital markets compliance",
           "raw": 0,
           "unique": 0,
           "pages": 1,
           "error": null
         },
-        "compliance monitoring": {
-          "query": "compliance monitoring",
+        "risk associate financial services": {
+          "query": "risk associate financial services",
           "raw": 0,
           "unique": 0,
           "pages": 1,
           "error": null
         },
-        "investment compliance analyst": {
-          "query": "investment compliance analyst",
+        "due diligence analyst": {
+          "query": "due diligence analyst",
           "raw": 0,
           "unique": 0,
           "pages": 1,
           "error": null
         },
-        "first line risk": {
-          "query": "first line risk",
+        "client service associate investment": {
+          "query": "client service associate investment",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "operations associate bank financial": {
+          "query": "operations associate bank financial",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "compliance associate": {
+          "query": "compliance associate",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "compliance analytics analyst": {
+          "query": "compliance analytics analyst",
           "raw": 0,
           "unique": 0,
           "pages": 1,
@@ -441,13 +406,48 @@
           "unique": 0,
           "pages": 1,
           "error": null
+        },
+        "account opening analyst financial": {
+          "query": "account opening analyst financial",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "securities operations analyst": {
+          "query": "securities operations analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "financial crimes analyst": {
+          "query": "financial crimes analyst",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "operations analyst investment bank": {
+          "query": "operations analyst investment bank",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
+        },
+        "registration analyst broker dealer": {
+          "query": "registration analyst broker dealer",
+          "raw": 0,
+          "unique": 0,
+          "pages": 1,
+          "error": null
         }
       }
     },
     "greenhouse": {
       "boards_checked": 21,
       "boards_with_jobs": 21,
-      "raw": 2755,
+      "raw": 2754,
       "relevant": 200,
       "nyc": 41,
       "errors": 0,
@@ -463,7 +463,7 @@
           "nyc": 3
         },
         "Stripe": {
-          "total": 515,
+          "total": 514,
           "relevant": 55,
           "nyc": 2
         },
@@ -562,130 +562,230 @@
     "lever": {
       "boards_checked": 1,
       "boards_with_jobs": 1,
-      "raw": 94,
+      "raw": 95,
       "relevant": 4,
       "nyc": 1,
       "errors": 0,
       "firm_detail": {
         "Plaid": {
-          "total": 94,
+          "total": 95,
           "relevant": 4,
           "nyc": 1
         }
       }
     },
     "linkedin": {
-      "queries_run": 26,
-      "queries_with_results": 22,
-      "total_raw": 226,
-      "unique_after_dedup": 157,
+      "queries_run": 51,
+      "queries_with_results": 41,
+      "total_raw": 412,
+      "unique_after_dedup": 234,
       "descriptions_fetched": 150,
       "errors": 0,
       "blocked": 0,
       "query_detail": {
-        "trade operations": {
-          "results": 10,
-          "unique": 10
-        },
-        "fund operations analyst": {
-          "results": 10,
-          "unique": 10
+        "FINRA analyst": {
+          "results": 0,
+          "unique": 0
         },
         "compliance officer": {
           "results": 10,
           "unique": 10
         },
-        "AML associate": {
+        "due diligence associate": {
           "results": 10,
           "unique": 10
         },
-        "controls analyst": {
+        "compliance specialist": {
+          "results": 10,
+          "unique": 4
+        },
+        "securities compliance": {
+          "results": 10,
+          "unique": 8
+        },
+        "investment management operations": {
+          "results": 10,
+          "unique": 10
+        },
+        "sanctions analyst": {
+          "results": 10,
+          "unique": 10
+        },
+        "due diligence analyst": {
+          "results": 10,
+          "unique": 8
+        },
+        "BD operations": {
+          "results": 10,
+          "unique": 10
+        },
+        "investment operations analyst": {
           "results": 10,
           "unique": 6
         },
-        "surveillance analyst": {
+        "financial crime analyst": {
           "results": 10,
-          "unique": 6
+          "unique": 10
         },
-        "regulatory reporting analyst": {
-          "results": 10,
-          "unique": 2
-        },
-        "broker dealer compliance": {
+        "licensing analyst": {
           "results": 10,
           "unique": 9
         },
-        "FINRA compliance": {
+        "trade operations analyst": {
+          "results": 10,
+          "unique": 1
+        },
+        "AML associate": {
+          "results": 10,
+          "unique": 8
+        },
+        "compliance analyst": {
           "results": 10,
           "unique": 2
         },
         "AML analyst": {
           "results": 6,
-          "unique": 6
+          "unique": 5
         },
-        "compliance associate": {
+        "KYC analyst": {
+          "results": 6,
+          "unique": 0
+        },
+        "regulatory operations": {
           "results": 10,
           "unique": 6
         },
-        "due diligence analyst": {
-          "results": 10,
+        "KYC associate": {
+          "results": 4,
+          "unique": 0
+        },
+        "clearing operations": {
+          "results": 9,
           "unique": 9
         },
-        "securities operations": {
+        "onboarding analyst": {
           "results": 10,
-          "unique": 9
+          "unique": 10
+        },
+        "settlement analyst": {
+          "results": 10,
+          "unique": 6
+        },
+        "compliance coordinator": {
+          "results": 10,
+          "unique": 5
+        },
+        "licensing registration analyst": {
+          "results": 0,
+          "unique": 0
+        },
+        "BSA analyst": {
+          "results": 0,
+          "unique": 0
+        },
+        "registration analyst": {
+          "results": 10,
+          "unique": 4
         },
         "operations associate broker dealer": {
           "results": 0,
+          "unique": 0
+        },
+        "broker dealer compliance": {
+          "results": 10,
+          "unique": 9
+        },
+        "regulatory reporting analyst": {
+          "results": 10,
+          "unique": 1
+        },
+        "broker dealer operations": {
+          "results": 4,
+          "unique": 1
+        },
+        "trade support analyst": {
+          "results": 10,
+          "unique": 9
+        },
+        "controls analyst": {
+          "results": 10,
+          "unique": 5
+        },
+        "financial services compliance": {
+          "results": 10,
+          "unique": 5
+        },
+        "operations analyst financial services": {
+          "results": 10,
+          "unique": 4
+        },
+        "compliance testing": {
+          "results": 10,
+          "unique": 4
+        },
+        "transaction monitoring": {
+          "results": 10,
+          "unique": 7
+        },
+        "securities operations analyst": {
+          "results": 0,
+          "unique": 0
+        },
+        "FINRA compliance": {
+          "results": 10,
+          "unique": 1
+        },
+        "new accounts analyst": {
+          "results": 1,
+          "unique": 1
+        },
+        "compliance monitoring": {
+          "results": 10,
+          "unique": 0
+        },
+        "client onboarding financial": {
+          "results": 10,
+          "unique": 9
+        },
+        "onboarding specialist": {
+          "results": 10,
+          "unique": 10
+        },
+        "surveillance analyst": {
+          "results": 10,
+          "unique": 1
+        },
+        "anti money laundering": {
+          "results": 10,
+          "unique": 1
+        },
+        "financial services operations analyst": {
+          "results": 1,
           "unique": 0
         },
         "Series 7": {
           "results": 10,
           "unique": 9
         },
-        "compliance specialist": {
-          "results": 10,
-          "unique": 4
-        },
-        "KYC analyst": {
-          "results": 6,
+        "communications surveillance": {
+          "results": 1,
           "unique": 0
         },
-        "KYC associate": {
-          "results": 4,
-          "unique": 0
-        },
-        "compliance analyst": {
+        "fund operations analyst": {
           "results": 10,
-          "unique": 2
+          "unique": 1
         },
-        "regulatory operations": {
+        "compliance associate": {
           "results": 10,
-          "unique": 5
+          "unique": 1
         },
-        "due diligence associate": {
+        "regulatory compliance analyst": {
           "results": 10,
-          "unique": 10
+          "unique": 3
         },
-        "sanctions analyst": {
+        "middle office analyst": {
           "results": 10,
-          "unique": 7
-        },
-        "licensing registration analyst": {
-          "results": 0,
-          "unique": 0
-        },
-        "operations analyst financial services": {
-          "results": 10,
-          "unique": 5
-        },
-        "onboarding analyst": {
-          "results": 10,
-          "unique": 10
-        },
-        "onboarding specialist": {
-          "results": 10,
-          "unique": 10
+          "unique": 1
         }
       }
     },
@@ -696,21 +796,27 @@
       "nyc": 0,
       "errors": 17,
       "blocked": 0
+    },
+    "google_jobs": {
+      "total_raw": 0,
+      "nyc": 0,
+      "errors": 0,
+      "queries_run": 16
     }
   },
   "source_yield": {
     "linkedin": {
-      "total": 6,
+      "total": 12,
       "strong_target": 6,
-      "strong_bridge": 0,
-      "direct_employer": 4,
-      "staffing": 2,
+      "strong_bridge": 4,
+      "direct_employer": 8,
+      "staffing": 4,
       "top_firms": [
-        "Jobs via eFinancialCareers",
+        "OCR Alpha",
         "FalconX",
-        "Phyton Talent Advisors",
-        "Arrow Search Partners",
-        "Vise"
+        "Nomura",
+        "Jobs via eFinancialCareers",
+        "Sweet Group LLC"
       ]
     },
     "indeed": {
@@ -749,33 +855,15 @@
     }
   },
   "reject_reasons": {
-    "no_relevance": 50,
-    "title": 30,
-    "non_nyc": 9,
-    "industry": 4,
-    "not_nyc": 4,
-    "non_fin_company": 3
+    "no_relevance": 80,
+    "title": 42,
+    "non_nyc": 17,
+    "industry": 9,
+    "non_fin_company": 6,
+    "not_nyc": 5
   },
-  "suppress_count": 74,
+  "suppress_count": 70,
   "suppress_detail": [
-    {
-      "title": "Trade Support at Growing Hedge Fund",
-      "company": "OCR Alpha",
-      "source": "linkedin",
-      "reason": "exact_match:ocr alpha|trade support at growing hedge fund"
-    },
-    {
-      "title": "Market Operations Associate",
-      "company": "Rothera",
-      "source": "linkedin",
-      "reason": "exact_match:rothera|market operations associate"
-    },
-    {
-      "title": "Order Operations Analyst - US East",
-      "company": "Datadog",
-      "source": "linkedin",
-      "reason": "exact_match:datadog|order operations analyst us east"
-    },
     {
       "title": "Compliance Associate / Sr Associate",
       "company": "TCV",
@@ -807,64 +895,34 @@
       "reason": "exact_match:plona|billing compliance specialist 3e"
     },
     {
-      "title": "FID Secured Lending Analyst (ABS) - Fixed Income Division - Analyst",
-      "company": "Morgan Stanley",
+      "title": "Corporate/Securities Associate",
+      "company": "McClure Harrison, Inc.",
       "source": "linkedin",
-      "reason": "exact_match:morgan stanley|fid secured lending analyst abs fixed income division analyst"
+      "reason": "exact_match:mcclure harrison|corporate securities associate"
     },
     {
-      "title": "Banking Operations Analyst (entry level)",
-      "company": "Social Capital Resources",
+      "title": "Compliance Advisor",
+      "company": "City of New York",
       "source": "linkedin",
-      "reason": "exact_match:social capital resources|banking operations analyst entry level"
+      "reason": "exact_match:city of new york|compliance advisor"
     },
     {
-      "title": "Compliance and Operations Analyst",
+      "title": "Compliance Coordinator",
+      "company": "Balyasny Asset Management L.P.",
+      "source": "linkedin",
+      "reason": "exact_match:balyasny asset management|compliance coordinator"
+    },
+    {
+      "title": "Senior Compliance Associate",
       "company": "Cardea Group",
       "source": "linkedin",
-      "reason": "exact_match:cardea|compliance and operations analyst"
+      "reason": "exact_match:cardea|compliance associate"
     },
     {
-      "title": "Operations Analyst",
-      "company": "MikeWorldWide",
+      "title": "Deal Desk Analyst",
+      "company": "Daley And Associates, LLC",
       "source": "linkedin",
-      "reason": "exact_match:mikeworldwide|operations analyst"
-    },
-    {
-      "title": "Marketing Compliance Analyst",
-      "company": "Man Group",
-      "source": "linkedin",
-      "reason": "exact_fuzzy:man|marketing compliance officer"
-    },
-    {
-      "title": "Compliance Associate",
-      "company": "Fernridge Group",
-      "source": "linkedin",
-      "reason": "exact_match:fernridge|compliance associate"
-    },
-    {
-      "title": "Associate",
-      "company": "Optima Partners",
-      "source": "linkedin",
-      "reason": "exact_match:optima|associate"
-    },
-    {
-      "title": "Regulatory Operations Associate",
-      "company": "Atlas Search",
-      "source": "linkedin",
-      "reason": "exact_match:atlas|regulatory operations associate"
-    },
-    {
-      "title": "Compliance Analyst",
-      "company": "Webull Financial",
-      "source": "linkedin",
-      "reason": "exact_match:webull financial|compliance analyst"
-    },
-    {
-      "title": "AML Onboarding Analyst - Business Banking",
-      "company": "Bank of America",
-      "source": "linkedin",
-      "reason": "exact_fuzzy:bank of america|aml onboarding analyst"
+      "reason": "exact_match:daley and associates|deal desk analyst"
     },
     {
       "title": "Operational Risk Analyst",
@@ -873,21 +931,87 @@
       "reason": "exact_match:social capital resources|operational risk analyst"
     },
     {
-      "title": "AML Operations Analyst",
-      "company": "Ramp",
+      "title": "Risk Analyst, Customer Oversight",
+      "company": "Plaid",
       "source": "linkedin",
-      "reason": "exact_match:ramp|aml operations analyst"
+      "reason": "exact_match:plaid|risk analyst customer oversight"
+    },
+    {
+      "title": "Clearing and Correspondent Risk Analyst",
+      "company": "Phaxis",
+      "source": "linkedin",
+      "reason": "exact_match:phaxis|clearing and correspondent risk analyst"
+    },
+    {
+      "title": "Portfolio Analyst",
+      "company": "HSBC",
+      "source": "linkedin",
+      "reason": "exact_match:hsbc|portfolio analyst"
+    },
+    {
+      "title": "Risk Analyst",
+      "company": "STX Group",
+      "source": "linkedin",
+      "reason": "exact_match:stx|risk analyst"
+    },
+    {
+      "title": "Order Operations Analyst - US East",
+      "company": "Datadog",
+      "source": "linkedin",
+      "reason": "exact_match:datadog|order operations analyst us east"
+    },
+    {
+      "title": "Banking Operations Analyst (entry level)",
+      "company": "Social Capital Resources",
+      "source": "linkedin",
+      "reason": "exact_match:social capital resources|banking operations analyst entry level"
+    },
+    {
+      "title": "FID Secured Lending Analyst (ABS) - Fixed Income Division - Analyst",
+      "company": "Morgan Stanley",
+      "source": "linkedin",
+      "reason": "exact_match:morgan stanley|fid secured lending analyst abs fixed income division analyst"
+    },
+    {
+      "title": "Marketing Compliance Analyst",
+      "company": "Man Group",
+      "source": "linkedin",
+      "reason": "exact_fuzzy:man|marketing compliance officer"
+    },
+    {
+      "title": "AML Onboarding Analyst - Business Banking",
+      "company": "Bank of America",
+      "source": "linkedin",
+      "reason": "exact_fuzzy:bank of america|aml onboarding analyst"
     }
   ],
   "buckets": {
     "Tier 1 — Apply Immediately": 7,
-    "Tier 2 — Review & Apply": 0,
-    "Tier 3 — Low Priority": 0,
+    "Tier 2 — Review & Apply": 4,
+    "Tier 3 — Low Priority": 2,
     "Below Threshold": 0
   },
-  "total_scored": 7,
-  "total_visible": 7,
+  "total_scored": 13,
+  "total_visible": 13,
   "top_10": [
+    {
+      "title": "Compliance Analyst",
+      "company": "FalconX",
+      "score": 92,
+      "bucket": "Tier 1 — Apply Immediately",
+      "source": "linkedin",
+      "role_family": "tier1_direct",
+      "firm_tier": 2
+    },
+    {
+      "title": "Client Onboarding Associate",
+      "company": "Nomura",
+      "score": 92,
+      "bucket": "Tier 1 — Apply Immediately",
+      "source": "linkedin",
+      "role_family": "tier1_direct",
+      "firm_tier": 1
+    },
     {
       "title": "Marketing Compliance Analyst - Man Group plc",
       "company": "Jobs via eFinancialCareers",
@@ -898,13 +1022,13 @@
       "firm_tier": 2
     },
     {
-      "title": "Compliance Analyst",
-      "company": "FalconX",
-      "score": 92,
+      "title": "Compliance Administrator",
+      "company": "Sweet Group LLC",
+      "score": 88,
       "bucket": "Tier 1 — Apply Immediately",
       "source": "linkedin",
       "role_family": "tier1_direct",
-      "firm_tier": 2
+      "firm_tier": 4
     },
     {
       "title": "Data Sourcing & Strategy Operations Analyst",
@@ -916,39 +1040,48 @@
       "firm_tier": 1
     },
     {
-      "title": "Commodities Futures Trade Support Analyst",
-      "company": "Phyton Talent Advisors",
-      "score": 85,
-      "bucket": "Tier 1 — Apply Immediately",
-      "source": "linkedin",
-      "role_family": "tier2_ops",
-      "firm_tier": 2
-    },
-    {
-      "title": "Operations Analyst",
-      "company": "Arrow Search Partners",
-      "score": 85,
-      "bucket": "Tier 1 — Apply Immediately",
-      "source": "linkedin",
-      "role_family": "tier2_ops",
-      "firm_tier": 5
-    },
-    {
       "title": "Compliance Officer",
       "company": "Vise",
-      "score": 84,
+      "score": 81,
       "bucket": "Tier 1 — Apply Immediately",
       "source": "linkedin",
       "role_family": "tier1_direct",
       "firm_tier": 2
     },
     {
-      "title": "Futures focussed Trade Support at Leading Global Hedge Fund",
-      "company": "OCR Alpha",
-      "score": 81,
+      "title": "Hedge Fund Middle Office Associate",
+      "company": "Social Capital Resources",
+      "score": 80,
       "bucket": "Tier 1 — Apply Immediately",
       "source": "linkedin",
       "role_family": "tier2_ops",
+      "firm_tier": 5
+    },
+    {
+      "title": "Trade Support with Top Global Hedge Fund",
+      "company": "OCR Alpha",
+      "score": 77,
+      "bucket": "Tier 2 — Review & Apply",
+      "source": "linkedin",
+      "role_family": "tier2_ops",
+      "firm_tier": 5
+    },
+    {
+      "title": "Futures focussed Trade Support at Leading Global Hedge Fund",
+      "company": "OCR Alpha",
+      "score": 72,
+      "bucket": "Tier 2 — Review & Apply",
+      "source": "linkedin",
+      "role_family": "tier2_ops",
+      "firm_tier": 5
+    },
+    {
+      "title": "Corporate Actions Associate",
+      "company": "Mission Staffing",
+      "score": 67,
+      "bucket": "Tier 2 — Review & Apply",
+      "source": "linkedin",
+      "role_family": "unclassified",
       "firm_tier": 5
     }
   ]

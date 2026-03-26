@@ -25,30 +25,51 @@ QUERIES = [
     # Core compliance
     "compliance analyst",
     "compliance associate",
+    "compliance coordinator",
     "compliance officer",
     "compliance specialist",
-    # KYC / AML
+    "compliance testing",
+    "compliance monitoring",
+    "regulatory compliance analyst",
+    "securities compliance",
+    # KYC / AML / BSA
     "KYC analyst",
     "KYC associate",
     "AML analyst",
     "AML associate",
-    # Onboarding
+    "BSA analyst",
+    "financial crime analyst",
+    "anti money laundering",
+    # Onboarding / Licensing
     "onboarding analyst",
     "onboarding specialist",
+    "client onboarding financial",
+    "new accounts analyst",
+    "licensing analyst",
+    "registration analyst",
+    "licensing registration analyst",
     # Operations
     "operations analyst financial services",
     "operations associate broker dealer",
-    "securities operations",
+    "securities operations analyst",
+    "trade operations analyst",
+    "trade support analyst",
+    "middle office analyst",
+    "clearing operations",
+    "settlement analyst",
     "fund operations analyst",
-    "trade operations",
+    "investment operations analyst",
+    "BD operations",
+    "broker dealer operations",
     # Regulatory
-    "licensing registration analyst",
     "regulatory operations",
     "regulatory reporting analyst",
     # Surveillance / Sanctions / Controls
     "sanctions analyst",
     "surveillance analyst",
     "controls analyst",
+    "transaction monitoring",
+    "communications surveillance",
     # Due diligence
     "due diligence analyst",
     "due diligence associate",
@@ -56,6 +77,11 @@ QUERIES = [
     "FINRA compliance",
     "broker dealer compliance",
     "Series 7",
+    "FINRA analyst",
+    # Broad net
+    "financial services operations analyst",
+    "financial services compliance",
+    "investment management operations",
 ]
 
 LOCATION = "New York, New York, United States"
