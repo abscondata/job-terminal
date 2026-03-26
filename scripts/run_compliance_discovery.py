@@ -449,11 +449,26 @@ RELEVANCE_RE = re.compile(
     r"|anti[-\s]?money|onboarding|account\s+opening|licensing|registration"
     r"|finra|surveillance|due\s+diligence|cdd|know\s+your\s+customer"
     r"|operations\s+(?:analyst|associate|coordinator|specialist)"
-    r"|middle\s+office|trade\s+support|fund\s+(?:operations|accounting)"
+    r"|middle\s+office|trade\s+(?:support|operations|ops)"
+    r"|fund\s+(?:operations|accounting)"
     r"|securities|broker[-\s]?dealer|risk\s+(?:analyst|associate|operations|controls?)"
     r"|client\s+(?:service|onboarding)|controls?\s+(?:analyst|advisory)"
     r"|governance|clearing|settlement|custody"
-    r"|transaction\s+monitoring|first\s+line)\b",
+    r"|transaction\s+monitoring|first\s+line"
+    # Broader ops/finance terms — let scoring handle quality
+    r"|(?:financial|investment|market|wealth\s+management)\s+operations"
+    r"|(?:corporate|banking|asset\s+management)\s+operations"
+    r"|confirmations?\s+(?:analyst|associate|specialist)"
+    r"|confirmations\b"
+    r"|prime\s+(?:brokerage|services|finance)"
+    r"|(?:asset|portfolio)\s+(?:operations|servicing)"
+    r"|transfer\s+agent|(?:equity|fixed\s+income)\s+operations"
+    r"|(?:loan|credit)\s+operations"
+    r"|reconciliation|(?:margin|collateral)\s+(?:analyst|operations)"
+    r"|(?:treasury|payments?)\s+operations"
+    r"|documentation\s+(?:analyst|specialist)"
+    r"|(?:hedge\s+fund|PE|private\s+equity)\s+operations"
+    r"|series\s+(?:7|63|66|24|99))\b",
     re.I,
 )
 
@@ -1289,12 +1304,9 @@ def run_pipeline() -> dict:
     # ── MULTI-SOURCE SCRAPING ──────────────────────────────────────────────
     source_audits = {}
 
-    print(f"\n[2/6] Scraping Indeed ({len(ALL_QUERIES)} queries, 7 clusters)...")
-    indeed_jobs, indeed_audit = scrape_indeed()
-    for j in indeed_jobs:
-        j.setdefault("source", "indeed")
-    source_audits["indeed"] = indeed_audit
-    print(f"  Indeed: {indeed_audit['total_unique']} unique from {indeed_audit['total_raw']} raw")
+    # Indeed disabled — permanently rate-limited, returns 0
+    indeed_jobs = []
+    source_audits["indeed"] = {"status": "disabled", "reason": "rate-limited"}
 
     print("\n[2/6] Scraping Greenhouse + Lever (direct employer boards)...")
     try:
@@ -1317,7 +1329,7 @@ def run_pipeline() -> dict:
     print("\n[2/6] Scraping LinkedIn (primary source)...")
     try:
         from scripts.source_linkedin import scrape_all as scrape_linkedin
-        li_jobs, li_audit = scrape_linkedin(max_pages_per_query=3, max_detail_fetches=150)
+        li_jobs, li_audit = scrape_linkedin(max_pages_per_query=5, max_detail_fetches=200)
         source_audits["linkedin"] = li_audit
         print(f"  LinkedIn: {li_audit['unique_after_dedup']} unique from "
               f"{li_audit['total_raw']} raw across {li_audit['queries_run']} queries "
@@ -1376,6 +1388,7 @@ def run_pipeline() -> dict:
     # ── GATE + SUPPRESS ────────────────────────────────────────────────────
     print("\n[3/6] Hard reject gate + suppression...")
     reject_reasons: Counter = Counter()
+    reject_detail: list[dict] = []
     suppress_reasons: list[dict] = []
     passed: list[dict] = []
 
@@ -1386,6 +1399,8 @@ def run_pipeline() -> dict:
         # ALL sources get title rejection — no bypassing
         if HARD_TITLE_RE.search(title):
             reject_reasons["title"] += 1
+            reject_detail.append({"title": title, "company": job.get("company",""),
+                                  "reason": "title", "source": source})
             continue
 
         # Greenhouse/Lever are pre-filtered for NYC+relevance at ATS level,
@@ -1406,8 +1421,23 @@ def run_pipeline() -> dict:
             job.get("salary", ""), job.get("snippet", ""),
         )
         if reason:
-            reject_reasons[reason.split(":")[0]] += 1
-            continue
+            bucket = reason.split(":")[0]
+            # OVERRIDE: if a tier keyword matches, don't reject for no_relevance
+            if bucket == "no_relevance":
+                if (_TITLE_TIER_1.search(title) or _TITLE_TIER_2.search(title)
+                        or _TITLE_TIER_3.search(title)):
+                    # Tier keyword overrides no_relevance — let it through
+                    pass
+                else:
+                    reject_reasons[bucket] += 1
+                    reject_detail.append({"title": title, "company": job.get("company",""),
+                                          "reason": reason, "source": source})
+                    continue
+            else:
+                reject_reasons[bucket] += 1
+                reject_detail.append({"title": title, "company": job.get("company",""),
+                                      "reason": reason, "source": source})
+                continue
 
         supp = is_applied(job["company"], job["title"], applied_index)
         if supp:
@@ -1424,6 +1454,15 @@ def run_pipeline() -> dict:
 
     print(f"  Passed: {len(passed)} | Rejected: {sum(reject_reasons.values())} | Suppressed: {len(suppress_reasons)}")
     print(f"  Reject breakdown: {dict(reject_reasons.most_common(8))}")
+
+    # Write audit files
+    audit_dir = ROOT / "data"
+    audit_dir.mkdir(exist_ok=True)
+    (audit_dir / "rejected_audit.json").write_text(
+        json.dumps(reject_detail, ensure_ascii=False, indent=1), encoding="utf-8")
+    (audit_dir / "suppressed_audit.json").write_text(
+        json.dumps(suppress_reasons, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"  Audit files: rejected_audit.json ({len(reject_detail)}), suppressed_audit.json ({len(suppress_reasons)})")
 
     # ── SCORING ────────────────────────────────────────────────────────────
     print("\n[4/6] Scoring (hire probability model)...")

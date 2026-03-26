@@ -82,6 +82,23 @@ QUERIES = [
     "financial services operations analyst",
     "financial services compliance",
     "investment management operations",
+    # Gaps identified from false negative audit
+    "wealth management operations",
+    "confirmations analyst",
+    "reconciliation analyst",
+    "collateral analyst",
+    "margin analyst",
+    "transfer agent",
+    "prime brokerage operations",
+    "hedge fund operations",
+    "private equity operations",
+    "custody operations",
+    "payments operations analyst",
+    "documentation analyst financial",
+    "loan operations analyst",
+    "credit operations analyst",
+    "equity operations analyst",
+    "fixed income operations analyst",
 ]
 
 LOCATION = "New York, New York, United States"

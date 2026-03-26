@@ -46,8 +46,13 @@ GREENHOUSE_BOARDS = {
     "Marqeta": "marqeta",            # 23 jobs
     "Brex": "brex",                  # 247 jobs
     "Adyen": "adyen",                # 289 jobs
+    # NEW — discovered 2026-03-25
+    "Cohen Steers": "cohensteers",       # 21 jobs
+    "Capstone Investment": "capstoneinvestmentadvisors",  # 14 jobs
+    "Viking Global": "vikingglobalinvestors",  # 3 jobs
+    "ExodusPoint": "exoduspoint",        # 2 jobs
 }
-# 21 working boards, ~2500+ total jobs to filter through
+# 25 working boards
 
 # Only verified working Lever boards
 LEVER_BOARDS = {
