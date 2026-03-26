@@ -557,15 +557,22 @@ def load_applied_index() -> list[tuple[str, str]]:
 def is_applied(company: str, title: str, index: list[tuple[str, str]]) -> str | None:
     """Return suppression reason string, or None if not suppressed.
 
+    Strict matching: only suppress exact (company + title) matches.
+    A new role at the same company is a NEW opportunity.
+
     Confidence tiers:
       1. Exact normalized company+title match
-      2. Company substring (≥4 chars both sides) + title overlap ≥60% of LARGER set
+      2. Company match + title overlap ≥80% (catches minor title variants only)
     """
     c = _norm_company(company)
     t = _norm_title(title)
     if not c or not t:
         return None
     t_words = set(t.split())
+    # Remove ultra-common words that cause false overlaps
+    _STOP = {"analyst", "associate", "specialist", "coordinator", "senior",
+             "junior", "new", "york", "nyc", "the", "and", "of", "at", "in", "for"}
+    t_meaningful = t_words - _STOP
 
     for ac, at in index:
         # Company match: exact or safe substring
@@ -577,15 +584,22 @@ def is_applied(company: str, title: str, index: list[tuple[str, str]]) -> str | 
         else:
             continue
 
-        # Title match: exact or word overlap
+        # Title match: exact = suppress
         if t == at:
             return f"exact_match:{ac}|{at}"
+
+        # Fuzzy: only suppress if ≥80% of MEANINGFUL words overlap
+        # This prevents "Compliance Analyst" at X from blocking "KYC Analyst" at X
         at_words = set(at.split())
-        if not t_words or not at_words:
+        at_meaningful = at_words - _STOP
+        if not t_meaningful or not at_meaningful:
+            # One or both titles are entirely common words — use strict match
+            if t_words == at_words:
+                return f"exact_match:{ac}|{at}"
             continue
-        overlap = t_words & at_words
-        max_len = max(len(t_words), len(at_words))
-        if max_len > 0 and len(overlap) / max_len >= 0.6:
+        overlap = t_meaningful & at_meaningful
+        max_meaningful = max(len(t_meaningful), len(at_meaningful))
+        if max_meaningful > 0 and len(overlap) / max_meaningful >= 0.80:
             return f"{company_match}_fuzzy:{ac}|{at}"
 
     return None
@@ -671,7 +685,10 @@ _GOVERNMENT_RE = re.compile(
     r"|(?:county|borough|municipal|federal)\s+(?:government|office|agency)"
     r"|u\.?s\.?\s+(?:government|army|navy|air\s+force)"
     r"|secret\s+service|u\.?s\.?\s+marshal"
-    r"|police\s+(?:department|officer))\b", re.I)
+    r"|police\s+(?:department|officer)"
+    r"|fbi\b|cia\b|atf\b|dea\b|cbp\b|ice\b(?!\s+(?:financial|exchange|clearing))|tsa\b"
+    r"|bureau\s+of|u\.?s\.?\s+department"
+    r"|(?:federal|national)\s+(?:agency|bureau|commission)(?!\s+(?:credit|financial)))\b", re.I)
 
 _NON_FINANCE_COMPANY_RE = re.compile(
     r"\b(?:datadog|mikeworldwide|mww|aim[e\u00e9]\s+leon\s+dore"
@@ -686,8 +703,8 @@ _NON_FINANCE_COMPANY_RE = re.compile(
     # Non-finance companies that show up in compliance/ops searches
     r"|king\s+features|hearst(?!\s+(?:financial|capital))"
     r"|too\s+good\s+to\s+go|progyny|nomad(?!\s+(?:capital|financial))"
-    r"|sweet\s+group"
-    r"|tetrix)\b", re.I)
+    r"|sweet\s+group|tetrix"
+    r"|paul\s+davis\s+restoration|restoration\s+(?:company|services))\b", re.I)
 
 # Financial regulators are OK
 _FIN_REGULATOR_RE = re.compile(r"\b(?:SEC|FINRA|OCC|FDIC|Federal\s+Reserve|CFTC|NFA)\b", re.I)
@@ -1336,8 +1353,20 @@ def run_pipeline() -> dict:
         source_audits["google_jobs"] = {"error": str(exc)[:80]}
         print(f"  Google Jobs FAILED: {exc}")
 
+    print("\n[2/6] Scraping ZipRecruiter...")
+    try:
+        from scripts.source_ziprecruiter import scrape_all as scrape_zip
+        zip_jobs, zip_audit = scrape_zip()
+        source_audits["ziprecruiter"] = zip_audit
+        print(f"  ZipRecruiter: {zip_audit['nyc']} NYC jobs "
+              f"({zip_audit['total_raw']} raw, {zip_audit['errors']} errors, {zip_audit['blocked']} blocked)")
+    except Exception as exc:
+        zip_jobs = []
+        source_audits["ziprecruiter"] = {"error": str(exc)[:80]}
+        print(f"  ZipRecruiter FAILED: {exc}")
+
     # Combine all sources — LinkedIn first (primary)
-    all_raw = li_jobs + gh_lv_jobs + indeed_jobs + efc_jobs + gj_jobs
+    all_raw = li_jobs + gh_lv_jobs + indeed_jobs + efc_jobs + gj_jobs + zip_jobs
     print(f"\n  TOTAL RAW: {len(all_raw)} jobs across all sources")
 
     # Cross-source dedup
@@ -1448,7 +1477,7 @@ def run_pipeline() -> dict:
 
     # ── REPORT + AUDIT ─────────────────────────────────────────────────────
     print("\n[6/6] Generating report...")
-    visible = [j for j in passed if j["score"] >= 50]
+    visible = [j for j in passed if j["score"] >= 65 and not j.get("applied", False)]
 
     total_scraped = len(all_raw)
     total_rejected = sum(reject_reasons.values())

@@ -62,7 +62,7 @@ COMPLIANCE_KEYWORDS = [
     "bsa", "anti-money", "sanctions", "trade surveillance",
 ]
 
-COMP_FLOOR = 35
+COMP_FLOOR = 65
 FASH_FLOOR = 45
 TODAY = datetime.now(timezone.utc)
 
